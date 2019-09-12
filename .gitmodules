@@ -1,0 +1,3 @@
+[submodule "lib/frontend/client"]
+	path = lib/frontend/client
+	url = git@github.com:gradebook/client.git
