@@ -12,7 +12,9 @@
   "private": true,
   "scripts": {
     "lint": "xo",
-    "dev": "nodemon index.js",
+    "postinstall": "yarn install --cwd ./_commands",
+    "dev": "node _commands/dev.js",
+    "backend:dev": "nodemon index.js",
     "test:unit": "mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:routing": "mocha test/routing -r ./test/global.js --file ./test/teardown.js",
     "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js"
