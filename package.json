@@ -56,7 +56,8 @@
   },
   "xo": {
     "ignores": [
-      "old-exporter/**/*.js"
+      "old-exporter/**/*.js",
+      "lib/frontend/client/**/*.js"
     ],
     "rules": {
       "func-names": [
@@ -104,6 +105,13 @@
           "object-shorthand": "off",
           "unicorn/prefer-spread": "off",
           "unicorn/prefer-query-selector": "off"
+        }
+      },
+      {
+        "files": "_commands/**/*.js",
+        "rules": {
+          "unicorn/no-process-exit": "off",
+          "no-console": "off"
         }
       },
       {
