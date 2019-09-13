@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  "test:unit":
+  unit:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,7 +24,7 @@ jobs:
         yarn test:unit
       env:
         CI: true
-  "test:integration":
+  integration:
     runs-on: ubuntu-latest
     strategy:
       matrix:
