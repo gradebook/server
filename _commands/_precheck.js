@@ -8,7 +8,6 @@ const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
 const properDir = path.resolve(__dirname, '../');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const exists = promisify(fs.exists);
 
 const MAJOR_MINOR_MATCH = 'v10.16.';
 
@@ -38,7 +37,7 @@ module.exports = async function staySafe(isSetup = false) {
 	}
 
 	// Next, check that the client submodule was initialized by checking if a known file exists
-	const clientLockFileExists = await exists('./lib/frontend/client/yarn.lock');
+	const clientLockFileExists = fs.existsSync('./lib/frontend/client/yarn.lock');
 
 	if (!clientLockFileExists && !isSetup) {
 		console.error('Submodule `client` not cloned! Run `git submodule init` and try again.');
@@ -80,4 +79,4 @@ module.exports = async function staySafe(isSetup = false) {
 	if (hashesChanged) {
 		await writeFile(CONFIG, JSON.stringify(latestVersions));
 	}
-}
+};

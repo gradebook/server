@@ -12,7 +12,6 @@ const badCP = (...args) => new Promise((resolve, reject) => {
 		handle.on('error', error => {
 			reject(error);
 		});
-
 	} catch (error) {
 		reject(error);
 	}

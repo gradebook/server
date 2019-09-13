@@ -17,14 +17,13 @@ describe('Unit > HistoryQueue', function () {
 		queue = new HistoryQueue('test.hq');
 	});
 
-
 	describe('Process Event', function () {
 		it('normal operations', async function () {
-			queue.add([1, 1, 1]),
-			queue.add([2, 3, 5]),
-			queue.add([1, 1, 3]),
-			queue.add([5, 20, 50]),
-			queue.add([3, 5, 10])
+			queue.add([1, 1, 1]);
+			queue.add([2, 3, 5]);
+			queue.add([1, 1, 3]);
+			queue.add([5, 20, 50]);
+			queue.add([3, 5, 10]);
 
 			await queue._promise;
 
@@ -57,7 +56,7 @@ describe('Unit > HistoryQueue', function () {
 			expect(queue.internalSummations).to.deep.equal([6]);
 
 			await queue.commit();
-			expect(queue.internalSummations).to.be.empty
+			expect(queue.internalSummations).to.be.empty;
 		});
 	});
 });
