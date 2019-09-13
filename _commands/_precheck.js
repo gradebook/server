@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const {promisify} = require('util');
+const getHash = require('./utils/get-git-hash.js');
+const runInstall = require('./utils/run-yarn-install.js');
 
 const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
 const properDir = path.resolve(__dirname, '../');
@@ -9,9 +11,6 @@ const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
 
 const MAJOR_MINOR_MATCH = 'v10.16.';
-
-const getHash = (filename, workTree = '.') =>
-	execa('git', ['log', '-1', '--pretty=format:% H', '--', filename], {cwd: workTree});
 
 let execa;
 try {
@@ -23,13 +22,30 @@ try {
 
 module.exports = async function staySafe(isSetup = false) {
 	process.chdir(properDir);
-	global.gradebook = global.gradebook || {};
 
+	// First, check the node version
 	if (!process.version.startsWith(MAJOR_MINOR_MATCH)) {
 		console.error(`Node version must be ${MAJOR_MINOR_MATCH}x`);
 		process.exit(1);
 	}
 
+	// Next, check the git version
+	const {stdout: gitVersion} = await execa('git', ['--version']);
+
+	if (!gitVersion.startsWith('git version 2.')) {
+		console.error('Git version 2.x must be installed');
+		process.exit(1);
+	}
+
+	// Next, check that the client submodule was initialized by checking if a known file exists
+	const clientLockFileExists = await exists('./lib/frontend/client/yarn.lock');
+
+	if (!clientLockFileExists && !isSetup) {
+		console.error('Submodule `client` not cloned! Run `git submodule init` and try again.');
+		process.exit(1);
+	}
+
+	// Finally, re-install dependencies if needed
 	let latestVersions = {};
 	let hashesChanged = false;
 
@@ -38,36 +54,26 @@ module.exports = async function staySafe(isSetup = false) {
 		latestVersions = JSON.parse(latestVersions);
 	} catch {}
 
-	const {stdout: gitVersion} = await execa('git', ['--version']);
-
-	if (!gitVersion.startsWith('git version 2.')) {
-		console.error('Git version 2.x must be installed');
-		process.exit(1);
-	}
-
-	const clientLockFileExists = await exists('./lib/frontend/client/yarn.lock');
-
-	if (!clientLockFileExists && !isSetup) {
-		console.error('Submodule `client` not cloned! Run `git submodule init` and try again.');
-		process.exit(1);
-	}
-
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
 	const {stdout: lastFrontendVersion} = await getHash('./yarn.lock', './lib/frontend/client/');
 
 	if (latestVersions.backend !== lastBackendVersion) {
-		console.log('Backend lockfile commit is different, installing dependencies again...');
-		await execa.command('yarn install');
+		if (!isSetup) {
+			console.log('Backend lockfile commit is different, installing dependencies again...');
+		}
+
+		await runInstall('.');
 		latestVersions.backend = lastBackendVersion;
-		global.gradebook.backendChanged = true;
 		hashesChanged = true;
 	}
 
 	if (latestVersions.frontend !== lastFrontendVersion) {
-		console.log('Front end lockfile commit is different, installing dependencies again...');
-		await execa.command('yarn --cwd lib/frontend/client install');
+		if (!isSetup) {
+			console.log('Front end lockfile commit is different, installing dependencies again...');
+		}
+
+		await runInstall('./lib/frontend/client/');
 		latestVersions.frontend = lastFrontendVersion;
-		global.gradebook.frontendChanged = true;
 		hashesChanged = true;
 	}
 

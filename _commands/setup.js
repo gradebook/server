@@ -1,11 +1,43 @@
-// git submodule init; git submodule update
-
 const fs = require('fs');
-const execa = require('execa');
-const precheck = require('./_precheck');
+const cp = require('child_process');
+
+const badCP = (...args) => new Promise((resolve, reject) => {
+	try {
+		const handle = cp.spawn(...args);
+
+		handle.on('exit', (code, signal) => {
+			resolve({code, signal});
+		});
+
+		handle.on('error', error => {
+			reject(error);
+		});
+
+	} catch (error) {
+		reject(error);
+	}
+});
+
+function install() {
+	console.log('Installing server dependencies');
+	return badCP('yarn', ['install']);
+}
 
 async function init() {
-	// @todo (?) Promises
+	const execa = require('execa');
+
+	console.log('Initializing client submodule');
+	await execa.command('git submodule init');
+	await execa.command('git submodule update');
+
+	console.log('Installing client dependencies');
+	const runInstall = require('./utils/run-yarn-install');
+	await runInstall('./lib/frontend/client/');
+
+	console.log('Initialized!');
+}
+
+async function run() {
 	const initialized = await fs.existsSync('.gradebook-cli');
 
 	if (initialized && process.argv.join(' ').indexOf('--force') < 0) {
@@ -13,21 +45,10 @@ async function init() {
 		return;
 	}
 
-	console.log('Initializing client module');
-	await execa.command('git submodule init');
-	await execa.command('git submodule update');
+	await install();
 
-	console.log('Installing client dependencies');
-	// @todo DRY with pre-check
-	await execa.command('yarn --cwd lib/frontend/client install');
+	const precheck = require('./_precheck');
 
-	console.log('Running pre-check because this setup is not optimized');
-	await precheck();
-
-	console.log('Initialized!');
-}
-
-async function run() {
 	await precheck(true);
 	await init();
 }

@@ -2,7 +2,6 @@
 
 - Pull the repo
 - Create `config.js` in root
-- Run `yarn install`
 - Run `yarn setup`
 
 ## Run environment
