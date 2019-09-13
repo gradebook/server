@@ -12,6 +12,7 @@
   "private": true,
   "scripts": {
     "lint": "xo",
+    "setup": "node _commands/setup.js",
     "dev": "node _commands/dev.js",
     "backend:dev": "nodemon index.js --ignore lib/frontend/client",
     "test:unit": "mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
