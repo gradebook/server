@@ -1,10 +1,11 @@
 // git submodule init; git submodule update
 
-const fs = require('fs').promises;
+const fs = require('fs');
 const precheck = require('./_precheck');
 
 async function init() {
-	const initialized = await fs.exists('./.gradebook-cli');
+	// @todo (?) Promises
+	const initialized = await fs.existsSync('./.gradebook-cli');
 
 	if (initialized && !process.argv.join(' ').indexOf('--force') > 0) {
 		console.log('It looks like you\'ve already run setup. If you want to re-run, use the `--force` flag');

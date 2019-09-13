@@ -47,12 +47,9 @@ module.exports = async function staySafe(isSetup = false) {
 
 	const clientLockFileExists = await exists('./lib/frontend/client/yarn.lock');
 
-	if (!clientLockFileExists) {
+	if (!clientLockFileExists && !isSetup) {
 		console.error('Submodule `client` not cloned! Run `git submodule init` and try again.');
-
-		if (!isSetup) {
-			process.exit(1);
-		}
+		process.exit(1);
 	}
 
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
