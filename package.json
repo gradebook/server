@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "Backend for Aggie Gradebook",
   "main": "index.js",
+  "alias": "agb",
   "repository": "https://https://github.com/joshcosta/aggie-gradebook",
   "authors": [
     "Josh Costa <joshcosta38@tamu.edu>",
