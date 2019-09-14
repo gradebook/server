@@ -21,6 +21,7 @@ jobs:
     - name: Unit Tests
       run: |
         yarn install
+        node scripts/initialize-test-db.js
         yarn test:unit
       env:
         CI: true
