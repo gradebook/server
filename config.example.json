@@ -20,6 +20,11 @@
       "file"
     ]
   },
+  "oauth": {
+    "id": false,
+    "secret": false,
+    "callback": "http://localhost:3000/"
+  },
   "rateLimit": {
     "authenticated": {
       "freeRetries": 124,
