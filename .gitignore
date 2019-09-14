@@ -45,5 +45,5 @@ content/user-data/*.json
 content/*.db
 
 .gradebook-cli
-config.js
-
+config.*.json
+!config.example.json
