@@ -1,0 +1,30 @@
+{
+  "database": {
+    "client": "sqlite3",
+    "debug": false,
+    "useNullAsDefault": true,
+    "connection": {
+      "filename": "content/database.db"
+    }
+  },
+  "logging": {
+    "level": "info",
+    "rotation": {
+      "enabled": true,
+      "period": "1d",
+      "count": 10
+    },
+    "path": "./logs",
+    "domain": "node",
+    "transports": [
+      "file"
+    ]
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 2469
+  },
+  "session length": 604800000,
+  "trust proxy": false,
+  "tzOffset": 0
+}
