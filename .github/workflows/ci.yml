@@ -23,6 +23,7 @@ jobs:
         yarn install
         node scripts/initialize-test-db.js
         yarn test:unit
+        node _commands/post-test.js
       env:
         CI: true
   integration:
