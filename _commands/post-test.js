@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const got = require('got');
 
-const REQUIRED_KEYS = ['GITHUB_SHA', 'GITHUB_REF', 'GITHUB_WORKFLOW', 'WEBHOOK_URL', 'WEBHOOK_SECRET'];
+const REQUIRED_KEYS = ['GITHUB_SHA', 'GITHUB_REF', 'GITHUB_WORKFLOW', 'WEBHOOK_URL', 'WEBHOOK_SECRET', 'TEST_NAME'];
 
 for (const key of REQUIRED_KEYS) {
 	if (!process.env.hasOwnProperty(key)) {
