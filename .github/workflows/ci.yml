@@ -5,6 +5,7 @@ on:
     branches:
       - release
       - master
+      - hooks
 
 jobs:
   unit:
