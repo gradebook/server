@@ -2,7 +2,7 @@ try {
 	const crypto = require('crypto');
 	const got = require('got');
 
-	const REQUIRED_KEYS = ['GITHUB_SHA', 'GITHUB_REF', 'GITHUB_WORKFLOW', 'WEBHOOK_URL', 'WEBHOOK_SECRET', 'TEST_NAME'];
+	const REQUIRED_KEYS = ['GITHUB_REPOSITORY', 'GITHUB_SHA', 'GITHUB_REF', 'GITHUB_WORKFLOW', 'WEBHOOK_URL', 'WEBHOOK_SECRET', 'TEST_NAME'];
 
 	for (const key of REQUIRED_KEYS) {
 		if (!(key in process.env)) {
@@ -12,6 +12,7 @@ try {
 	}
 
 	const payload = JSON.stringify({
+		codebase: process.env.GITHUB_REPOSITORY,
 		commit: process.env.GITHUB_SHA,
 		branch: process.env.GITHUB_REF.split('/').pop(),
 		name: process.env.TEST_NAME
@@ -27,7 +28,9 @@ try {
 		},
 		body: payload
 	});
+	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH));
 } catch (error) {
+	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH));
 	console.error(error);
 	process.exit(1);
 }
