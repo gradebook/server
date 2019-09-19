@@ -28,9 +28,9 @@ try {
 		},
 		body: payload
 	});
-	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH));
+	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
 } catch (error) {
-	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH));
+	console.log(require('fs').readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
 	console.error(error);
 	process.exit(1);
 }
