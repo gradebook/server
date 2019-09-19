@@ -47,3 +47,4 @@ content/*.db
 .gradebook-cli
 config.*.json
 !config.example.json
+logs/
