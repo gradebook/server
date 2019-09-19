@@ -65,13 +65,7 @@
         "as-needed"
       ],
       "no-use-extend-native/no-use-extend-native": "off",
-      "func-name-matching": [
-        "error",
-        {
-          "includeCommonJSModuleExports": false,
-          "considerPropertyDescriptor": true
-        }
-      ],
+      "func-name-matching": "off",
       "no-console": "error"
     },
     "overrides": [
