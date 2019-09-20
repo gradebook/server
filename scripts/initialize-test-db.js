@@ -8,6 +8,12 @@ process.chdir(root);
 
 const {migrator, knex} = require('../lib/database');
 
+let log = (...args) => console.log(...args);
+
+if (process.env.CI === 'true') {
+	log = () => false; // Noop fixture creation logs for CI
+}
+
 migrator.startup().then(async () => {
 	knex.init();
 
@@ -15,10 +21,10 @@ migrator.startup().then(async () => {
 	try {
 		const promises = fixtures.map(([table, values], idx) => {
 			const id = idx + 1;
-			console.log(`Adding fixture ${id} to ${table}`);
+			log(`Adding fixture ${id} to ${table}`);
 			return txn(table)
 				.insert(values)
-				.then(() => console.log(`Added fixture ${id}`))
+				.then(() => log(`Added fixture ${id}`))
 				.catch(error => console.error(`Failed adding fixture ${id}`, error));
 		});
 
