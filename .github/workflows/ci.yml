@@ -46,6 +46,7 @@ jobs:
         yarn install
         node scripts/initialize-test-db.js
         yarn test:integration
+        node _commands/post-test.js
       env:
         CI: true
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
@@ -66,6 +67,7 @@ jobs:
       run: |
         yarn install
         yarn lint
+        node _commands/post-test.js
       env:
         CI: true
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
