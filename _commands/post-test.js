@@ -41,6 +41,8 @@ async function doTheWork() {
 		const hmac = crypto.createHmac('sha256', Buffer.from(process.env.WEBHOOK_SECRET)).update(payload).digest('hex');
 
 		console.log('Sending payload', payload, 'to webhook');
+		console.log();
+		console.log();
 
 		got.post(process.env.WEBHOOK_URL, {
 			headers: {
