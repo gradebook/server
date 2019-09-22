@@ -26,7 +26,7 @@ try {
 	}
 
 	// @todo: Update
-	if (process.env.GITHUB_REF !== 'refs/heads/hooks') {
+	if (process.env.GITHUB_REF !== 'refs/heads/release') {
 		console.warn(`Ref ${process.env.GITHUB_REF} was not for release branch, not running post-test hook`);
 		process.exit(0);
 	}
