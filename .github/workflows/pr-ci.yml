@@ -1,10 +1,6 @@
-name: All the CI
+name: PR CI
 
-on:
-  - push:
-    branches:
-      - release
-      - master
+on: [pull_request]
 
 jobs:
   unit:
@@ -23,12 +19,8 @@ jobs:
         yarn install
         node scripts/initialize-test-db.js
         yarn test:unit
-        node _commands/post-test.js
       env:
         CI: true
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: unit
   integration:
     runs-on: ubuntu-latest
     strategy:
@@ -45,12 +37,8 @@ jobs:
         yarn install
         node scripts/initialize-test-db.js
         yarn test:integration
-        node _commands/post-test.js
       env:
         CI: true
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: integration
   lint:
     runs-on: ubuntu-latest
     strategy:
@@ -66,9 +54,5 @@ jobs:
       run: |
         yarn install
         yarn lint
-        node _commands/post-test.js
       env:
         CI: true
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: lint
