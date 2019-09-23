@@ -5,7 +5,9 @@ on:
     branches:
       - release
       - master
-  - pull_request
+  - pull_request:
+    branches:
+      - *
 
 jobs:
   unit:
