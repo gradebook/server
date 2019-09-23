@@ -1,11 +1,11 @@
 name: All the CI
 
 on:
-  push:
+  - push:
     branches:
       - release
       - master
-      - hooks
+  - pull_request
 
 jobs:
   unit:
