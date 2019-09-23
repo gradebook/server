@@ -1,10 +1,13 @@
 name: All the CI
 
 on:
-  - push:
+  push:
     branches:
       - release
       - master
+  pull_request:
+    branches:
+      '*'
 
 jobs:
   unit:
