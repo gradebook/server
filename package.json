@@ -1,6 +1,6 @@
 {
   "name": "agb-backend",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Backend for Aggie Gradebook",
   "main": "index.js",
   "alias": "agb",
