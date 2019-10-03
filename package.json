@@ -1,7 +1,7 @@
 {
   "name": "agb-backend",
-  "version": "2.2.1",
-  "description": "Backend for Aggie Gradebook",
+  "version": "2.2.2",
+  "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "agb",
   "repository": "https://https://github.com/joshcosta/aggie-gradebook",
