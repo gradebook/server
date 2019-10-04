@@ -1,13 +1,14 @@
 {
   "name": "agb-backend",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "agb",
   "repository": "https://https://github.com/joshcosta/aggie-gradebook",
   "authors": [
     "Josh Costa <joshcosta38@tamu.edu>",
-    "Vikas Potluri <vikaspotluri123.github@gmail.com>"
+    "Vikas Potluri <vikaspotluri123.github@gmail.com>",
+    "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
   "license": "MIT",
   "private": true,
