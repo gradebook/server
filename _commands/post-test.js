@@ -46,6 +46,7 @@ async function doTheWork() {
 
 		got.post(process.env.WEBHOOK_URL, {
 			headers: {
+				'User-Agent': 'gradebook-deploy-bot/0.1.0 (Actions)',
 				'X-Actions-Secret': `sha256=${hmac}`,
 				'Content-Type': 'application/json'
 			},
