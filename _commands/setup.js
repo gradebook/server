@@ -37,9 +37,9 @@ async function init() {
 }
 
 async function run() {
-	const initialized = await fs.existsSync('.gradebook-cli');
+	const initialized = fs.existsSync('.gradebook-cli');
 
-	if (initialized && process.argv.join(' ').indexOf('--force') < 0) {
+	if (initialized && !process.argv.join(' ').includes('--force')) {
 		console.log('It looks like you\'ve already run setup. If you want to re-run, use the `--force` flag');
 		return;
 	}
