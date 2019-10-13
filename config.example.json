@@ -1,4 +1,5 @@
 {
+  "analytics": true,
   "database": {
     "client": "sqlite3",
     "debug": false,

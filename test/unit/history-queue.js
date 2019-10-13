@@ -1,5 +1,6 @@
 const stubKnex = require('mock-knex');
 const {knex} = require('../../lib/database');
+const config = require('../../lib/config');
 const HistoryQueue = require('../../lib/services/analytics/history-queue');
 
 describe('Unit > HistoryQueue', function () {
@@ -57,6 +58,34 @@ describe('Unit > HistoryQueue', function () {
 
 			await queue.commit();
 			expect(queue.internalSummations).to.be.empty;
+		});
+
+		it('does not commit when analytics are disabled', async function () {
+			let stub = sinon.stub(config, 'get').withArgs('analytics').returns('false');
+
+			try {
+				queue.pause = testUtils.expectError;
+
+				queue.add([0]);
+				await queue._promise;
+				expect(queue.internalSummations).to.be.an('array').with.length(1);
+				await queue.commit();
+				expect(stub.calledOnce).to.be.true;
+				expect(queue.internalSummations).to.be.an('array').and.is.empty;
+
+				// @todo: stub.reset() is throwing an error for some reason
+				config.get.restore();
+				stub = sinon.stub(config, 'get').withArgs('analytics').returns(false);
+
+				queue.add([0]);
+				await queue._promise;
+				expect(queue.internalSummations).to.be.an('array').with.length(1);
+				await queue.commit();
+				expect(stub.calledOnce).to.be.true;
+				expect(queue.internalSummations).to.be.an('array').and.is.empty;
+			} finally {
+				config.get.restore();
+			}
 		});
 	});
 });
