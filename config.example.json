@@ -1,5 +1,11 @@
 {
   "analytics": true,
+  "cloudflare": {
+    "enabled": false,
+    "token": "long_string",
+    "zone": "hex_string",
+    "urlRoot": "https://example.com"
+  },
   "database": {
     "client": "sqlite3",
     "debug": false,
