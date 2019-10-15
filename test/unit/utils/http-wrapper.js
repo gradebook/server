@@ -1,14 +1,14 @@
 const wrap = require('../../../lib/utils/http-wrapper');
 
 describe('Unit > Utils > HTTP-Wrapper', function () {
-	it('Only accepts function', function() {
+	it('Only accepts function', function () {
 		const expectError = param => {
 			try {
 				wrap(param);
 			} catch (error) {
 				expect(error).to.be.instanceOf(TypeError);
 			}
-		}
+		};
 
 		expectError('hello');
 		expectError(['a', 'b', 'c']);
