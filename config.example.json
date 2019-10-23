@@ -63,6 +63,5 @@
     "port": 2469
   },
   "session length": 604800000,
-  "trust proxy": false,
-  "tzOffset": 0
+  "trust proxy": false
 }
