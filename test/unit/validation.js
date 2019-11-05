@@ -123,4 +123,31 @@ describe('Unit > Validation', function () {
 			});
 		});
 	});
+
+	describe('Edit Course', function () {
+		describe('Only allows valid names', function () {
+			const createRequest = () => (
+				{body: {}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'}}
+			);
+
+			it('Invalid', function () {
+				const req = createRequest();
+				req.body.name = 'Introduction to TAMU';
+
+				try {
+					validations.editCourse(req, null, expectError);
+					expectError();
+				} catch (error) {
+					expect(error.context).to.deep.equal(['Invalid name']);
+				}
+			});
+
+			it('valid', function (done) {
+				const req = createRequest();
+				req.body.name = 'DEMO 101';
+
+				validations.editCourse(req, null, done);
+			});
+		});
+	});
 });
