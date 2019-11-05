@@ -148,6 +148,13 @@ describe('Unit > Validation', function () {
 
 				validations.editCourse(req, null, done);
 			});
+
+			it('neutral', function (done) {
+				const req = createRequest();
+				req.body.cutA = 95;
+
+				validations.editCourse(req, null, done);
+			});
 		});
 	});
 });
