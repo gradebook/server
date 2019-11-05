@@ -18,6 +18,7 @@
     "dev": "node _commands/dev.js",
     "backend:dev": "nodemon index.js --ignore lib/frontend/client",
     "test:unit": "nyc --reporter=html --reporter=text mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
+    "test:unit:debug": "mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js"
   },
   "dependencies": {

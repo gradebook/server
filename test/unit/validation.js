@@ -70,4 +70,57 @@ describe('Unit > Validation', function () {
 			done();
 		});
 	});
+
+	describe('Edit Category', function () {
+		describe('Only allows valid weights', function () {
+			const createRequest = () => (
+				{body: {}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'}}
+			);
+
+			it('Lower out of bounds fails', function () {
+				const req = createRequest();
+				req.body.weight = 0;
+
+				try {
+					validations.editCategory(req, null, expectError);
+					expectError();
+				} catch (error) {
+					expect(error.context).to.deep.equal(['Invalid weight']);
+				}
+			});
+
+			it('Upper out of bounds fails', function () {
+				const req = createRequest();
+				req.body.weight = 19248124814;
+
+				try {
+					validations.editCategory(req, null, expectError);
+					expectError();
+				} catch (error) {
+					expect(error.context).to.deep.equal(['Invalid weight']);
+				}
+			});
+
+			it('Normal floating points are acceptable', function (done) {
+				const req = createRequest();
+				req.body.weight = 1234.56;
+				validations.editCategory(req, null, done);
+			});
+
+			it('Not providing is acceptable', async function () {
+				const {promisify} = require('util');
+				const editCategoryValidation = promisify(validations.editCategory);
+				const req = createRequest();
+
+				req.body.weight = null;
+				await editCategoryValidation(req, null);
+
+				req.body.weight = undefined;
+				await editCategoryValidation(req, null);
+
+				req.body.weight = '';
+				await editCategoryValidation(req, null);
+			});
+		});
+	});
 });
