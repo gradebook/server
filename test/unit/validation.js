@@ -18,7 +18,7 @@ describe('Unit > Validation', function () {
 
 		it('valid key and value', function (done) {
 			const req = {
-				body: {key: 'tourStep', value: 8}
+				body: {key: 'tour', value: true}
 			};
 
 			validations.userSettings(req, null, done);
@@ -40,7 +40,7 @@ describe('Unit > Validation', function () {
 
 		it('invalid value', function (done) {
 			const req = {
-				body: {key: 'tourStep', value: 8}
+				body: {key: 'tour', value: 8}
 			};
 
 			try {
