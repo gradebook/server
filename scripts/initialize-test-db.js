@@ -1,5 +1,5 @@
 const {resolve} = require('path');
-/* eslint-disable-next-line ava/no-import-test-files, import/no-unassigned-import */
+/* eslint-disable-next-line import/no-unassigned-import */
 require('../test/global.js'); // Update env
 const {fixtures} = require('../test/fixtures/example-data');
 

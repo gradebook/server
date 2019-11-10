@@ -1,4 +1,11 @@
 {
+  "analytics": true,
+  "cloudflare": {
+    "enabled": false,
+    "token": "long_string",
+    "zone": "hex_string",
+    "urlRoot": "https://example.com"
+  },
   "database": {
     "client": "sqlite3",
     "debug": false,
@@ -56,6 +63,5 @@
     "port": 2469
   },
   "session length": 604800000,
-  "trust proxy": false,
-  "tzOffset": 0
+  "trust proxy": false
 }

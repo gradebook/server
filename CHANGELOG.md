@@ -1,3 +1,18 @@
+# 2.3.0
+
+- Update new user fixtures
+- Add transactionless deadlock handling in database-response layer
+- Fix grade.delete calls responding with 500 errors
+- Add support for disabling saving analytics in the db
+- Add user settings endpoint
+- Ensure transactions are only committed by creator
+- Add cache purging to version endpoint
+- Add coverage to unit tests
+- Add health check endpoint
+- Bump node version
+- Dynamically compute timezone offset
+- Add constraints to course name and category weights
+
 # 2.2.3
 
 - Update authors list in package

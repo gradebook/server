@@ -9,12 +9,12 @@ const properDir = path.resolve(__dirname, '../');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-const MAJOR_MINOR_MATCH = 'v10.16.';
+const MAJOR_MINOR_MATCH = 'v12.13.';
 
 let execa;
 try {
 	execa = require('execa');
-} catch (error) {
+} catch (_) {
 	console.error('Please run `yarn install` in the root');
 	process.exit(1);
 }

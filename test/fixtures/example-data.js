@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, unicorn/no-zero-fractions */
 const fixtures = [
 	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, firstName: 'Trusted', lastName: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', isNew: 0, settings: '{}'}],
 	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, firstName: 'Evil', lastName: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', isNew: 0, settings: '{}'}],
@@ -51,7 +51,7 @@ const fixtures = [
 	['grades', {id: '5d3c9464e99cf4129029b807', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c925602bd1dae4e44ba0f', name: null, grade: 85}],
 	['grades', {id: '5d3c94770e9b3305164bca58', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c925b3ff7c43c348498cd', name: null, grade: 94}]
 ];
-/* eslint-enable camelcase */
+/* eslint-enable camelcase, unicorn/no-zero-fractions */
 
 const fixturesMap = {
 	get trustedUser() {
