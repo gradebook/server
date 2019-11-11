@@ -1,5 +1,10 @@
+# 2.3.1
+
+- Fix timezone offset not being computed
+
 # 2.3.0
 
+- Now uses node 12
 - Update new user fixtures
 - Add transactionless deadlock handling in database-response layer
 - Fix grade.delete calls responding with 500 errors
