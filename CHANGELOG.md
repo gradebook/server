@@ -1,3 +1,7 @@
+# 2.4.0
+
+- Add core-data endpoint that returns all data needed by frontend at bootup
+
 # 2.3.1
 
 - Fix timezone offset not being computed
