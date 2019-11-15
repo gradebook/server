@@ -1,10 +1,10 @@
 {
-  "name": "agb-backend",
+  "name": "@gradebook/server",
   "version": "2.4.0",
   "description": "Backend for Gradebook",
   "main": "index.js",
-  "alias": "agb",
-  "repository": "https://https://github.com/joshcosta/aggie-gradebook",
+  "alias": "gb",
+  "repository": "https://github.com/gradebook/server",
   "authors": [
     "Josh Costa <joshcosta38@tamu.edu>",
     "Vikas Potluri <vikaspotluri123.github@gmail.com>",
