@@ -76,13 +76,18 @@ describe('Unit > Permissions', function () {
 
 	describe('Create Course', function () {
 		it('With permission', async function () {
-			const permissions = {user, semester};
-			const {response} = await sendFakeRequest(permissions, createCourse);
-			expect(response.statusCalled).to.be.false;
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, semester};
+				const {response} = await sendFakeRequest(permissions, createCourse);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Semester course limit reached', async function () {
-			const stub = sinon.stub(settings, 'get').returns(0);
+			const stub = sinon.stub(settings, 'get').returns(5);
 			try {
 				const permissions = {user, semester};
 				const {response} = await sendFakeRequest(permissions, createCourse);
@@ -98,26 +103,41 @@ describe('Unit > Permissions', function () {
 		const course = testUtils.fixtures.courses[0].id;
 
 		it('With permission', async function () {
-			const permissions = {user, course};
-			const {response} = await sendFakeRequest(permissions, createCategory);
-			expect(response.statusCalled).to.be.false;
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, course};
+				const {response} = await sendFakeRequest(permissions, createCategory);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Not permitted', async function () {
-			const permissions = {user: testUtils.fixtures.evilUser.id, course};
-			const {response} = await sendFakeRequest(permissions, createCategory);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user: testUtils.fixtures.evilUser.id, course};
+				const {response} = await sendFakeRequest(permissions, createCategory);
+				expect(response.statusCalled).to.be.true;
+				expect(response._statusCode).to.equal(404);
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Course has no grades', async function () {
-			const permissions = {user, course: testUtils.fixtures.courseWithNoGrades.id};
-			const {response} = await sendFakeRequest(permissions, createCategory);
-			expect(response.statusCalled).to.be.false;
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, course: testUtils.fixtures.courseWithNoGrades.id};
+				const {response} = await sendFakeRequest(permissions, createCategory);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Category limit reached', async function () {
-			const stub = sinon.stub(settings, 'get').returns(0);
+			const stub = sinon.stub(settings, 'get').returns(5);
 			try {
 				const permissions = {user, course};
 				const {response} = await sendFakeRequest(permissions, createCategory);
@@ -134,27 +154,37 @@ describe('Unit > Permissions', function () {
 		const category = testUtils.fixtures.categories[0].id;
 
 		it('With permission', async function () {
-			const permissions = {user, course, category};
-			const {response} = await sendFakeRequest(permissions, createGrade);
-			expect(response.statusCalled).to.be.false;
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, course, category};
+				const {response} = await sendFakeRequest(permissions, createGrade);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Not permitted', async function () {
-			const permissions = {user: testUtils.fixtures.evilUser.id, course, category};
-			const {response} = await sendFakeRequest(permissions, createGrade);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user: testUtils.fixtures.evilUser.id, course, category};
+				const {response} = await sendFakeRequest(permissions, createGrade);
+				expect(response.statusCalled).to.be.true;
+				expect(response._statusCode).to.equal(404);
+			} finally {
+				stub.restore();
+			}
 		});
 
 		it('Grade limit reached', async function () {
-			const stub = sinon.stub(settings, 'get').returns(0);
+			const stub = sinon.stub(settings, 'get').returns(5);
 			try {
 				const permissions = {user, course, category};
 				const {response} = await sendFakeRequest(permissions, createGrade);
 				expect(response.statusCalled).to.be.true;
 				expect(response._statusCode).to.equal(403);
 			} finally {
-				stub.reset();
+				stub.restore();
 			}
 		});
 	});
