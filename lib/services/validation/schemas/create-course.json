@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "course.create",
+  "description": "Create a course",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "cutA", "cutB", "cutC", "cutD"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "semester": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 5
+    },
+    "cutA": {"$ref": "course_cut"},
+    "cutB": {"$ref": "course_cut"},
+    "cutC": {"$ref": "course_cut"},
+    "cutD": {"$ref": "course_cut"}
+  }
+}
