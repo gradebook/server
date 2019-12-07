@@ -49,7 +49,7 @@ describe('Unit > Schemas > CreateCategory', function () {
 		obj.weight = 10000;
 		expectValid(obj);
 
-		obj.weight = 88.5
+		obj.weight = 88.5;
 		expectValid(obj);
 	});
 
