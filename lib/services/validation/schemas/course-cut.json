@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "course_cut",
+  "description": "Grade cutoff for a letter grade in a course",
+  "type": "number",
+  "minimum": 10,
+  "maximum": 10000
+}
