@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "category.create",
+  "description": "Create a category",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["course"],
+  "properties": {
+    "course": {"$ref": "object_id"},
+    "name": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "position": {
+      "type": ["integer", "null"],
+      "$comment": "@todo: Position should have a max string length (e.g. 4 numbers)"
+    }
+  }
+}
