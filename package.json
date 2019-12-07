@@ -22,6 +22,7 @@
     "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js"
   },
   "dependencies": {
+    "ajv": "^6.10.2",
     "bluebird": "^3.7.1",
     "body-parser": "^1.19.0",
     "brute-knex": "^4.0.0",
