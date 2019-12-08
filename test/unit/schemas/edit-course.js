@@ -10,8 +10,14 @@ describe('Unit > Schemas > EditCourse', function () {
 		expectInvalid({semester: '2019S'}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
+	it('name', function () {
+		expectValid({name: 'ECEN 482'});
+		expectValid({name: 'ECE 1241'});
+		expectInvalid({name: 'Introduction to Gradebook'}, ['dataPath', '.name'], 'should match pattern');
+	});
+
 	it('allows changing different permutations', function () {
-		expectValid({name: 'New Course'});
+		expectValid({name: 'ECEN 500'});
 		expectValid({cutA: 120});
 		expectValid({cutB: 40});
 		expectValid({cutC: 84});

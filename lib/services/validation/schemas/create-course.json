@@ -8,13 +8,11 @@
   "properties": {
     "name": {
       "type": "string",
-      "minLength": 1,
-      "maxLength": 50
+      "pattern": "^[A-Z]{3,4} \\d{3,4}$"
     },
     "semester": {
       "type": "string",
-      "minLength": 5,
-      "maxLength": 5
+      "pattern": "\\d{4}(S|U|F|W)"
     },
     "cutA": {"$ref": "course_cut"},
     "cutB": {"$ref": "course_cut"},
