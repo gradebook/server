@@ -14,15 +14,15 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			delete: [],
+			delete: []
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			update: [],
+			update: []
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			create: [],
+			create: []
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 	});
 
