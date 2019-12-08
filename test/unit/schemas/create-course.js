@@ -4,7 +4,7 @@ const schema = require('../../../lib/services/validation/schemas/create-course.j
 
 describe('Unit > Schemas > CreateCourse', function () {
 	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema]);
-	const VALID_OBJECT = {name: 'ECEN-482', cutA: 90, cutB: 80, cutC: 70, cutD: 60};
+	const VALID_OBJECT = {name: 'ECEN 482', cutA: 90, cutB: 80, cutC: 70, cutD: 60};
 
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
@@ -15,7 +15,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		const errorProp = ['dataPath', '.name'];
 
 		obj.name = '';
-		expectInvalid(obj, errorProp, 'shorter');
+		expectInvalid(obj, errorProp, 'should match pattern');
 
 		obj.name = 14;
 		expectInvalid(obj, errorProp, 'string');
@@ -23,7 +23,10 @@ describe('Unit > Schemas > CreateCourse', function () {
 		obj.name = null;
 		expectInvalid(obj, errorProp, 'string');
 
-		obj.name = 'ECEN-482';
+		obj.name = 'Introduction to Gradebook';
+		expectInvalid(obj, errorProp, 'should match pattern');
+
+		obj.name = 'ECEN 482';
 		expectValid(obj);
 	});
 
@@ -31,7 +34,10 @@ describe('Unit > Schemas > CreateCourse', function () {
 		const obj = {...VALID_OBJECT, semester: 'Fall 2019'};
 		const errorProp = ['dataPath', '.semester'];
 
-		expectInvalid(obj, errorProp, 'longer than 5 characters');
+		expectInvalid(obj, errorProp, 'should match pattern');
+
+		obj.semester = '2019T';
+		expectInvalid(obj, errorProp, 'should match pattern');
 
 		obj.semester = '2019F';
 		expectValid(obj);
@@ -40,7 +46,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 	describe('cut', function () {
 		const cuts = ['A', 'B', 'C', 'D'];
 		const errorProp = ['dataPath', ''];
-		const validRequest = {name: 'ECEN-482', cutA: 90, cutB: 80, cutC: 70, cutD: 60};
+		const validRequest = {...VALID_OBJECT};
 
 		for (const cut of cuts) {
 			it(cut, function () {

@@ -13,6 +13,7 @@ describe('Unit > Schemas > CreateGrade', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		expectInvalid({...VALID_OBJECT, course: 'abcd'}, ['dataPath', '.course'], 'should match pattern');
 	});
 
 	it('name', function () {

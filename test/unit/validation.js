@@ -132,7 +132,7 @@ describe('Unit > Validation', function () {
 					validations.editCourse(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.context).to.deep.equal(['Invalid name']);
+					expect(error.message).to.contain('data.name should match pattern');
 				}
 			});
 
