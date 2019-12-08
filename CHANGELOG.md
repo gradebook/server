@@ -1,3 +1,9 @@
+# 2.5.0
+
+- Fix requireConsent middleware throwing 500 errors
+- Fix database schema not reflecting what cron statistics expects
+- Update category and grade limits
+
 # 2.4.0
 
 - Add core-data endpoint that returns all data needed by frontend at bootup
