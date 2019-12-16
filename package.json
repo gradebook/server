@@ -47,7 +47,6 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "execa": "^3.4.0",
-    "istanbul": "^0.4.5",
     "mocha": "^6.2.2",
     "mock-knex": "^0.4.7",
     "nodemon": "^2.0.2",
