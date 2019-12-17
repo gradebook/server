@@ -7,11 +7,11 @@ describe('Unit > HistoryQueue', function () {
 	let queue;
 
 	before(function () {
-		stubKnex.mock(knex);
+		stubKnex.mock(knex.instance);
 	});
 
 	after(function () {
-		stubKnex.unmock(knex);
+		stubKnex.unmock(knex.instance);
 	});
 
 	beforeEach(function () {
