@@ -1,3 +1,15 @@
+# 2.6.0
+
+- Stop counting unapproved users in stats
+- Add JSON-Schema based input validation
+- Replace user.loggedIn analytics wih user.session
+- 🔒 Sanitize user session before sending to express
+- Add support for multiple semesters in category.browse API
+- Add update-user-session middleware to track when user last logged used site
+- Changed client mount from /app/ to /my/
+- Refactor semester.delete API to permanently delete courses rather than marking them for deletion
+- Update for Spring 2020
+
 # 2.5.0
 
 - Fix requireConsent middleware throwing 500 errors
