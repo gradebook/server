@@ -85,7 +85,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.context).to.deep.equal(['Invalid weight']);
+					expect(error.message).to.equal('data.weight should be >= 1');
 				}
 			});
 
@@ -97,7 +97,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.context).to.deep.equal(['Invalid weight']);
+					expect(error.message).to.equal('data.weight should be <= 10000');
 				}
 			});
 
@@ -112,13 +112,7 @@ describe('Unit > Validation', function () {
 				const editCategoryValidation = promisify(validations.editCategory);
 				const req = createRequest();
 
-				req.body.weight = null;
-				await editCategoryValidation(req, null);
-
-				req.body.weight = undefined;
-				await editCategoryValidation(req, null);
-
-				req.body.weight = '';
+				req.body.name = 'Name';
 				await editCategoryValidation(req, null);
 			});
 		});
@@ -138,7 +132,7 @@ describe('Unit > Validation', function () {
 					validations.editCourse(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.context).to.deep.equal(['Invalid name']);
+					expect(error.message).to.contain('data.name should match pattern');
 				}
 			});
 

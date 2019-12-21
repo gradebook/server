@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "course.edit",
+  "description": "Change a course",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z]{3,4} \\d{3,4}$"
+    },
+    "cutA": {"$ref": "course_cut"},
+    "cutB": {"$ref": "course_cut"},
+    "cutC": {"$ref": "course_cut"},
+    "cutD": {"$ref": "course_cut"}
+  }
+}
