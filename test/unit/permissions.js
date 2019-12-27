@@ -1,6 +1,6 @@
 const root = '../../lib/services/permissions';
 const objectID = require('bson-objectid');
-const settings = require('../../lib/cache/settings');
+const settings = require('../../lib/services/settings');
 
 const {permissions} = require(root);
 const alwaysValid = require(`${root}/../validation/is-valid`);
