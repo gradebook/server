@@ -59,7 +59,7 @@
       "lifetime": 60
     }
   },
-  "redisSession": false,
+  "redis": false,
   "secure": true,
   "server": {
     "host": "127.0.0.1",
