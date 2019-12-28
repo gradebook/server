@@ -97,6 +97,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@gradebook/express-brute-redis@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@gradebook/express-brute-redis/-/express-brute-redis-0.1.0.tgz#b1475fe1eeb0ecd044d383264ff4c50d8deed9df"
+  integrity sha512-ow2hetjx2IoUo2MM3mn7XvYLV+DYgGkpqxE0aVy9U3TKs8GeOR2O/7fej0kWae2SiwxbWtBEc91sc+ORb63NvQ==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
