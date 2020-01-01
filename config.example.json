@@ -14,7 +14,6 @@
       "filename": "content/database.db"
     }
   },
-  "theme": false,
   "domain": false,
   "logging": {
     "level": "info",
