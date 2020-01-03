@@ -1,6 +1,7 @@
 const root = '../../lib/services/permissions';
 const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');
+const expectError = require('../utils/expect-error');
 
 const {permissions} = require(root);
 const alwaysValid = require(`${root}/../validation/is-valid`);
@@ -30,7 +31,7 @@ class FakeResponse {
 
 class ErrorWrapper extends Error {
 	constructor(originalError) {
-		super(`Error Wrapper: ${originalError.message}`);
+		super(`Error Wrapper: ${originalError.error.message}`);
 		this.originalError = originalError;
 	}
 }
@@ -50,6 +51,14 @@ function sendFakeRequest(permissions, fnToCall) {
 			resolve({request, response});
 		});
 	});
+}
+
+function assertIsNotFoundError(_error) {
+	expect(_error).to.have.property('originalError');
+	const {error, response} = _error.originalError;
+	expect(error.statusCode).to.equal(404);
+	expect(error.name).to.equal('NotFoundError');
+	expect(response.statusCalled).to.be.false;
 }
 
 const user = testUtils.fixtures.trustedUser.id;
@@ -117,9 +126,10 @@ describe('Unit > Permissions', function () {
 			const stub = sinon.stub(settings, 'get').returns(10);
 			try {
 				const permissions = {user: testUtils.fixtures.evilUser.id, course};
-				const {response} = await sendFakeRequest(permissions, createCategory);
-				expect(response.statusCalled).to.be.true;
-				expect(response._statusCode).to.equal(404);
+				await sendFakeRequest(permissions, createCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
 			} finally {
 				stub.restore();
 			}
@@ -168,9 +178,10 @@ describe('Unit > Permissions', function () {
 			const stub = sinon.stub(settings, 'get').returns(10);
 			try {
 				const permissions = {user: testUtils.fixtures.evilUser.id, course, category};
-				const {response} = await sendFakeRequest(permissions, createGrade);
-				expect(response.statusCalled).to.be.true;
-				expect(response._statusCode).to.equal(404);
+				await sendFakeRequest(permissions, createGrade);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
 			} finally {
 				stub.restore();
 			}
@@ -194,9 +205,12 @@ describe('Unit > Permissions', function () {
 
 		it('Does not exist', async function () {
 			const permissions = {user, objectId: objectID.generate()};
-			const {response} = await sendFakeRequest(permissions, editCourse);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editCourse);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 
 		it('With permission', async function () {
@@ -207,9 +221,12 @@ describe('Unit > Permissions', function () {
 
 		it('Not permitted', async function () {
 			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: course};
-			const {response} = await sendFakeRequest(permissions, editCourse);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editCourse);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 	});
 
@@ -218,9 +235,12 @@ describe('Unit > Permissions', function () {
 
 		it('Does not exist', async function () {
 			const permissions = {user, objectId: objectID.generate()};
-			const {response} = await sendFakeRequest(permissions, editCategory);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 
 		it('With permission', async function () {
@@ -231,9 +251,12 @@ describe('Unit > Permissions', function () {
 
 		it('No permission', async function () {
 			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
-			const {response} = await sendFakeRequest(permissions, editCategory);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 	});
 
@@ -242,9 +265,12 @@ describe('Unit > Permissions', function () {
 
 		it('does not exist', async function () {
 			const permissions = {user, objectId: objectID.generate()};
-			const {response} = await sendFakeRequest(permissions, editGrade);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editGrade);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 
 		it('with permission', async function () {
@@ -255,9 +281,12 @@ describe('Unit > Permissions', function () {
 
 		it('no permission', async function () {
 			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: grade};
-			const {response} = await sendFakeRequest(permissions, editGrade);
-			expect(response.statusCalled).to.be.true;
-			expect(response._statusCode).to.equal(404);
+			try {
+				await sendFakeRequest(permissions, editGrade);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
 		});
 	});
 });
