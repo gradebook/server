@@ -15,6 +15,7 @@
     }
   },
   "domain": false,
+  "user event endpoint": false,
   "logging": {
     "level": "info",
     "rotation": {
