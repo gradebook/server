@@ -62,7 +62,6 @@
   },
   "xo": {
     "ignores": [
-      "old-exporter/**/*.js",
       "lib/frontend/client/**/*.js"
     ],
     "rules": {
