@@ -61,6 +61,7 @@
     }
   },
   "redis": false,
+  "redisOptions": {},
   "secure": true,
   "server": {
     "host": "127.0.0.1",
