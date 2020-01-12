@@ -17,7 +17,7 @@ if (process.env.CI === 'true') {
 migrator.startup().then(async () => {
 	knex.init();
 
-	const txn = await knex.transaction();
+	const txn = await knex.instance.transaction();
 	try {
 		const promises = fixtures.map(([table, values], idx) => {
 			const id = idx + 1;
@@ -35,5 +35,5 @@ migrator.startup().then(async () => {
 		await txn.rollback();
 	}
 
-	knex.destroy();
+	knex.instance.destroy();
 });

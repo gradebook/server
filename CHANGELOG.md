@@ -1,3 +1,18 @@
+# 3.0.0
+
+- ✨ Add support for using a sharding data based on hostname (uses different database)
+  - Involves major refactor to database and API layer
+- ✨ Add support for redis-based sessions, brute, and auth
+  -  These services now have an SQL and Redis adapter
+- ✨ Add support for theming, and inject theme into client
+- 🔥  Remove v1 -> v2 migration scripts
+- 🗃 Store unapproved users in sessions rather than in the database (involves large refactor to passport auth)
+- 🔨 Update analytics service to support multiple databases
+- ⚗ Die with context when encountering fatal errors
+- ⬆ Bump node version
+- ⚡️ Cancel fetching course grades when it has no categories
+- 🚀 Add webhook support for user.created and user.deleted route actions
+
 # 2.6.0
 
 - Stop counting unapproved users in stats

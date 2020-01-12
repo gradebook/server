@@ -14,6 +14,8 @@
       "filename": "content/database.db"
     }
   },
+  "domain": false,
+  "user event endpoint": false,
   "logging": {
     "level": "info",
     "rotation": {
@@ -58,6 +60,9 @@
       "lifetime": 60
     }
   },
+  "redis": false,
+  "redisOptions": {},
+  "secure": true,
   "server": {
     "host": "127.0.0.1",
     "port": 2469
