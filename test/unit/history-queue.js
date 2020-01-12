@@ -29,7 +29,7 @@ describe('Unit > HistoryQueue', function () {
 			await queue._promise;
 
 			expect(queue.empty).to.be.false;
-			expect(queue._summations['__NO_DATABASE__']).to.be.an('array').and.to.deep.equal([12, 30, 69]);
+			expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.to.deep.equal([12, 30, 69]);
 		});
 
 		it('properly handles buffering while committing', async function () {
@@ -39,7 +39,7 @@ describe('Unit > HistoryQueue', function () {
 			queue.add([null, 1]);
 			await queue._promise;
 
-			expect(queue._summations['__NO_DATABASE__']).to.be.an('array').and.to.deep.equal([3]);
+			expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.to.deep.equal([3]);
 
 			// Add 3 elements while the queue is committing
 			const promise = queue.commit();
@@ -54,10 +54,10 @@ describe('Unit > HistoryQueue', function () {
 			await queue.process();
 
 			expect(queue._list).to.be.empty;
-			expect(queue._summations['__NO_DATABASE__']).to.deep.equal([6]);
+			expect(queue._summations.__NO_DATABASE__).to.deep.equal([6]);
 
 			await queue.commit();
-			expect(queue._summations['__NO_DATABASE__']).to.be.empty;
+			expect(queue._summations.__NO_DATABASE__).to.be.empty;
 		});
 
 		it('does not commit when analytics are disabled', async function () {
@@ -68,10 +68,10 @@ describe('Unit > HistoryQueue', function () {
 
 				queue.add([null, 0]);
 				await queue._promise;
-				expect(queue._summations['__NO_DATABASE__']).to.be.an('array').with.length(1);
+				expect(queue._summations.__NO_DATABASE__).to.be.an('array').with.length(1);
 				await queue.commit();
 				expect(stub.calledOnce).to.be.true;
-				expect(queue._summations['__NO_DATABASE__']).to.be.an('array').and.is.empty;
+				expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.is.empty;
 
 				// @todo: stub.reset() is throwing an error for some reason
 				config.get.restore();
@@ -79,10 +79,10 @@ describe('Unit > HistoryQueue', function () {
 
 				queue.add([null, 0]);
 				await queue._promise;
-				expect(queue._summations['__NO_DATABASE__']).to.be.an('array').with.length(1);
+				expect(queue._summations.__NO_DATABASE__).to.be.an('array').with.length(1);
 				await queue.commit();
 				expect(stub.calledOnce).to.be.true;
-				expect(queue._summations['__NO_DATABASE__']).to.be.an('array').and.is.empty;
+				expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.is.empty;
 			} finally {
 				config.get.restore();
 			}
