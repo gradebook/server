@@ -1,3 +1,12 @@
+# 3.2.0
+
+- Disable some routes in prod
+- Minor security improvements
+  - Disable x-powered-by header
+  - Limit JSON Body size
+- Add Matched Host to req (if applicable)
+- Disable host-matching in some routes
+
 # 3.1.0
 
 - Fix analytics failing for API requests (did not prevent success of request)
