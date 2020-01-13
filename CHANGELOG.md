@@ -1,3 +1,10 @@
+# 3.1.0
+
+- Fix analytics failing for API requests (did not prevent success of request)
+- Update timezone-offset to always return a positive number
+  - Now, a timezone is ahead if offset < 12
+- Prevent users that quickly delete their accounts from counting in statistics
+
 # 3.0.0
 
 - ✨ Add support for using a sharding data based on hostname (uses different database)
