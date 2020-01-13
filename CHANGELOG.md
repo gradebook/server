@@ -1,3 +1,7 @@
+# 3.2.1
+
+- Fix authentication failing for API routes
+
 # 3.2.0
 
 - Disable some routes in prod
