@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -45,6 +45,7 @@
     "node-cron": "^2.0.3",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
+    "pluralize": "^8.0.0",
     "sqlite3": "^4.1.1",
     "validator": "^12.1.0"
   },
