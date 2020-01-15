@@ -1,3 +1,10 @@
+# 3.2.2
+
+- Add internal types
+- Fix semester.delete analytics not being recorded
+- Allow unauthenticated users to hit the health endpoint
+- Add handling for unhandled promise rejections and uncaught errors
+
 # 3.2.1
 
 - Fix authentication failing for API routes
