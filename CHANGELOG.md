@@ -1,3 +1,7 @@
+# 3.2.3
+
+- Singularize category names when expanding
+
 # 3.2.2
 
 - Add internal types
