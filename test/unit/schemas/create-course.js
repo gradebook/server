@@ -98,7 +98,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 				errorProp[1] = `.${key}`;
 
 				obj[key] = '';
-				expectInvalid(obj, errorProp, 'one of the allowed values', true);
+				expectInvalid(obj, errorProp, 'one of the allowed values');
 
 				obj[key] = 'FFF';
 				expectInvalid(obj, errorProp, 'one of the allowed values');
