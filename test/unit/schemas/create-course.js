@@ -1,10 +1,21 @@
 const schemaValidator = require('../../utils/schema-validator');
 const cutSchema = require('../../../lib/services/validation/schemas/course-cut.json');
+const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/create-course.json');
 
 describe('Unit > Schemas > CreateCourse', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema]);
-	const VALID_OBJECT = {name: 'ECEN 482', cut1: 90, cut2: 80, cut3: 70, cut3: 60};
+	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+	const VALID_OBJECT = {
+		name: 'ECEN 482',
+		cut1: 90,
+		cut2: 80,
+		cut3: 70,
+		cut4: 60,
+		cut1Name: 'A+',
+		cut2Name: 'B',
+		cut3Name: 'D-',
+		cut4Name: 'C+'
+	};
 
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
@@ -44,7 +55,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 	});
 
 	describe('cut', function () {
-		const cuts = ['A', 'B', 'C', 'D'];
+		const cuts = ['1', '2', '3', '4'];
 		const errorProp = ['dataPath', ''];
 		const validRequest = {...VALID_OBJECT};
 
@@ -70,6 +81,38 @@ describe('Unit > Schemas > CreateCourse', function () {
 				expectValid(obj);
 
 				obj[key] = 88.3;
+				expectValid(obj);
+			});
+		}
+	});
+
+	describe('cutName', function () {
+		const cuts = ['1', '2', '3', '4'];
+		const errorProp = ['dataPath', ''];
+		const validRequest = {...VALID_OBJECT};
+
+		for (const cut of cuts) {
+			it(cut, function () {
+				const obj = {...validRequest};
+				const key = `cut${cut}Name`;
+				errorProp[1] = `.${key}`;
+
+				obj[key] = '';
+				expectInvalid(obj, errorProp, 'one of the allowed values', true);
+
+				obj[key] = 'FFF';
+				expectInvalid(obj, errorProp, 'one of the allowed values');
+
+				obj[key] = 'FF';
+				expectInvalid(obj, errorProp, 'one of the allowed values');
+
+				obj[key] = 'A+';
+				expectValid(obj);
+
+				obj[key] = 'C';
+				expectValid(obj);
+
+				obj[key] = 'D-';
 				expectValid(obj);
 			});
 		}
