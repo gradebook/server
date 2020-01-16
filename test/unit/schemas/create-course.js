@@ -4,7 +4,7 @@ const schema = require('../../../lib/services/validation/schemas/create-course.j
 
 describe('Unit > Schemas > CreateCourse', function () {
 	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema]);
-	const VALID_OBJECT = {name: 'ECEN 482', cutA: 90, cutB: 80, cutC: 70, cutD: 60};
+	const VALID_OBJECT = {name: 'ECEN 482', cut1: 90, cut2: 80, cut3: 70, cut3: 60};
 
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');

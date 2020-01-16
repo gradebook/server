@@ -4,7 +4,7 @@
   "description": "Create a course",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "cutA", "cutB", "cutC", "cutD"],
+  "required": ["name", "cut1", "cut2", "cut3", "cut4", "cut1Name", "cut2Name", "cut3Name", "cut4Name"],
   "properties": {
     "name": {
       "type": "string",
@@ -14,9 +14,13 @@
       "type": "string",
       "pattern": "\\d{4}(S|U|F|W)"
     },
-    "cutA": {"$ref": "course_cut"},
-    "cutB": {"$ref": "course_cut"},
-    "cutC": {"$ref": "course_cut"},
-    "cutD": {"$ref": "course_cut"}
+    "cut1": {"$ref": "course_cut"},
+    "cut2": {"$ref": "course_cut"},
+    "cut3": {"$ref": "course_cut"},
+    "cut4": {"$ref": "course_cut"},
+    "cut1Name": {"$ref": "course_cut_name"},
+    "cut2Name": {"$ref": "course_cut_name"},
+    "cut3Name": {"$ref": "course_cut_name"},
+    "cut4Name": {"$ref": "course_cut_name"}
   }
 }
