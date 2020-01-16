@@ -3,6 +3,18 @@
   "$id": "course_cut_name",
   "description": "Cutoff identifier for a letter grade in a course",
   "type": "string",
-  "minLength": 1,
-  "maxLength": 2
+  "enum": [
+    "A+",
+    "A",
+    "A-",
+    "B+",
+    "B",
+    "B-",
+    "C+",
+    "C",
+    "C-",
+    "D+",
+    "D",
+    "D-"
+  ]
 }
