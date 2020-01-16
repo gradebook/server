@@ -145,7 +145,7 @@ describe('Unit > Validation', function () {
 
 			it('neutral', function (done) {
 				const req = createRequest();
-				req.body.cutA = 95;
+				req.body.cut1 = 95;
 
 				validations.editCourse(req, null, done);
 			});

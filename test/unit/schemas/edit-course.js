@@ -18,9 +18,9 @@ describe('Unit > Schemas > EditCourse', function () {
 
 	it('allows changing different permutations', function () {
 		expectValid({name: 'ECEN 500'});
-		expectValid({cutA: 120});
-		expectValid({cutB: 40});
-		expectValid({cutC: 84});
-		expectValid({cutD: 94});
+		expectValid({cut1: 120});
+		expectValid({cut2: 40});
+		expectValid({cut3: 84});
+		expectValid({cut4: 94});
 	});
 });
