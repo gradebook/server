@@ -1,9 +1,10 @@
 const schemaValidator = require('../../utils/schema-validator');
 const cutSchema = require('../../../lib/services/validation/schemas/course-cut.json');
+const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/edit-course.json');
 
 describe('Unit > Schemas > EditCourse', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema]);
+	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
 
 	it('protected props', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], 'have fewer than 1');
@@ -18,9 +19,9 @@ describe('Unit > Schemas > EditCourse', function () {
 
 	it('allows changing different permutations', function () {
 		expectValid({name: 'ECEN 500'});
-		expectValid({cutA: 120});
-		expectValid({cutB: 40});
-		expectValid({cutC: 84});
-		expectValid({cutD: 94});
+		expectValid({cut1: 120});
+		expectValid({cut2: 40});
+		expectValid({cut3: 84});
+		expectValid({cut4: 94});
 	});
 });
