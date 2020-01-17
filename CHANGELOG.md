@@ -1,3 +1,11 @@
+# 3.3.0
+
+- Redirect users on incorrect hostname to correct hostname
+- :sparkles: Add support for named course cutoffs
+- Add multi-database migration helper scripts
+- Remove usage of `user.isNew` data outside of session data
+- Drop `courses.status` (it was phased out in 2.x)
+
 # 3.2.3
 
 - Singularize category names when expanding
