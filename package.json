@@ -10,7 +10,6 @@
     "Vikas Potluri <vikaspotluri123.github@gmail.com>",
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
-  "license": "MIT",
   "private": true,
   "scripts": {
     "lint": "xo",
