@@ -85,7 +85,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.equal('data.weight should be >= 1');
+					expect(error.message).to.include('data.weight should be >= 1');
 				}
 			});
 
@@ -97,13 +97,19 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.equal('data.weight should be <= 10000');
+					expect(error.message).to.include('data.weight should be <= 10000');
 				}
 			});
 
 			it('Normal floating points are acceptable', function (done) {
 				const req = createRequest();
 				req.body.weight = 1234.56;
+				validations.editCategory(req, null, done);
+			});
+
+			it('Null is acceptable', function (done) {
+				const req = createRequest();
+				req.body.weight = null;
 				validations.editCategory(req, null, done);
 			});
 
