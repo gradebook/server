@@ -171,6 +171,11 @@
   resolved "https://registry.yarnpkg.com/@gradebook/express-brute-redis/-/express-brute-redis-0.1.0.tgz#b1475fe1eeb0ecd044d383264ff4c50d8deed9df"
   integrity sha512-ow2hetjx2IoUo2MM3mn7XvYLV+DYgGkpqxE0aVy9U3TKs8GeOR2O/7fej0kWae2SiwxbWtBEc91sc+ORb63NvQ==
 
+"@gradebook/fast-pluralize@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.1.tgz#15766452b3b007074c4545ed35c0ee351d545ec4"
+  integrity sha512-U9r+OBO0vvQoW4LAX/1vcXjSqBs7uej5267zLMWo9bnvS6FGm7uTuk+CRZGX9TS+B+jHecMVaFEm8ZVlEjphdw==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
@@ -5217,11 +5222,6 @@ plur@^3.0.1:
   integrity sha512-t1Ax8KUvV3FFII8ltczPn2tJdjqbd1sIzu6t4JL7nQ3EyeL/lTrj5PWKb06ic5/6XYDr65rQ4uzQEGN70/6X5w==
   dependencies:
     irregular-plurals "^2.0.0"
-
-pluralize@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
-  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 pluralize@^7.0.0:
   version "7.0.0"

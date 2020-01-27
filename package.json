@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@gradebook/express-brute-redis": "0.1.0",
+    "@gradebook/fast-pluralize": "^0.0.1",
     "ajv": "6.11.0",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",
@@ -44,7 +45,6 @@
     "node-cron": "2.0.3",
     "passport": "0.4.1",
     "passport-google-oauth20": "2.0.0",
-    "pluralize": "8.0.0",
     "sqlite3": "4.1.1",
     "validator": "12.2.0"
   },
