@@ -1,3 +1,9 @@
+# 3.3.1
+
+- Fix singularization of words in categories
+- Allow null weights in category (validation)
+- Add Renovate
+
 # 3.3.0
 
 - Redirect users on incorrect hostname to correct hostname
