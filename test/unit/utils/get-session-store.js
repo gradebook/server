@@ -4,7 +4,7 @@ const config = require('../../../lib/config');
 const getClean = () => {
 	delete require.cache[MODULE];
 	return require(MODULE);
-}
+};
 
 describe('Unit > Utils > GetSessionStore', function () {
 	let stub;
