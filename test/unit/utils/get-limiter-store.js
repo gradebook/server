@@ -7,9 +7,9 @@ const config = require('../../../lib/config');
 const getClean = () => {
 	delete require.cache[MODULE];
 	return require(MODULE);
-}
+};
 
-describe('Unit > Utils > GetLimiterStore', function() {
+describe('Unit > Utils > GetLimiterStore', function () {
 	let stub;
 
 	beforeEach(function () {
