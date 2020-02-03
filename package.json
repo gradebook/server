@@ -36,7 +36,7 @@
     "express-brute": "1.0.1",
     "express-session": "1.17.0",
     "ghost-ignition": "4.0.0",
-    "got": "10.3.0",
+    "got": "10.4.0",
     "ioredis": "4.14.1",
     "knex": "0.20.8",
     "knex-migrator": "3.4.1",
