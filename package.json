@@ -31,7 +31,7 @@
     "connect-redis": "4.0.3",
     "connect-session-knex": "1.5.0",
     "cookie-parser": "1.4.4",
-    "dayjs": "1.8.19",
+    "dayjs": "1.8.20",
     "express": "4.17.1",
     "express-brute": "1.0.1",
     "express-session": "1.17.0",
