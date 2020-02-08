@@ -27,10 +27,10 @@ migrator.startup().then(async () => {
 			if (txn.client.config.client === 'sqlite3') {
 				query = txn(table).insert(values).toString().replace(/^INSERT/i, 'insert or replace');
 			} else {
-				const insert = trx(tableName).insert(tuple).toString()
-				const update = trx(tableName).update(tuple).toString().replace(/^update(.*?)set\s/gi, '')
+				const insert = txn(table).insert(values).toString();
+				const update = txn(table).update(values).toString().replace(/^update(.*?)set\s/gi, '');
 
-				query = `${insert} ON DUPLICATE KEY UPDATE ${update}`
+				query = `${insert} ON DUPLICATE KEY UPDATE ${update}`;
 			}
 
 			return txn.raw(query).then(() => log(`Added fixture ${id}`))
