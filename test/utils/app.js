@@ -2,6 +2,6 @@ const makeApp = require('../../lib');
 
 module.exports = async () => {
 	const {server, app} = await makeApp();
-	server.close();
+	await new Promise(r => server.close(r));
 	return app;
 };
