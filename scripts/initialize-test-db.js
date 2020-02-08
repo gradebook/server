@@ -22,9 +22,18 @@ migrator.startup().then(async () => {
 		const promises = fixtures.map(([table, values], idx) => {
 			const id = idx + 1;
 			log(`Adding fixture ${id} to ${table}`);
-			return txn(table)
-				.insert(values)
-				.then(() => log(`Added fixture ${id}`))
+			let query;
+
+			if (txn.client.config.client === 'sqlite3') {
+				query = txn(table).insert(values).toString().replace(/^INSERT/i, 'insert or replace');
+			} else {
+				const insert = trx(tableName).insert(tuple).toString()
+				const update = trx(tableName).update(tuple).toString().replace(/^update(.*?)set\s/gi, '')
+
+				query = `${insert} ON DUPLICATE KEY UPDATE ${update}`
+			}
+
+			return txn.raw(query).then(() => log(`Added fixture ${id}`))
 				.catch(error => console.error(`Failed adding fixture ${id}`, error));
 		});
 
