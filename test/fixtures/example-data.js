@@ -49,7 +49,12 @@ const fixtures = [
 	['grades', {id: '5d3c9464e99cf4129029b805', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c822b361ac86457c4395e', category_id: '5d3c924c26491c2612b66c29', name: null, grade: 83}],
 	['grades', {id: '5d3c9464e99cf4129029b806', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c9251aa114f0a63992119', name: null, grade: 100}],
 	['grades', {id: '5d3c9464e99cf4129029b807', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c925602bd1dae4e44ba0f', name: null, grade: 85}],
-	['grades', {id: '5d3c94770e9b3305164bca58', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c925b3ff7c43c348498cd', name: null, grade: 94}]
+	['grades', {id: '5d3c94770e9b3305164bca58', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8230c95745a3e0806c9b', category_id: '5d3c925b3ff7c43c348498cd', name: null, grade: 94}],
+	['settings', {key: 'session_secret', value: 'abcdef123456'}],
+	['sessions', {sessionAGB: 'trusted', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c8150930db248a9d7514f"}}'}],
+	['sessions', {sessionAGB: 'evil', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81a099e3d8f91f66967c"}}'}],
+	['sessions', {sessionAGB: 'confused', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81b49d866268d230e180"}}'}],
+	['sessions', {sessionAGB: 'random', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81d738773f9ae92e8c7d"}}'}]
 ];
 /* eslint-enable camelcase, unicorn/no-zero-fractions */
 
@@ -72,6 +77,13 @@ const fixturesMap = {
 
 	get courseWithNoGrades() {
 		return this.courses[4];
+	},
+
+	cookies: {
+		trusted: 'agbsid=s%3Atrusted.6b1LMhvKUJrWJSZK0cjW5tonTdZLWeOxbYd0OcxtRsk',
+		evil: 'agbsid=s%3Aevil.qsZUfy7k9UhrYWLHYqnt3SvqA08z5S1mu9/xdgj9qiM',
+		confused: 'agbsid=s%3Aconfused.SXqp19eWUmQ3yZvBxxnUErE6zXzgPKjCYetL4Wxq8ow',
+		random: 'agbsid=s%3Arandom.FkByk2JUbMsNulr7lM+YeprlnZ2B3+ZgAPq88QkyuzQ'
 	}
 };
 
