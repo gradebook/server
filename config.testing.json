@@ -9,5 +9,9 @@
   },
   "logging": {
     "transports": []
+  },
+  "oauth": {
+    "id": "lolno",
+    "secret": "password"
   }
 }
