@@ -49,8 +49,8 @@
     "validator": "12.2.0"
   },
   "devDependencies": {
-    "@gradebook/actions-hook": "^0.1.0",
-    "@gradebook/together": "^0.1.0",
+    "@gradebook/actions-hook": "0.1.0",
+    "@gradebook/together": "0.1.0",
     "@types/express": "4.17.2",
     "@types/express-session": "1.15.16",
     "chai": "4.2.0",
