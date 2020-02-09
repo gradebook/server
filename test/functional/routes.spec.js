@@ -88,5 +88,51 @@ describe('Functional > API Routes', function () {
 					});
 				});
 		});
+
+		it('/api/v0/course/{id}', function () {
+			const course = Object.assign({}, testUtils.fixtures.courses[0]);
+			delete course.user_id;
+			delete course.credit_hours;
+
+			return supertest(instance)
+				.get(`/api/v0/course/${course.id}`)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					expect(body).to.deep.equal(course);
+				});
+		});
+
+		it('/api/v0/category/{id}', function () {
+			const category = Object.assign({}, testUtils.fixtures.categories[0]);
+
+			delete category.course_id;
+
+			return supertest(instance)
+				.get(`/api/v0/category/${category.id}`)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					expect(body).to.deep.equal(category);
+				});
+		});
+
+		it('/api/v0/grade/{id}', function () {
+			const grade = Object.assign({}, testUtils.fixtures.grades[0]);
+
+			grade.course = grade.course_id;
+			grade.category = grade.category_id;
+			delete grade.user_id;
+			delete grade.course_id;
+			delete grade.category_id;
+
+			return supertest(instance)
+				.get(`/api/v0/grade/${grade.id}`)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					expect(body).to.deep.equal(grade);
+				});
+		});
 	});
 });
