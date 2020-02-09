@@ -66,8 +66,8 @@ describe('Functional > API Routes', function () {
 				.expect(200)
 				.expect(({body}) => {
 					expect(body).to.be.an('array').with.length(42);
-					body.forEach(course => {
-						expect(Object.keys(course)).to.deep.equal(
+					body.forEach(category => {
+						expect(Object.keys(category)).to.deep.equal(
 							['id', 'course_id', 'name', 'weight', 'position']
 						);
 					});
@@ -132,6 +132,23 @@ describe('Functional > API Routes', function () {
 				.expect(200)
 				.expect(({body}) => {
 					expect(body).to.deep.equal(grade);
+				});
+		});
+
+		it('/api/v0/core-data', function () {
+			return supertest(instance)
+				.get('/api/v0/core-data')
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					// @todo: mock current semester
+					expect(body.categories).to.be.empty;
+					expect(body.courses).to.be.an('array').with.length(15);
+					for (const course of body.courses) {
+						expect(Object.keys(course)).to.deep.equal(
+							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name']
+						);
+					}
 				});
 		});
 	});
