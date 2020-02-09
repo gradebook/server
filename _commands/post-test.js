@@ -1,8 +1,7 @@
+const sendPayload = require('@gradebook/actions-hook').default;
+
 async function doTheWork() {
 	try {
-		const crypto = require('crypto');
-		const got = require('got');
-
 		const REQUIRED_KEYS = [
 			'GITHUB_REPOSITORY',
 			'GITHUB_EVENT_NAME',
@@ -38,20 +37,11 @@ async function doTheWork() {
 			name: process.env.TEST_NAME
 		});
 
-		const hmac = crypto.createHmac('sha256', Buffer.from(process.env.WEBHOOK_SECRET)).update(payload).digest('hex');
-
 		console.log('Sending payload', payload, 'to webhook');
 		console.log();
 		console.log();
 
-		got.post(process.env.WEBHOOK_URL, {
-			headers: {
-				'User-Agent': 'gradebook-deploy-bot/0.1.0 (Actions)',
-				'X-Actions-Secret': `sha256=${hmac}`,
-				'Content-Type': 'application/json'
-			},
-			body: payload
-		});
+		await sendPayload({payload});
 	} catch (error) {
 		console.error(error);
 		process.exit(1);
