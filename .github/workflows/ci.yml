@@ -31,7 +31,7 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Unit Tests
       run: |
-        yarn install
+        yarn install --frozen-lockfile
         node scripts/initialize-test-db.js
         yarn test:unit
         node _commands/post-test.js
@@ -61,7 +61,7 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Integration Tests
       run: |
-        yarn install
+        yarn install --frozen-lockfile
         node scripts/initialize-test-db.js
         yarn test:integration
         node _commands/post-test.js
@@ -91,7 +91,7 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Lint
       run: |
-        yarn install
+        yarn install --frozen-lockfile
         yarn lint
         node _commands/post-test.js
       env:
