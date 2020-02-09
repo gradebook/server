@@ -127,7 +127,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@gradebook/actions-hook@^0.1.0":
+"@gradebook/actions-hook@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@gradebook/actions-hook/-/actions-hook-0.1.0.tgz#8c088d8b4bd577300690a11a1457ac8270c90d31"
   integrity sha512-eWKzR3He7SxVg76gZ3p/oxky1L+BAN0wk416GWi2ogiPdKtNQNRNxN+nwqRWpKfIJhFFhLPPfRKDsLKxnBbQYA==
@@ -144,7 +144,7 @@
   resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.1.tgz#15766452b3b007074c4545ed35c0ee351d545ec4"
   integrity sha512-U9r+OBO0vvQoW4LAX/1vcXjSqBs7uej5267zLMWo9bnvS6FGm7uTuk+CRZGX9TS+B+jHecMVaFEm8ZVlEjphdw==
 
-"@gradebook/together@^0.1.0":
+"@gradebook/together@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@gradebook/together/-/together-0.1.0.tgz#63d14a59733679ebe252e6dbed7376defecfddf6"
   integrity sha512-gEge62vz0RxoUP5FfusrH1HcFs3RB0gud/g+Cd0Cp+QqgYTfAlGY/q5HUODYOr1jQpk2RF2nNttcmpHoOjP9lA==
