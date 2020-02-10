@@ -1,4 +1,12 @@
-const Together = require('@gradebook/together').default;
+let Together;
+
+try {
+	Together = require('@gradebook/together').default;
+} catch (error) {
+	console.error('Failed loading @gradebook/together. Try running `yarn install`');
+	process.exit(1);
+}
+
 const precheck = require('./_precheck');
 
 const commands = [
