@@ -2,7 +2,7 @@ let Together;
 
 try {
 	Together = require('@gradebook/together').default;
-} catch (error) {
+} catch (_) {
 	console.error('Failed loading @gradebook/together. Try running `yarn install`');
 	process.exit(1);
 }
