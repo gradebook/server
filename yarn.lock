@@ -127,10 +127,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@gradebook/actions-hook@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@gradebook/actions-hook/-/actions-hook-0.1.0.tgz#8c088d8b4bd577300690a11a1457ac8270c90d31"
-  integrity sha512-eWKzR3He7SxVg76gZ3p/oxky1L+BAN0wk416GWi2ogiPdKtNQNRNxN+nwqRWpKfIJhFFhLPPfRKDsLKxnBbQYA==
+"@gradebook/actions-hook@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@gradebook/actions-hook/-/actions-hook-0.2.0.tgz#af4eb5033a64566d1375e4de31564b23ae749d6f"
+  integrity sha512-zgFk4SWAHyV5pexTCq+FPoBw4kPOhY9AYTg0DPSai5BkxjfCzNLY6H/IZ87mmSwLhxVgNlP0jP83jfpShliX1Q==
   dependencies:
     got "10.5.5"
 

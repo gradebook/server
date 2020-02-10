@@ -1,33 +1,15 @@
-const sendPayload = require('@gradebook/actions-hook').default;
+// @ts-check
+const {sendPayload} = require('@gradebook/actions-hook');
 
 async function doTheWork() {
 	try {
-		const REQUIRED_KEYS = [
-			'GITHUB_REPOSITORY',
-			'GITHUB_EVENT_NAME',
-			'GITHUB_SHA',
-			'GITHUB_REF',
-			'WEBHOOK_URL',
-			'WEBHOOK_SECRET',
-			'TEST_NAME'
-		];
+		const REQUIRED_KEYS = ['GITHUB_REF', 'GITHUB_REPOSITORY', 'GITHUB_SHA', 'TEST_NAME'];
 
 		for (const key of REQUIRED_KEYS) {
 			if (!(key in process.env)) {
 				console.warn(`Missing key: ${key}. Not running post-test hook`);
 				process.exit(0);
 			}
-		}
-
-		if (process.env.GITHUB_EVENT_NAME !== 'push') {
-			console.warn(`Event ${process.env.GITHUB_EVENT_NAME} was not push, not running post-test hook`);
-			process.exit(0);
-		}
-
-		// @todo: Update
-		if (process.env.GITHUB_REF !== 'refs/heads/release') {
-			console.warn(`Ref ${process.env.GITHUB_REF} was not for release branch, not running post-test hook`);
-			process.exit(0);
 		}
 
 		const payload = JSON.stringify({
@@ -41,7 +23,13 @@ async function doTheWork() {
 		console.log();
 		console.log();
 
-		await sendPayload({payload});
+		await sendPayload({
+			payload,
+			onlyIf: {
+				isPush: true,
+				branch: 'release'
+			}
+		});
 	} catch (error) {
 		console.error(error);
 		process.exit(1);
