@@ -19,22 +19,27 @@ describe.only('Unit > Models > DatabaseResponse', function () {
 
 			expect(response.get('id')).to.equal(exampleUser.id);
 			expect(response.changed('id')).to.be.false;
+			expect(response.dirty).to.be.false;
 
 			response.set('uid', 'does-not-exist');
 			expect(response.changed('uid')).to.be.false;
+			expect(response.dirty).to.be.false;
 		});
 
 		it('not changing value', function () {
 			response.set('email', exampleUser.email);
 			expect(response.changed('email')).to.be.false;
+			expect(response.dirty).to.be.false;
 		});
 
 		it('reverting value', function () {
 			response.set('email', 'testing@example.com');
 			expect(response.changed('email')).to.be.true;
+			expect(response.dirty).to.be.true;
 
 			response.set('email', exampleUser.email);
 			expect(response.changed('email')).to.be.false;
+			expect(response.dirty).to.be.false;
 		});
 	});
 
