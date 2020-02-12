@@ -1,3 +1,7 @@
+# 3.4.1
+- Fix gbardr cookie handling
+- Fix root requests in production
+
 # 3.4.0
 
 - Improvements to tests
