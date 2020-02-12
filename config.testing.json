@@ -1,0 +1,17 @@
+{
+  "database": {
+    "client": "sqlite3",
+    "debug": false,
+    "useNullAsDefault": true,
+    "connection": {
+      "filename": "./test/fixtures/test-database.db"
+    }
+  },
+  "logging": {
+    "transports": []
+  },
+  "oauth": {
+    "id": "lolno",
+    "secret": "password"
+  }
+}

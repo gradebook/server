@@ -18,7 +18,7 @@ describe('Unit > Validation', function () {
 
 		it('valid key and value', function (done) {
 			const req = {
-				body: {key: 'tour', value: true}
+				body: {key: 'previous_notification', value: '2020-01-30T22:13:22.000-06:00'}
 			};
 
 			validations.userSettings(req, null, done);
@@ -40,7 +40,7 @@ describe('Unit > Validation', function () {
 
 		it('invalid value', function (done) {
 			const req = {
-				body: {key: 'tour', value: 8}
+				body: {key: 'previous_notification', value: '2019-09-09'}
 			};
 
 			try {
@@ -52,7 +52,7 @@ describe('Unit > Validation', function () {
 			}
 
 			try {
-				req.body.value = 500;
+				req.body.value = 'not a date';
 				validations.userSettings(req, null, expectError);
 				expectError();
 			} catch (error) {
@@ -60,7 +60,7 @@ describe('Unit > Validation', function () {
 			}
 
 			try {
-				req.body.value = -500;
+				req.body.value = {};
 				validations.userSettings(req, null, expectError);
 				expectError();
 			} catch (error) {

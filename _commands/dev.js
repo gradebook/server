@@ -1,4 +1,12 @@
-const execa = require('execa');
+let Together;
+
+try {
+	Together = require('@gradebook/together').default;
+} catch (_) {
+	console.error('Failed loading @gradebook/together. Try running `yarn install`');
+	process.exit(1);
+}
+
 const precheck = require('./_precheck');
 
 const commands = [
@@ -6,29 +14,9 @@ const commands = [
 	['Frontend Builder', 'yarn --cwd lib/frontend/client/ dev']
 ];
 
-const children = [];
-
-function teardown() {
-	console.log();
-	for (const {name, child} of children) {
-		console.log('Killing', name);
-		child.cancel();
-	}
-}
-
-function init() {
-	process.on('SIGINT', teardown);
-	process.on('SIGTERM', teardown);
-	for (const [name, command] of commands) {
-		console.log('Launching', name);
-		const child = execa.command(command, {stdio: 'inherit'});
-		children.push({name, child});
-	}
-}
-
 async function run() {
 	await precheck();
-	init();
+	new Together(commands); // eslint-disable-line no-new
 }
 
 run();
