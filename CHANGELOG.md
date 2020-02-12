@@ -1,3 +1,16 @@
+# 3.4.0
+
+- Improvements to tests
+  - Add more tests
+  - Update CI configuration (dep updates, caching)
+  - Make test harness work for us
+  - Add routing tests
+- Add credit_hours and dropped_grades to schema (they were missing)
+- :sparkles: Add support for user notifications
+- Bump node version to 12.15.x
+- :bug: fix grade.read REST response
+- :zap: improve course.read REST performance
+
 # 3.3.1
 
 - Fix singularization of words in categories
