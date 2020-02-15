@@ -1,4 +1,10 @@
+# 3.4.2
+
+- Fix root requests not having user in production
+- Move user.settings.key from request body to request query
+
 # 3.4.1
+
 - Fix gbardr cookie handling
 - Fix root requests in production
 
