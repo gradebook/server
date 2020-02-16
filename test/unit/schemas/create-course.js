@@ -14,7 +14,8 @@ describe('Unit > Schemas > CreateCourse', function () {
 		cut1Name: 'A+',
 		cut2Name: 'B',
 		cut3Name: 'D-',
-		cut4Name: 'C+'
+		cut4Name: 'C+',
+		credits: 3
 	};
 
 	it('invalid props', function () {

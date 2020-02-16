@@ -4,7 +4,7 @@
   "description": "Create a course",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "credit_hours", "cut1", "cut2", "cut3", "cut4", "cut1Name", "cut2Name", "cut3Name", "cut4Name"],
+  "required": ["name", "credits", "cut1", "cut2", "cut3", "cut4", "cut1Name", "cut2Name", "cut3Name", "cut4Name"],
   "properties": {
     "name": {
       "type": "string",
@@ -14,7 +14,7 @@
       "type": "string",
       "pattern": "\\d{4}(S|U|F|W)"
     },
-    "credit_hours": {
+    "credits": {
       "type": "number",
       "minimum": 0,
       "maximum": 5

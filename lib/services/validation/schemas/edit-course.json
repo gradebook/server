@@ -10,7 +10,7 @@
       "type": "string",
       "pattern": "^[A-Z]{3,4} \\d{3,4}$"
     },
-    "credit_hours": {
+    "credits": {
       "type": "number",
       "minimum": 0,
       "maximum": 5
