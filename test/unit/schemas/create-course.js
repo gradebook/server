@@ -7,6 +7,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
 	const VALID_OBJECT = {
 		name: 'ECEN 482',
+		semester: '2019S',
 		cut1: 90,
 		cut2: 80,
 		cut3: 70,

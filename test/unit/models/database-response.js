@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const makeClass = require('../../../lib/models/database-response');
 const DatabaseResponse = makeClass('users');
 
-describe.only('Unit > Models > DatabaseResponse', function () {
+describe('Unit > Models > DatabaseResponse', function () {
 	let exampleUser;
 	let response;
 
