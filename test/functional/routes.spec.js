@@ -50,10 +50,10 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body).to.be.an('array').with.length(15);
+					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name']
+							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
 						);
 					});
 				});
@@ -65,7 +65,7 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body).to.be.an('array').with.length(42);
+					expect(body).to.be.an('array').with.length(14);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
 							['id', 'course_id', 'name', 'weight', 'position']
@@ -80,7 +80,7 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body).to.be.an('array').with.length(81);
+					expect(body).to.be.an('array').with.length(27);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
 							['id', 'name', 'grade', 'course', 'category']
@@ -92,6 +92,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/course/{id}', function () {
 			const course = Object.assign({}, testUtils.fixtures.courses[0]);
 			delete course.user_id;
+			course.credits = course.credit_hours;
 			delete course.credit_hours;
 
 			return supertest(instance)
@@ -143,10 +144,10 @@ describe('Functional > API Routes', function () {
 				.expect(({body}) => {
 					// @todo: mock current semester
 					expect(body.categories).to.be.empty;
-					expect(body.courses).to.be.an('array').with.length(15);
+					expect(body.courses).to.be.an('array').with.length(5);
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name']
+							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
 						);
 					}
 				});
