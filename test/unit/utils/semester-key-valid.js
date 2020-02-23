@@ -1,6 +1,6 @@
 const valid = require('../../../lib/utils/semester-key-valid');
 
-describe('Test > Unit > SemesterKeyValid', function () {
+describe('Unit > SemesterKeyValid', function () {
 	it('valid semesters', function () {
 		expect(valid('2019F')).to.be.true;
 		expect(valid('2019S')).to.be.true;
