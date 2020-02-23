@@ -11,6 +11,7 @@ const createGrade = require(`${root}/create-grade`);
 const editCourse = require(`${root}/edit-course`);
 const editCategory = require(`${root}/edit-category`);
 const editGrade = require(`${root}/edit-grade`);
+const expandCategory = require(`${root}/expand-category`);
 const contractCategory = require(`${root}/contract-category`);
 
 class FakeResponse {
@@ -83,6 +84,7 @@ describe('Unit > Permissions', function () {
 		expect(permissions.deleteCategory, 'deleteCategory').to.equal(editCategory);
 		expect(permissions.deleteGrade, 'deleteGrade').to.equal(editGrade);
 		expect(permissions.contractCategory, 'contractCategory').to.equal(contractCategory);
+		expect(permissions.expandCategory, 'expandCategory').to.equal(expandCategory);
 	});
 
 	describe('Create Course', function () {
@@ -292,9 +294,51 @@ describe('Unit > Permissions', function () {
 		});
 	});
 
+	describe('Expand Category', function () {
+		// Name is Test 1
+		const category = testUtils.fixtures.categories[1].id;
+
+		it('Does not exist', async function () {
+			const permissions = {user, objectId: objectID.generate()};
+
+			try {
+				await sendFakeRequest(permissions, expandCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('With permission', async function () {
+			const permissions = {user, objectId: category};
+			const {response} = await sendFakeRequest(permissions, expandCategory);
+			expect(response.statusCalled).to.be.false;
+		});
+
+		it('No permission', async function () {
+			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
+			try {
+				await sendFakeRequest(permissions, expandCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('Already expanded', async function () {
+			const permissions = {user, objectId: testUtils.fixtures.expandedCategory.id};
+
+			const {response} = await sendFakeRequest(permissions, expandCategory);
+
+			expect(response.statusCalled).to.be.true;
+			expect(response.endCalled).to.be.true;
+			expect(response._statusCode).to.equal(412);
+		});
+	});
+
 	describe('Contract Category', function () {
 		// Name is Homework
-		const category = testUtils.fixtures.categories[0].id;
+		const category = testUtils.fixtures.expandedCategory.id;
 
 		it('Does not exist', async function () {
 			const permissions = {user, objectId: objectID.generate()};

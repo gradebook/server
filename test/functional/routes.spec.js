@@ -152,5 +152,14 @@ describe('Functional > API Routes', function () {
 					}
 				});
 		});
+
+		it('CONFLICT: /api/v0/category/{expanded:id}/expand', function () {
+			const {id} = testUtils.fixtures.expandedCategory;
+
+			return supertest(instance)
+				.post(`/api/v0/category/${id}/expand`)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(412);
+		});
 	});
 });
