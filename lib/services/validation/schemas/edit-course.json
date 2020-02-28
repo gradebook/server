@@ -10,6 +10,11 @@
       "type": "string",
       "pattern": "^[A-Z]{3,4} \\d{3,4}$"
     },
+    "credits": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
     "cut1": {"$ref": "course_cut"},
     "cut2": {"$ref": "course_cut"},
     "cut3": {"$ref": "course_cut"},

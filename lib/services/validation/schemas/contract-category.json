@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "category.contract",
+  "description": "Contract a category",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["grade"],
+  "properties": {
+    "grade": {
+      "type": ["number", "null"]
+    }
+  }
+}

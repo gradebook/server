@@ -11,6 +11,8 @@ const createGrade = require(`${root}/create-grade`);
 const editCourse = require(`${root}/edit-course`);
 const editCategory = require(`${root}/edit-category`);
 const editGrade = require(`${root}/edit-grade`);
+const expandCategory = require(`${root}/expand-category`);
+const contractCategory = require(`${root}/contract-category`);
 
 class FakeResponse {
 	constructor() {
@@ -81,6 +83,8 @@ describe('Unit > Permissions', function () {
 		expect(permissions.deleteCourse, 'deleteCourse').to.equal(editCourse);
 		expect(permissions.deleteCategory, 'deleteCategory').to.equal(editCategory);
 		expect(permissions.deleteGrade, 'deleteGrade').to.equal(editGrade);
+		expect(permissions.contractCategory, 'contractCategory').to.equal(contractCategory);
+		expect(permissions.expandCategory, 'expandCategory').to.equal(expandCategory);
 	});
 
 	describe('Create Course', function () {
@@ -263,7 +267,7 @@ describe('Unit > Permissions', function () {
 	describe('Edit Grade', function () {
 		const grade = testUtils.fixtures.grades[0].id;
 
-		it('does not exist', async function () {
+		it('Does not exist', async function () {
 			const permissions = {user, objectId: objectID.generate()};
 			try {
 				await sendFakeRequest(permissions, editGrade);
@@ -273,13 +277,13 @@ describe('Unit > Permissions', function () {
 			}
 		});
 
-		it('with permission', async function () {
+		it('With permission', async function () {
 			const permissions = {user, objectId: grade};
 			const {response} = await sendFakeRequest(permissions, editGrade);
 			expect(response.statusCalled).to.be.false;
 		});
 
-		it('no permission', async function () {
+		it('No permission', async function () {
 			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: grade};
 			try {
 				await sendFakeRequest(permissions, editGrade);
@@ -287,6 +291,91 @@ describe('Unit > Permissions', function () {
 			} catch (error) {
 				assertIsNotFoundError(error);
 			}
+		});
+	});
+
+	describe('Expand Category', function () {
+		// Name is Test 1
+		const category = testUtils.fixtures.categories[1].id;
+
+		it('Does not exist', async function () {
+			const permissions = {user, objectId: objectID.generate()};
+
+			try {
+				await sendFakeRequest(permissions, expandCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('With permission', async function () {
+			const permissions = {user, objectId: category};
+			const {response} = await sendFakeRequest(permissions, expandCategory);
+			expect(response.statusCalled).to.be.false;
+		});
+
+		it('No permission', async function () {
+			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
+			try {
+				await sendFakeRequest(permissions, expandCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('Already expanded', async function () {
+			const permissions = {user, objectId: testUtils.fixtures.expandedCategory.id};
+
+			const {response} = await sendFakeRequest(permissions, expandCategory);
+
+			expect(response.statusCalled).to.be.true;
+			expect(response.endCalled).to.be.true;
+			expect(response._statusCode).to.equal(412);
+		});
+	});
+
+	describe('Contract Category', function () {
+		// Name is Homework
+		const category = testUtils.fixtures.expandedCategory.id;
+
+		it('Does not exist', async function () {
+			const permissions = {user, objectId: objectID.generate()};
+
+			try {
+				await sendFakeRequest(permissions, contractCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('With permission', async function () {
+			const permissions = {user, objectId: category};
+			const {response} = await sendFakeRequest(permissions, contractCategory);
+			expect(response.statusCalled).to.be.false;
+		});
+
+		it('No permission', async function () {
+			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
+			try {
+				await sendFakeRequest(permissions, contractCategory);
+				expectError();
+			} catch (error) {
+				assertIsNotFoundError(error);
+			}
+		});
+
+		it('Not expanded', async function () {
+			// Name is Test 1
+			const permissions = {user, objectId: testUtils.fixtures.categories[1].id};
+
+			const {response} = await sendFakeRequest(permissions, contractCategory);
+
+			expect(response.statusCalled).to.be.true;
+			expect(response.endCalled).to.be.true;
+			expect(response._statusCode).to.equal(412);
 		});
 	});
 });

@@ -75,6 +75,10 @@ const fixturesMap = {
 		return this.users[3];
 	},
 
+	get expandedCategory() {
+		return this.categories[0];
+	},
+
 	get courseWithNoGrades() {
 		return this.courses[4];
 	},

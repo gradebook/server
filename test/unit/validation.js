@@ -6,7 +6,7 @@ const expectError = require('../utils/expect-error');
 describe('Unit > Validation', function () {
 	describe('User Settings', function () {
 		it('invalid request', function () {
-			const req = {body: {}};
+			const req = {body: {}, query: {}};
 
 			try {
 				validations.userSettings(req, null, expectError);
@@ -18,7 +18,8 @@ describe('Unit > Validation', function () {
 
 		it('valid key and value', function (done) {
 			const req = {
-				body: {key: 'previous_notification', value: '2020-01-30T22:13:22.000-06:00'}
+				body: {value: '2020-01-30T22:13:22.000-06:00'},
+				query: {key: 'previous_notification'}
 			};
 
 			validations.userSettings(req, null, done);
@@ -26,7 +27,8 @@ describe('Unit > Validation', function () {
 
 		it('invalid key', function (done) {
 			const req = {
-				body: {key: 'steal', value: 8}
+				body: {value: 8},
+				query: {key: 'steal'}
 			};
 
 			try {
@@ -40,7 +42,8 @@ describe('Unit > Validation', function () {
 
 		it('invalid value', function (done) {
 			const req = {
-				body: {key: 'previous_notification', value: '2019-09-09'}
+				body: {value: '2019-09-09'},
+				query: {key: 'previous_notification'}
 			};
 
 			try {

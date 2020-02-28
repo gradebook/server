@@ -7,6 +7,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
 	const VALID_OBJECT = {
 		name: 'ECEN 482',
+		semester: '2019S',
 		cut1: 90,
 		cut2: 80,
 		cut3: 70,
@@ -14,7 +15,8 @@ describe('Unit > Schemas > CreateCourse', function () {
 		cut1Name: 'A+',
 		cut2Name: 'B',
 		cut3Name: 'D-',
-		cut4Name: 'C+'
+		cut4Name: 'C+',
+		credits: 3
 	};
 
 	it('invalid props', function () {

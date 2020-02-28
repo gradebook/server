@@ -1,3 +1,14 @@
+# 3.5.0
+
+- :sparkles: add category.contract endpoint
+- :bug: disallow loading local assets in prod
+- :bug: disallow expanding already-expanded category
+- Add `version` field to user export
+- Add supports for `credits` property in a course
+- Disallow `key` in POST user.settings body (3.4.2 deprecated this behavior)
+- Reduce logging from stats
+- Log request body when handling uncaught error
+
 # 3.4.2
 
 - Fix root requests not having user in production
