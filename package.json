@@ -40,7 +40,7 @@
     "got": "10.6.0",
     "ioredis": "4.16.0",
     "knex": "0.20.10",
-    "knex-migrator": "3.4.1",
+    "knex-migrator": "3.4.2",
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
     "node-cron": "2.0.3",
