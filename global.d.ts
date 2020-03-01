@@ -16,6 +16,8 @@ declare namespace G {
 			settings: {
 				redirectFromHome: boolean;
 				tour: boolean;
+				overallCredits: number;
+				overallGpa: number;
 			};
 		}
 	};
