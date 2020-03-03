@@ -1,6 +1,7 @@
 # 3.5.0
 
 - :sparkles: add category.contract endpoint
+- :lock: Require semester when creating a course
 - :bug: disallow loading local assets in prod
 - :bug: disallow expanding already-expanded category
 - Add `version` field to user export
