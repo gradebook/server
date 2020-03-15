@@ -1,3 +1,4 @@
+/* eslint-disable mocha/no-setup-in-describe */
 const root = '../../lib/services/permissions';
 const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');

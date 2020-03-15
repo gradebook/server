@@ -3,10 +3,10 @@ const schemaValidator = require('../../utils/schema-validator');
 const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
 const schema = require('../../../lib/services/validation/schemas/create-category.json');
 
-describe('Unit > Schemas > CreateCategory', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
-	const VALID_OBJECT = {course: ObjectId.generate(), name: 'Homework', weight: 25, position: 100};
+const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
+const VALID_OBJECT = {course: ObjectId.generate(), name: 'Homework', weight: 25, position: 100};
 
+describe('Unit > Schemas > CreateCategory', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 	});

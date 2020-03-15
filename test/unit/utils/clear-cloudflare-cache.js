@@ -14,7 +14,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 	});
 
 	describe('clearCache', function () {
-		const clearCache = cache.__get__('clearCache');
+		const clearCache = cache.__get__('clearCache'); // eslint-disable-line mocha/no-setup-in-describe
 
 		it('Sends request to proper endpoint with proper data', async function () {
 			const body = '{"files":["url"]}';

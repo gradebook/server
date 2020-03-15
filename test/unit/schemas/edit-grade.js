@@ -1,9 +1,9 @@
 const schemaValidator = require('../../utils/schema-validator');
 const schema = require('../../../lib/services/validation/schemas/edit-grade.json');
 
-describe('Unit > Schemas > EditGrade', function () {
-	const {expectValid, expectInvalid} = schemaValidator(schema);
+const {expectValid, expectInvalid} = schemaValidator(schema);
 
+describe('Unit > Schemas > EditGrade', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
 		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');

@@ -3,9 +3,9 @@ const cutSchema = require('../../../lib/services/validation/schemas/course-cut.j
 const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/edit-course.json');
 
-describe('Unit > Schemas > EditCourse', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
 
+describe('Unit > Schemas > EditCourse', function () {
 	it('protected props', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], 'have fewer than 1');
 		expectInvalid({semester: '2019S'}, ['keyword', 'additionalProperties'], 'NOT have additional properties');

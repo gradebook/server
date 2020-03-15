@@ -6,10 +6,10 @@ const schema = require('../../../lib/services/validation/schemas/create-grade.js
 const COURSE_ID = ObjectId.generate();
 const CATEGORY_ID = ObjectId.generate();
 
-describe('Unit > Schemas > CreateGrade', function () {
-	const {expectValid, expectInvalid} = schemaValidator(schema, [objSchema]);
-	const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, name: 'Project 1'};
+const {expectValid, expectInvalid} = schemaValidator(schema, [objSchema]);
+const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, name: 'Project 1'};
 
+describe('Unit > Schemas > CreateGrade', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
