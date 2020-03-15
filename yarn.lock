@@ -1248,10 +1248,12 @@ connect-redis@4.0.4:
   resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-4.0.4.tgz#b194abe2f3754551f38086e1a28cb9e68d6c3b28"
   integrity sha512-aXk7btMlG0J5LqtPNRpFKa5fglzlTzukYNx+Fq8cghbUIQHN/gyK9c3+b0XEROMwiSxMoZDADqjp9tdpUoZLAg==
 
-connect-session-knex@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-1.5.0.tgz#78ff3d1df6c4e5b0e74d4f8ccf503926272958aa"
-  integrity sha512-hJsb489Aau9PVauVHJpO3O4yP3xykGyh/HqmTPGpWEE44qVvjW91fFOd85iRsjGIyLIvodZb671y/kiCxhpPTg==
+connect-session-knex@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-1.6.0.tgz#daeeab6d0518bbf02db5d627c9904d29c19248db"
+  integrity sha512-iU4cc/khw20lOjW9fPw0dS3XT72IgRxYzh8ZYpQmvuPxNl42zcr7kq/gJL9JnsBDCqQQ1gnWwdiQbxN1rpJuHg==
+  dependencies:
+    bluebird "^3.7.2"
 
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
