@@ -32,7 +32,7 @@
     "connect-redis": "4.0.4",
     "connect-session-knex": "1.6.0",
     "cookie-parser": "1.4.5",
-    "dayjs": "1.8.22",
+    "dayjs": "1.8.23",
     "express": "4.17.1",
     "express-brute": "1.0.1",
     "express-session": "1.17.0",
