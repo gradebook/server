@@ -82,13 +82,13 @@ describe('Unit > Validation', function () {
 
 			it('Lower out of bounds fails', function () {
 				const req = createRequest();
-				req.body.weight = 0;
+				req.body.weight = -1;
 
 				try {
 					validations.editCategory(req, null, expectError);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('data.weight should be >= 1');
+					expect(error.message).to.include('data.weight should be >= 0');
 				}
 			});
 

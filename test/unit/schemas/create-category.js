@@ -37,13 +37,13 @@ describe('Unit > Schemas > CreateCategory', function () {
 		obj.weight = '185';
 		expectInvalid(obj, errorProp, 'should be number');
 
-		obj.weight = 0;
-		expectInvalid(obj, errorProp, '>= 1');
+		obj.weight = -1;
+		expectInvalid(obj, errorProp, '>= 0');
 
 		obj.weight = 10001;
 		expectInvalid(obj, errorProp, '<= 10000');
 
-		obj.weight = 1;
+		obj.weight = 0;
 		expectValid(obj);
 
 		obj.weight = 10000;
