@@ -3,9 +3,9 @@ const schemaValidator = require('../../utils/schema-validator');
 const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
 const schema = require('../../../lib/services/validation/schemas/batch-edit.json');
 
-describe('Unit > Schemas > BatchEditGrades', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
 
+describe('Unit > Schemas > BatchEditGrades', function () {
 	it('Bad all around', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 properties');
 		expectInvalid({

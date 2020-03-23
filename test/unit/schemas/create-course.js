@@ -3,22 +3,22 @@ const cutSchema = require('../../../lib/services/validation/schemas/course-cut.j
 const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/create-course.json');
 
-describe('Unit > Schemas > CreateCourse', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
-	const VALID_OBJECT = {
-		name: 'ECEN 482',
-		semester: '2019S',
-		cut1: 90,
-		cut2: 80,
-		cut3: 70,
-		cut4: 60,
-		cut1Name: 'A+',
-		cut2Name: 'B',
-		cut3Name: 'D-',
-		cut4Name: 'C+',
-		credits: 3
-	};
+const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+const VALID_OBJECT = {
+	name: 'ECEN 482',
+	semester: '2019S',
+	cut1: 90,
+	cut2: 80,
+	cut3: 70,
+	cut4: 60,
+	cut1Name: 'A+',
+	cut2Name: 'B',
+	cut3Name: 'D-',
+	cut4Name: 'C+',
+	credits: 3
+};
 
+describe('Unit > Schemas > CreateCourse', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
 	});

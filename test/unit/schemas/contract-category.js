@@ -2,9 +2,9 @@ const schemaValidator = require('../../utils/schema-validator');
 const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
 const schema = require('../../../lib/services/validation/schemas/contract-category.json');
 
-describe('Unit > Schemas > ContractCategory', function () {
-	const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
 
+describe('Unit > Schemas > ContractCategory', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'grade');
 	});

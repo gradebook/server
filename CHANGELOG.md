@@ -1,6 +1,12 @@
+# 3.5.1
+
+- Add support for `overallCredits` and `overallGpa` user setting
+- Allow weight to be 0 for categories
+
 # 3.5.0
 
 - :sparkles: add category.contract endpoint
+- :lock: Require semester when creating a course
 - :bug: disallow loading local assets in prod
 - :bug: disallow expanding already-expanded category
 - Add `version` field to user export
