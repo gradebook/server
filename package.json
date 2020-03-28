@@ -38,7 +38,7 @@
     "express-session": "1.17.0",
     "ghost-ignition": "4.1.0",
     "got": "10.7.0",
-    "ioredis": "4.16.0",
+    "ioredis": "4.16.1",
     "knex": "0.20.13",
     "knex-migrator": "3.4.2",
     "lodash.get": "4.4.2",
