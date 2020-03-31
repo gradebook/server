@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -71,7 +71,9 @@
       "lib/frontend/client/**/*.js"
     ],
     "extends": "plugin:mocha/recommended",
-    "plugins": ["mocha"],
+    "plugins": [
+      "mocha"
+    ],
     "rules": {
       "func-names": [
         "error",
