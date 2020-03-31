@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -37,9 +37,9 @@
     "express-brute": "1.0.1",
     "express-session": "1.17.0",
     "ghost-ignition": "4.1.0",
-    "got": "10.6.0",
-    "ioredis": "4.16.0",
-    "knex": "0.20.12",
+    "got": "10.7.0",
+    "ioredis": "4.16.1",
+    "knex": "0.20.13",
     "knex-migrator": "3.4.2",
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
@@ -71,7 +71,9 @@
       "lib/frontend/client/**/*.js"
     ],
     "extends": "plugin:mocha/recommended",
-    "plugins": ["mocha"],
+    "plugins": [
+      "mocha"
+    ],
     "rules": {
       "func-names": [
         "error",

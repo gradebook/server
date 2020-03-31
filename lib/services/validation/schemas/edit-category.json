@@ -23,6 +23,18 @@
         }
       ]
     },
+    "dropped": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 40
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "position": {
       "type": ["integer", "null"]
     }

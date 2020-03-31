@@ -2688,10 +2688,10 @@ got@10.5.5:
     to-readable-stream "^2.0.0"
     type-fest "^0.9.0"
 
-got@10.6.0:
-  version "10.6.0"
-  resolved "https://registry.yarnpkg.com/got/-/got-10.6.0.tgz#ac3876261a4d8e5fc4f81186f79955ce7b0501dc"
-  integrity sha512-3LIdJNTdCFbbJc+h/EH0V5lpNpbJ6Bfwykk21lcQvQsEcrzdi/ltCyQehFHLzJ/ka0UMH4Slg0hkYvAZN9qUDg==
+got@10.7.0:
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/got/-/got-10.7.0.tgz#62889dbcd6cca32cd6a154cc2d0c6895121d091f"
+  integrity sha512-aWTDeNw9g+XqEZNcTjMMZSy7B7yE9toWOFYip7ofFTLleJhvZwUxxTxkTpKvF+p1SAA4VHmuEy7PiHTHyq8tJg==
   dependencies:
     "@sindresorhus/is" "^2.0.0"
     "@szmarczak/http-timer" "^4.0.0"
@@ -3034,10 +3034,10 @@ invert-kv@^1.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
   integrity sha1-EEqOSqym09jNFXqO+L+rLXo//bY=
 
-ioredis@4.16.0:
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.16.0.tgz#44d51288e20da14e5b6f687b2db0312e69106556"
-  integrity sha512-tlalhtuvnxXJNtrPjec1nGicuOCpi9ErYV/fRfwaWSzktX9ESrzHlcFwj1pVAL326E8dmt7h9pPQZyyVPPksRA==
+ioredis@4.16.1:
+  version "4.16.1"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.16.1.tgz#377c21d2a4fa8cc31fe9028c666f8dd16a6255bf"
+  integrity sha512-g76Mm9dE7BLuewncu1MimGZw5gDDjDwjoRony/VoSxSJEKAhuYncDEwYKYjtHi2NWsTNIB6XXRjE64uVa/wpKQ==
   dependencies:
     cluster-key-slot "^1.1.0"
     debug "^4.1.1"
@@ -3620,10 +3620,10 @@ knex-migrator@3.4.2:
     mysql "^2.16.0"
     sqlite3 "^4.0.6"
 
-knex@0.20.12:
-  version "0.20.12"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.20.12.tgz#33e576fb53b624c6cf346f7a4c81f0a1e06191fc"
-  integrity sha512-pxJBsfW9EGfc1l5ObD5+91/gveDXZZrx35kW+2tihJYpsAqUoqAnUT2v0xBQrWTDlt3Tifg9Gt84P/0abomPrA==
+knex@0.20.13:
+  version "0.20.13"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.20.13.tgz#056c310d963f7efce1b3c7397576add1323f1146"
+  integrity sha512-YVl//Te0G5suc+d9KyeI6WuhtgVlxu6HXYQB+WqrccFkSZAbHqlqZlUMogYG3UoVq69c3kiFbbxgUNkrO0PVfg==
   dependencies:
     colorette "1.1.0"
     commander "^4.1.1"

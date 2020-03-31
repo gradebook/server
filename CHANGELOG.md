@@ -1,3 +1,9 @@
+# 3.6.0
+
+ - :bug: allow prev gpa setting to be 5
+ - :building_construction: expose category.dropped_grades (as dropped) CRUD
+ - Require credit hours when creating a course (GPA is now fully released)
+
 # 3.5.1
 
 - Add support for `overallCredits` and `overallGpa` user setting
