@@ -23,7 +23,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 				authorization: 'Bearer token'
 			};
 
-			await clearCache('zone', 'token', 'url');
+			await clearCache('zone', 'token', ['url']);
 
 			expect(gotStub.calledOnce).to.be.true;
 			expect(gotStub.args[0][0]).to.equal('https://api.cloudflare.com/client/v4/zones/zone/purge_cache');
@@ -36,7 +36,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			errorToThrow.body = '{"fromTest": true}';
 			gotStub.rejects(errorToThrow);
 
-			const response = await clearCache('zone', 'token', 'url');
+			const response = await clearCache('zone', 'token', ['url']);
 
 			expect(gotStub.calledOnce).to.be.true;
 			expect(response.fromTest).to.be.true;
@@ -48,7 +48,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			gotStub.rejects(errorToThrow);
 
 			try {
-				await clearCache('zone', 'token', 'url');
+				await clearCache('zone', 'token', ['url']);
 				testUtils.expectError();
 			} catch (error) {
 				expect(error.fromTest).to.be.true;
@@ -97,6 +97,34 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 			await cache();
 			expect(logErrorStub.calledOnce).to.be.true;
+		});
+
+		it('purges all hosts', async function () {
+			const originalHostService = cache.__get__('hostService');
+			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
+
+			cache.__set__(
+				'hostService',
+				new Map([
+					['a.gradebook.app', 'a'],
+					['b.gradebook.app', 'b'],
+					['c.gradebook.app', 'c']
+				]
+			));
+
+			try {
+				await cache();
+				expect(gotStub.calledOnce).to.be.true;
+				expect(gotStub.args[0][1].body).to.deep.equal(JSON.stringify({
+					files:[
+						'https://a.gradebook.app/api/v0/version',
+						'https://b.gradebook.app/api/v0/version',
+						'https://c.gradebook.app/api/v0/version'
+					]
+				}))
+			} finally {
+				cache.__set__('hostService', originalHostService);
+			}
 		});
 	});
 });
