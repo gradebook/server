@@ -109,19 +109,19 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 					['a.gradebook.app', 'a'],
 					['b.gradebook.app', 'b'],
 					['c.gradebook.app', 'c']
-				]
-			));
+				])
+			);
 
 			try {
 				await cache();
 				expect(gotStub.calledOnce).to.be.true;
 				expect(gotStub.args[0][1].body).to.deep.equal(JSON.stringify({
-					files:[
+					files: [
 						'https://a.gradebook.app/api/v0/version',
 						'https://b.gradebook.app/api/v0/version',
 						'https://c.gradebook.app/api/v0/version'
 					]
-				}))
+				}));
 			} finally {
 				cache.__set__('hostService', originalHostService);
 			}
