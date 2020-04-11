@@ -1,3 +1,7 @@
+# 3.6.1
+
+ - :alien: update clear-cloudflare-cache to use host-matching when possible
+
 # 3.6.0
 
  - :bug: allow prev gpa setting to be 5
