@@ -162,4 +162,19 @@ describe('Functional > API Routes', function () {
 				.expect(412);
 		});
 	});
+
+	describe('POST data', function () {
+		it('/api/v0/grade/{id} where name is null', function () {
+			const {id} = testUtils.fixtures.grades[0];
+
+			return supertest(instance)
+				.post(`/api/v0/grade/${id}`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({name: null})
+				.expect(400)
+				.then(request => {
+					expect(request.body).to.deep.equal({error: 'cannot remove name of category item'});
+				});
+		});
+	});
 });
