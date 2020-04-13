@@ -213,4 +213,23 @@ describe('Functional > API Routes', function () {
 				});
 		});
 	});
+
+	describe('PUT data', function () {
+		it('/api/v0/grades where name is null', function () {
+			const course = testUtils.fixtures.courses[0].id;
+			const category = testUtils.fixtures.categories[0].id;
+
+			return supertest(instance)
+				.put('/api/v0/grades')
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({category, course, name: null})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+	});
 });

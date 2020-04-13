@@ -30,7 +30,7 @@ describe('Unit > Schemas > CreateGrade', function () {
 		expectInvalid(obj, errorProp, 'should be string');
 
 		obj.name = null;
-		expectValid(obj);
+		expectInvalid(obj, errorProp, 'should be string');
 
 		obj.name = 'Project 1';
 		expectValid(obj);
