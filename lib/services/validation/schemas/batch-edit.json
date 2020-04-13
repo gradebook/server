@@ -30,7 +30,7 @@
           "name": {
             "minLength": 1,
             "maxLength": 50,
-            "type": ["string", "null"]
+            "type": "string"
           }
         }
       }
@@ -50,7 +50,7 @@
           "name": {
             "minLength": 1,
             "maxLength": 50,
-            "type": ["string", "null"]
+            "type": "string"
           }
         }
       }

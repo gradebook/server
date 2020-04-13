@@ -179,5 +179,38 @@ describe('Functional > API Routes', function () {
 					});
 				});
 		});
+
+		it('/api/v0/category/{id}/batch removing grade name', function () {
+			const categoryId = testUtils.fixtures.categories[0].id;
+			const gradeId = testUtils.fixtures.grades[0].id;
+
+			return supertest(instance)
+				.post(`/api/v0/category/${categoryId}/batch`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({update: [{id: gradeId, name: null}]})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.update[0].name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+
+		it('/api/v0/category/{id}/batch creating grade with no name', function () {
+			const {id} = testUtils.fixtures.categories[0];
+
+			return supertest(instance)
+				.post(`/api/v0/category/${id}/batch`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({create: [{name: null, grade: 92}]})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.create[0].name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
 	});
 });
