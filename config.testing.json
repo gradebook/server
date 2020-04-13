@@ -10,6 +10,20 @@
   "logging": {
     "transports": []
   },
+  "rateLimit": {
+    "authenticated": {
+      "lifetime": 1
+    },
+    "batchEditGrades": {
+      "lifetime": 1
+    },
+    "exportData": {
+      "lifetime": 1
+    },
+    "unauthenticated": {
+      "lifetime": 1
+    }
+  },
   "oauth": {
     "id": "lolno",
     "secret": "password"
