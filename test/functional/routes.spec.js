@@ -171,9 +171,12 @@ describe('Functional > API Routes', function () {
 				.post(`/api/v0/grade/${id}`)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({name: null})
-				.expect(400)
+				.expect(422)
 				.then(request => {
-					expect(request.body).to.deep.equal({error: 'cannot remove name of category item'});
+					expect(request.body).to.deep.equal({
+						error: 'data.name should be string',
+						context: 'Failed validating payload'
+					});
 				});
 		});
 	});
