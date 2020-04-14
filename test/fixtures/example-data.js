@@ -14,6 +14,8 @@ const fixtures = [
 	['categories', {id: '5d3c82961fead145ac4e475e', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Test 2', weight: 0.21, position: 3}],
 	['categories', {id: '5d3c829dad5f9593fc7f14d3', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Test 3', weight: 0.22, position: 4}],
 	['categories', {id: '5d3c82a385d1fd7f2800688c', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Test 4', weight: 0.22, position: 5}],
+	['categories', {id: '5d3c828ed99534fd73f142c0', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: null, weight: 0.15, position: 6}],
+	['categories', {id: '5d3c828ed99534fd73f142c1', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'No Weight', weight: null, position: 7}],
 	['categories', {id: '5d3c9230227f72dc4787f245', course_id: '5d3c8227faade0e6c7e0ed30', dropped_grades: null, name: 'Labs', weight: 0.30, position: 1}],
 	['categories', {id: '5d3c923a374d77443c80d43d', course_id: '5d3c8227faade0e6c7e0ed30', dropped_grades: null, name: 'Test 1', weight: 0.40, position: 2}],
 	['categories', {id: '5d3c923e2da3b7b3c6bc2532', course_id: '5d3c8227faade0e6c7e0ed30', dropped_grades: null, name: 'Test 2', weight: 0.40, position: 3}],
@@ -32,6 +34,8 @@ const fixtures = [
 	['grades', {id: '5d3c8678e99d27a10e49829f', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c81fbaf84df3df0a18c1b', category_id: '5d3c82961fead145ac4e475e', name: null, grade: 98}],
 	['grades', {id: '5d3c867da64ce99eb67128fb', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c81fbaf84df3df0a18c1b', category_id: '5d3c829dad5f9593fc7f14d3', name: null, grade: 89}],
 	['grades', {id: '5d3c86810cfd9b08e4b65f23', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c81fbaf84df3df0a18c1b', category_id: '5d3c82a385d1fd7f2800688c', name: null, grade: 92}],
+	['grades', {id: '5d3c86810cfd9b08e4b65f24', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c81fbaf84df3df0a18c1b', category_id: '5d3c828ed99534fd73f142c0', name: null, grade: null}],
+	['grades', {id: '5d3c86810cfd9b08e4b65f25', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c81fbaf84df3df0a18c1b', category_id: '5d3c828ed99534fd73f142c1', name: null, grade: 88}],
 	['grades', {id: '5d3c9464e99cf4129029b7f7', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8227faade0e6c7e0ed30', category_id: '5d3c9230227f72dc4787f245', name: 'Lab 1', grade: 91}],
 	['grades', {id: '5d3c9464e99cf4129029b7f8', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8227faade0e6c7e0ed30', category_id: '5d3c9230227f72dc4787f245', name: 'Lab 2', grade: 74}],
 	['grades', {id: '5d3c9464e99cf4129029b7f9', user_id: '5d3c8150930db248a9d7514f', course_id: '5d3c8227faade0e6c7e0ed30', category_id: '5d3c9230227f72dc4787f245', name: 'Lab 3', grade: 88}],
@@ -81,6 +85,14 @@ const fixturesMap = {
 
 	get courseWithNoGrades() {
 		return this.courses[4];
+	},
+
+	get categoryNoName() {
+		return this.categories[5];
+	},
+
+	get categoryNoWeight() {
+		return this.categories[6];
 	},
 
 	cookies: {
