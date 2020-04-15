@@ -1,3 +1,11 @@
+# 3.6.2
+
+ - :zap: move grade.edit null check to validation layer
+ - :lock: disallow expansion of a category without a name or weight
+ - :bug: disallow grades with no names in category.batch requests
+ - :bug: disallow create a grade with no name
+ - :bug: store `dropped` property when creating a category
+
 # 3.6.1
 
  - :alien: update clear-cloudflare-cache to use host-matching when possible
