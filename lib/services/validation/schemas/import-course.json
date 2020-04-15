@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "course.import",
+  "description": "Import a course template",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["course", "categories"],
+  "properties": {
+    "course": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 11,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Z]{3,4} \\d{3,4}$"
+        },
+        "semester": {
+          "type": "string",
+          "pattern": "\\d{4}(S|U|F|W)"
+        },
+        "credits": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "cut1": {"$ref": "course_cut"},
+        "cut2": {"$ref": "course_cut"},
+        "cut3": {"$ref": "course_cut"},
+        "cut4": {"$ref": "course_cut"},
+        "cut1Name": {"$ref": "course_cut_name"},
+        "cut2Name": {"$ref": "course_cut_name"},
+        "cut3Name": {"$ref": "course_cut_name"},
+        "cut4Name": {"$ref": "course_cut_name"}
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "minProperties": 4,
+        "properties": {
+          "name": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "numGrades": {
+            "type": "number"
+          },
+          "dropped": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    }
+
+
+
+  }
+}
