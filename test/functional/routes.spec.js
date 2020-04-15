@@ -65,10 +65,10 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body).to.be.an('array').with.length(14);
+					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position']
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped']
 						);
 					});
 				});
@@ -80,7 +80,7 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body).to.be.an('array').with.length(27);
+					expect(body).to.be.an('array').with.length(29);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
 							['id', 'name', 'grade', 'course', 'category']
@@ -160,6 +160,104 @@ describe('Functional > API Routes', function () {
 				.post(`/api/v0/category/${id}/expand`)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(412);
+		});
+	});
+
+	describe('POST data', function () {
+		it('/api/v0/grade/{id} where name is null', function () {
+			const {id} = testUtils.fixtures.grades[0];
+
+			return supertest(instance)
+				.post(`/api/v0/grade/${id}`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({name: null})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+
+		it('/api/v0/category/{id}/batch removing grade name', function () {
+			const categoryId = testUtils.fixtures.categories[0].id;
+			const gradeId = testUtils.fixtures.grades[0].id;
+
+			return supertest(instance)
+				.post(`/api/v0/category/${categoryId}/batch`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({update: [{id: gradeId, name: null}]})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.update[0].name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+
+		it('/api/v0/category/{id}/batch creating grade with no name', function () {
+			const {id} = testUtils.fixtures.categories[0];
+
+			return supertest(instance)
+				.post(`/api/v0/category/${id}/batch`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({create: [{name: null, grade: 92}]})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.create[0].name should be string',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+
+		it('/api/v0/category/{id}/expand when it has no name', function () {
+			const {id} = testUtils.fixtures.categoryNoName;
+
+			return supertest(instance)
+				.post(`/api/v0/category/${id}/expand`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.expect(412)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'category name cannot be empty'
+					});
+				});
+		});
+
+		it('/api/v0/category/{id}/expand when it has no weight', function () {
+			const {id} = testUtils.fixtures.categoryNoWeight;
+
+			return supertest(instance)
+				.post(`/api/v0/category/${id}/expand`)
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.expect(412)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'category weight cannot be empty'
+					});
+				});
+		});
+	});
+
+	describe('PUT data', function () {
+		it('/api/v0/grades where name is null', function () {
+			const course = testUtils.fixtures.courses[0].id;
+			const category = testUtils.fixtures.categories[0].id;
+
+			return supertest(instance)
+				.put('/api/v0/grades')
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({category, course, name: null})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.name should be string',
+						context: 'Failed validating payload'
+					});
+				});
 		});
 	});
 });
