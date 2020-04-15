@@ -58,8 +58,13 @@
               }
             ]
           },
+          "position": {
+            "type": ["integer", "null"],
+            "$comment": "@todo: Position should have a max string length (e.g. 4 numbers)"
+          },
           "numGrades": {
-            "type": "number"
+            "type": "integer",
+            "$comment": "Validated in import-course.js"
           },
           "dropped": {
             "anyOf": [
