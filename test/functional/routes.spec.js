@@ -257,7 +257,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.course.name should match pattern \"^[A-Z]{3,4} \\d{3,4}$\"',
+						error: 'data.course.name should match pattern "^[A-Z]{3,4} \\d{3,4}$"',
 						context: 'Failed validating payload'
 					});
 				});
