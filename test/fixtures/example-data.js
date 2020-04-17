@@ -9,6 +9,7 @@ const fixtures = [
 	['courses', {id: '5d3c822b361ac86457c4395e', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course C', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
 	['courses', {id: '5d3c8230c95745a3e0806c9b', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course D', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
 	['courses', {id: '5d48437d8c01946f39ea997f', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course No Grades', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
+	['imports', {semester: '2019S', name: 'Course to imports', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credits: null}],
 	['categories', {id: '5d3c828ed99534fd73f142c5', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Homework', weight: 0.15, position: 1}],
 	['categories', {id: '5d3c8292be185434819fe939', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Test 1', weight: 0.20, position: 2}],
 	['categories', {id: '5d3c82961fead145ac4e475e', course_id: '5d3c81fbaf84df3df0a18c1b', dropped_grades: null, name: 'Test 2', weight: 0.21, position: 3}],
