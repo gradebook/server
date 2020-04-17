@@ -39,7 +39,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "minProperties": 4,
+        "minProperties": 5,
         "properties": {
           "name": {
             "type": ["string", "null"],
@@ -64,7 +64,8 @@
           },
           "numGrades": {
             "type": "integer",
-            "$comment": "Validated in import-course.js"
+            "minimum": 1,
+            "$comment": "Max validated in import-course.js"
           },
           "dropped": {
             "anyOf": [
