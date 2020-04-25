@@ -235,8 +235,8 @@ describe('Unit > Schemas > ImportCourse', function () {
 		obj.categories[1].dropped = false;
 		expectInvalid(obj, errorProp, 'should be integer');
 
-		obj.categories[1].dropped = 0;
-		expectInvalid(obj, errorProp, 'should be >= 1');
+		obj.categories[1].dropped = -1;
+		expectInvalid(obj, errorProp, 'should be >= 0');
 
 		obj.categories[1].dropped = 1;
 		expectValid(obj);
