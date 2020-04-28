@@ -243,6 +243,32 @@ describe('Functional > API Routes', function () {
 	});
 
 	describe('PUT data', function () {
+		it('/api/v0/courses/import where course name is bad', function () {
+			const course = {
+				semester: '2019S',
+				name: 'Bad name course',
+				cut1: 90, cut1Name: 'A',
+				cut2: 80, cut2Name: 'B',
+				cut3: 70, cut3Name: 'C',
+				cut4: 60, cut4Name: 'D',
+				credits: null
+			};
+
+			const categories = [{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null}];
+
+			return supertest(instance)
+				.put('/api/v0/courses/import')
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.send({course, categories})
+				.expect(422)
+				.then(request => {
+					expect(request.body).to.deep.equal({
+						error: 'data.course.name should match pattern "^[A-Z]{3,4} \\d{3,4}$"',
+						context: 'Failed validating payload'
+					});
+				});
+		});
+
 		it('/api/v0/grades where name is null', function () {
 			const course = testUtils.fixtures.courses[0].id;
 			const category = testUtils.fixtures.categories[0].id;

@@ -53,6 +53,12 @@
       "maxWait": 21601000,
       "lifetime": 21600
     },
+    "importCourse": {
+      "freeRetries": 9,
+      "minWait": 604800000,
+      "maxWait": 604800000,
+      "lifetime": 604800
+    },
     "unauthenticated": {
       "freeRetries": 50,
       "minWait": 120000,

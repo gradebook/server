@@ -1,3 +1,9 @@
+# 3.7.0
+
+ - :sparkles: add import course endpoint
+ - :recycle: use import course endpoint on user.approve
+ - :bug: fix 401 errors when creating an account
+
 # 3.6.2
 
  - :zap: move grade.edit null check to validation layer
