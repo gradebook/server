@@ -102,21 +102,6 @@
         }
       },
       {
-        "files": "lib/frontend/assets/**/*.js",
-        "envs": [
-          "browser"
-        ],
-        "global": [
-          "M"
-        ],
-        "rules": {
-          "no-console": "off",
-          "object-shorthand": "off",
-          "unicorn/prefer-spread": "off",
-          "unicorn/prefer-query-selector": "off"
-        }
-      },
-      {
         "files": "_commands/**/*.js",
         "rules": {
           "unicorn/no-process-exit": "off",
