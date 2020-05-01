@@ -1,7 +1,5 @@
-const root = '../../lib/services/validation';
-
 const settings = require('../../lib/services/settings');
-const {validations} = require(root);
+const validations = require('../../lib/services/validation');
 const expectError = require('../utils/expect-error');
 
 describe('Unit > Validation', function () {

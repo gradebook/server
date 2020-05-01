@@ -4,8 +4,8 @@ const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');
 const expectError = require('../utils/expect-error');
 
-const {permissions} = require(root);
-const alwaysValid = require(`${root}/../validation/is-valid`);
+const permissions = require(root);
+const alwaysValid = require(`${root}/../../utils/noop`);
 const createCourse = require(`${root}/create-course`);
 const createCategory = require(`${root}/create-category`);
 const createGrade = require(`${root}/create-grade`);
