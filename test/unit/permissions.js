@@ -4,8 +4,8 @@ const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');
 const expectError = require('../utils/expect-error');
 
-const {permissions} = require(root);
-const alwaysValid = require(`${root}/../validation/is-valid`);
+const permissions = require(root);
+const alwaysValid = require(`${root}/../../utils/noop`);
 const createCourse = require(`${root}/create-course`);
 const createCategory = require(`${root}/create-category`);
 const createGrade = require(`${root}/create-grade`);
@@ -39,21 +39,16 @@ class ErrorWrapper extends Error {
 	}
 }
 
-function sendFakeRequest(permissions, fnToCall) {
+async function sendFakeRequest(permissions, fnToCall) {
 	const request = {permissions};
 	const response = new FakeResponse();
 
-	return new Promise((resolve, reject) => {
-		return fnToCall(request, response, error => {
-			if (error) {
-				reject(new ErrorWrapper({error, request, response}));
-			}
-
-			resolve({request, response});
-		}).then(() => {
-			resolve({request, response});
-		});
-	});
+	try {
+		await fnToCall(request, response);
+		return {request, response};
+	} catch (error) {
+		throw new ErrorWrapper({error, request, response});
+	}
 }
 
 function assertIsNotFoundError(_error) {
