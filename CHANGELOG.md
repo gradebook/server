@@ -1,3 +1,8 @@
+# 3.7.1
+
+ - :lipstick: update theme colors
+ - :bug: fix api.category.contract call not having db table
+
 # 3.7.0
 
  - :sparkles: add import course endpoint
