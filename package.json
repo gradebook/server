@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -99,21 +99,6 @@
           "func-names": "off",
           "prefer-arrow-callback": "off",
           "no-unused-expressions": "off"
-        }
-      },
-      {
-        "files": "lib/frontend/assets/**/*.js",
-        "envs": [
-          "browser"
-        ],
-        "global": [
-          "M"
-        ],
-        "rules": {
-          "no-console": "off",
-          "object-shorthand": "off",
-          "unicorn/prefer-spread": "off",
-          "unicorn/prefer-query-selector": "off"
         }
       },
       {

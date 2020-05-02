@@ -22,6 +22,9 @@
     },
     "unauthenticated": {
       "lifetime": 1
+    },
+    "importCourse": {
+      "lifetime": 1
     }
   },
   "oauth": {

@@ -1,7 +1,5 @@
-const root = '../../lib/services/validation';
-
 const settings = require('../../lib/services/settings');
-const {validations} = require(root);
+const validations = require('../../lib/services/validation');
 const expectError = require('../utils/expect-error');
 
 describe('Unit > Validation', function () {
@@ -10,38 +8,37 @@ describe('Unit > Validation', function () {
 			const req = {body: {}, query: {}};
 
 			try {
-				validations.userSettings(req, null, expectError);
+				validations.userSettings(req, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Invalid request body');
 			}
 		});
 
-		it('valid key and value', function (done) {
+		it('valid key and value', function () {
 			const req = {
 				body: {value: '2020-01-30T22:13:22.000-06:00'},
 				query: {key: 'previous_notification'}
 			};
 
-			validations.userSettings(req, null, done);
+			validations.userSettings(req, null);
 		});
 
-		it('invalid key', function (done) {
+		it('invalid key', function () {
 			const req = {
 				body: {value: 8},
 				query: {key: 'steal'}
 			};
 
 			try {
-				validations.userSettings(req, null, expectError);
+				validations.userSettings(req, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Setting steal does not exist');
-				done();
 			}
 		});
 
-		it('invalid value', function (done) {
+		it('invalid value', function () {
 			const req = {
 				body: {value: '2019-09-09'},
 				query: {key: 'previous_notification'}
@@ -49,7 +46,7 @@ describe('Unit > Validation', function () {
 
 			try {
 				req.body.value = 'bad';
-				validations.userSettings(req, null, expectError);
+				validations.userSettings(req, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
@@ -57,7 +54,7 @@ describe('Unit > Validation', function () {
 
 			try {
 				req.body.value = 'not a date';
-				validations.userSettings(req, null, expectError);
+				validations.userSettings(req, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
@@ -65,13 +62,11 @@ describe('Unit > Validation', function () {
 
 			try {
 				req.body.value = {};
-				validations.userSettings(req, null, expectError);
+				validations.userSettings(req, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
 			}
-
-			done();
 		});
 	});
 
@@ -86,7 +81,7 @@ describe('Unit > Validation', function () {
 				req.body.weight = -1;
 
 				try {
-					validations.editCategory(req, null, expectError);
+					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('data.weight should be >= 0');
@@ -98,32 +93,30 @@ describe('Unit > Validation', function () {
 				req.body.weight = 19248124814;
 
 				try {
-					validations.editCategory(req, null, expectError);
+					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('data.weight should be <= 10000');
 				}
 			});
 
-			it('Normal floating points are acceptable', function (done) {
+			it('Normal floating points are acceptable', function () {
 				const req = createRequest();
 				req.body.weight = 1234.56;
-				validations.editCategory(req, null, done);
+				validations.editCategory(req, null);
 			});
 
-			it('Null is acceptable', function (done) {
+			it('Null is acceptable', function () {
 				const req = createRequest();
 				req.body.weight = null;
-				validations.editCategory(req, null, done);
+				validations.editCategory(req, null);
 			});
 
 			it('Not providing is acceptable', async function () {
-				const {promisify} = require('util');
-				const editCategoryValidation = promisify(validations.editCategory);
 				const req = createRequest();
 
 				req.body.name = 'Name';
-				await editCategoryValidation(req, null);
+				validations.editCategory(req, null);
 			});
 		});
 	});
@@ -139,25 +132,25 @@ describe('Unit > Validation', function () {
 				req.body.name = 'Introduction to TAMU';
 
 				try {
-					validations.editCourse(req, null, expectError);
+					validations.editCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.contain('data.name should match pattern');
 				}
 			});
 
-			it('valid', function (done) {
+			it('valid', function () {
 				const req = createRequest();
 				req.body.name = 'DEMO 101';
 
-				validations.editCourse(req, null, done);
+				validations.editCourse(req, null);
 			});
 
-			it('neutral', function (done) {
+			it('neutral', function () {
 				const req = createRequest();
 				req.body.cut1 = 95;
 
-				validations.editCourse(req, null, done);
+				validations.editCourse(req, null);
 			});
 		});
 	});
@@ -197,7 +190,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(10);
 
 				try {
-					validations.importCourse(req, null, expectError);
+					validations.importCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many categories');
@@ -205,7 +198,7 @@ describe('Unit > Validation', function () {
 				}
 			});
 
-			it('Reasonable number of categories passes', function (done) {
+			it('Reasonable number of categories passes', function () {
 				const req = createRequest();
 				req.body.categories = [];
 
@@ -215,17 +208,17 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null, done);
+				validations.importCourse(req, null);
 				stub.restore();
 			});
 
-			it('No categories passes', function (done) {
+			it('No categories passes', function () {
 				const req = createRequest();
 				req.body.categories = [];
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null, done);
+				validations.importCourse(req, null);
 				stub.restore();
 			});
 		});
@@ -238,7 +231,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(40);
 
 				try {
-					validations.importCourse(req, null, expectError);
+					validations.importCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many grades');
@@ -246,13 +239,13 @@ describe('Unit > Validation', function () {
 				}
 			});
 
-			it('Reasonable number of grades passes', function (done) {
+			it('Reasonable number of grades passes', function () {
 				const req = createRequest();
 				req.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 10, dropped: null};
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
-				validations.importCourse(req, null, done);
+				validations.importCourse(req, null);
 				stub.restore();
 			});
 		});
