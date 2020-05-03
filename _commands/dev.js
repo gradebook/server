@@ -11,7 +11,7 @@ const precheck = require('./_precheck');
 
 const commands = [
 	['Backend Server', 'yarn backend:dev'],
-	['Frontend Builder', 'yarn --cwd lib/frontend/client/ dev']
+	['Frontend Builder', 'yarn --cwd lib/frontend/client/ start']
 ];
 
 async function run() {
