@@ -286,4 +286,13 @@ describe('Functional > API Routes', function () {
 				});
 		});
 	});
+
+	describe('DELETE data', function () {
+		it('/api/v0/semester/{semester} when the semester does not exist', function () {
+			return supertest(instance)
+				.del('/api/v0/semester/2000F')
+				.set('Cookie', testUtils.fixtures.cookies.trusted)
+				.expect(404);
+		});
+	});
 });
