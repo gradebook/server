@@ -15,7 +15,9 @@
       "type": "string"
     },
     "grade": {
-      "type": ["number", "null"]
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 999999
     }
   }
 }

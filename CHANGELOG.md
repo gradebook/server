@@ -1,3 +1,10 @@
+# 3.8.0
+
+ - :wrench: enable live-reloading with `yarn dev`
+ - :lock: limit grade values to 999999
+ - :bug: clean up inconsistincies between semester API and semester Controller
+ - :wrench: update semester to 2020U
+
 # 3.7.1
 
  - :lipstick: update theme colors
