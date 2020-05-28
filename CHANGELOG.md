@@ -1,3 +1,8 @@
+# 3.9.0
+
+ - :sparkles: add `gpaSemester` user setting (#107)
+ - :sparkles: add server-side live reloading
+
 # 3.8.0
 
  - :wrench: enable live-reloading with `yarn dev`

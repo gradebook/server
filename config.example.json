@@ -16,6 +16,7 @@
   },
   "domain": false,
   "user event endpoint": false,
+  "live reload": false,
   "logging": {
     "level": "info",
     "rotation": {
