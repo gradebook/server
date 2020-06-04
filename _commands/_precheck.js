@@ -9,7 +9,7 @@ const properDir = path.resolve(__dirname, '../');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-const MAJOR_MINOR_MATCH = 'v12.17.';
+const MAJOR_MINOR_MATCH = 'v12.18.';
 
 let execa;
 try {
