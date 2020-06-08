@@ -1,12 +1,12 @@
-select count(`id`) as `totalUsers` from `users` limit ?
-select count(`id`) as `newUsers` from `users` where `created_at` >= ? limit ?
-select count(`id`) as `newUsersLastWeek` from `users` where `created_at` >= ? limit ?
-select count(`id`) as `accessed` from `users` where `updated_at` >= ? limit ?
-select count(`id`) as `accessedLastWeek` from `users` where `updated_at` >= ? limit ?
-select count(`grades`.`id`) as `gradesNotInCategories` from `grades` inner join `courses` on `courses`.`semester` = "2020U" and `courses`.`id` = `grades`.`course_id` where `grades`.`name` is null limit ?
-select count(`id`) as `totalCourses` from `courses` where `semester` = ? limit ?
-select count(`categories`.`id`) as `totalCategories` from `categories` inner join `courses` on `courses`.`id` = `categories`.`course_id` and `courses`.`semester` = "2020U" limit ?
-select count(`grades`.`id`) as `totalGrades` from `grades` inner join `courses` on `courses`.`id` = `grades`.`course_id` and `courses`.`semester` = "2020U" limit ?
+select count(`id`) as `totalUsers` from `users` where `id` not in (?, ?, ?) limit ?
+select count(`id`) as `newUsers` from `users` where `id` not in (?, ?, ?) and `created_at` >= ? limit ?
+select count(`id`) as `newUsersLastWeek` from `users` where `id` not in (?, ?, ?) and `created_at` >= ? limit ?
+select count(`id`) as `accessed` from `users` where `id` not in (?, ?, ?) and `updated_at` >= ? limit ?
+select count(`id`) as `accessedLastWeek` from `users` where `id` not in (?, ?, ?) and `updated_at` >= ? limit ?
+select count(`grades`.`id`) as `gradesNotInCategories` from `grades` inner join `courses` on `courses`.`semester` = "2020U" and `courses`.`id` = `grades`.`course_id` where `grades`.`user_id` not in (?, ?, ?) and `grades`.`name` is null limit ?
+select count(`courses`.`id`) as `totalCourses` from `courses` inner join `users` on `courses`.`user_id` = `users`.`id` and `users`.`id` not in (?, ?, ?) where `semester` = "2020U" limit ?
+select count(`categories`.`id`) as `totalCategories` from `categories` inner join `users` on `courses`.`user_id` = `users`.`id` and `users`.`id` not in (?, ?, ?) inner join `courses` on `courses`.`id` = `categories`.`course_id` and `courses`.`semester` = "2020U" limit ?
+select count(`grades`.`id`) as `totalGrades` from `grades` inner join `courses` on `courses`.`id` = `grades`.`course_id` and `courses`.`semester` = "2020U" where `grades`.`user_id` not in (?, ?, ?) limit ?
 select `data` from `actions` where `type` = ?
 select `data` from `actions` where `type` = ?
 select `data` from `actions` where `type` = ?
