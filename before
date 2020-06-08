@@ -1,0 +1,12 @@
+select count(`id`) as `totalUsers` from `users` limit ?
+select count(`id`) as `newUsers` from `users` where `created_at` >= ? limit ?
+select count(`id`) as `newUsersLastWeek` from `users` where `created_at` >= ? limit ?
+select count(`id`) as `accessed` from `users` where `updated_at` >= ? limit ?
+select count(`id`) as `accessedLastWeek` from `users` where `updated_at` >= ? limit ?
+select count(`grades`.`id`) as `gradesNotInCategories` from `grades` inner join `courses` on `courses`.`semester` = "2020U" and `courses`.`id` = `grades`.`course_id` where `grades`.`name` is null limit ?
+select count(`id`) as `totalCourses` from `courses` where `semester` = ? limit ?
+select count(`categories`.`id`) as `totalCategories` from `categories` inner join `courses` on `courses`.`id` = `categories`.`course_id` and `courses`.`semester` = "2020U" limit ?
+select count(`grades`.`id`) as `totalGrades` from `grades` inner join `courses` on `courses`.`id` = `grades`.`course_id` and `courses`.`semester` = "2020U" limit ?
+select `data` from `actions` where `type` = ?
+select `data` from `actions` where `type` = ?
+select `data` from `actions` where `type` = ?
