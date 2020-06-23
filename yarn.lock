@@ -144,6 +144,14 @@
   resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.1.tgz#15766452b3b007074c4545ed35c0ee351d545ec4"
   integrity sha512-U9r+OBO0vvQoW4LAX/1vcXjSqBs7uej5267zLMWo9bnvS6FGm7uTuk+CRZGX9TS+B+jHecMVaFEm8ZVlEjphdw==
 
+"@gradebook/passport-utils@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@gradebook/passport-utils/-/passport-utils-0.1.0.tgz#6eb62b3d0b190c7f0b6d5dd5ec2fb1b8ffadfc62"
+  integrity sha512-XlT0lazhDukOcG8eBITJ84AEQ8OAYWeYRn46LVnyL78lUKTWsc4c9z9jCo+TUI5nvETjV0h170HA65yzSiFt9g==
+  dependencies:
+    bson-objectid "^1.3.1"
+    dayjs "^1.8.28"
+
 "@gradebook/together@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@gradebook/together/-/together-0.1.0.tgz#63d14a59733679ebe252e6dbed7376defecfddf6"
@@ -837,6 +845,11 @@ bson-objectid@1.3.0:
   resolved "https://registry.yarnpkg.com/bson-objectid/-/bson-objectid-1.3.0.tgz#f0f4c7c949fece975f12790510d75d7fe39fb456"
   integrity sha512-YcB+lRJEEEIcHNLKyhmHujW7OCVE3+xr9IpEhlprBZnXgF3hqeePeexIsAaOtu1SbkgZRlJVUxvYZ3ngUOyIew==
 
+bson-objectid@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/bson-objectid/-/bson-objectid-1.3.1.tgz#11e4ce4c3419161fd388113781bb62c1dfbce34b"
+  integrity sha512-eQBNQXsisEAXlwiSy8zRNZdW2xDBJaEVkTPbodYR9hGxxtE548Qq7ilYOd8WAQ86xF7NRUdiWSQ1pa/TkKiE2A==
+
 buf-compare@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buf-compare/-/buf-compare-1.0.1.tgz#fef28da8b8113a0a0db4430b0b6467b69730b34a"
@@ -1410,6 +1423,11 @@ dayjs@1.8.23:
   version "1.8.23"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
   integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
+
+dayjs@^1.8.28:
+  version "1.8.28"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.28.tgz#37aa6201df483d089645cb6c8f6cef6f0c4dbc07"
+  integrity sha512-ccnYgKC0/hPSGXxj7Ju6AV/BP4HUkXC2u15mikXT5mX9YorEaoi1bEKOmAqdkJHN4EEkmAf97SpH66Try5Mbeg==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
