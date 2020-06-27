@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "3.10.0",
+  "version": "3.10.1",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@gradebook/express-brute-redis": "0.1.0",
     "@gradebook/fast-pluralize": "0.0.1",
-    "@gradebook/passport-utils": "0.1.0",
+    "@gradebook/passport-utils": "0.1.1",
     "ajv": "6.12.0",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",

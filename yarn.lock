@@ -144,10 +144,10 @@
   resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.1.tgz#15766452b3b007074c4545ed35c0ee351d545ec4"
   integrity sha512-U9r+OBO0vvQoW4LAX/1vcXjSqBs7uej5267zLMWo9bnvS6FGm7uTuk+CRZGX9TS+B+jHecMVaFEm8ZVlEjphdw==
 
-"@gradebook/passport-utils@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@gradebook/passport-utils/-/passport-utils-0.1.0.tgz#6eb62b3d0b190c7f0b6d5dd5ec2fb1b8ffadfc62"
-  integrity sha512-XlT0lazhDukOcG8eBITJ84AEQ8OAYWeYRn46LVnyL78lUKTWsc4c9z9jCo+TUI5nvETjV0h170HA65yzSiFt9g==
+"@gradebook/passport-utils@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/passport-utils/-/passport-utils-0.1.1.tgz#041780a0c207fee690f2aed10828069389b4787f"
+  integrity sha512-Ys5ISjwqwU8BXbWzTMtwnI2KV7WKpsLygajZXqI535gbv3AJSm0FENP1MGxA9mL/sey2DcKcrG4qvMeLtTaOow==
   dependencies:
     bson-objectid "^1.3.1"
     dayjs "^1.8.28"
