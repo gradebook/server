@@ -11,7 +11,6 @@
  - :recycle: Consolidate auth logic to package (#113)
  - :chart_with_upwards_trend: add support from blacklisting users from analytics
  - Rename user.{first,last}Name to user.{first,last}_name
- - Add support for ignoring users in statistics
 
 # 3.9.0
 
