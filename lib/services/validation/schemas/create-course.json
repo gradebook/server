@@ -4,7 +4,10 @@
   "description": "Create a course",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "semester", "credits", "cut1", "cut2", "cut3", "cut4", "cut1Name", "cut2Name", "cut3Name", "cut4Name"],
+  "anyOf": [
+    {"required": ["name", "semester", "credits", "cut1", "cut2", "cut3", "cut4", "cut1Name", "cut2Name", "cut3Name", "cut4Name"]},
+    {"required": ["name", "semester", "credits", "cutoffs"]}
+  ],
   "properties": {
     "name": {
       "type": "string",
@@ -18,6 +21,11 @@
       "type": "number",
       "minimum": 0,
       "maximum": 5
+    },
+    "cutoffs": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 100
     },
     "cut1": {"$ref": "course_cut"},
     "cut2": {"$ref": "course_cut"},
