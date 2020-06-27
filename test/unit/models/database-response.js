@@ -44,7 +44,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 	});
 
 	it('get', function () {
-		expect(response.get('firstName')).to.equal('Trusted');
+		expect(response.get('first_name')).to.equal('Trusted');
 		try {
 			response.get('fakeColumn');
 			testUtils.expectError();
@@ -54,13 +54,13 @@ describe('Unit > Models > DatabaseResponse', function () {
 	});
 
 	it('diff', function () {
-		response.set('firstName', 'joe');
-		response.set('lastName', 'bloggs');
+		response.set('first_name', 'joe');
+		response.set('last_name', 'bloggs');
 		response.set('email', 'joe.bloggs@example.com');
 
 		expect(response.diff).to.deep.equal({
-			firstName: 'joe',
-			lastName: 'bloggs',
+			first_name: 'joe', // eslint-disable-line camelcase
+			last_name: 'bloggs', // eslint-disable-line camelcase
 			email: 'joe.bloggs@example.com'
 		});
 	});

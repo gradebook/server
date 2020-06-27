@@ -1,9 +1,9 @@
 /* eslint-disable camelcase, unicorn/no-zero-fractions */
 const fixtures = [
-	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, firstName: 'Trusted', lastName: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, firstName: 'Evil', lastName: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81b49d866268d230e180', gid: 2, firstName: 'Confused', lastName: 'User', email: 'confused@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81d738773f9ae92e8c7d', gid: 3, firstName: 'Random', lastName: 'User', email: 'random@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
+	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, first_name: 'Trusted', lastName: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
+	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, first_name: 'Evil', lastName: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
+	['users', {id: '5d3c81b49d866268d230e180', gid: 2, first_name: 'Confused', lastName: 'User', email: 'confused@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
+	['users', {id: '5d3c81d738773f9ae92e8c7d', gid: 3, first_name: 'Random', lastName: 'User', email: 'random@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
 	['courses', {id: '5d3c81fbaf84df3df0a18c1b', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course A', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
 	['courses', {id: '5d3c8227faade0e6c7e0ed30', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course B', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
 	['courses', {id: '5d3c822b361ac86457c4395e', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'Course C', cut1: 90, cut1Name: 'A', cut2: 80, cut2Name: 'B', cut3: 70, cut3Name: 'C', cut4: 60, cut4Name: 'D', credit_hours: null}],
