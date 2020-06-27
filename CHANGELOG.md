@@ -1,3 +1,7 @@
+# 3.10.1
+
+ - :bug: fix home controller throwing errors
+
 # 3.10.0
 
  - :lock: make semester a paramater in statistics
