@@ -1,3 +1,7 @@
+# 3.10.3
+
+ - :bug: fix broken tests
+
 # 3.10.2
 
  - :bug: fix account creation failing
