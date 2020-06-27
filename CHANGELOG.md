@@ -1,3 +1,7 @@
+# 3.10.2
+
+ - :bug: fix account creation failing
+
 # 3.10.1
 
  - :bug: fix home controller throwing errors
