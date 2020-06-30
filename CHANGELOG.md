@@ -1,3 +1,8 @@
+# 3.10.4
+
+ - :bug: fix statistics failing with no ignored users
+ - update lots of dependencies
+
 # 3.10.3
 
  - :bug: fix broken tests
