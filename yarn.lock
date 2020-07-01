@@ -197,10 +197,10 @@
   resolved "https://registry.yarnpkg.com/@gradebook/express-brute-redis/-/express-brute-redis-0.1.0.tgz#b1475fe1eeb0ecd044d383264ff4c50d8deed9df"
   integrity sha512-ow2hetjx2IoUo2MM3mn7XvYLV+DYgGkpqxE0aVy9U3TKs8GeOR2O/7fej0kWae2SiwxbWtBEc91sc+ORb63NvQ==
 
-"@gradebook/fast-pluralize@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.1.tgz#15766452b3b007074c4545ed35c0ee351d545ec4"
-  integrity sha512-U9r+OBO0vvQoW4LAX/1vcXjSqBs7uej5267zLMWo9bnvS6FGm7uTuk+CRZGX9TS+B+jHecMVaFEm8ZVlEjphdw==
+"@gradebook/fast-pluralize@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.2.tgz#d824ba8c4d47f0f0168c9a639aef126459929603"
+  integrity sha512-pygjdq64JjvwqyVkTYRDG1tP8mYmX2Fg1HnglNg3Hly6Rop4vI3h84v4U+euG+DIyYb5mUHwSToH1+lKkW489A==
 
 "@gradebook/passport-utils@0.1.1":
   version "0.1.1"
