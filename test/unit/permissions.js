@@ -2,7 +2,7 @@
 const root = '../../lib/services/permissions';
 const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');
-const expectError = require('../utils/expect-error');
+const testUtils = require('../utils');
 
 const permissions = require(root);
 const alwaysValid = require(`${root}/../../utils/noop`);
@@ -14,6 +14,8 @@ const editCategory = require(`${root}/edit-category`);
 const editGrade = require(`${root}/edit-grade`);
 const expandCategory = require(`${root}/expand-category`);
 const contractCategory = require(`${root}/contract-category`);
+
+const {expectError} = testUtils;
 
 class FakeResponse {
 	constructor() {

@@ -2,6 +2,7 @@
 const {expect} = require('chai'); // @todo: this is a global variable. Make typescript get this
 const supertest = require('supertest');
 const makeApp = require('../utils/app');
+const testUtils = require('../utils');
 
 describe('Functional > API Routes', function () {
 	let instance;
