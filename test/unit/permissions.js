@@ -29,6 +29,11 @@ class FakeResponse {
 		return this;
 	}
 
+	json(object) {
+		this.dataSent = true;
+		this._data = object;
+	}
+
 	end() {
 		this.endCalled = true;
 	}
@@ -329,8 +334,9 @@ describe('Unit > Permissions', function () {
 			const {response} = await sendFakeRequest(permissions, expandCategory);
 
 			expect(response.statusCalled).to.be.true;
-			expect(response.endCalled).to.be.true;
+			expect(response.dataSent).to.be.true;
 			expect(response._statusCode).to.equal(412);
+			expect(response._data.error).to.be.contain('already been expanded');
 		});
 	});
 
@@ -372,8 +378,9 @@ describe('Unit > Permissions', function () {
 			const {response} = await sendFakeRequest(permissions, contractCategory);
 
 			expect(response.statusCalled).to.be.true;
-			expect(response.endCalled).to.be.true;
+			expect(response.dataSent).to.be.true;
 			expect(response._statusCode).to.equal(412);
+			expect(response._data.error).to.contain('already contracted');
 		});
 	});
 });
