@@ -22,7 +22,7 @@
     ]
   },
   "patternProperties": {
-    "*": {
+    ".*": {
       "type": "number",
       "minimum": 10,
       "maximum": 10000
