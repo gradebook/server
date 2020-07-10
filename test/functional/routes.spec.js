@@ -143,9 +143,16 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					// @todo: mock current semester
-					expect(body.categories).to.be.empty;
+					expect(body.categories).to.be.an('array').with.length(16);
 					expect(body.courses).to.be.an('array').with.length(5);
+					for (const category of body.categories) {
+						expect(Object.keys(category)).to.deep.equal(
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped', 'grades']
+						);
+						expect(category.grades).to.be.an('array');
+						expect(category.grades.length).to.be.at.least(1);
+					}
+
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
 							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']

@@ -12,3 +12,4 @@ const semesterService = require('../lib/services/current-semester');
 
 semesterService.activeSemester = '2019S';
 semesterService.validSemesters = new Set(['2019S']);
+semesterService.validSemestersArray = ['2019S'];
