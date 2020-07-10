@@ -142,13 +142,7 @@ describe('Unit > Validation', function () {
 			it('valid', function () {
 				const req = createRequest();
 				req.body.name = 'DEMO 101';
-
-				validations.editCourse(req, null);
-			});
-
-			it('neutral', function () {
-				const req = createRequest();
-				req.body.cut1 = 95;
+				req.body.cutoffs = '{"A":90,"B":80,"C":70,"D":60}';
 
 				validations.editCourse(req, null);
 			});

@@ -1,26 +1,17 @@
 const schemaValidator = require('../../utils/schema-validator');
-const cutSchema = require('../../../lib/services/validation/schemas/course-cut.json');
-const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/create-course.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema);
 const VALID_OBJECT = {
 	name: 'ECEN 482',
 	semester: '2019S',
-	cut1: 90,
-	cut2: 80,
-	cut3: 70,
-	cut4: 60,
-	cut1Name: 'A+',
-	cut2Name: 'B',
-	cut3Name: 'D-',
-	cut4Name: 'C+',
+	cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 	credits: 3
 };
 
 describe('Unit > Schemas > CreateCourse', function () {
 	it('invalid props', function () {
-		expectInvalid({}, ['keyword', 'required'], 'name');
+		expectInvalid({}, ['keyword', 'minProperties'], '4');
 	});
 
 	it('name', function () {
@@ -54,69 +45,5 @@ describe('Unit > Schemas > CreateCourse', function () {
 
 		obj.semester = '2019F';
 		expectValid(obj);
-	});
-
-	describe('cut', function () {
-		const cuts = ['1', '2', '3', '4'];
-		const errorProp = ['dataPath', ''];
-		const validRequest = {...VALID_OBJECT};
-
-		for (const cut of cuts) {
-			it(cut, function () {
-				const obj = {...validRequest};
-				const key = `cut${cut}`;
-				errorProp[1] = `.${key}`;
-
-				obj[key] = '';
-				expectInvalid(obj, errorProp, 'number');
-
-				obj[key] = 9;
-				expectInvalid(obj, errorProp, '>= 10');
-
-				obj[key] = 10001;
-				expectInvalid(obj, errorProp, '<= 10000');
-
-				obj[key] = 95;
-				expectValid(obj);
-
-				obj[key] = 1500;
-				expectValid(obj);
-
-				obj[key] = 88.3;
-				expectValid(obj);
-			});
-		}
-	});
-
-	describe('cutName', function () {
-		const cuts = ['1', '2', '3', '4'];
-		const errorProp = ['dataPath', ''];
-		const validRequest = {...VALID_OBJECT};
-
-		for (const cut of cuts) {
-			it(cut, function () {
-				const obj = {...validRequest};
-				const key = `cut${cut}Name`;
-				errorProp[1] = `.${key}`;
-
-				obj[key] = '';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj[key] = 'FFF';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj[key] = 'FF';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj[key] = 'A+';
-				expectValid(obj);
-
-				obj[key] = 'C';
-				expectValid(obj);
-
-				obj[key] = 'D-';
-				expectValid(obj);
-			});
-		}
 	});
 });
