@@ -156,7 +156,7 @@ describe('Unit > Validation', function () {
 					name: 'ECEN 482',
 					semester: '2019S',
 					credits: 3,
-					cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
+					cutoffs: '{"A":90,"B":80,"C":70,"D":60}'
 				},
 				categories: [
 					{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},

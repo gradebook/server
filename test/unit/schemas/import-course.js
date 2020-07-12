@@ -8,7 +8,7 @@ const VALID_OBJECT = {
 		name: 'ECEN 482',
 		semester: '2019S',
 		credits: 3,
-		cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
+		cutoffs: '{"A":90,"B":80,"C":70,"D":60}'
 	},
 	categories: [
 		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
@@ -67,8 +67,6 @@ describe('Unit > Schemas > ImportCourse', function () {
 		obj.course.semester = '2019F';
 		expectValid(obj);
 	});
-
-
 
 	it('category invalid props', function () {
 		const obj = {...VALID_OBJECT};
