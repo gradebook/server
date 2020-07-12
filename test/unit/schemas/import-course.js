@@ -1,9 +1,7 @@
 const schemaValidator = require('../../utils/schema-validator');
-const cutSchema = require('../../../lib/services/validation/schemas/course-cut.json');
-const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/import-course.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema);
 const VALID_OBJECT = {
 	course: {
 		name: 'ECEN 482',
