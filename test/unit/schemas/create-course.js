@@ -11,7 +11,8 @@ const VALID_OBJECT = {
 
 describe('Unit > Schemas > CreateCourse', function () {
 	it('invalid props', function () {
-		expectInvalid({}, ['keyword', 'minProperties'], '4');
+		expectInvalid({}, ['keyword', 'required'], 'name');
+		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
 	it('name', function () {
