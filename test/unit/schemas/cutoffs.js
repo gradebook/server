@@ -50,27 +50,4 @@ describe('Unit > Schemas > Cutoffs', function () {
 		obj.A = 9;
 		expectInvalid(obj, errorProp, '');
 	});
-
-	it('too many cutoffs', function () {
-		const errorProp = ['keyword', 'maxProperties'];
-		const tooMany = {
-			'A+': 90,
-			A: 90,
-			'A-': 90,
-			'B+': 90,
-			B: 90,
-			'B-': 90,
-			'C+': 90,
-			C: 90,
-			'C-': 90,
-			'D+': 90,
-			D: 90,
-			'D-': 90,
-			'F+': 90,
-			F: 90,
-			'F-': 90
-		};
-
-		expectInvalid(tooMany, errorProp, '');
-	});
 });
