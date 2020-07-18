@@ -1,22 +1,14 @@
 const schemaValidator = require('../../utils/schema-validator');
-const cutSchema = require('../../../lib/services/validation/schemas/course-cut.json');
-const cutNameSchema = require('../../../lib/services/validation/schemas/course-cut-name.json');
 const schema = require('../../../lib/services/validation/schemas/import-course.json');
+const courseCreateSchema = require('../../../lib/services/validation/schemas/create-course.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [cutSchema, cutNameSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema, [courseCreateSchema]);
 const VALID_OBJECT = {
 	course: {
 		name: 'ECEN 482',
 		semester: '2019S',
 		credits: 3,
-		cut1: 90,
-		cut2: 80,
-		cut3: 70,
-		cut4: 60,
-		cut1Name: 'A+',
-		cut2Name: 'B',
-		cut3Name: 'D-',
-		cut4Name: 'C+'
+		cutoffs: '{"A":90,"B":80,"C":70,"D":60}'
 	},
 	categories: [
 		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
@@ -38,7 +30,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 		delete obj.course.id;
 
 		delete obj.course.credits;
-		expectInvalid(obj, ['keyword', 'minProperties'], 'NOT have fewer than 11 properties');
+		expectInvalid(obj, ['keyword', 'required'], 'credits');
 		obj.course.credits = 3;
 	});
 
@@ -74,70 +66,6 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 		obj.course.semester = '2019F';
 		expectValid(obj);
-	});
-
-	describe('course.cut', function () {
-		const cuts = ['1', '2', '3', '4'];
-		const errorProp = ['dataPath', ''];
-		const validRequest = {...VALID_OBJECT};
-
-		for (const cut of cuts) {
-			it(cut, function () {
-				const obj = {...validRequest};
-				const key = `cut${cut}`;
-				errorProp[1] = `.course.${key}`;
-
-				obj.course[key] = '';
-				expectInvalid(obj, errorProp, 'number');
-
-				obj.course[key] = 9;
-				expectInvalid(obj, errorProp, '>= 10');
-
-				obj.course[key] = 10001;
-				expectInvalid(obj, errorProp, '<= 10000');
-
-				obj.course[key] = 95;
-				expectValid(obj);
-
-				obj.course[key] = 1500;
-				expectValid(obj);
-
-				obj.course[key] = 88.3;
-				expectValid(obj);
-			});
-		}
-	});
-
-	describe('course.cutName', function () {
-		const cuts = ['1', '2', '3', '4'];
-		const errorProp = ['dataPath', ''];
-		const validRequest = {...VALID_OBJECT};
-
-		for (const cut of cuts) {
-			it(cut, function () {
-				const obj = {...validRequest};
-				const key = `cut${cut}Name`;
-				errorProp[1] = `.course.${key}`;
-
-				obj.course[key] = '';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj.course[key] = 'FFF';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj.course[key] = 'FF';
-				expectInvalid(obj, errorProp, 'one of the allowed values');
-
-				obj.course[key] = 'A+';
-				expectValid(obj);
-
-				obj.course[key] = 'C';
-				expectValid(obj);
-
-				obj.course[key] = 'D-';
-				expectValid(obj);
-			});
-		}
 	});
 
 	it('category invalid props', function () {

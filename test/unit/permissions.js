@@ -2,7 +2,7 @@
 const root = '../../lib/services/permissions';
 const objectID = require('bson-objectid');
 const settings = require('../../lib/services/settings');
-const expectError = require('../utils/expect-error');
+const testUtils = require('../utils');
 
 const permissions = require(root);
 const alwaysValid = require(`${root}/../../utils/noop`);
@@ -15,6 +15,8 @@ const editGrade = require(`${root}/edit-grade`);
 const expandCategory = require(`${root}/expand-category`);
 const contractCategory = require(`${root}/contract-category`);
 
+const {expectError} = testUtils;
+
 class FakeResponse {
 	constructor() {
 		this.statusCalled = false;
@@ -25,6 +27,11 @@ class FakeResponse {
 		this.statusCalled = true;
 		this._statusCode = code;
 		return this;
+	}
+
+	json(object) {
+		this.dataSent = true;
+		this._data = object;
 	}
 
 	end() {
@@ -327,8 +334,9 @@ describe('Unit > Permissions', function () {
 			const {response} = await sendFakeRequest(permissions, expandCategory);
 
 			expect(response.statusCalled).to.be.true;
-			expect(response.endCalled).to.be.true;
+			expect(response.dataSent).to.be.true;
 			expect(response._statusCode).to.equal(412);
+			expect(response._data.error).to.be.contain('already been expanded');
 		});
 	});
 
@@ -370,8 +378,9 @@ describe('Unit > Permissions', function () {
 			const {response} = await sendFakeRequest(permissions, contractCategory);
 
 			expect(response.statusCalled).to.be.true;
-			expect(response.endCalled).to.be.true;
+			expect(response.dataSent).to.be.true;
 			expect(response._statusCode).to.equal(412);
+			expect(response._data.error).to.contain('already contracted');
 		});
 	});
 });

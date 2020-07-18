@@ -15,13 +15,10 @@
       "minimum": 0,
       "maximum": 5
     },
-    "cut1": {"$ref": "course_cut"},
-    "cut2": {"$ref": "course_cut"},
-    "cut3": {"$ref": "course_cut"},
-    "cut4": {"$ref": "course_cut"},
-    "cut1Name": {"$ref": "course_cut_name"},
-    "cut2Name": {"$ref": "course_cut_name"},
-    "cut3Name": {"$ref": "course_cut_name"},
-    "cut4Name": {"$ref": "course_cut_name"}
+    "cutoffs": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    }
   }
 }
