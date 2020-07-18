@@ -1,3 +1,7 @@
+# 3.11.1
+
+ - :bug: fix validation error occuring when creating a new account
+
 # 3.11.0
   - Disable SQL-based ratelimiting (#114)
   - Enforce read-only semesters (#125)
