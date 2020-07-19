@@ -1,7 +1,8 @@
 import Express from 'express';
 
 declare namespace G {
-	export interface Request extends Express.Request {
+	export interface Request<T = any> extends Express.Request {
+		queriedData: T;
 		_table: string;
 		_domain: string;
 		user?: {
@@ -31,7 +32,7 @@ declare namespace G {
 	};
 
 	export interface ResponseWithContext extends Express.Response {
-		context: ResponseContext
+		context: ResponseContext;
 	}
 
 	export function middleware(request: G.Request, response: Express.Response, callback: Express.NextFunction);
