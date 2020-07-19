@@ -54,7 +54,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					});
 				});
@@ -155,7 +155,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					}
 				});
@@ -255,10 +255,7 @@ describe('Functional > API Routes', function () {
 			const course = {
 				semester: '2019S',
 				name: 'Bad name course',
-				cut1: 90, cut1Name: 'A',
-				cut2: 80, cut2Name: 'B',
-				cut3: 70, cut3Name: 'C',
-				cut4: 60, cut4Name: 'D',
+				cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 				credits: null
 			};
 
