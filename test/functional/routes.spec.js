@@ -69,7 +69,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped', 'dropped_grades']
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'dropped']
 						);
 					});
 				});
