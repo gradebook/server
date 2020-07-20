@@ -69,7 +69,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped']
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'dropped']
 						);
 					});
 				});
@@ -108,7 +108,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/category/{id}', function () {
 			const category = Object.assign({}, testUtils.fixtures.categories[0]);
 
-			delete category.course_id;
+			category.dropped = null;
 
 			return supertest(instance)
 				.get(`/api/v0/category/${category.id}`)
