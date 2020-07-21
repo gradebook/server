@@ -1,8 +1,8 @@
 // @ts-check
 
 const {expect} = require('chai');
-const makeClass = require('../../../lib/models/database-response');
-const DatabaseResponse = makeClass('users');
+const {response: UserResponse} = require('../../../lib/models/user');
+const testUtils = require('../../utils');
 
 describe('Unit > Models > DatabaseResponse', function () {
 	let exampleUser;
@@ -10,7 +10,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 
 	beforeEach(function () {
 		exampleUser = Object.assign({}, testUtils.fixtures.users[0]);
-		response = new DatabaseResponse(exampleUser);
+		response = new UserResponse(exampleUser);
 	});
 
 	describe('set', function () {
