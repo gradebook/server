@@ -84,7 +84,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(29);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'name', 'grade', 'course', 'category']
+							['id', 'user_id', 'course_id', 'category_id', 'name', 'grade', 'course', 'category']
 						);
 					});
 				});
@@ -124,9 +124,6 @@ describe('Functional > API Routes', function () {
 
 			grade.course = grade.course_id;
 			grade.category = grade.category_id;
-			delete grade.user_id;
-			delete grade.course_id;
-			delete grade.category_id;
 
 			return supertest(instance)
 				.get(`/api/v0/grade/${grade.id}`)
