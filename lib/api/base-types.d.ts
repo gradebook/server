@@ -1,5 +1,5 @@
 type BrowseResponse<T> = (filterOptions: T, db: string) => Promise<any>
-type BrowseFilterFunction<T> = (currentOptions: object, filters: T) => object | void
+type BrowseFilterFunction<T> = (currentOptions: any, filters: T) => object | void
 
 export type BaseBrowse<AllowedFilters extends {}> = (
 	dataType: string,
