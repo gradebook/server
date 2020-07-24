@@ -1,67 +1,120 @@
-// @ts-check
-
 const {expect} = require('chai');
-const {response: UserResponse} = require('../../../lib/models/user');
-const testUtils = require('../../utils');
+const knexMock = require('mock-knex');
+const AbstractDatabaseResponse = require('../../../lib/models/database-response');
+const knex = require('../../../lib/database/knex').instance;
+
+const table = 'test';
+const columns = Object.freeze([
+	'id',
+	'course_ref',
+	'user_id',
+	'name'
+]);
+
+class DatabaseResponse extends AbstractDatabaseResponse {
+	get table() {
+		return table;
+	}
+
+	get columns() {
+		return columns;
+	}
+
+	transformToSnakeCase(key) {
+		if (key === 'course') {
+			return 'course_ref';
+		}
+
+		if (key === 'user') {
+			return 'user_id';
+		}
+
+		return key;
+	}
+
+	transformFromSnakeCase(key) {
+		if (key === 'course_ref') {
+			return 'course';
+		}
+
+		if (key === 'user_id') {
+			return 'user';
+		}
+
+		return key;
+	}
+}
 
 describe('Unit > Models > DatabaseResponse', function () {
-	let exampleUser;
-	let response;
+	/** @type {import('../../../lib/models/database-response')} */
+	let instance;
 
 	beforeEach(function () {
-		exampleUser = Object.assign({}, testUtils.fixtures.users[0]);
-		response = new UserResponse(exampleUser);
+		instance = new DatabaseResponse({
+			id: '__id__',
+			course_ref: '__course_ref__', // eslint-disable-line camelcase
+			user_id: '__user_id__', // eslint-disable-line camelcase
+			name: '__name__'
+		});
+
+		instance._validate = () => true;
 	});
 
-	describe('set', function () {
-		it('invalid key', function () {
-			response.set('id', 'bad');
+	it('diff uses unsnaked values', function () {
+		instance.set('user', 'user__');
 
-			expect(response.get('id')).to.equal(exampleUser.id);
-			expect(response.changed('id')).to.be.false;
-			expect(response.dirty).to.be.false;
-
-			response.set('uid', 'does-not-exist');
-			expect(response.changed('uid')).to.be.false;
-			expect(response.dirty).to.be.false;
+		expect(instance.diff).to.deep.equal({
+			user: 'user__'
 		});
 
-		it('not changing value', function () {
-			response.set('email', exampleUser.email);
-			expect(response.changed('email')).to.be.false;
-			expect(response.dirty).to.be.false;
-		});
-
-		it('reverting value', function () {
-			response.set('email', 'testing@example.com');
-			expect(response.changed('email')).to.be.true;
-			expect(response.dirty).to.be.true;
-
-			response.set('email', exampleUser.email);
-			expect(response.changed('email')).to.be.false;
-			expect(response.dirty).to.be.false;
+		expect(instance._diff).to.deep.equal({
+			user_id: 'user__' // eslint-disable-line camelcase
 		});
 	});
 
-	it('get', function () {
-		expect(response.get('first_name')).to.equal('Trusted');
-		try {
-			response.get('fakeColumn');
-			testUtils.expectError();
-		} catch (error) {
-			expect(error.message).to.equal('Key fakeColumn does not exist');
-		}
-	});
+	describe('commit', function () {
+		let queryTracker;
 
-	it('diff', function () {
-		response.set('first_name', 'joe');
-		response.set('last_name', 'bloggs');
-		response.set('email', 'joe.bloggs@example.com');
+		before(function () {
+			knexMock.mock(knex);
+		});
 
-		expect(response.diff).to.deep.equal({
-			first_name: 'joe', // eslint-disable-line camelcase
-			last_name: 'bloggs', // eslint-disable-line camelcase
-			email: 'joe.bloggs@example.com'
+		beforeEach(function () {
+			queryTracker = knexMock.getTracker();
+			queryTracker.install();
+		});
+
+		afterEach(function () {
+			queryTracker.uninstall();
+		});
+
+		after(function () {
+			knexMock.unmock(knex);
+		});
+
+		it('short-circuits when there are no changes', async function () {
+			const response = await instance.commit();
+			expect(response).to.be.empty;
+			expect(queryTracker.queries.queries).to.be.empty;
+		});
+
+		it('correctly transforms from/to snake case', async function () {
+			instance.set('name', 'name__');
+			instance.set('user', 'user__');
+
+			queryTracker.once('query', function (query) {
+				expect(query.sql).to.equal('update `test` set `name` = ?, `user_id` = ? where `id` = ?');
+				query.response({
+					name: query.bindings[0],
+					user_id: query.bindings[1] // eslint-disable-line camelcase
+				});
+			});
+
+			const response = await instance.commit();
+			expect(response).to.deep.equal({
+				name: 'name__',
+				user: 'user__'
+			});
 		});
 	});
 });
