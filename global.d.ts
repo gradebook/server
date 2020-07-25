@@ -24,7 +24,7 @@ declare namespace G {
 
 	export type ResponseContext = {
 		statusCode ?: number;
-		body ?: object;
+		body ?: object | string;
 	};
 
 	export interface Response extends Express.Response {

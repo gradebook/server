@@ -19,7 +19,8 @@
     "test:functional": "mocha test/functional --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:unit": "nyc --reporter=html --reporter=text mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:unit:debug": "mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
-    "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js"
+    "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js",
+    "typecheck": "tsc index.js --noEmit --lib es7 --target es2019 -m commonjs --allowJS --esModuleInterop"
   },
   "dependencies": {
     "@gradebook/express-brute-redis": "0.1.0",
@@ -65,6 +66,7 @@
     "rewire": "5.0.0",
     "sinon": "9.0.2",
     "supertest": "4.0.2",
+    "typescript": "^3.9.7",
     "xo": "0.25.3"
   },
   "xo": {
