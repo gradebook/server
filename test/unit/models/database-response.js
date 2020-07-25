@@ -1,58 +1,16 @@
 const {expect} = require('chai');
 const knexMock = require('mock-knex');
-const AbstractDatabaseResponse = require('../../../lib/models/database-response');
+const CourseRow = require('../../../lib/models/course').response;
 const knex = require('../../../lib/database/knex').instance;
-
-const table = 'test';
-const columns = Object.freeze([
-	'id',
-	'course_ref',
-	'user_id',
-	'name'
-]);
-
-class DatabaseResponse extends AbstractDatabaseResponse {
-	get table() {
-		return table;
-	}
-
-	get columns() {
-		return columns;
-	}
-
-	transformToSnakeCase(key) {
-		if (key === 'course') {
-			return 'course_ref';
-		}
-
-		if (key === 'user') {
-			return 'user_id';
-		}
-
-		return key;
-	}
-
-	transformFromSnakeCase(key) {
-		if (key === 'course_ref') {
-			return 'course';
-		}
-
-		if (key === 'user_id') {
-			return 'user';
-		}
-
-		return key;
-	}
-}
 
 describe('Unit > Models > DatabaseResponse', function () {
 	/** @type {import('../../../lib/models/database-response')} */
 	let instance;
 
 	beforeEach(function () {
-		instance = new DatabaseResponse({
+		instance = new CourseRow({
 			id: '__id__',
-			course_ref: '__course_ref__', // eslint-disable-line camelcase
+			credit_hours: '__credit_hours__', // eslint-disable-line camelcase
 			user_id: '__user_id__', // eslint-disable-line camelcase
 			name: '__name__'
 		});
@@ -60,15 +18,17 @@ describe('Unit > Models > DatabaseResponse', function () {
 		instance._validate = () => true;
 	});
 
-	it('diff uses unsnaked values', function () {
-		instance.set('user', 'user__');
+	it('diff uses unsnaked values, but changeset uses snaked values', function () {
+		instance.set('credit_hours', 'credit_hours__');
 
-		expect(instance.diff).to.deep.equal({
-			user: 'user__'
+		expect(instance.diff, 'Diff contains same data as internall diff').to.deep.equal(instance._diff);
+		expect(instance.diff, 'Diff copies internal diff').to.not.equal(instance._diff);
+		expect(instance._diff, 'Internal diff stores unsnaked').to.deep.equal({
+			credits: 'credit_hours__'
 		});
 
-		expect(instance._diff).to.deep.equal({
-			user_id: 'user__' // eslint-disable-line camelcase
+		expect(instance._getChangeSet(), 'Changeset transforms to snaked').to.deep.equal({
+			credit_hours: 'credit_hours__' // eslint-disable-line camelcase
 		});
 	});
 
@@ -99,21 +59,21 @@ describe('Unit > Models > DatabaseResponse', function () {
 		});
 
 		it('correctly transforms from/to snake case', async function () {
+			instance.set('credit_hours', 'credit_hours__');
 			instance.set('name', 'name__');
-			instance.set('user', 'user__');
 
 			queryTracker.once('query', function (query) {
-				expect(query.sql).to.equal('update `test` set `name` = ?, `user_id` = ? where `id` = ?');
+				expect(query.sql).to.equal('update `courses` set `name` = ?, `credit_hours` = ? where `id` = ?');
 				query.response({
 					name: query.bindings[0],
-					user_id: query.bindings[1] // eslint-disable-line camelcase
+					credit_hours: query.bindings[1] // eslint-disable-line camelcase
 				});
 			});
 
 			const response = await instance.commit();
 			expect(response).to.deep.equal({
-				name: 'name__',
-				user: 'user__'
+				credits: 'credit_hours__',
+				name: 'name__'
 			});
 		});
 	});

@@ -4,8 +4,9 @@ const {expect} = require('chai');
 const {response: UserResponse} = require('../../../lib/models/user');
 const testUtils = require('../../utils');
 
-describe('Unit > Models > DatabaseResponse', function () {
+describe('Unit > Models > User', function () {
 	let exampleUser;
+	/** @type {import('../../../lib/models/database-response')} */
 	let response;
 
 	beforeEach(function () {
@@ -58,7 +59,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 		response.set('last_name', 'bloggs');
 		response.set('email', 'joe.bloggs@example.com');
 
-		expect(response._diff).to.deep.equal({
+		expect(response._getChangeSet()).to.deep.equal({
 			first_name: 'joe', // eslint-disable-line camelcase
 			last_name: 'bloggs', // eslint-disable-line camelcase
 			email: 'joe.bloggs@example.com'

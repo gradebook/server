@@ -54,7 +54,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'credit_hours', 'cutoffs', 'credits']
 						);
 					});
 				});
@@ -69,7 +69,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'dropped']
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'course', 'dropped']
 						);
 					});
 				});
@@ -84,7 +84,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(29);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'user_id', 'course_id', 'category_id', 'name', 'grade', 'course', 'category']
+							['id', 'course_id', 'category_id', 'name', 'grade', 'course', 'category']
 						);
 					});
 				});
@@ -94,7 +94,6 @@ describe('Functional > API Routes', function () {
 			const course = Object.assign({}, testUtils.fixtures.courses[0]);
 			delete course.user_id;
 			course.credits = course.credit_hours;
-			delete course.credit_hours;
 
 			return supertest(instance)
 				.get(`/api/v0/course/${course.id}`)
@@ -109,6 +108,7 @@ describe('Functional > API Routes', function () {
 			const category = Object.assign({}, testUtils.fixtures.categories[0]);
 
 			category.dropped = null;
+			category.course = category.course_id;
 
 			return supertest(instance)
 				.get(`/api/v0/category/${category.id}`)
@@ -124,6 +124,7 @@ describe('Functional > API Routes', function () {
 
 			grade.course = grade.course_id;
 			grade.category = grade.category_id;
+			delete grade.user_id;
 
 			return supertest(instance)
 				.get(`/api/v0/grade/${grade.id}`)
@@ -144,7 +145,7 @@ describe('Functional > API Routes', function () {
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped', 'grades']
+							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'course', 'dropped', 'grades']
 						);
 						expect(category.grades).to.be.an('array');
 						expect(category.grades.length).to.be.at.least(1);
@@ -152,7 +153,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'credit_hours', 'cutoffs', 'credits']
 						);
 					}
 				});
