@@ -70,9 +70,22 @@ describe('Unit > Models > DatabaseResponse', function () {
 				});
 			});
 
+			expect(instance.json).to.deep.equal({
+				id: '__id__',
+				credits: 'credit_hours__',
+				user: '__user_id__',
+				name: 'name__'
+			});
+
 			const response = await instance.commit();
 			expect(response).to.deep.equal({
 				credits: 'credit_hours__',
+				name: 'name__'
+			});
+			expect(instance._originalObject).to.deep.equal({
+				id: '__id__',
+				credits: 'credit_hours__',
+				user: '__user_id__',
 				name: 'name__'
 			});
 		});
