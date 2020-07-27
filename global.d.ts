@@ -1,8 +1,10 @@
+import QueryString from 'querystring';
 import Express from 'express';
 
 declare namespace G {
-	export interface Request<T = any> extends Express.Request {
-		queriedData: T;
+	export interface Request<QueriedData = any, Params = any, ResBody = any, ReqBody = any>
+		extends Express.Request<Params, ResBody, ReqBody, QueryString> {
+		queriedData: QueriedData;
 		_table: string;
 		_domain: string;
 		user?: {
