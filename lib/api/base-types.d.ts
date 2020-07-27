@@ -1,5 +1,5 @@
 type BrowseResponse<T> = (filterOptions: T, db: string) => Promise<any>
-type BrowseFilterFunction<T> = (currentOptions: any, filters: T) => import('knex').QueryCallback | void
+type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').QueryCallback | object
 
 export type BaseBrowse<AllowedFilters extends {}, AllowedModels> = (
 	dataType: AllowedModels,
