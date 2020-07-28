@@ -11,4 +11,4 @@ global.testUtils = require('./utils');
 const semesterService = require('../lib/services/current-semester');
 
 semesterService.activeSemester = '2019S';
-semesterService.validSemesters = ['2019S'];
+semesterService.allowedSemesters = ['2019S'];
