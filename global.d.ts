@@ -1,9 +1,10 @@
 import QueryString from 'querystring';
 import Express from 'express';
+import {Params as CoreParams} from "express-serve-static-core";
 
 declare namespace G {
-	export interface Request<QueriedData = any, Params = any, ResBody = any, ReqBody = any>
-		extends Express.Request<Params, ResBody, ReqBody, QueryString> {
+	export interface Request<QueriedData = any, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any>
+		extends Express.Request<Params, ResBody, ReqBody, QueryString.ParsedUrlQuery> {
 		queriedData: QueriedData;
 		_table: string;
 		_domain: string;
@@ -22,7 +23,8 @@ declare namespace G {
 				overallGpa: number;
 			};
 		}
-	};
+		logout(): void
+	}
 
 	export type ResponseContext = {
 		statusCode ?: number;
@@ -31,7 +33,7 @@ declare namespace G {
 
 	export interface Response extends Express.Response {
 		context?: ResponseContext
-	};
+	}
 
 	export interface ResponseWithContext extends Express.Response {
 		context: ResponseContext;
