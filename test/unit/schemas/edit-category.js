@@ -12,6 +12,6 @@ describe('Unit > Schemas > EditCategory', function () {
 	it('allows changing different permutations', function () {
 		expectValid({name: 'Homework'});
 		expectValid({weight: 30});
-		expectValid({position: -150});
+		expectValid({position: 150});
 	});
 });
