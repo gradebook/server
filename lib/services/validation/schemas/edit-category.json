@@ -36,7 +36,9 @@
       ]
     },
     "position": {
-      "type": ["integer", "null"]
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 50000
     }
   }
 }

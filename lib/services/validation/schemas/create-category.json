@@ -38,7 +38,8 @@
     },
     "position": {
       "type": ["integer", "null"],
-      "$comment": "@todo: Position should have a max string length (e.g. 4 numbers)"
+      "minimum": 0,
+      "maximum": 50000
     }
   }
 }
