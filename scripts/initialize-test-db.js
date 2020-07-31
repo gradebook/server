@@ -15,8 +15,6 @@ if (process.env.CI === 'true') {
 }
 
 migrator.startup().then(async () => {
-	knex.init();
-
 	const txn = await knex.instance.transaction();
 	try {
 		const promises = fixtures.map(([table, values], idx) => {
