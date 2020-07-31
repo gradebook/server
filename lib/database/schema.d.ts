@@ -20,6 +20,11 @@ type StringColumn = BaseSchema & {
 	maxLength: number;
 }
 
+type TextColumn = BaseSchema & {
+	type: 'text',
+	subType?: 'tinytext' | 'mediumtext' | 'longtext' | 'json'
+}
+
 type NumericColumn = BaseSchema & {
 	type: 'tinyint' | 'integer';
 	unsigned?: boolean;
@@ -29,4 +34,4 @@ type BasicColumn = BaseSchema & {
 	type: 'date' | 'datetime' | 'timestamp' | 'text';
 };
 
-export type ColumnSchema = StringColumn | NumericColumn | BasicColumn;
+export type ColumnSchema = StringColumn | TextColumn | NumericColumn | BasicColumn;
