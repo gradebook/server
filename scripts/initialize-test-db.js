@@ -14,7 +14,7 @@ if (process.env.CI === 'true') {
 	log = () => false; // Noop fixture creation logs for CI
 }
 
-migrator.startup().then(async () => {
+migrator.init().then(async () => {
 	const txn = await knex.instance.transaction();
 	try {
 		const promises = fixtures.map(([table, values], idx) => {
