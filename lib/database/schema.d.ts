@@ -26,7 +26,8 @@ type TextColumn = BaseSchema & {
 }
 
 type NumericColumn = BaseSchema & {
-	type: 'tinyint' | 'integer';
+	type: 'integer';
+	subType?: 'tinyint' | 'smallint' | 'mediumint' | 'bigint';
 	unsigned?: boolean;
 }
 
