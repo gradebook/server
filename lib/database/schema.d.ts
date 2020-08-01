@@ -14,6 +14,7 @@ type BaseSchema = PrimaryOrUnique & {
 	index?: boolean;
 	nullable?: boolean;
 	references?: string;
+	fallback?: string | number | boolean;
 }
 
 type StringColumn = BaseSchema & {
