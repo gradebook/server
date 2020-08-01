@@ -24,12 +24,18 @@ type StringColumn = BaseSchema & {
 
 type TextColumn = BaseSchema & {
 	type: 'text',
-	subType?: 'tinytext' | 'mediumtext' | 'longtext' | 'json'
+	subType?: 'tinytext' | 'mediumtext' | 'longtext' | 'json',
+	validations: {
+		maxLength: number;
+	};
 }
 
 type NumericColumn = BaseSchema & {
 	type: 'integer' | 'tinyint' | 'smallint' | 'mediumint' | 'bigint' | 'float';
 	unsigned?: boolean;
+	validations: {
+		between: [number, number]
+	}
 }
 
 type BasicColumn = BaseSchema & {
