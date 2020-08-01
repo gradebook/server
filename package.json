@@ -59,7 +59,7 @@
     "chokidar": "3.4.1",
     "eslint-plugin-mocha": "7.0.1",
     "execa": "4.0.3",
-    "mocha": "8.0.1",
+    "mocha": "8.1.0",
     "mock-knex": "0.4.9",
     "nodemon": "2.0.4",
     "nyc": "15.1.0",
