@@ -7,6 +7,7 @@ type PrimaryOrUnique = {
 	unique: true;
 } | {
 	unique ?: true;
+	primary?: false;
 }
 
 type BaseSchema = PrimaryOrUnique & {
@@ -26,8 +27,7 @@ type TextColumn = BaseSchema & {
 }
 
 type NumericColumn = BaseSchema & {
-	type: 'integer';
-	subType?: 'tinyint' | 'smallint' | 'mediumint' | 'bigint';
+	type: 'integer' | 'tinyint' | 'smallint' | 'mediumint' | 'bigint';
 	unsigned?: boolean;
 }
 
