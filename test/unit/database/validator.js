@@ -141,7 +141,7 @@ describe('Unit > Validator', function () {
 			text: {type: 'text', nullable: false, validations: {maxLength: 24}},
 			created: {type: 'datetime', nullable: false},
 			dropped: {type: 'tinyint', nullable: true, fallback: null, validations: {between: [1, 40]}},
-			tinyInt: {type: 'tinyint'},
+			tinyInt: {type: 'tinyint', fallback: 15},
 			integer: {type: 'integer'},
 			float: {type: 'float'},
 			grade: {type: 'float', nullable: true, validations: {between: [0, 999999]}},
@@ -155,12 +155,12 @@ describe('Unit > Validator', function () {
 			optional: 51,
 			text: 'c'.repeat(25),
 			dropped: null,
-			tinyInt: 12,
 			integer: -10,
 			float: 1.05,
 			grade: -1,
 			boolean: false
 		};
+		const columns = Object.keys(testSchema);
 
 		const diff = {};
 		const set = (key, value) => {
@@ -172,8 +172,8 @@ describe('Unit > Validator', function () {
 		};
 
 		try {
-			const model = {set, get};
-			validator.validateRow('__test__', model, {method: 'insert'});
+			const model = {set, get, columns};
+			validator('__test__', model, {method: 'insert'});
 			testUtils.expectError();
 		} catch (error) {
 			expect(error).to.be.instanceof(ValidationError);
@@ -184,7 +184,8 @@ describe('Unit > Validator', function () {
 			]);
 			expect(diff).to.deep.equal({
 				optional: '51',
-				dropped: null
+				dropped: null,
+				tinyInt: 15
 			});
 		} finally {
 			// @ts-expect-error
