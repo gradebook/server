@@ -32,6 +32,7 @@ jobs:
     - name: Unit Tests
       run: |
         yarn install --frozen-lockfile
+        NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
         yarn test:unit
         node _commands/post-test.js
