@@ -62,6 +62,7 @@ jobs:
     - name: Integration Tests
       run: |
         yarn install --frozen-lockfile
+        NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
         yarn test:integration
         node _commands/post-test.js

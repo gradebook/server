@@ -1,3 +1,4 @@
+// @ts-check
 const {resolve} = require('path');
 /* eslint-disable-next-line import/no-unassigned-import */
 require('../test/global.js'); // Update env
@@ -41,6 +42,6 @@ migrator.init().then(async () => {
 		console.error(error);
 		await txn.rollback();
 	}
-
+}).finally(() => {
 	knex.instance.destroy();
 });
