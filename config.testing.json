@@ -30,5 +30,6 @@
   "oauth": {
     "id": "lolno",
     "secret": "password"
-  }
+  },
+  "schoolConfigurationEndpoint": "http://nock.gbdev.cf/school-configuration.json"
 }
