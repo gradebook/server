@@ -1,0 +1,74 @@
+{
+  "aggie": {
+    "name": "Aggie",
+    "theme": {
+      "primary": "#500000",
+      "hover": "#880000",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/aggie.jpg"
+    }
+  },
+  "commodore": {
+    "name": "Commodore",
+    "theme": {
+      "primary": "#000000",
+      "hover": "#866d4b",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/commodore.jpg"
+    }
+  },
+  "default": {
+    "name": "",
+    "theme": {
+      "primary": "#5E3B4D",
+      "hover": "#7e4f67",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/generic.jpg"
+    }
+  },
+  "gator": {
+    "name": "Gator",
+    "theme": {
+      "primary": "#0021a5",
+      "hover": "#0032fb",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/gator.jpg"
+    }
+  },
+  "raider": {
+    "name": "Raider",
+    "theme": {
+      "primary": "#aa0000",
+      "hover": "#880000",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/raider.jpg"
+    }
+  },
+  "rebel": {
+    "name": "Rebel",
+    "theme": {
+      "primary": "#14213d",
+      "hover": "#2e4c8d",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/rebel.jpg"
+    }
+  },
+  "wolfpack": {
+    "name": "Wolfpack",
+    "theme": {
+      "primary": "#000000",
+      "hover": "#cc0000",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/wolfpack.jpg"
+    }
+  },
+  "tiger": {
+    "name": "Tiger",
+    "theme": {
+      "primary": "#f66733",
+      "hover": "#ff8a38",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/tiger.jpg"
+    }
+  },
+  "www": {
+    "name": "",
+    "theme": {
+      "primary": "#5E3B4D",
+      "hover": "#7e4f67",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/generic.jpg"
+    }
+  }
+}
