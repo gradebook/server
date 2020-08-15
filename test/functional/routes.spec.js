@@ -1,6 +1,7 @@
 // @ts-check
 const {expect} = require('chai'); // @todo: this is a global variable. Make typescript get this
 const supertest = require('supertest');
+const nock = require('nock');
 const makeApp = require('../utils/app');
 const testUtils = require('../utils');
 
@@ -8,6 +9,10 @@ describe('Functional > API Routes', function () {
 	let instance;
 
 	before(async function () {
+		nock('http://nock.gbdev.cf')
+			.get('/school-configuration.json')
+			.times(0)
+			.reply(200, require('../fixtures/school-configuration.json'));
 		instance = await makeApp();
 	});
 
