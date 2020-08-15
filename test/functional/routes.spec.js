@@ -1,5 +1,5 @@
 // @ts-check
-const {expect} = require('chai'); // @todo: this is a global variable. Make typescript get this
+const {expect} = require('chai');
 const supertest = require('supertest');
 const nock = require('nock');
 const makeApp = require('../utils/app');

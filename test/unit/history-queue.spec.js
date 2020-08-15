@@ -73,8 +73,7 @@ describe('Unit > HistoryQueue', function () {
 				expect(stub.calledOnce).to.be.true;
 				expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.is.empty;
 
-				// @todo: stub.reset() is throwing an error for some reason
-				config.get.restore();
+				sinon.restore();
 				stub = sinon.stub(config, 'get').withArgs('analytics').returns(false);
 
 				queue.add([null, 0]);
@@ -84,7 +83,7 @@ describe('Unit > HistoryQueue', function () {
 				expect(stub.calledOnce).to.be.true;
 				expect(queue._summations.__NO_DATABASE__).to.be.an('array').and.is.empty;
 			} finally {
-				config.get.restore();
+				sinon.restore();
 			}
 		});
 	});
