@@ -13,7 +13,6 @@ const editCourse = require(`${root}/edit-course`);
 const editCategory = require(`${root}/edit-category`);
 const editGrade = require(`${root}/edit-grade`);
 const expandCategory = require(`${root}/expand-category`);
-const contractCategory = require(`${root}/contract-category`);
 
 const {expectError} = testUtils;
 
@@ -86,7 +85,6 @@ describe('Unit > Permissions', function () {
 		expect(permissions.deleteCourse, 'deleteCourse').to.equal(editCourse);
 		expect(permissions.deleteCategory, 'deleteCategory').to.equal(editCategory);
 		expect(permissions.deleteGrade, 'deleteGrade').to.equal(editGrade);
-		expect(permissions.contractCategory, 'contractCategory').to.equal(contractCategory);
 		expect(permissions.expandCategory, 'expandCategory').to.equal(expandCategory);
 	});
 
@@ -337,50 +335,6 @@ describe('Unit > Permissions', function () {
 			expect(response.dataSent).to.be.true;
 			expect(response._statusCode).to.equal(412);
 			expect(response._data.error).to.be.contain('already been expanded');
-		});
-	});
-
-	describe('Contract Category', function () {
-		// Name is Homework
-		const category = testUtils.fixtures.expandedCategory.id;
-
-		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID.generate()};
-
-			try {
-				await sendFakeRequest(permissions, contractCategory);
-				expectError();
-			} catch (error) {
-				assertIsNotFoundError(error);
-			}
-		});
-
-		it('With permission', async function () {
-			const permissions = {user, objectId: category};
-			const {response} = await sendFakeRequest(permissions, contractCategory);
-			expect(response.statusCalled).to.be.false;
-		});
-
-		it('No permission', async function () {
-			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
-			try {
-				await sendFakeRequest(permissions, contractCategory);
-				expectError();
-			} catch (error) {
-				assertIsNotFoundError(error);
-			}
-		});
-
-		it('Not expanded', async function () {
-			// Name is Test 1
-			const permissions = {user, objectId: testUtils.fixtures.categories[1].id};
-
-			const {response} = await sendFakeRequest(permissions, contractCategory);
-
-			expect(response.statusCalled).to.be.true;
-			expect(response.dataSent).to.be.true;
-			expect(response._statusCode).to.equal(412);
-			expect(response._data.error).to.contain('already contracted');
 		});
 	});
 });
