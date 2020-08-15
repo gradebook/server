@@ -1,9 +1,10 @@
 import QueryString from 'querystring';
 import Express from 'express';
 import {Params as CoreParams} from "express-serve-static-core";
+import AbstractDatabaseResponse from './lib/models/database-response';
 
 declare namespace G {
-	export interface Request<QueriedData = any, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any>
+	export interface Request<QueriedData = AbstractDatabaseResponse, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any>
 		extends Express.Request<Params, ResBody, ReqBody, QueryString.ParsedUrlQuery> {
 		queriedData: QueriedData;
 		_table: string;
