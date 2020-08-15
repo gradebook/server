@@ -9,17 +9,17 @@ export type BaseBrowse<AllowedFilters extends {}, AllowedModels> = (
 	filter: BrowseFilterFunction<AllowedFilters>
 ) => BrowseResponse<AllowedFilters>
 
-type Data = object & {
+type Data<T extends object> = {
 	id?: string;
-}
+} & T
 
 export type MinimumMutableOptions = {
 	db: string;
 	txn?: Transaction;
 }
 
-export type CreateOptions = MinimumMutableOptions & {
-	data: Data;
+export type CreateOptions<T extends object> = MinimumMutableOptions & {
+	data: Data<T>;
 };
 
 export type ReadOptions = {
@@ -27,9 +27,9 @@ export type ReadOptions = {
 	db: string;
 };
 
-export type UpdateOptions = MinimumMutableOptions & {
+export type UpdateOptions<T extends object> = MinimumMutableOptions & {
 	model: AbstractModel;
-	data: Data;
+	data: Data<T>;
 };
 
 export type DeleteOptions = MinimumMutableOptions & {
