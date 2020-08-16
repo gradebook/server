@@ -95,6 +95,7 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         yarn lint
+        yarn typecheck
         node _commands/post-test.js
       env:
         CI: true
