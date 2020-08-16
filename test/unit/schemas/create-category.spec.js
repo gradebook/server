@@ -4,7 +4,13 @@ const objSchema = require('../../../lib/services/validation/schemas/object-id.js
 const schema = require('../../../lib/services/validation/schemas/create-category.json');
 
 const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
-const VALID_OBJECT = {course: ObjectId.generate(), name: 'Homework', weight: 25, position: 100};
+const VALID_OBJECT = {
+	course: ObjectId.generate(),
+	name: 'Homework',
+	weight: 25,
+	position: 100,
+	grades: [{name: 'Homework 1', grade: 95}, {name: 'Homework 2', grade: 99}]
+};
 
 describe('Unit > Schemas > CreateCategory', function () {
 	it('invalid props', function () {
@@ -65,5 +71,15 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 		obj.position = 0;
 		expectValid(obj);
+	});
+
+	it('grades', function () {
+		const obj = {...VALID_OBJECT};
+
+		obj.grades = [{name: null, grade: 50}];
+		expectValid(obj);
+
+		delete obj.grades;
+		expectInvalid(obj, ['keyword', 'required'], 'required property \'grades\'');
 	});
 });

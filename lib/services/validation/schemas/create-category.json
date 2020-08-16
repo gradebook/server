@@ -4,7 +4,7 @@
   "description": "Create a category",
   "type": "object",
   "additionalProperties": false,
-  "required": ["course"],
+  "required": ["course", "grades"],
   "properties": {
     "course": {"$ref": "object_id"},
     "name": {
@@ -13,33 +13,58 @@
       "maxLength": 50
     },
     "weight": {
-      "anyOf": [
-        {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10000
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "anyOf": [{
+        "type": "number",
+        "minimum": 0,
+        "maximum": 10000
+      }, {"type": "null"}]
     },
     "dropped": {
-      "anyOf": [
-        {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 40
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "anyOf": [{
+        "type": "number",
+        "minimum": 1,
+        "maximum": 40
+      }, {"type": "null"}]
     },
     "position": {
       "type": ["integer", "null"],
       "minimum": 0,
       "maximum": 50000
+    },
+    "grades": {
+      "oneOf": [{
+        "type": "array",
+        "minimum": 2,
+        "maximum": 100,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["grade", "name"],
+          "additionalItems": false,
+          "properties": {
+            "grade": {"type": ["number", "null"]},
+            "name": {
+              "minLength": 1,
+              "maxLength": 50,
+              "type": "string"
+            }
+          }
+        }
+      }, {
+        "type": "array",
+        "minimum": 1,
+        "maximum": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["grade", "name"],
+          "additionalItems": false,
+          "properties": {
+            "grade": {"type": ["number", "null"]},
+            "name": {"type": "null"}
+          }
+        }
+      }]
     }
   }
 }
