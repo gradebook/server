@@ -4,9 +4,10 @@ import {Params as CoreParams} from "express-serve-static-core";
 import AbstractDatabaseResponse from './lib/models/database-response';
 
 declare namespace G {
-	export interface Request<QueriedData = AbstractDatabaseResponse, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any>
-		extends Express.Request<Params, ResBody, ReqBody, QueryString.ParsedUrlQuery> {
+	export interface Request<QueriedData = AbstractDatabaseResponse, Permissions = unknown, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any, ReqQuery = QueryString.ParsedUrlQuery>
+		extends Express.Request<Params, ResBody, ReqBody, ReqQuery> {
 		queriedData: QueriedData;
+		permissions: Permissions;
 		_table: string;
 		_domain: string;
 		user?: {
