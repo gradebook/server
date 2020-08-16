@@ -34,10 +34,17 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/me', function () {
 			const trustedUser = Object.assign({}, testUtils.fixtures.trustedUser);
 
+			trustedUser.created = trustedUser.created_at;
+			trustedUser.firstName = trustedUser.first_name;
+			trustedUser.lastName = trustedUser.last_name;
+
 			delete trustedUser.id;
 			delete trustedUser.gid;
 			// @TODO: handle this
 			delete trustedUser.updated_at;
+			delete trustedUser.created_at;
+			delete trustedUser.first_name;
+			delete trustedUser.last_name;
 
 			return supertest(instance)
 				.get('/api/v0/me')
@@ -59,7 +66,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'credit_hours', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					});
 				});
@@ -74,7 +81,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'course', 'dropped']
+							['id', 'name', 'weight', 'position', 'course', 'dropped']
 						);
 					});
 				});
@@ -89,7 +96,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(29);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'course_id', 'category_id', 'name', 'grade', 'course', 'category']
+							['id', 'name', 'grade', 'course', 'category']
 						);
 					});
 				});
@@ -97,8 +104,9 @@ describe('Functional > API Routes', function () {
 
 		it('/api/v0/course/{id}', function () {
 			const course = Object.assign({}, testUtils.fixtures.courses[0]);
-			delete course.user_id;
 			course.credits = course.credit_hours;
+			delete course.user_id;
+			delete course.credit_hours;
 
 			return supertest(instance)
 				.get(`/api/v0/course/${course.id}`)
@@ -114,6 +122,8 @@ describe('Functional > API Routes', function () {
 
 			category.dropped = null;
 			category.course = category.course_id;
+			delete category.course_id;
+			delete category.dropped_grades;
 
 			return supertest(instance)
 				.get(`/api/v0/category/${category.id}`)
@@ -130,6 +140,8 @@ describe('Functional > API Routes', function () {
 			grade.course = grade.course_id;
 			grade.category = grade.category_id;
 			delete grade.user_id;
+			delete grade.course_id;
+			delete grade.category_id;
 
 			return supertest(instance)
 				.get(`/api/v0/grade/${grade.id}`)
@@ -150,7 +162,7 @@ describe('Functional > API Routes', function () {
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped_grades', 'course', 'dropped', 'grades']
+							['id', 'name', 'weight', 'position', 'course', 'dropped', 'grades']
 						);
 						expect(category.grades).to.be.an('array');
 						expect(category.grades.length).to.be.at.least(1);
@@ -158,7 +170,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'credit_hours', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					}
 				});
