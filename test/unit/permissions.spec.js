@@ -12,7 +12,6 @@ const createGrade = require(`${root}/create-grade`);
 const editCourse = require(`${root}/edit-course`);
 const editCategory = require(`${root}/edit-category`);
 const editGrade = require(`${root}/edit-grade`);
-const expandCategory = require(`${root}/expand-category`);
 
 const {expectError} = testUtils;
 
@@ -85,7 +84,6 @@ describe('Unit > Permissions', function () {
 		expect(permissions.deleteCourse, 'deleteCourse').to.equal(editCourse);
 		expect(permissions.deleteCategory, 'deleteCategory').to.equal(editCategory);
 		expect(permissions.deleteGrade, 'deleteGrade').to.equal(editGrade);
-		expect(permissions.expandCategory, 'expandCategory').to.equal(expandCategory);
 	});
 
 	describe('Create Course', function () {
@@ -292,49 +290,6 @@ describe('Unit > Permissions', function () {
 			} catch (error) {
 				assertIsNotFoundError(error);
 			}
-		});
-	});
-
-	describe('Expand Category', function () {
-		// Name is Test 1
-		const category = testUtils.fixtures.categories[1].id;
-
-		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID.generate()};
-
-			try {
-				await sendFakeRequest(permissions, expandCategory);
-				expectError();
-			} catch (error) {
-				assertIsNotFoundError(error);
-			}
-		});
-
-		it('With permission', async function () {
-			const permissions = {user, objectId: category};
-			const {response} = await sendFakeRequest(permissions, expandCategory);
-			expect(response.statusCalled).to.be.false;
-		});
-
-		it('No permission', async function () {
-			const permissions = {user: testUtils.fixtures.evilUser.id, objectId: category};
-			try {
-				await sendFakeRequest(permissions, expandCategory);
-				expectError();
-			} catch (error) {
-				assertIsNotFoundError(error);
-			}
-		});
-
-		it('Already expanded', async function () {
-			const permissions = {user, objectId: testUtils.fixtures.expandedCategory.id};
-
-			const {response} = await sendFakeRequest(permissions, expandCategory);
-
-			expect(response.statusCalled).to.be.true;
-			expect(response.dataSent).to.be.true;
-			expect(response._statusCode).to.equal(412);
-			expect(response._data.error).to.be.contain('already been expanded');
 		});
 	});
 });

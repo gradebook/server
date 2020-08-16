@@ -163,15 +163,6 @@ describe('Functional > API Routes', function () {
 					}
 				});
 		});
-
-		it('CONFLICT: /api/v0/category/{expanded:id}/expand', function () {
-			const {id} = testUtils.fixtures.expandedCategory;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412);
-		});
 	});
 
 	describe('POST data', function () {
@@ -220,34 +211,6 @@ describe('Functional > API Routes', function () {
 					expect(request.body).to.deep.equal({
 						error: 'data.create[0].name should be string',
 						context: 'Failed validating payload'
-					});
-				});
-		});
-
-		it('/api/v0/category/{id}/expand when it has no name', function () {
-			const {id} = testUtils.fixtures.categoryNoName;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('Cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412)
-				.then(request => {
-					expect(request.body).to.deep.equal({
-						error: 'category name cannot be empty'
-					});
-				});
-		});
-
-		it('/api/v0/category/{id}/expand when it has no weight', function () {
-			const {id} = testUtils.fixtures.categoryNoWeight;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('Cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412)
-				.then(request => {
-					expect(request.body).to.deep.equal({
-						error: 'category weight cannot be empty'
 					});
 				});
 		});

@@ -79,7 +79,7 @@ const fixturesMap = {
 		return this.users[3];
 	},
 
-	get expandedCategory() {
+	get category() {
 		return this.categories[0];
 	},
 
