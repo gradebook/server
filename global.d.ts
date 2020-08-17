@@ -1,8 +1,13 @@
+import QueryString from 'querystring';
 import Express from 'express';
-import session from 'express-session';
+import {Params as CoreParams} from "express-serve-static-core";
+import AbstractDatabaseResponse from './lib/models/database-response';
 
 declare namespace G {
-	export interface Request extends Express.Request {
+	export interface Request<QueriedData = AbstractDatabaseResponse, Permissions = unknown, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any, ReqQuery = QueryString.ParsedUrlQuery>
+		extends Express.Request<Params, ResBody, ReqBody, ReqQuery> {
+		queriedData: QueriedData;
+		permissions: Permissions;
 		_table: string;
 		_domain: string;
 		user?: {
@@ -20,7 +25,21 @@ declare namespace G {
 				overallGpa: number;
 			};
 		}
+		logout(): void
+	}
+
+	export type ResponseContext = {
+		statusCode ?: number;
+		body ?: object | string;
 	};
+
+	export interface Response extends Express.Response {
+		context?: ResponseContext
+	}
+
+	export interface ResponseWithContext extends Express.Response {
+		context: ResponseContext;
+	}
 
 	export function middleware(request: G.Request, response: Express.Response, callback: Express.NextFunction);
 }

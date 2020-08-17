@@ -1,6 +1,7 @@
 // @ts-check
-const {expect} = require('chai'); // @todo: this is a global variable. Make typescript get this
+const {expect} = require('chai');
 const supertest = require('supertest');
+const nock = require('nock');
 const makeApp = require('../utils/app');
 const testUtils = require('../utils');
 
@@ -8,6 +9,10 @@ describe('Functional > API Routes', function () {
 	let instance;
 
 	before(async function () {
+		nock('http://nock.gbdev.cf')
+			.get('/school-configuration.json')
+			.times(0)
+			.reply(200, require('../fixtures/school-configuration.json'));
 		instance = await makeApp();
 	});
 
@@ -29,10 +34,17 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/me', function () {
 			const trustedUser = Object.assign({}, testUtils.fixtures.trustedUser);
 
+			trustedUser.created = trustedUser.created_at;
+			trustedUser.firstName = trustedUser.first_name;
+			trustedUser.lastName = trustedUser.last_name;
+
 			delete trustedUser.id;
 			delete trustedUser.gid;
 			// @TODO: handle this
 			delete trustedUser.updated_at;
+			delete trustedUser.created_at;
+			delete trustedUser.first_name;
+			delete trustedUser.last_name;
 
 			return supertest(instance)
 				.get('/api/v0/me')
@@ -54,7 +66,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					});
 				});
@@ -69,7 +81,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(16);
 					body.forEach(category => {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped']
+							['id', 'name', 'weight', 'position', 'course', 'dropped']
 						);
 					});
 				});
@@ -92,8 +104,8 @@ describe('Functional > API Routes', function () {
 
 		it('/api/v0/course/{id}', function () {
 			const course = Object.assign({}, testUtils.fixtures.courses[0]);
-			delete course.user_id;
 			course.credits = course.credit_hours;
+			delete course.user_id;
 			delete course.credit_hours;
 
 			return supertest(instance)
@@ -108,7 +120,10 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/category/{id}', function () {
 			const category = Object.assign({}, testUtils.fixtures.categories[0]);
 
+			category.dropped = null;
+			category.course = category.course_id;
 			delete category.course_id;
+			delete category.dropped_grades;
 
 			return supertest(instance)
 				.get(`/api/v0/category/${category.id}`)
@@ -147,7 +162,7 @@ describe('Functional > API Routes', function () {
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'course_id', 'name', 'weight', 'position', 'dropped', 'grades']
+							['id', 'name', 'weight', 'position', 'course', 'dropped', 'grades']
 						);
 						expect(category.grades).to.be.an('array');
 						expect(category.grades.length).to.be.at.least(1);
@@ -155,19 +170,10 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cut1', 'cut2', 'cut3', 'cut4', 'cut1Name', 'cut2Name', 'cut3Name', 'cut4Name', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'credits']
 						);
 					}
 				});
-		});
-
-		it('CONFLICT: /api/v0/category/{expanded:id}/expand', function () {
-			const {id} = testUtils.fixtures.expandedCategory;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412);
 		});
 	});
 
@@ -220,34 +226,6 @@ describe('Functional > API Routes', function () {
 					});
 				});
 		});
-
-		it('/api/v0/category/{id}/expand when it has no name', function () {
-			const {id} = testUtils.fixtures.categoryNoName;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('Cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412)
-				.then(request => {
-					expect(request.body).to.deep.equal({
-						error: 'category name cannot be empty'
-					});
-				});
-		});
-
-		it('/api/v0/category/{id}/expand when it has no weight', function () {
-			const {id} = testUtils.fixtures.categoryNoWeight;
-
-			return supertest(instance)
-				.post(`/api/v0/category/${id}/expand`)
-				.set('Cookie', testUtils.fixtures.cookies.trusted)
-				.expect(412)
-				.then(request => {
-					expect(request.body).to.deep.equal({
-						error: 'category weight cannot be empty'
-					});
-				});
-		});
 	});
 
 	describe('PUT data', function () {
@@ -255,10 +233,7 @@ describe('Functional > API Routes', function () {
 			const course = {
 				semester: '2019S',
 				name: 'Bad name course',
-				cut1: 90, cut1Name: 'A',
-				cut2: 80, cut2Name: 'B',
-				cut3: 70, cut3Name: 'C',
-				cut4: 60, cut4Name: 'D',
+				cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 				credits: null
 			};
 

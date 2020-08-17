@@ -1,3 +1,4 @@
+// @ts-check
 const {resolve} = require('path');
 /* eslint-disable-next-line import/no-unassigned-import */
 require('../test/global.js'); // Update env
@@ -14,9 +15,7 @@ if (process.env.CI === 'true') {
 	log = () => false; // Noop fixture creation logs for CI
 }
 
-migrator.startup().then(async () => {
-	knex.init();
-
+migrator.init().then(async () => {
 	const txn = await knex.instance.transaction();
 	try {
 		const promises = fixtures.map(([table, values], idx) => {
@@ -43,6 +42,6 @@ migrator.startup().then(async () => {
 		console.error(error);
 		await txn.rollback();
 	}
-
+}).finally(() => {
 	knex.instance.destroy();
 });

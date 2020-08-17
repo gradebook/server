@@ -32,6 +32,7 @@ jobs:
     - name: Unit Tests
       run: |
         yarn install --frozen-lockfile
+        NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
         yarn test:unit
         node _commands/post-test.js
@@ -62,6 +63,7 @@ jobs:
     - name: Integration Tests
       run: |
         yarn install --frozen-lockfile
+        NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
         yarn test:integration
         node _commands/post-test.js
@@ -93,6 +95,7 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         yarn lint
+        yarn typecheck
         node _commands/post-test.js
       env:
         CI: true
