@@ -1,7 +1,3 @@
-# Unreleased
-
-- Semester keys will no longer be auto-transformed to uppercase
-
 # 3.11.1
 
  - :bug: fix validation error occuring when creating a new account
