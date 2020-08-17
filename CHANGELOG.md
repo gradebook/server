@@ -1,3 +1,35 @@
+# 4.0.0
+
+We're excited to launch Gradebook Server 4.0. This release does not include many new features, but it includes security enhancements, bug fixes, removing deprecated code, and internal tooling updates that make development safer and easier. There are breaking API changes which require an updated client.
+
+ - :sparkles: dramatically improved Types support using JSDoc
+    - Lint also runs Type Checks now!
+ - :sparkles: upgrade theme service to support [per-school configuration files](https://github.com/gradebook/school-configuration)
+ - :sparkles: dynamically compute active semesters
+ - :sparkles: add new `slim-data` endpoint which sends less data over the wire
+   - This might replace `core-data` in the future!
+ - :sparkles: PUT categories supports creating grades at the same time
+ - :zap: improve performance of model layer by using POJOs instead of Maps
+ - :lock: rework model validator to better prevent storing weird data
+ - :lock: limit grades.browse response to those owned by the user
+ - :lock: coerce config booleans to a string before comparing
+ - :lock: require browse API calls to disallow unknown parameters and require at least 1 known parameter
+ - :recycle: improve separation of concerns across all services
+ - :recycle: update API functions to destructure a single parameter instead of having multiple parameters
+ - :wrench: rename test files to end with `.spec.js`
+ - :fire: remove cached data support
+ - :fire: remove support for data events
+ - :fire: remove sanitizers
+ - :fire: remove additionalValidations from baseAPI.update
+ - :fire: remove knex-migrator (#130)
+ - :fire: remove contract category API
+ - :fire: remove category expand API
+ - :building_construction: limit _* fields to data access (knex, models) layer
+   - This means API responses don't have _* fields as well
+ - :building_construction: rework almost every single route to use Request Pipelining
+   - Ensures every request goes through Rate Limiting (if needed), validation, permissions, execution, and response serialization
+ - :building_construction: refactor Models to use Class Inheritance instead of Closures
+
 # 3.11.1
 
  - :bug: fix validation error occuring when creating a new account
