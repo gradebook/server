@@ -29,12 +29,10 @@ describe('Unit > SchoolConfigurationService', function () {
 	it('init populates school and theme database', async function () {
 		nock.get(ENDPOINT_PATH).reply(200, ENDPOINT_RESPONSE);
 		expect(service.getConfigForHost('aggie')).to.deep.equal(DEFAULT_CONFIG);
-		expect(service.getThemeForHost('aggie')).to.deep.equal(DEFAULT_CONFIG.theme);
 
 		expect(await service.init(), 'Should have successfully loaded config').to.be.true;
 
 		expect(service.getConfigForHost('aggie')).to.deep.equal(ENDPOINT_RESPONSE.aggie);
-		expect(service.getThemeForHost('aggie')).to.deep.equal(ENDPOINT_RESPONSE.aggie.theme);
 	});
 
 	it('refresh atomically updates school data', async function () {
