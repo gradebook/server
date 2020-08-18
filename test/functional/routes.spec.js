@@ -51,8 +51,7 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body.theme).to.be.an('object');
-					expect(body.theme.background).to.match(/generic\.jpg/);
+					expect(body.theme).to.not.exist;
 					expect(body).to.deep.include(trustedUser);
 				});
 		});
