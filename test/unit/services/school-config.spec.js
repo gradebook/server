@@ -5,8 +5,6 @@ const {SchoolConfigService} = require('../../../lib/services/school-config');
 
 const ENDPOINT_PATH = '/school-configuration.json';
 const ENDPOINT_RESPONSE = require('../../fixtures/school-configuration.json');
-// @ts-ignore
-const {default: DEFAULT_CONFIG} = ENDPOINT_RESPONSE;
 
 describe('Unit > SchoolConfigurationService', function () {
 	/** @type {import('nock').Scope} */
@@ -28,11 +26,17 @@ describe('Unit > SchoolConfigurationService', function () {
 
 	it('init populates school and theme database', async function () {
 		nock.get(ENDPOINT_PATH).reply(200, ENDPOINT_RESPONSE);
-		expect(service.getConfigForHost('aggie')).to.deep.equal(DEFAULT_CONFIG);
+		expect(service.getSchoolConfig('aggie').head).to.not.contain('aggie');
+
+		// .init() will always be called before any requests are allowed in
+		// a normal bootup. Since we're testing that init makes an HTTP request
+		// and stores the response, we need to clear the cache
+		// @ts-ignore
+		service._configCache.clear();
 
 		expect(await service.init(), 'Should have successfully loaded config').to.be.true;
 
-		expect(service.getConfigForHost('aggie')).to.deep.equal(ENDPOINT_RESPONSE.aggie);
+		expect(service.getSchoolConfig('aggie').head).to.contain('aggie');
 	});
 
 	it('refresh atomically updates school data', async function () {
