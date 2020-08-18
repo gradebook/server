@@ -1,3 +1,11 @@
+# 4.0.1
+
+This release contains removes some deprecated markup, and fixes a cache bug in the school configuration service
+
+ - :bug: clear school config cache after successfully reloading
+ - :fire: remove theme configuration
+ - remove `theme` property from `site-config`
+
 # 4.0.0
 
 We're excited to launch Gradebook Server 4.0. This release does not include many new features, but it includes security enhancements, bug fixes, removing deprecated code, and internal tooling updates that make development safer and easier. There are breaking API changes which require an updated client.
