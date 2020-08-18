@@ -56,7 +56,19 @@ describe('Unit > SchoolConfigurationService', function () {
 		await service.refresh();
 
 		// @ts-ignore
-		expect(service._schoolConfigs, 'Object ref changed (request failed)').to.equal(firstRefreshConfig);
+		expect(service._schoolConfigs, 'Object ref did not change (request failed)').to.equal(firstRefreshConfig);
+	});
+
+	it('config cache is flushed when refreshing', async function () {
+		nock.get(ENDPOINT_PATH).reply(200, ENDPOINT_RESPONSE);
+		// @ts-ignore
+		service._configCache.set('www', 'fake');
+
+		expect(service.getSchoolConfig('www')).to.equal('fake');
+
+		await service.refresh();
+
+		expect(service.getSchoolConfig('www').head).to.include('site-config');
 	});
 
 	it('getSchoolConfig pulls from cache or generates markup', async function () {
