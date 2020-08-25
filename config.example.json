@@ -1,5 +1,6 @@
 {
   "analytics": true,
+  "cache frontend": true,
   "cloudflare": {
     "enabled": false,
     "token": "long_string",
