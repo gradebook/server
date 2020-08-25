@@ -78,5 +78,13 @@
   },
   "session length": 604800000,
   "schoolConfigurationEndpoint": "https://schools.gradebook.app/api/v0/global.json",
+  "default school configuration": {
+    "name": "",
+    "theme": {
+      "primary": "#5E3B4D",
+      "hover": "#7e4f67",
+      "background": "https://static.gradebook.app/sYbR9JXKTI/generic.jpg"
+    }
+  },
   "trust proxy": false
 }
