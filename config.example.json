@@ -15,7 +15,7 @@
       "filename": "content/database.db"
     }
   },
-  "domain": false,
+  "domain": ".gbdev.cf",
   "ignoredUsers": [],
   "user event endpoint": false,
   "live reload": false,
