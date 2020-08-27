@@ -184,6 +184,11 @@
   dependencies:
     got "10.5.5"
 
+"@gradebook/course-serializer@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.1.tgz#aa609980846b94d74791676b9a58f014c929db44"
+  integrity sha512-1vEHraStxa3ewgNTfgfwbIdw1pnkSFCuYW4Ih2pkYEXQw5ndwYE3XKWFe9RgGAukYipFVSX6fTdWHHIPlBI/3A==
+
 "@gradebook/express-brute-redis@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@gradebook/express-brute-redis/-/express-brute-redis-0.1.0.tgz#b1475fe1eeb0ecd044d383264ff4c50d8deed9df"
