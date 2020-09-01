@@ -23,7 +23,7 @@
     "typecheck": "tsc index.js --noEmit --lib es7 --target es2019 -m commonjs --allowJS --esModuleInterop"
   },
   "dependencies": {
-    "@gradebook/course-serializer": "^0.2.1",
+    "@gradebook/course-serializer": "0.2.1",
     "@gradebook/express-brute-redis": "0.1.0",
     "@gradebook/fast-pluralize": "0.0.2",
     "@gradebook/passport-utils": "0.2.0",
@@ -61,7 +61,7 @@
     "execa": "4.0.3",
     "mocha": "8.1.0",
     "mock-knex": "0.4.9",
-    "nock": "^13.0.3",
+    "nock": "13.0.3",
     "nodemon": "2.0.4",
     "nyc": "15.1.0",
     "rewire": "5.0.0",
