@@ -8,7 +8,7 @@ global.sinon = sinon;
 global.testUtils = require('./utils');
 
 // Force the active semester to be Spring 2019
-const semesterService = require('../lib/services/current-semester');
+const semesterService = require('@gradebook/time').semester.data;
 
 semesterService.activeSemester = '2019S';
 semesterService.allowedSemesters = ['2019S'];

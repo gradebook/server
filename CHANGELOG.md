@@ -1,3 +1,22 @@
+# 4.1.0
+
+This release contains some configuration updates:
+
+ - There's now an explicit key for frontend caching (`cache frontend`) which defaults to `true`
+ - Cookie Domain now defaults to `.gbdev.cf`
+ - `default school configuration` allows choosing what configuration to use for school configuration by default.
+ - Environment can be explicitly specified via the `environment` key. As part of this, more features are configured based on (not) being in production
+
+Other changes
+
+ - :sparkles: add support for using a custom course when creating an account
+ - :bug: fix create account flow breaking when making `/me` API requests
+ - Update marketing redirect to use config.domain
+ - [internal] Allow customizing the default school config blob via config
+ - [internal] Add configuration flag to cache frontend
+ - [internal] Allow explicitly setting environment in config
+ - [internal] Update incorrect host redirect to include request path
+
 # 4.0.1
 
 This release contains removes some deprecated markup, and fixes a cache bug in the school configuration service
