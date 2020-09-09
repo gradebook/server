@@ -1,3 +1,8 @@
+# 4.1.1
+
+ - :bug: set and return grade values as null in course.import
+ - increase max API Payload size to 20k
+
 # 4.1.0
 
 This release contains some configuration updates:
