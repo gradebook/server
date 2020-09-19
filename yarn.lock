@@ -199,18 +199,18 @@
   resolved "https://registry.yarnpkg.com/@gradebook/fast-pluralize/-/fast-pluralize-0.0.2.tgz#d824ba8c4d47f0f0168c9a639aef126459929603"
   integrity sha512-pygjdq64JjvwqyVkTYRDG1tP8mYmX2Fg1HnglNg3Hly6Rop4vI3h84v4U+euG+DIyYb5mUHwSToH1+lKkW489A==
 
-"@gradebook/passport-utils@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@gradebook/passport-utils/-/passport-utils-0.2.0.tgz#40f92f892ec686d2bbd60e2a9d861c5cd9063179"
-  integrity sha512-STIWsYhk3nHZtavKxye4Rh9luLXO0fK6ZVe1XDsqjrCkGgtt3uEJfEVncZUSFaVZOLBtl1VxWZcbg95Dn8HGtg==
+"@gradebook/passport-utils@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/passport-utils/-/passport-utils-0.2.1.tgz#fd7befda3720acbf8b02d99e1d6403eb9354c2cb"
+  integrity sha512-3ARYX32h+tNnnEklKT9fcp4GBuc8cUMZCOyaOEuzdM7sZIP1m7bkWrrUlSqBwVNiHSbII39D8oAOy+9eGDY3ag==
   dependencies:
+    "@gradebook/time" "^0.0.4"
     bson-objectid "^1.3.1"
-    dayjs "^1.8.32"
 
-"@gradebook/time@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-0.0.3.tgz#500844fe42449e88aa118c8bc3fadb1cf7093e91"
-  integrity sha512-mA4ckg2JO3QgPN2uv0O/UVcrjyefrSAPJkd1K5bBa7BVXt6kL16bVjFusrHKNJre3QAGNFlhpoOxW/DnlGUHjw==
+"@gradebook/time@0.0.4", "@gradebook/time@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-0.0.4.tgz#394ffcaea284152462a54da0598c4054e2871395"
+  integrity sha512-INsk76qr3/9ZAL2EjXK7WpJ+TKe+xfp42mgolTdXIWVij65D6OdDanpwmMSmIyQiCYHUS8MKUNN9tn1pNYDMig==
   dependencies:
     dayjs "^1.8.35"
 
@@ -1428,11 +1428,6 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
-
-dayjs@^1.8.32:
-  version "1.8.34"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
-  integrity sha512-Olb+E6EoMvdPmAMq2QoucuyZycKHjTlBXmRx8Ada+wGtq4SIXuDCdtoaX4KkK0yjf1fJLnwXQURr8gQKWKaybw==
 
 dayjs@^1.8.35:
   version "1.8.35"
