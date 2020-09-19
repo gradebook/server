@@ -207,10 +207,10 @@
     bson-objectid "^1.3.1"
     dayjs "^1.8.32"
 
-"@gradebook/time@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-0.0.2.tgz#ba9dd6dca570bc218bd8c925f8a0c98182d61d44"
-  integrity sha512-TT/8LoVLL5hqePt7xxUkgotw9jm3rXo57zTNUVsYtWISj1f8Ti6cLqAco+SppJq69TTgMMIAyj/g4IaCpv8ESg==
+"@gradebook/time@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-0.0.3.tgz#500844fe42449e88aa118c8bc3fadb1cf7093e91"
+  integrity sha512-mA4ckg2JO3QgPN2uv0O/UVcrjyefrSAPJkd1K5bBa7BVXt6kL16bVjFusrHKNJre3QAGNFlhpoOxW/DnlGUHjw==
   dependencies:
     dayjs "^1.8.35"
 
@@ -1429,7 +1429,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dayjs@1.8.34, dayjs@^1.8.32:
+dayjs@^1.8.32:
   version "1.8.34"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
   integrity sha512-Olb+E6EoMvdPmAMq2QoucuyZycKHjTlBXmRx8Ada+wGtq4SIXuDCdtoaX4KkK0yjf1fJLnwXQURr8gQKWKaybw==
