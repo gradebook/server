@@ -1,3 +1,7 @@
+# 4.1.3
+
+ - Fix previous broken build
+
 # 4.1.2
 
  - :fire: remove uncaught exception handlers
