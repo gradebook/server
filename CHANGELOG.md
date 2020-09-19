@@ -1,3 +1,9 @@
+# 4.1.2
+
+ - :fire: remove uncaught exception handlers
+ - :bug: ensure all user data is removed from session when logging out
+   - destroy the entire session rather than just log the user out
+
 # 4.1.1
 
  - :bug: set and return grade values as null in course.import
