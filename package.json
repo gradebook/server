@@ -23,23 +23,23 @@
     "typecheck": "tsc index.js --noEmit --lib es7 --target es2019 -m commonjs --allowJS --esModuleInterop"
   },
   "dependencies": {
-    "@gradebook/course-serializer": "0.2.1",
+    "@gradebook/course-serializer": "0.2.2",
     "@gradebook/express-brute-redis": "0.1.0",
-    "@gradebook/fast-pluralize": "0.0.2",
+    "@gradebook/fast-pluralize": "0.0.3",
     "@gradebook/passport-utils": "0.2.1",
     "@gradebook/time": "0.0.4",
-    "ajv": "6.12.4",
+    "ajv": "6.12.5",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "bson-objectid": "1.3.1",
     "connect-redis": "5.0.0",
-    "connect-session-knex": "1.7.3",
+    "connect-session-knex": "2.0.0",
     "cookie-parser": "1.4.5",
     "express": "4.17.1",
     "express-brute": "1.0.1",
     "express-session": "1.17.1",
     "ghost-ignition": "4.2.2",
-    "got": "11.5.2",
+    "got": "11.7.0",
     "ioredis": "4.17.3",
     "knex": "0.21.6",
     "lodash.get": "4.4.2",
@@ -48,7 +48,7 @@
     "passport": "0.4.1",
     "passport-google-oauth20": "2.0.0",
     "sqlite3": "5.0.0",
-    "validator": "13.1.1"
+    "validator": "13.1.17"
   },
   "devDependencies": {
     "@gradebook/actions-hook": "0.2.0",
@@ -65,8 +65,8 @@
     "nodemon": "2.0.4",
     "nyc": "15.1.0",
     "rewire": "5.0.0",
-    "sinon": "9.0.3",
-    "supertest": "4.0.2",
+    "sinon": "9.2.0",
+    "supertest": "5.0.0",
     "typescript": "3.9.7",
     "xo": "0.25.3"
   },
