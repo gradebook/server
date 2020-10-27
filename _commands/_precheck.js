@@ -1,13 +1,11 @@
 const path = require('path');
-const fs = require('fs');
-const {promisify} = require('util');
+const _fs = require('fs');
+const fs = _fs.promises;
 const getHash = require('./utils/get-git-hash.js');
 const runInstall = require('./utils/run-yarn-install.js');
 
 const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
 const properDir = path.resolve(__dirname, '../');
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
 
 const MAJOR_MINOR_MATCH = 'v14.15.';
 
@@ -37,7 +35,7 @@ module.exports = async function staySafe(isSetup = false) {
 	}
 
 	// Next, check that the client submodule was initialized by checking if a known file exists
-	const clientLockFileExists = fs.existsSync('./lib/frontend/client/yarn.lock');
+	const clientLockFileExists = _fs.existsSync('./lib/frontend/client/yarn.lock');
 
 	if (!clientLockFileExists && !isSetup) {
 		console.error('Submodule `client` not cloned! Run `git submodule init` and try again.');
@@ -49,7 +47,7 @@ module.exports = async function staySafe(isSetup = false) {
 	let hashesChanged = false;
 
 	try {
-		latestVersions = await readFile(CONFIG);
+		latestVersions = await fs.readFile(CONFIG);
 		latestVersions = JSON.parse(latestVersions);
 	} catch {}
 
@@ -77,6 +75,6 @@ module.exports = async function staySafe(isSetup = false) {
 	}
 
 	if (hashesChanged) {
-		await writeFile(CONFIG, JSON.stringify(latestVersions));
+		await fs.writeFile(CONFIG, JSON.stringify(latestVersions));
 	}
 };
