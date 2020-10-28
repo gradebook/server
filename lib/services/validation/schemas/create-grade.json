@@ -10,7 +10,7 @@
     "category": {"$ref": "object_id"},
     "name": {
       "minLength": 1,
-      "maxLength": 50,
+      "maxLength": 55,
       "type": "string"
     },
     "grade": {
