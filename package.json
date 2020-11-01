@@ -58,7 +58,7 @@
     "chai": "4.2.0",
     "chokidar": "3.4.2",
     "eslint-plugin-mocha": "8.0.0",
-    "execa": "4.0.3",
+    "execa": "4.1.0",
     "mocha": "8.1.3",
     "mock-knex": "github:jayakrishnagopal/mock-knex#8fca189790350be6ac7e8ae834cf9741546effde",
     "nock": "13.0.4",
