@@ -38,7 +38,7 @@
     "express": "4.17.1",
     "express-brute": "1.0.1",
     "express-session": "1.17.1",
-    "ghost-ignition": "4.2.2",
+    "ghost-ignition": "4.2.4",
     "got": "11.7.0",
     "ioredis": "4.17.3",
     "knex": "0.21.6",
