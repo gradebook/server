@@ -1,3 +1,13 @@
+# 4.2.0
+
+ - :fire: remove statistics cron job
+ - fix OutgoingMessage.prototype._headers is deprecated message (update Ghost Ignition)
+ - Allow grade names to be up to 55 characters (bumped from 50)
+ - Alter default ratelimiting config for batch edit category
+ - Add some user migrations
+ - Node 14.x LTS
+ - Add feedback API endpoint
+
 # 4.1.3
 
  - Fix previous broken build
