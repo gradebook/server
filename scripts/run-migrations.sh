@@ -22,7 +22,7 @@ if [[ "$MYSQL_DATABASES" == "null" ]]; then
 
 	# CASE: mysql -> set single database and run multi-migration
 	if [[ "$DATABASE_TYPE" == "mysql" ]]; then
-		MYSQL_DATABASES=$(echo "$CONFIG" | jq .database.connection.database)
+		MYSQL_DATABASES=$(echo "$CONFIG" | jq -r .database.connection.database)
 	# CASE: sqlite3 -> run single migration
 	else
 		NODE_ENV=$(echo $_ENV) yarn knex migrate:latest
