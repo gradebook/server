@@ -4,6 +4,15 @@ const envConfig = {
 	migrations: {
 		tableName: 'migrations',
 		directory: './lib/database/migrations'
+	},
+	logging: {
+		level: 'info',
+		rotation: {
+			enabled: false
+		},
+		path: './logs/migrations',
+		domain: 'gb-mg',
+		transports: ['file', 'stdout']
 	}
 };
 

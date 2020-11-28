@@ -16,6 +16,8 @@ run_mysql_migration() {
 	done
 }
 
+mkdir -p ./logs/migrations
+
 # CASE: NO Host Matching
 if [[ "$MYSQL_DATABASES" == "null" ]]; then
 	DATABASE_TYPE=$(echo "$CONFIG" | jq -r .database.client)
