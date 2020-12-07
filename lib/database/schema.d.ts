@@ -24,10 +24,17 @@ type StringColumn = BaseSchema & {
 
 type TextColumn = BaseSchema & {
 	type: 'text',
-	subType?: 'tinytext' | 'mediumtext' | 'longtext' | 'json',
+	subType?: 'tinytext' | 'mediumtext' | 'longtext',
 	validations: {
 		maxLength: number;
 	};
+}
+
+type JSONColumn = BaseSchema & {
+	type: 'json',
+	validations: {
+		maxLength: number;
+	}
 }
 
 type NumericColumn = BaseSchema & {
@@ -42,4 +49,4 @@ type BasicColumn = BaseSchema & {
 	type: 'date' | 'datetime' | 'timestamp' | 'text';
 };
 
-export type ColumnSchema = StringColumn | TextColumn | NumericColumn | BasicColumn;
+export type ColumnSchema = StringColumn | TextColumn | JSONColumn | NumericColumn | BasicColumn;
