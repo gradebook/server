@@ -65,7 +65,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
 						);
 					});
 				});
@@ -169,7 +169,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
 						);
 					}
 				});
