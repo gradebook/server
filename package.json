@@ -20,7 +20,7 @@
     "test:unit": "nyc --reporter=html --reporter=text mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:unit:debug": "mocha test/unit --recursive -r ./test/global.js --file ./test/teardown.js",
     "test:integration": "mocha test/integration --recursive -r ./test/global.js --file ./test/teardown.js",
-    "typecheck": "tsc index.js --noEmit --lib es7 --target es2019 -m commonjs --allowJS --esModuleInterop"
+    "typecheck": "tsc index.js ./lib/database/schema.js --noEmit --lib es7 --target es2019 -m commonjs --allowJS --esModuleInterop"
   },
   "dependencies": {
     "@gradebook/course-serializer": "0.2.2",
