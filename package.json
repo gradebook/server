@@ -48,7 +48,7 @@
     "passport": "0.4.1",
     "passport-google-oauth20": "2.0.0",
     "sqlite3": "5.0.0",
-    "validator": "13.1.17"
+    "validator": "13.5.2"
   },
   "devDependencies": {
     "@gradebook/actions-hook": "0.2.0",
