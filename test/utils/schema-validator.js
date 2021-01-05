@@ -1,4 +1,4 @@
-const AJV = require('ajv');
+const AJV = require('ajv').default;
 
 module.exports = function createSchemaValidator(schema, additionalSchemas = []) {
 	const ajv = new AJV();

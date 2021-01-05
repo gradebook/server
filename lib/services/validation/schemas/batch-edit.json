@@ -37,13 +37,13 @@
     },
     "update": {
       "type": "array",
-      "required": ["id"],
       "minItems": 1,
       "maxItems": 100,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "minProperties": 1,
+        "required": ["id"],
         "properties": {
           "id": {"$ref": "object_id"},
           "grade": {"type": ["number", "null"]},

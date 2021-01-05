@@ -34,13 +34,12 @@
     "grades": {
       "oneOf": [{
         "type": "array",
-        "minimum": 2,
-        "maximum": 100,
+        "minItems": 2,
+        "maxItems": 100,
         "items": {
           "type": "object",
           "additionalProperties": false,
           "required": ["grade", "name"],
-          "additionalItems": false,
           "properties": {
             "grade": {"type": ["number", "null"]},
             "name": {
@@ -52,13 +51,12 @@
         }
       }, {
         "type": "array",
-        "minimum": 1,
-        "maximum": 1,
+        "minItems": 1,
+        "maxItems": 1,
         "items": {
           "type": "object",
           "additionalProperties": false,
           "required": ["grade", "name"],
-          "additionalItems": false,
           "properties": {
             "grade": {"type": ["number", "null"]},
             "name": {"type": "null"}

@@ -12,16 +12,16 @@ const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, name: 'Project 1
 describe('Unit > Schemas > CreateGrade', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
-		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
-		expectInvalid({...VALID_OBJECT, course: 'abcd'}, ['dataPath', '.course'], 'should match pattern');
+		expectInvalid({id: ''}, ['keyword', 'required'], 'course');
+		expectInvalid({...VALID_OBJECT, course: 'abcd'}, ['dataPath', '/course'], 'should match pattern');
 	});
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.name'];
+		const errorProp = ['dataPath', '/name'];
 
 		obj.name = '';
-		expectInvalid(obj, errorProp, 'shorter than 1 character');
+		expectInvalid(obj, errorProp, 'fewer than 1 character');
 
 		obj.name = 14;
 		expectInvalid(obj, errorProp, 'should be string');
@@ -38,7 +38,7 @@ describe('Unit > Schemas > CreateGrade', function () {
 
 	it('grade', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.grade'];
+		const errorProp = ['dataPath', '/grade'];
 
 		obj.grade = '';
 		expectInvalid(obj, errorProp, '');

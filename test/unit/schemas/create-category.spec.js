@@ -19,12 +19,12 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.name'];
+		const errorProp = ['dataPath', '/name'];
 
 		expectValid(obj);
 
 		obj.name = '';
-		expectInvalid(obj, errorProp, 'shorter');
+		expectInvalid(obj, errorProp, 'fewer');
 
 		obj.name = 14;
 		expectInvalid(obj, errorProp, 'string');
@@ -35,7 +35,7 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('weight', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.weight'];
+		const errorProp = ['dataPath', '/weight'];
 
 		obj.weight = false;
 		expectInvalid(obj, errorProp, 'should be number');
@@ -61,7 +61,7 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('position', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.position'];
+		const errorProp = ['dataPath', '/position'];
 
 		obj.position = null;
 		expectValid(obj);

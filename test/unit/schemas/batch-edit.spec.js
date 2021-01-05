@@ -7,7 +7,7 @@ const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
 
 describe('Unit > Schemas > BatchEditGrades', function () {
 	it('Bad all around', function () {
-		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 properties');
+		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 items');
 		expectInvalid({
 			create: [],
 			update: []
@@ -51,13 +51,13 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 					test: ObjectId.generate()
 				}
 			}]
-		}, ['dataPath', '.create[0]'], 'NOT have additional properties');
+		}, ['dataPath', '/create/0'], 'NOT have additional properties');
 
 		expectInvalid({
 			create: [{
 				category_id: ObjectId.generate() // eslint-disable-line camelcase
 			}]
-		}, ['dataPath', '.create[0]'], 'NOT have additional properties');
+		}, ['dataPath', '/create/0'], 'NOT have additional properties');
 	});
 
 	it('Only update', function () {
@@ -84,11 +84,11 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 		const duplicateId = ObjectId.generate();
 		expectInvalid({
 			delete: [duplicateId, duplicateId]
-		}, ['dataPath', '.delete'], 'NOT have duplicate items');
+		}, ['dataPath', '/delete'], 'NOT have duplicate items');
 
 		expectInvalid({
 			delete: ObjectId.generate()
-		}, ['dataPath', '.delete'], 'should be array');
+		}, ['dataPath', '/delete'], 'should be array');
 	});
 
 	it('No create AND delete', function () {

@@ -12,7 +12,7 @@ describe('Unit > Schemas > EditCourse', function () {
 	it('name', function () {
 		expectValid({name: 'ECEN 482'});
 		expectValid({name: 'ECE 1241'});
-		expectInvalid({name: 'Introduction to Gradebook'}, ['dataPath', '.name'], 'should match pattern');
+		expectInvalid({name: 'Introduction to Gradebook'}, ['dataPath', '/name'], 'should match pattern');
 	});
 
 	it('allows changing different permutations', function () {

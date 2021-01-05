@@ -12,12 +12,13 @@ const VALID_OBJECT = {
 describe('Unit > Schemas > CreateCourse', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
-		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		expectInvalid({id: ''}, ['keyword', 'required'], 'should have required property');
+		expectInvalid({...VALID_OBJECT, id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.name'];
+		const errorProp = ['dataPath', '/name'];
 
 		obj.name = '';
 		expectInvalid(obj, errorProp, 'should match pattern');
@@ -37,7 +38,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 
 	it('semester', function () {
 		const obj = {...VALID_OBJECT, semester: 'Fall 2019'};
-		const errorProp = ['dataPath', '.semester'];
+		const errorProp = ['dataPath', '/semester'];
 
 		expectInvalid(obj, errorProp, 'should match pattern');
 
