@@ -1,0 +1,18 @@
+{
+  "files": [
+    "index.js",
+    "./lib/database/schema.js"
+  ],
+  "compilerOptions": {
+    "types": [
+      "./global",
+      "./session"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "lib": ["es2017"],
+    "target": "es2019",
+    "module": "CommonJS",
+    "esModuleInterop": true
+  }
+}
