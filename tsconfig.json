@@ -1,7 +1,9 @@
 {
-  "files": [
-    "index.js",
-    "./lib/database/schema.js"
+  "include": [
+    "lib/**/*"
+  ],
+  "exclude": [
+    "lib/frontend/client/"
   ],
   "compilerOptions": {
     "types": [
