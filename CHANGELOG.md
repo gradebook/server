@@ -1,3 +1,15 @@
+# 4.3.0
+
+ - :bug: fix schema not being typechecked
+ - :bug: disallow creating a course in an inactive semester
+ - :bug: fix non host-matching migrations failing w/ migration script
+ - log error when template fails to load
+ - [internal] improve global and local typings
+ - [internal] enable repo-wide typechecking
+ - add support for course settings
+ - dev: fix root requests being handled by express static
+ - update per-school injections to include web manifests, theme colors, and apple-specific tags on apple devices
+
 # 4.2.0
 
  - :fire: remove statistics cron job
