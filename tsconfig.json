@@ -1,0 +1,21 @@
+{
+  "include": [
+    "lib/**/*"
+  ],
+  "exclude": [
+    "lib/frontend/client/"
+  ],
+  "compilerOptions": {
+    "types": [
+      "./global",
+      "./session"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "lib": ["es2017"],
+    "target": "es2019",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}

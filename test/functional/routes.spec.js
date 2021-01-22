@@ -65,7 +65,7 @@ describe('Functional > API Routes', function () {
 					expect(body).to.be.an('array').with.length(5);
 					body.forEach(course => {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
 						);
 					});
 				});
@@ -169,7 +169,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
 						);
 					}
 				});
@@ -187,7 +187,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.name should be string',
+						error: 'data/name should be string',
 						context: 'Failed validating payload'
 					});
 				});
@@ -204,7 +204,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.update[0].name should be string',
+						error: 'data/update/0/name should be string',
 						context: 'Failed validating payload'
 					});
 				});
@@ -220,7 +220,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.create[0].name should be string',
+						error: 'data/create/0/name should be string',
 						context: 'Failed validating payload'
 					});
 				});
@@ -245,7 +245,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.course.name should match pattern "^[A-Z]{3,4} \\d{3,4}$"',
+						error: 'data/course/name should match pattern "^[A-Z]{3,4} \\d{3,4}$"',
 						context: 'Failed validating payload'
 					});
 				});
@@ -262,7 +262,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data.name should be string',
+						error: 'data/name should be string',
 						context: 'Failed validating payload'
 					});
 				});

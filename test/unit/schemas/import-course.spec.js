@@ -19,7 +19,8 @@ const VALID_OBJECT = {
 describe('Unit > Schemas > ImportCourse', function () {
 	it('base invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
-		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		expectInvalid({id: ''}, ['keyword', 'required'], 'course');
+		expectInvalid({...VALID_OBJECT, id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
 	it('course invalid props', function () {
@@ -36,7 +37,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('course.name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.course.name'];
+		const errorProp = ['dataPath', '/course/name'];
 
 		obj.course.name = '';
 		expectInvalid(obj, errorProp, 'should match pattern');
@@ -56,7 +57,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('course.semester', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.course.semester'];
+		const errorProp = ['dataPath', '/course/semester'];
 
 		obj.course.semester = 'Fall 2019';
 		expectInvalid(obj, errorProp, 'should match pattern');
@@ -76,18 +77,18 @@ describe('Unit > Schemas > ImportCourse', function () {
 		delete obj.categories[0].id;
 
 		delete obj.categories[0].dropped;
-		expectInvalid(obj, ['keyword', 'minProperties'], 'NOT have fewer than 5 properties');
+		expectInvalid(obj, ['keyword', 'minProperties'], 'NOT have fewer than 5 items');
 		obj.categories[0].dropped = null;
 	});
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.categories[1].name'];
+		const errorProp = ['dataPath', '/categories/1/name'];
 
 		expectValid(obj);
 
 		obj.categories[1].name = '';
-		expectInvalid(obj, errorProp, 'shorter');
+		expectInvalid(obj, errorProp, 'fewer');
 
 		obj.categories[1].name = 14;
 		expectInvalid(obj, errorProp, 'string');
@@ -98,7 +99,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('weight', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.categories[0].weight'];
+		const errorProp = ['dataPath', '/categories/0/weight'];
 
 		obj.categories[0].weight = false;
 		expectInvalid(obj, errorProp, 'should be number');
@@ -124,7 +125,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('position', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.categories[1].position'];
+		const errorProp = ['dataPath', '/categories/1/position'];
 
 		obj.categories[1].position = null;
 		expectValid(obj);
@@ -138,7 +139,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('numGrades', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.categories[1].numGrades'];
+		const errorProp = ['dataPath', '/categories/1/numGrades'];
 
 		obj.categories[1].numGrades = null;
 		expectInvalid(obj, errorProp, 'should be integer');
@@ -155,7 +156,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('dropped', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '.categories[1].dropped'];
+		const errorProp = ['dataPath', '/categories/1/dropped'];
 
 		obj.categories[1].dropped = null;
 		expectValid(obj);

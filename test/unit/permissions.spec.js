@@ -66,6 +66,7 @@ function assertIsNotFoundError(_error) {
 
 const user = testUtils.fixtures.trustedUser.id;
 const semester = '2019S';
+const outDatedSemester = '2015F';
 
 describe('Unit > Permissions', function () {
 	it('Valid permission map', function () {
@@ -108,6 +109,13 @@ describe('Unit > Permissions', function () {
 			} finally {
 				stub.restore();
 			}
+		});
+
+		it('Inactive semester', async function () {
+			const permissions = {user, semester: outDatedSemester};
+			const {response} = await sendFakeRequest(permissions, createCourse);
+			expect(response.statusCalled).to.be.true;
+			expect(response._statusCode).to.equal(412);
 		});
 	});
 

@@ -84,7 +84,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('data.weight should be >= 0');
+					expect(error.message).to.include('data/weight should be >= 0');
 				}
 			});
 
@@ -96,7 +96,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('data.weight should be <= 10000');
+					expect(error.message).to.include('data/weight should be <= 10000');
 				}
 			});
 
@@ -135,7 +135,7 @@ describe('Unit > Validation', function () {
 					validations.editCourse(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.contain('data.name should match pattern');
+					expect(error.message).to.contain('data/name should match pattern');
 				}
 			});
 

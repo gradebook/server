@@ -6,14 +6,15 @@ const {expectValid, expectInvalid} = schemaValidator(schema);
 describe('Unit > Schemas > EditGrade', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
-		expectInvalid({id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		expectInvalid({id: ''}, ['keyword', 'required'], 'name');
+		expectInvalid({name: '', id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
 	it('name', function () {
 		const obj = {name: ''};
-		const errorProp = ['dataPath', '.name'];
+		const errorProp = ['dataPath', '/name'];
 
-		expectInvalid(obj, errorProp, 'shorter than 1 character');
+		expectInvalid(obj, errorProp, 'fewer than 1 character');
 
 		obj.name = 14;
 		expectInvalid(obj, errorProp, 'should be string');
@@ -30,7 +31,7 @@ describe('Unit > Schemas > EditGrade', function () {
 
 	it('grade', function () {
 		const obj = {grade: ''};
-		const errorProp = ['dataPath', '.grade'];
+		const errorProp = ['dataPath', '/grade'];
 
 		expectInvalid(obj, errorProp, 'should be number');
 

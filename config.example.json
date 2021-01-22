@@ -77,7 +77,7 @@
     "port": 2469
   },
   "session length": 604800000,
-  "schoolConfigurationEndpoint": "https://schools.gradebook.app/api/v0/global.json",
+  "schoolConfigurationEndpoint": "https://schools.gradebook.app/api/v1/global.json",
   "default school configuration": {
     "name": "",
     "theme": {
