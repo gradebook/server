@@ -1,3 +1,7 @@
+# 4.3.1
+
+ - fix cutoffs inconsistency between create end edit course
+
 # 4.3.0
 
  - :bug: fix schema not being typechecked
