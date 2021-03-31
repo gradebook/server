@@ -12,16 +12,16 @@ const VALID_OBJECT = {
 describe('Unit > Schemas > CreateCourse', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
-		expectInvalid({id: ''}, ['keyword', 'required'], 'should have required property');
+		expectInvalid({id: ''}, ['keyword', 'required'], 'must have required property');
 		expectInvalid({...VALID_OBJECT, id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
 	});
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/name'];
+		const errorProp = ['instancePath', '/name'];
 
 		obj.name = '';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.name = 14;
 		expectInvalid(obj, errorProp, 'string');
@@ -30,7 +30,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		expectInvalid(obj, errorProp, 'string');
 
 		obj.name = 'Introduction to Gradebook';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.name = 'ECEN 482';
 		expectValid(obj);
@@ -38,12 +38,12 @@ describe('Unit > Schemas > CreateCourse', function () {
 
 	it('semester', function () {
 		const obj = {...VALID_OBJECT, semester: 'Fall 2019'};
-		const errorProp = ['dataPath', '/semester'];
+		const errorProp = ['instancePath', '/semester'];
 
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.semester = '2019T';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.semester = '2019F';
 		expectValid(obj);

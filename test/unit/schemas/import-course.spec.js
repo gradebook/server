@@ -37,10 +37,10 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('course.name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/course/name'];
+		const errorProp = ['instancePath', '/course/name'];
 
 		obj.course.name = '';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.course.name = 14;
 		expectInvalid(obj, errorProp, 'string');
@@ -49,7 +49,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 		expectInvalid(obj, errorProp, 'string');
 
 		obj.course.name = 'Introduction to Gradebook';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.course.name = 'ECEN 482';
 		expectValid(obj);
@@ -57,13 +57,13 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('course.semester', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/course/semester'];
+		const errorProp = ['instancePath', '/course/semester'];
 
 		obj.course.semester = 'Fall 2019';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.course.semester = '2019T';
-		expectInvalid(obj, errorProp, 'should match pattern');
+		expectInvalid(obj, errorProp, 'must match pattern');
 
 		obj.course.semester = '2019F';
 		expectValid(obj);
@@ -83,7 +83,7 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/categories/1/name'];
+		const errorProp = ['instancePath', '/categories/1/name'];
 
 		expectValid(obj);
 
@@ -99,13 +99,13 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('weight', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/categories/0/weight'];
+		const errorProp = ['instancePath', '/categories/0/weight'];
 
 		obj.categories[0].weight = false;
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.categories[0].weight = '185';
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.categories[0].weight = -1;
 		expectInvalid(obj, errorProp, '>= 0');
@@ -125,13 +125,13 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('position', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/categories/1/position'];
+		const errorProp = ['instancePath', '/categories/1/position'];
 
 		obj.categories[1].position = null;
 		expectValid(obj);
 
 		obj.categories[1].position = false;
-		expectInvalid(obj, errorProp, 'should be integer');
+		expectInvalid(obj, errorProp, 'must be integer');
 
 		obj.categories[1].position = 0;
 		expectValid(obj);
@@ -139,16 +139,16 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('numGrades', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/categories/1/numGrades'];
+		const errorProp = ['instancePath', '/categories/1/numGrades'];
 
 		obj.categories[1].numGrades = null;
-		expectInvalid(obj, errorProp, 'should be integer');
+		expectInvalid(obj, errorProp, 'must be integer');
 
 		obj.categories[1].numGrades = false;
-		expectInvalid(obj, errorProp, 'should be integer');
+		expectInvalid(obj, errorProp, 'must be integer');
 
 		obj.categories[1].numGrades = 0;
-		expectInvalid(obj, errorProp, 'should be >= 1');
+		expectInvalid(obj, errorProp, 'must be >= 1');
 
 		obj.categories[1].numGrades = 3;
 		expectValid(obj);
@@ -156,16 +156,16 @@ describe('Unit > Schemas > ImportCourse', function () {
 
 	it('dropped', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/categories/1/dropped'];
+		const errorProp = ['instancePath', '/categories/1/dropped'];
 
 		obj.categories[1].dropped = null;
 		expectValid(obj);
 
 		obj.categories[1].dropped = false;
-		expectInvalid(obj, errorProp, 'should be integer');
+		expectInvalid(obj, errorProp, 'must be integer');
 
 		obj.categories[1].dropped = -1;
-		expectInvalid(obj, errorProp, 'should be >= 0');
+		expectInvalid(obj, errorProp, 'must be >= 0');
 
 		obj.categories[1].dropped = 1;
 		expectValid(obj);

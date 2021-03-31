@@ -1,4 +1,4 @@
-const ObjectId = require('bson-objectid');
+const objectId = require('bson-objectid');
 const schemaValidator = require('../../utils/schema-validator');
 const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
 const schema = require('../../../lib/services/validation/schemas/batch-edit.json');
@@ -43,34 +43,34 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 			create: {
 				name: 'test'
 			}
-		}, ['keyword', 'type'], 'should be array');
+		}, ['keyword', 'type'], 'must be array');
 
 		expectInvalid({
 			create: [{
 				id: {
-					test: ObjectId.generate()
+					test: objectId().toString()
 				}
 			}]
-		}, ['dataPath', '/create/0'], 'NOT have additional properties');
+		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 
 		expectInvalid({
 			create: [{
-				category_id: ObjectId.generate() // eslint-disable-line camelcase
+				category_id: objectId().toString() // eslint-disable-line camelcase
 			}]
-		}, ['dataPath', '/create/0'], 'NOT have additional properties');
+		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 	});
 
 	it('Only update', function () {
 		expectValid({
 			update: [{
-				id: ObjectId.generate(),
+				id: objectId().toString(),
 				name: 'Homework 1',
 				grade: 100
 			}, {
-				id: ObjectId.generate(),
+				id: objectId().toString(),
 				grade: 85
 			}, {
-				id: ObjectId.generate(),
+				id: objectId().toString(),
 				grade: null
 			}]
 		});
@@ -78,22 +78,22 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 
 	it('Only delete', function () {
 		expectValid({
-			delete: [ObjectId.generate(), ObjectId.generate(), ObjectId.generate()]
+			delete: [objectId().toString(), objectId().toString(), objectId().toString()]
 		});
 
-		const duplicateId = ObjectId.generate();
+		const duplicateId = objectId().toString();
 		expectInvalid({
 			delete: [duplicateId, duplicateId]
-		}, ['dataPath', '/delete'], 'NOT have duplicate items');
+		}, ['instancePath', '/delete'], 'NOT have duplicate items');
 
 		expectInvalid({
-			delete: ObjectId.generate()
-		}, ['dataPath', '/delete'], 'should be array');
+			delete: objectId().toString()
+		}, ['instancePath', '/delete'], 'must be array');
 	});
 
 	it('No create AND delete', function () {
 		expectInvalid({
-			delete: [ObjectId.generate()],
+			delete: [objectId().toString()],
 			create: [{
 				name: 'Homework 1',
 				grade: 95

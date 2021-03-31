@@ -12,18 +12,18 @@ describe('Unit > Schemas > EditGrade', function () {
 
 	it('name', function () {
 		const obj = {name: ''};
-		const errorProp = ['dataPath', '/name'];
+		const errorProp = ['instancePath', '/name'];
 
 		expectInvalid(obj, errorProp, 'fewer than 1 character');
 
 		obj.name = 14;
-		expectInvalid(obj, errorProp, 'should be string');
+		expectInvalid(obj, errorProp, 'must be string');
 
 		obj.name = false;
-		expectInvalid(obj, errorProp, 'should be string');
+		expectInvalid(obj, errorProp, 'must be string');
 
 		obj.name = null;
-		expectInvalid(obj, errorProp, 'should be string');
+		expectInvalid(obj, errorProp, 'must be string');
 
 		obj.name = 'Project 1';
 		expectValid(obj);
@@ -31,15 +31,15 @@ describe('Unit > Schemas > EditGrade', function () {
 
 	it('grade', function () {
 		const obj = {grade: ''};
-		const errorProp = ['dataPath', '/grade'];
+		const errorProp = ['instancePath', '/grade'];
 
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.grade = false;
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.grade = '15';
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.grade = 88.3;
 		expectValid(obj);
