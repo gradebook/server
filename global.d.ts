@@ -1,12 +1,18 @@
 import QueryString from 'querystring';
 import Express from 'express';
-import {Params as CoreParams} from "express-serve-static-core";
+import * as eCore from 'express-serve-static-core';
 import AbstractDatabaseResponse from './lib/models/database-response';
 
 declare global {
 	namespace Gradebook {
-		export interface Request<QueriedData = AbstractDatabaseResponse, Permissions = unknown, Params extends CoreParams = CoreParams, ResBody = any, ReqBody = any, ReqQuery = QueryString.ParsedUrlQuery>
-			extends Express.Request<Params, ResBody, ReqBody, ReqQuery> {
+		export interface Request<
+			QueriedData = AbstractDatabaseResponse,
+			Permissions = unknown,
+			Params extends eCore.ParamsDictionary = eCore.ParamsDictionary,
+			ResBody = any,
+			ReqBody = any,
+			ReqQuery = QueryString.ParsedUrlQuery
+		> extends Express.Request<Params, ResBody, ReqBody, ReqQuery> {
 			queriedData: QueriedData;
 			permissions: Permissions;
 			_table: string;
