@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "course.legacy_create",
+  "description": "Create a course (legacy)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "semester", "credits", "cutoffs"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z]{3,4} \\d{3,4}$"
+    },
+    "semester": {
+      "type": "string",
+      "pattern": "\\d{4}(S|U|F|W)"
+    },
+    "credits": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "cutoffs": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    }
+  }
+}

@@ -149,7 +149,7 @@ describe('Unit > Validation', function () {
 		});
 	});
 
-	describe('Import Course', function () {
+	describe('Create Course', function () {
 		const createRequest = () => ({
 			body: {
 				course: {
@@ -177,7 +177,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(10);
 
 				try {
-					validations.importCourse(req, null);
+					validations.createCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many categories');
@@ -195,7 +195,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 
@@ -205,7 +205,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 		});
@@ -218,7 +218,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(40);
 
 				try {
-					validations.importCourse(req, null);
+					validations.createCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many grades');
@@ -232,7 +232,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 		});

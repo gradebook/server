@@ -56,7 +56,7 @@
       "maxWait": 21601000,
       "lifetime": 21600
     },
-    "importCourse": {
+    "createCourse": {
       "freeRetries": 9,
       "minWait": 604800000,
       "maxWait": 604800000,

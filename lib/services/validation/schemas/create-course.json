@@ -4,25 +4,59 @@
   "description": "Create a course",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "semester", "credits", "cutoffs"],
+  "required": ["course", "categories"],
   "properties": {
-    "name": {
-      "type": "string",
-      "pattern": "^[A-Z]{3,4} \\d{3,4}$"
+    "course": {
+      "$ref": "course.legacy_create"
     },
-    "semester": {
-      "type": "string",
-      "pattern": "\\d{4}(S|U|F|W)"
-    },
-    "credits": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 5
-    },
-    "cutoffs": {
-      "type": "string",
-      "minLength": 10,
-      "maxLength": 200
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "minProperties": 5,
+        "properties": {
+          "name": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "position": {
+            "type": ["integer", "null"],
+            "minimum": 0,
+            "maximum": 50000
+          },
+          "numGrades": {
+            "type": "integer",
+            "minimum": 1,
+            "$comment": "Max validated in create-course.js"
+          },
+          "dropped": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
     }
   }
 }
