@@ -1,7 +1,7 @@
 import {Knex} from 'knex';
 import AbstractModel from '../models/database-response';
 
-type BrowseResponse<T> = (filterOptions: T, db: string) => Promise<any>
+type BrowseResponse<T> = (filterOptions: T, db: string, txn?: Knex.Transaction) => Promise<any>
 type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').Knex.QueryCallback | object
 
 export type BaseBrowse<AllowedFilters extends {}, AllowedModels> = (
