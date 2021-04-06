@@ -41,6 +41,7 @@ jobs:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: unit
+        FORCE_COLOR: 3
   integration:
     runs-on: ubuntu-latest
     strategy:
@@ -72,6 +73,7 @@ jobs:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: integration
+        FORCE_COLOR: 3
   lint:
     runs-on: ubuntu-latest
     strategy:
@@ -102,3 +104,4 @@ jobs:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: lint
+        FORCE_COLOR: 3
