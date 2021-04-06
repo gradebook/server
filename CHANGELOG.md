@@ -1,3 +1,12 @@
+# 4.3.2
+
+ - :bug: fix unhandled error when deleting new user
+ - :bug: fix frontend version not being detected
+ - :bug: apple-meta: add handling when user agent doesn't exist
+ - add `PUT /api/v0/courses/legacy` endpoint
+ - update js API methods to accept transactions
+ - export: perform all serialization in server
+
 # 4.3.1
 
  - fix cutoffs inconsistency between create end edit course
