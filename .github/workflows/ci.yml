@@ -31,6 +31,8 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Unit Tests
       run: |
+        yarn cache clean
+        rm -rf node_modules
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
