@@ -23,7 +23,7 @@
     "unauthenticated": {
       "lifetime": 1
     },
-    "importCourse": {
+    "createCourse": {
       "lifetime": 1
     }
   },

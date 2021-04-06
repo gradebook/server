@@ -1,11 +1,11 @@
-const ObjectId = require('bson-objectid');
+const objectId = require('bson-objectid');
 const schemaValidator = require('../../utils/schema-validator');
 const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
 const schema = require('../../../lib/services/validation/schemas/create-category.json');
 
 const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
 const VALID_OBJECT = {
-	course: ObjectId.generate(),
+	course: objectId().toString(),
 	name: 'Homework',
 	weight: 25,
 	position: 100,
@@ -19,7 +19,7 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('name', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/name'];
+		const errorProp = ['instancePath', '/name'];
 
 		expectValid(obj);
 
@@ -35,13 +35,13 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('weight', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/weight'];
+		const errorProp = ['instancePath', '/weight'];
 
 		obj.weight = false;
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.weight = '185';
-		expectInvalid(obj, errorProp, 'should be number');
+		expectInvalid(obj, errorProp, 'must be number');
 
 		obj.weight = -1;
 		expectInvalid(obj, errorProp, '>= 0');
@@ -61,13 +61,13 @@ describe('Unit > Schemas > CreateCategory', function () {
 
 	it('position', function () {
 		const obj = {...VALID_OBJECT};
-		const errorProp = ['dataPath', '/position'];
+		const errorProp = ['instancePath', '/position'];
 
 		obj.position = null;
 		expectValid(obj);
 
 		obj.position = false;
-		expectInvalid(obj, errorProp, 'should be integer');
+		expectInvalid(obj, errorProp, 'must be integer');
 
 		obj.position = 0;
 		expectValid(obj);

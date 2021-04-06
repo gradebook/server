@@ -28,4 +28,8 @@ describe('Unit > Utils > Apple Meta', function () {
 		expect(appleMeta(requestStub(windowsEdgeUA))).to.be.empty;
 		expect(appleMeta(requestStub(windowsFirefoxUA))).to.be.empty;
 	});
+
+	it('no ua', function () {
+		expect(appleMeta({headers: {}})).to.be.empty;
+	});
 });

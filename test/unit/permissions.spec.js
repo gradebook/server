@@ -215,7 +215,7 @@ describe('Unit > Permissions', function () {
 		const course = testUtils.fixtures.courses[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID.generate()};
+			const permissions = {user, objectId: objectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editCourse);
 				expectError();
@@ -245,7 +245,7 @@ describe('Unit > Permissions', function () {
 		const category = testUtils.fixtures.categories[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID.generate()};
+			const permissions = {user, objectId: objectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editCategory);
 				expectError();
@@ -275,7 +275,7 @@ describe('Unit > Permissions', function () {
 		const grade = testUtils.fixtures.grades[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID.generate()};
+			const permissions = {user, objectId: objectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editGrade);
 				expectError();

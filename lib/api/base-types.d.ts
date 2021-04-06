@@ -1,8 +1,8 @@
-import {Transaction} from 'knex';
+import {Knex} from 'knex';
 import AbstractModel from '../models/database-response';
 
-type BrowseResponse<T> = (filterOptions: T, db: string) => Promise<any>
-type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').QueryCallback | object
+type BrowseResponse<T> = (filterOptions: T, db: string, txn?: Knex.Transaction) => Promise<any>
+type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').Knex.QueryCallback | object
 
 export type BaseBrowse<AllowedFilters extends {}, AllowedModels> = (
 	dataType: AllowedModels,
@@ -15,7 +15,7 @@ type Data<T extends object> = {
 
 export type MinimumMutableOptions = {
 	db: string;
-	txn?: Transaction;
+	txn?: Knex.Transaction;
 }
 
 export type CreateOptions<T extends object> = MinimumMutableOptions & {

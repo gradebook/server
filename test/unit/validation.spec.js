@@ -84,7 +84,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('data/weight should be >= 0');
+					expect(error.message).to.include('data/weight must be >= 0');
 				}
 			});
 
@@ -96,7 +96,7 @@ describe('Unit > Validation', function () {
 					validations.editCategory(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('data/weight should be <= 10000');
+					expect(error.message).to.include('data/weight must be <= 10000');
 				}
 			});
 
@@ -135,7 +135,7 @@ describe('Unit > Validation', function () {
 					validations.editCourse(req, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.contain('data/name should match pattern');
+					expect(error.message).to.contain('data/name must match pattern');
 				}
 			});
 
@@ -149,7 +149,7 @@ describe('Unit > Validation', function () {
 		});
 	});
 
-	describe('Import Course', function () {
+	describe('Create Course', function () {
 		const createRequest = () => ({
 			body: {
 				course: {
@@ -177,7 +177,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(10);
 
 				try {
-					validations.importCourse(req, null);
+					validations.createCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many categories');
@@ -195,7 +195,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 
@@ -205,7 +205,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 		});
@@ -218,7 +218,7 @@ describe('Unit > Validation', function () {
 				const stub = sinon.stub(settings, 'get').returns(40);
 
 				try {
-					validations.importCourse(req, null);
+					validations.createCourse(req, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many grades');
@@ -232,7 +232,7 @@ describe('Unit > Validation', function () {
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
-				validations.importCourse(req, null);
+				validations.createCourse(req, null);
 				stub.restore();
 			});
 		});

@@ -36,7 +36,7 @@ describe('Unit > Schemas > Cutoffs', function () {
 	});
 
 	it('invalid cutoff values', function () {
-		const errorProp = ['dataPath', '/A'];
+		const errorProp = ['instancePath', '/A'];
 
 		obj.A = null;
 		expectInvalid(obj, errorProp, '');
