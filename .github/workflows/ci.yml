@@ -60,7 +60,7 @@ jobs:
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
-        yarn test:integration
+        yarn test:functional
         node _commands/post-test.js
       env:
         CI: true
