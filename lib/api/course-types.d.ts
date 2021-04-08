@@ -3,27 +3,33 @@ export interface IGrade {
 	grade?: number | null;
 }
 
-export interface ICategory {
-	user: string;
-	course: string;
+export interface IBaseCategory {
 	dropped: number | null;
 	name: string;
-	grades: IGrade[];
 	position: number;
 	weight: number | null;
 }
 
-export interface ICategoryConfig extends ICategory {
-	user: never;
-	course: never;
-	numGrades: number;
-	grades: never;
+export interface IExternalCategory extends IBaseCategory{
+	grades: IGrade[];
 }
+
+export interface IInternalCategory extends IExternalCategory {
+	user?: string;
+	course?: string;
+}
+
+export interface ICategoryConfigAutoGrades extends IBaseCategory {
+	numGrades: number | null;
+}
+
+export type ICategoryConfig = IExternalCategory | ICategoryConfigAutoGrades;
 
 export interface ICreateCourseData {
 	user: string;
 	course: {
 		user?: string;
+		settings?: string;
 		semester: string;
 		name: string;
 		credits: number;
