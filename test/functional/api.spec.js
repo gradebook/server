@@ -122,7 +122,7 @@ async function getExport(user, txn) {
 	return export_;
 }
 
-describe.only('Functional > API E2E', function () {
+describe('Functional > API E2E', function () {
 	before(async function () {
 		const ignoredUsers = require('../../lib/services/ignored-users');
 		return ignoredUsers.init(require('../../lib/config'), require('../../lib/database/knex'));
