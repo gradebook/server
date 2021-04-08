@@ -1,4 +1,4 @@
-import {ICategoryConfigBase} from './course-types';
+import {IExternalCategory} from './course-types';
 
 export interface IUser {
 	gid?: string;
@@ -16,7 +16,7 @@ export interface ICourse {
 	cutoffs: string;
 	settings: string;
 	credits: number | null;
-	categories: ICategoryConfigBase[];
+	categories: IExternalCategory[];
 }
 
 export interface UserImport {
