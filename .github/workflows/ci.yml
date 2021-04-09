@@ -57,8 +57,8 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Integration Tests
       run: |
-        mkdir -p frontend/client/release
-        echo '<title>gradebook</title>' > frontend/client/release/index.html
+        mkdir -p lib/frontend/client/release
+        echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
