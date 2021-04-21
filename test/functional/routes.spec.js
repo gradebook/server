@@ -228,7 +228,7 @@ describe('Functional > API Routes', function () {
 	});
 
 	describe('PUT data', function () {
-		it('/api/v0/courses/import where course name is bad', function () {
+		it('/api/v0/courses where course name is bad', function () {
 			const course = {
 				semester: '2019S',
 				name: 'Bad name course',
@@ -239,7 +239,7 @@ describe('Functional > API Routes', function () {
 			const categories = [{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null}];
 
 			return supertest(instance)
-				.put('/api/v0/courses/import')
+				.put('/api/v0/courses')
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({course, categories})
 				.expect(422)

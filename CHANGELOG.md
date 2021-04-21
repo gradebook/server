@@ -1,3 +1,11 @@
+# 4.4.0
+
+ - :recycle: refactor course.create api to use category.create api
+ - :sparkles: allow creating "real" courses via api.course.create
+ - :sparkles: add support for importing a user via js-api
+ - Improve types
+ - Update create / import course routing config
+
 # 4.3.2
 
  - :bug: fix unhandled error when deleting new user
