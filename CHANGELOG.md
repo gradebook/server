@@ -1,3 +1,7 @@
+# 4.4.1
+
+ - :lock: :bug: fix permissions wrap allowing pipeline to continue (resource limit bypass)
+
 # 4.4.0
 
  - :recycle: refactor course.create api to use category.create api
