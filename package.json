@@ -31,15 +31,15 @@
     "ajv": "8.2.0",
     "bluebird": "3.7.2",
     "bson-objectid": "2.0.1",
-    "connect-redis": "5.1.0",
+    "connect-redis": "5.2.0",
     "connect-session-knex": "2.0.0",
     "cookie-parser": "1.4.5",
     "express": "4.17.1",
     "express-brute": "1.0.1",
     "express-session": "1.17.1",
-    "ghost-ignition": "4.6.1",
+    "ghost-ignition": "4.6.2",
     "got": "11.8.2",
-    "ioredis": "4.25.0",
+    "ioredis": "4.27.1",
     "knex": "0.95.4",
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
@@ -47,7 +47,7 @@
     "passport": "0.4.1",
     "passport-google-oauth20": "2.0.0",
     "sqlite3": "5.0.2",
-    "validator": "13.5.2"
+    "validator": "13.6.0"
   },
   "devDependencies": {
     "@gradebook/actions-hook": "0.2.0",
@@ -66,7 +66,7 @@
     "rewire": "5.0.0",
     "sinon": "10.0.0",
     "supertest": "6.1.3",
-    "typescript": "4.2.3",
+    "typescript": "4.2.4",
     "xo": "0.25.3"
   },
   "xo": {
