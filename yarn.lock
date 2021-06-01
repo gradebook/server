@@ -211,10 +211,10 @@
   dependencies:
     got "10.5.5"
 
-"@gradebook/course-serializer@0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.2.tgz#0e8b6d3ee7b3d559a96e480e0f503aad79f8feab"
-  integrity sha512-PhngpwjY11fNTswUB1MqOMrtDKaTj8McfNVHy3Lum4wBgogzgfzm1QY/A7XeXA1xljhbMCiCqiwhGi7nszopTA==
+"@gradebook/course-serializer@0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.5.tgz#61ce83a704edc2b2cf8125d3d4931f73b8d25e91"
+  integrity sha512-5dRsv4y5BAe7TqQUQxVpqqoIRR3QRMa0rK/fR1dYPKgcZWIbKfEnjKgfW4dmJtRKgBYNTouygo3eaBH3FDQ1yw==
 
 "@gradebook/express-brute-redis@0.1.0":
   version "0.1.0"
