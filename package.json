@@ -28,7 +28,7 @@
     "@gradebook/fast-pluralize": "0.0.3",
     "@gradebook/passport-utils": "0.2.1",
     "@gradebook/time": "0.0.4",
-    "ajv": "8.2.0",
+    "ajv": "8.5.0",
     "bluebird": "3.7.2",
     "bson-objectid": "2.0.1",
     "connect-redis": "5.2.0",
