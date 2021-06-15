@@ -13,8 +13,14 @@ async function doTheWork() {
 		}
 
 		const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
+		let authorIsDependencyBot = false;
 
-		if (branchName.match(/^(dependabot|renovate)/i)) {
+		if (process.env.GITHUB_ACTOR) {
+			console.log(`Actor is ${process.env.GITHUB_ACTOR}`);
+			authorIsDependencyBot = Boolean(process.env.GITHUB_ACTOR.match(/(renovate|dependabot)/i));
+		}
+
+		if (authorIsDependencyBot || branchName.match(/^(dependabot|renovate)/i)) {
 			console.log('Dependency update detected. Not running post-test hook');
 			return;
 		}
