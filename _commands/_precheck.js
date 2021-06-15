@@ -7,7 +7,7 @@ const runInstall = require('./utils/run-yarn-install.js');
 const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
 const properDir = path.resolve(__dirname, '../');
 
-const MAJOR_MINOR_MATCH = 'v14.16.';
+const MAJOR_MINOR_MATCH = 'v14.17.';
 
 let execa;
 try {
