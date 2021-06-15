@@ -12,10 +12,17 @@ async function doTheWork() {
 			}
 		}
 
+		const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
+
+		if (branchName.match(/^(dependabot|renovate)/i)) {
+			console.log('Dependency update detected. Not running post-test hook');
+			return;
+		}
+
 		const payload = JSON.stringify({
 			codebase: process.env.GITHUB_REPOSITORY,
 			commit: process.env.GITHUB_SHA,
-			branch: process.env.GITHUB_REF.split('/').pop(),
+			branch: branchName,
 			name: process.env.TEST_NAME
 		});
 
