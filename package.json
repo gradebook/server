@@ -11,6 +11,9 @@
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
   "private": true,
+  "gradebook": {
+    "cli:hasReleaseBranch": true
+  },
   "scripts": {
     "lint": "xo",
     "setup": "node _commands/setup.js",
