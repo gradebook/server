@@ -5,6 +5,7 @@ on:
     branches:
       - release
       - master
+      - renovate/*
   pull_request:
     branches:
       '*'
