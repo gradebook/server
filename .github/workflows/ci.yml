@@ -30,7 +30,10 @@ jobs:
     - name: Unit Tests
       run: yarn test:unit
     - name: Trigger Webhook
-      run: node _commands/post-test.js
+      run: yarn release-utils hook
+      with:
+        require_push: 'true'
+        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
@@ -53,7 +56,10 @@ jobs:
     - name: Functional Tests
       run: yarn test:functional
     - name: Trigger Webhook
-      run: node _commands/post-test.js
+      run: yarn release-utils hook
+      with:
+        require_push: 'true'
+        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
@@ -74,7 +80,10 @@ jobs:
         yarn lint
         yarn typecheck
     - name: Trigger Webhook
-      run: node _commands/post-test.js
+      run: yarn release-utils hook
+      with:
+        require_push: 'true'
+        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
