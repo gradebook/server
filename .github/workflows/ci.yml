@@ -31,13 +31,12 @@ jobs:
       run: yarn test:unit
     - name: Trigger Webhook
       run: yarn release-utils hook
-      with:
-        require_push: 'true'
-        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: unit
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release
   integration:
     runs-on: ubuntu-latest
     steps:
@@ -57,13 +56,12 @@ jobs:
       run: yarn test:functional
     - name: Trigger Webhook
       run: yarn release-utils hook
-      with:
-        require_push: 'true'
-        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: integration
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -81,10 +79,9 @@ jobs:
         yarn typecheck
     - name: Trigger Webhook
       run: yarn release-utils hook
-      with:
-        require_push: 'true'
-        branch: release
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: lint
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release
