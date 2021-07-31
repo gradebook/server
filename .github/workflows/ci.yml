@@ -24,6 +24,7 @@ jobs:
         cache: yarn
     - name: Install Dependencies and setup
       run: |
+        mkdir -p $(yarn cache dir)
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
@@ -47,6 +48,7 @@ jobs:
         cache: yarn
     - name: Install dependencies and setup
       run: |
+        mkdir -p $(yarn cache dir)
         mkdir -p lib/frontend/client/release
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
         yarn install --frozen-lockfile
@@ -75,6 +77,7 @@ jobs:
         yarn install --frozen-lockfile
     - name: Lint and Typecheck
       run: |
+        mkdir -p $(yarn cache dir)
         yarn lint
         yarn typecheck
     - name: Trigger Webhook
