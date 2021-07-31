@@ -5,96 +5,86 @@ on:
     branches:
       - release
       - master
+      - renovate/*
   pull_request:
     branches:
       '*'
 
+env:
+  FORCE_COLOR: 3
+
 jobs:
   unit:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-    - uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-    - name: Unit Tests
+        node-version: lts/*
+        cache: yarn
+    - name: Install Dependencies and setup
       run: |
+        mkdir -p $(yarn cache dir)
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
-        yarn test:unit
-        node _commands/post-test.js
+    - name: Unit Tests
+      run: yarn test:unit
+    - name: Trigger Webhook
+      run: yarn release-utils hook
       env:
-        CI: true
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: unit
-        FORCE_COLOR: 3
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release
   integration:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.node-version}}
-    - uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-    - name: Integration Tests
+        node-version: lts/*
+        cache: yarn
+    - name: Install dependencies and setup
       run: |
+        mkdir -p $(yarn cache dir)
         mkdir -p lib/frontend/client/release
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
-        yarn test:functional
-        node _commands/post-test.js
+    - name: Functional Tests
+      run: yarn test:functional
+    - name: Trigger Webhook
+      run: yarn release-utils hook
       env:
-        CI: true
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: integration
-        FORCE_COLOR: 3
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release
   lint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-    - uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-    - name: Lint
+        node-version: lts/*
+        cache: yarn
+    - name: Install dependencies and setup
       run: |
         yarn install --frozen-lockfile
+    - name: Lint and Typecheck
+      run: |
+        mkdir -p $(yarn cache dir)
         yarn lint
         yarn typecheck
-        node _commands/post-test.js
+    - name: Trigger Webhook
+      run: yarn release-utils hook
       env:
-        CI: true
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         TEST_NAME: lint
-        FORCE_COLOR: 3
+        REQUIRE_PUSH: 'true'
+        REQUIRE_BRANCH: release

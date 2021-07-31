@@ -151,6 +151,9 @@ describe('Unit > Validation', function () {
 
 	describe('Create Course', function () {
 		const createRequest = () => ({
+			query: {
+				type: 'guided'
+			},
 			body: {
 				course: {
 					name: 'ECEN 482',
@@ -163,6 +166,56 @@ describe('Unit > Validation', function () {
 					{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1}
 				]
 			}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'}
+		});
+
+		describe('Only allows empty cutoffs with query type partial', function () {
+			it('Empty cutoffs fails with guided', function () {
+				const req = createRequest();
+				req.body.course.cutoffs = JSON.stringify({});
+
+				try {
+					validations.createCourse(req, null);
+					expectError();
+				} catch (error) {
+					expect(error.message).to.equal('data must NOT have fewer than 4 items');
+				}
+			});
+
+			it('Empty cutoffs is allowed with partial', function () {
+				const req = createRequest();
+				req.query.type = 'partial';
+				req.body.course.cutoffs = JSON.stringify({});
+
+				const stub = sinon.stub(settings, 'get').returns(10);
+
+				validations.createCourse(req, null);
+				stub.restore();
+			});
+
+			it('Cutoffs are required with no query type', function () {
+				const req = createRequest();
+				req.body.course.cutoffs = JSON.stringify({});
+				delete req.query.type;
+
+				try {
+					validations.createCourse(req, null);
+					expectError();
+				} catch (error) {
+					expect(error.message).to.equal('data must NOT have fewer than 4 items');
+				}
+			});
+
+			it('Cutoffs are not allowed with partial', function () {
+				const req = createRequest();
+				req.query.type = 'partial';
+
+				try {
+					validations.createCourse(req, null);
+					expectError();
+				} catch (error) {
+					expect(error.message).to.equal('partial courses must have empty cutoffs object');
+				}
+			});
 		});
 
 		describe('Only allows valid number of categories', function () {
