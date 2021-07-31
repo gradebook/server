@@ -1,3 +1,14 @@
+# 4.4.2
+
+ - :sparkles: support escaped courses (#182)
+ - :card_file_box: add migration to allow multi-step user tours
+ - add support for editing bonus_points in settings
+ - Update user settings validator to allow only numbers
+ - remove demo course from new user
+ - fix flag-based numeric issues
+ - enable actions on renovate branches
+ - switch from actions-hook to release-utils
+
 # 4.4.1
 
  - :lock: :bug: fix permissions wrap allowing pipeline to continue (resource limit bypass)
