@@ -1,3 +1,7 @@
+# 4.4.3
+
+ - :bug: fix course settings not being saved with host matching
+
 # 4.4.2
 
  - :sparkles: support escaped courses (#182)
