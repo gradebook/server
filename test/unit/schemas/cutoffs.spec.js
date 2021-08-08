@@ -6,7 +6,7 @@ const VALID_OBJECT = {
 	A: 90,
 	'B+': 80,
 	C: 70.45,
-	D: 600
+	D: 600,
 };
 
 describe('Unit > Schemas > Cutoffs', function () {
@@ -14,40 +14,40 @@ describe('Unit > Schemas > Cutoffs', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], '4');
 	});
 
-	const obj = {...VALID_OBJECT};
+	const object = {...VALID_OBJECT};
 	const errorProp = ['keyword', 'enum'];
 
 	it('valid cutoffs', function () {
-		expectValid(obj);
+		expectValid(object);
 	});
 
 	it('invalid cutoff names', function () {
-		obj.null = 90;
-		expectInvalid(obj, errorProp, '');
-		delete obj.null;
+		object.null = 90;
+		expectInvalid(object, errorProp, '');
+		delete object.null;
 
-		obj.FFF = 90;
-		expectInvalid(obj, errorProp, '');
-		delete obj.FFF;
+		object.FFF = 90;
+		expectInvalid(object, errorProp, '');
+		delete object.FFF;
 
-		obj[''] = 90;
-		expectInvalid(obj, errorProp, '');
-		delete obj[''];
+		object[''] = 90;
+		expectInvalid(object, errorProp, '');
+		delete object[''];
 	});
 
 	it('invalid cutoff values', function () {
 		const errorProp = ['instancePath', '/A'];
 
-		obj.A = null;
-		expectInvalid(obj, errorProp, '');
+		object.A = null;
+		expectInvalid(object, errorProp, '');
 
-		obj.A = '';
-		expectInvalid(obj, errorProp, '');
+		object.A = '';
+		expectInvalid(object, errorProp, '');
 
-		obj.A = 10001;
-		expectInvalid(obj, errorProp, '');
+		object.A = 10_001;
+		expectInvalid(object, errorProp, '');
 
-		obj.A = 9;
-		expectInvalid(obj, errorProp, '');
+		object.A = 9;
+		expectInvalid(object, errorProp, '');
 	});
 });

@@ -1,10 +1,10 @@
 // @ts-check
-const {resolve} = require('path');
+const path = require('path');
 /* eslint-disable-next-line import/no-unassigned-import */
 require('../test/global.js'); // Update env
 const {fixtures} = require('../test/fixtures/example-data');
 
-const root = resolve(__dirname, '../');
+const root = path.resolve(__dirname, '../');
 process.chdir(root);
 
 const {migrator, knex} = require('../lib/database');
@@ -24,7 +24,7 @@ migrator.init().then(async () => {
 			let query;
 
 			if (txn.client.config.client === 'sqlite3') {
-				query = txn(table).insert(values).toString().replace(/^INSERT/i, 'insert or replace');
+				query = txn(table).insert(values).toString().replace(/^insert/i, 'insert or replace');
 			} else {
 				const insert = txn(table).insert(values).toString();
 				const update = txn(table).update(values).toString().replace(/^update(.*?)set\s/gi, '');

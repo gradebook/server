@@ -1,5 +1,6 @@
 const path = require('path');
 const _fs = require('fs');
+
 const fs = _fs.promises;
 const getHash = require('./utils/get-git-hash.js');
 const runInstall = require('./utils/run-yarn-install.js');
@@ -12,7 +13,7 @@ const MAJOR_MINOR_MATCH = 'v14.17.';
 let execa;
 try {
 	execa = require('execa');
-} catch (_) {
+} catch {
 	console.error('Please run `yarn install` in the root');
 	process.exit(1);
 }

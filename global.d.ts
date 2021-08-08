@@ -1,4 +1,4 @@
-import QueryString from 'querystring';
+import QueryString from 'querystring'; // eslint-disable-line no-restricted-imports
 import Express from 'express';
 import * as eCore from 'express-serve-static-core';
 import AbstractDatabaseResponse from './lib/models/database-response';
@@ -8,11 +8,11 @@ declare global {
 		export interface Request<
 			QueriedData = AbstractDatabaseResponse,
 			Permissions = unknown,
-			Params extends eCore.ParamsDictionary = eCore.ParamsDictionary,
-			ResBody = any,
-			ReqBody = any,
-			ReqQuery = QueryString.ParsedUrlQuery
-		> extends Express.Request<Params, ResBody, ReqBody, ReqQuery> {
+			Parameters extends eCore.ParamsDictionary = eCore.ParamsDictionary,
+			ResponseBody = any,
+			RequestBody = any,
+			RequestQuery = QueryString.ParsedUrlQuery,
+		> extends Express.Request<Parameters, ResponseBody, RequestBody, RequestQuery> {
 			queriedData: QueriedData;
 			permissions: Permissions;
 			_table: string;
@@ -37,7 +37,7 @@ declare global {
 
 		export type ResponseContext = {
 			statusCode?: number;
-			body?: object | string;
+			body?: object | string; // eslint-disable-line @typescript-eslint/ban-types
 		};
 
 		export interface Response extends Express.Response {
@@ -48,6 +48,6 @@ declare global {
 			context: ResponseContext;
 		}
 
-		export function middleware(request: Gradebook.Request, response: Express.Response, callback: Express.NextFunction);
+		export function middleware(request: Request, response: Express.Response, callback: Express.NextFunction);
 	}
 }

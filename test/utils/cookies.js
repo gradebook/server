@@ -1,4 +1,4 @@
 module.exports = {
 	authorized: '@todo',
-	unauthorized: '@todo'
+	unauthorized: '@todo',
 };

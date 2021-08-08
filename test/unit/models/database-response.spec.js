@@ -12,7 +12,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 			id: '__id__',
 			credit_hours: '__credit_hours__', // eslint-disable-line camelcase
 			user_id: '__user_id__', // eslint-disable-line camelcase
-			name: '__name__'
+			name: '__name__',
 		});
 
 		instance._validate = () => true;
@@ -24,11 +24,11 @@ describe('Unit > Models > DatabaseResponse', function () {
 		expect(instance.diff, 'Diff contains same data as internall diff').to.deep.equal(instance._diff);
 		expect(instance.diff, 'Diff copies internal diff').to.not.equal(instance._diff);
 		expect(instance._diff, 'Internal diff stores unsnaked').to.deep.equal({
-			credits: 'credit_hours__'
+			credits: 'credit_hours__',
 		});
 
 		expect(instance._getChangeSet(), 'Changeset transforms to snaked').to.deep.equal({
-			credit_hours: 'credit_hours__' // eslint-disable-line camelcase
+			credit_hours: 'credit_hours__', // eslint-disable-line camelcase
 		});
 	});
 
@@ -66,7 +66,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 				expect(query.sql).to.equal('update `courses` set `name` = ?, `credit_hours` = ? where `id` = ?');
 				query.response({
 					name: query.bindings[0],
-					credit_hours: query.bindings[1] // eslint-disable-line camelcase
+					credit_hours: query.bindings[1], // eslint-disable-line camelcase
 				});
 			});
 
@@ -74,19 +74,19 @@ describe('Unit > Models > DatabaseResponse', function () {
 				id: '__id__',
 				credits: 'credit_hours__',
 				user: '__user_id__',
-				name: 'name__'
+				name: 'name__',
 			});
 
 			const response = await instance.commit();
 			expect(response).to.deep.equal({
 				credits: 'credit_hours__',
-				name: 'name__'
+				name: 'name__',
 			});
 			expect(instance._originalObject).to.deep.equal({
 				id: '__id__',
 				credits: 'credit_hours__',
 				user: '__user_id__',
-				name: 'name__'
+				name: 'name__',
 			});
 		});
 	});

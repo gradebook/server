@@ -5,10 +5,10 @@ const expectError = require('../utils/expect-error');
 describe('Unit > Validation', function () {
 	describe('User Settings', function () {
 		it('invalid request', function () {
-			const req = {body: {}, query: {}};
+			const request = {body: {}, query: {}};
 
 			try {
-				validations.userSettings(req, null);
+				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Invalid request body');
@@ -16,22 +16,22 @@ describe('Unit > Validation', function () {
 		});
 
 		it('valid key and value', function () {
-			const req = {
+			const request = {
 				body: {value: '2020-01-30T22:13:22.000-06:00'},
-				query: {key: 'previous_notification'}
+				query: {key: 'previous_notification'},
 			};
 
-			validations.userSettings(req, null);
+			validations.userSettings(request, null);
 		});
 
 		it('invalid key', function () {
-			const req = {
+			const request = {
 				body: {value: 8},
-				query: {key: 'steal'}
+				query: {key: 'steal'},
 			};
 
 			try {
-				validations.userSettings(req, null);
+				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Setting steal does not exist');
@@ -39,30 +39,30 @@ describe('Unit > Validation', function () {
 		});
 
 		it('invalid value', function () {
-			const req = {
+			const request = {
 				body: {value: '2019-09-09'},
-				query: {key: 'previous_notification'}
+				query: {key: 'previous_notification'},
 			};
 
 			try {
-				req.body.value = 'bad';
-				validations.userSettings(req, null);
+				request.body.value = 'bad';
+				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
 			}
 
 			try {
-				req.body.value = 'not a date';
-				validations.userSettings(req, null);
+				request.body.value = 'not a date';
+				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
 			}
 
 			try {
-				req.body.value = {};
-				validations.userSettings(req, null);
+				request.body.value = {};
+				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
 				expect(error.message).to.equal('Value is not valid');
@@ -77,11 +77,11 @@ describe('Unit > Validation', function () {
 			);
 
 			it('Lower out of bounds fails', function () {
-				const req = createRequest();
-				req.body.weight = -1;
+				const request = createRequest();
+				request.body.weight = -1;
 
 				try {
-					validations.editCategory(req, null);
+					validations.editCategory(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('data/weight must be >= 0');
@@ -89,11 +89,11 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Upper out of bounds fails', function () {
-				const req = createRequest();
-				req.body.weight = 19248124814;
+				const request = createRequest();
+				request.body.weight = 19_248_124_814;
 
 				try {
-					validations.editCategory(req, null);
+					validations.editCategory(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('data/weight must be <= 10000');
@@ -101,22 +101,22 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Normal floating points are acceptable', function () {
-				const req = createRequest();
-				req.body.weight = 1234.56;
-				validations.editCategory(req, null);
+				const request = createRequest();
+				request.body.weight = 1234.56;
+				validations.editCategory(request, null);
 			});
 
 			it('Null is acceptable', function () {
-				const req = createRequest();
-				req.body.weight = null;
-				validations.editCategory(req, null);
+				const request = createRequest();
+				request.body.weight = null;
+				validations.editCategory(request, null);
 			});
 
 			it('Not providing is acceptable', async function () {
-				const req = createRequest();
+				const request = createRequest();
 
-				req.body.name = 'Name';
-				validations.editCategory(req, null);
+				request.body.name = 'Name';
+				validations.editCategory(request, null);
 			});
 		});
 	});
@@ -128,11 +128,11 @@ describe('Unit > Validation', function () {
 			);
 
 			it('Invalid', function () {
-				const req = createRequest();
-				req.body.name = 'Introduction to TAMU';
+				const request = createRequest();
+				request.body.name = 'Introduction to TAMU';
 
 				try {
-					validations.editCourse(req, null);
+					validations.editCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.contain('data/name must match pattern');
@@ -140,11 +140,11 @@ describe('Unit > Validation', function () {
 			});
 
 			it('valid', function () {
-				const req = createRequest();
-				req.body.name = 'DEMO 101';
-				req.body.cutoffs = '{"A":90,"B":80,"C":70,"D":60}';
+				const request = createRequest();
+				request.body.name = 'DEMO 101';
+				request.body.cutoffs = '{"A":90,"B":80,"C":70,"D":60}';
 
-				validations.editCourse(req, null);
+				validations.editCourse(request, null);
 			});
 		});
 	});
@@ -152,29 +152,29 @@ describe('Unit > Validation', function () {
 	describe('Create Course', function () {
 		const createRequest = () => ({
 			query: {
-				type: 'guided'
+				type: 'guided',
 			},
 			body: {
 				course: {
 					name: 'ECEN 482',
 					semester: '2019S',
 					credits: 3,
-					cutoffs: '{"A":90,"B":80,"C":70,"D":60}'
+					cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 				},
 				categories: [
 					{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
-					{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1}
-				]
-			}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'}
+					{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
+				],
+			}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'},
 		});
 
 		describe('Only allows empty cutoffs with query type partial', function () {
 			it('Empty cutoffs fails with guided', function () {
-				const req = createRequest();
-				req.body.course.cutoffs = JSON.stringify({});
+				const request = createRequest();
+				request.body.course.cutoffs = JSON.stringify({});
 
 				try {
-					validations.createCourse(req, null);
+					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.equal('data must NOT have fewer than 4 items');
@@ -182,23 +182,23 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Empty cutoffs is allowed with partial', function () {
-				const req = createRequest();
-				req.query.type = 'partial';
-				req.body.course.cutoffs = JSON.stringify({});
+				const request = createRequest();
+				request.query.type = 'partial';
+				request.body.course.cutoffs = JSON.stringify({});
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.createCourse(req, null);
+				validations.createCourse(request, null);
 				stub.restore();
 			});
 
 			it('Cutoffs are required with no query type', function () {
-				const req = createRequest();
-				req.body.course.cutoffs = JSON.stringify({});
-				delete req.query.type;
+				const request = createRequest();
+				request.body.course.cutoffs = JSON.stringify({});
+				delete request.query.type;
 
 				try {
-					validations.createCourse(req, null);
+					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.equal('data must NOT have fewer than 4 items');
@@ -206,11 +206,11 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Cutoffs are not allowed with partial', function () {
-				const req = createRequest();
-				req.query.type = 'partial';
+				const request = createRequest();
+				request.query.type = 'partial';
 
 				try {
-					validations.createCourse(req, null);
+					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.equal('partial courses must have empty cutoffs object');
@@ -220,17 +220,17 @@ describe('Unit > Validation', function () {
 
 		describe('Only allows valid number of categories', function () {
 			it('Too many categories fails', function () {
-				const req = createRequest();
-				req.body.categories = [];
+				const request = createRequest();
+				request.body.categories = [];
 
 				for (let i = 0; i < 15; i++) {
-					req.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
+					request.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
 				}
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
 				try {
-					validations.createCourse(req, null);
+					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many categories');
@@ -239,39 +239,39 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Reasonable number of categories passes', function () {
-				const req = createRequest();
-				req.body.categories = [];
+				const request = createRequest();
+				request.body.categories = [];
 
 				for (let i = 0; i < 5; i++) {
-					req.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
+					request.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
 				}
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.createCourse(req, null);
+				validations.createCourse(request, null);
 				stub.restore();
 			});
 
 			it('No categories passes', function () {
-				const req = createRequest();
-				req.body.categories = [];
+				const request = createRequest();
+				request.body.categories = [];
 
 				const stub = sinon.stub(settings, 'get').returns(10);
 
-				validations.createCourse(req, null);
+				validations.createCourse(request, null);
 				stub.restore();
 			});
 		});
 
 		describe('Only allows valid number of grades', function () {
 			it('Too many grades fails', function () {
-				const req = createRequest();
-				req.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 50, dropped: null};
+				const request = createRequest();
+				request.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 50, dropped: null};
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
 				try {
-					validations.createCourse(req, null);
+					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
 					expect(error.message).to.include('too many grades');
@@ -280,12 +280,12 @@ describe('Unit > Validation', function () {
 			});
 
 			it('Reasonable number of grades passes', function () {
-				const req = createRequest();
-				req.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 10, dropped: null};
+				const request = createRequest();
+				request.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 10, dropped: null};
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
-				validations.createCourse(req, null);
+				validations.createCourse(request, null);
 				stub.restore();
 			});
 		});

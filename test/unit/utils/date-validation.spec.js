@@ -4,7 +4,7 @@ describe('Unit > Utils > DateValidations', function () {
 	it('isValidYear', function () {
 		expect(validate.isValidYear({})).to.be.false;
 		expect(validate.isValidYear('not')).to.be.false;
-		expect(validate.isValidYear(500000)).to.be.false;
+		expect(validate.isValidYear(500_000)).to.be.false;
 		expect(validate.isValidYear(10)).to.be.false;
 		expect(validate.isValidYear(2015)).to.be.true;
 	});

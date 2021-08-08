@@ -7,25 +7,25 @@ const prepareExport = require('../utils/prepare-export');
 
 const DEFAULT_CUTOFFS = JSON.stringify([{
 	name: 'A',
-	cutoff: 90
+	cutoff: 90,
 }, {
 	name: 'B',
-	cutoff: 80
+	cutoff: 80,
 }, {
 	name: 'C',
-	cutoff: 70
+	cutoff: 70,
 }, {
 	name: 'D',
-	cutoff: 60
+	cutoff: 60,
 }]);
 
 const db = undefined;
 
 async function seed(txn) {
 	const user = await api.user.create({
-		data: {gid: 10000000000001, firstName: 'Integration', email: 'integration@gbdev.cf'},
+		data: {gid: 10_000_000_000_001, firstName: 'Integration', email: 'integration@gbdev.cf'},
 		txn,
-		db
+		db,
 	});
 
 	// #region Create first course
@@ -35,33 +35,33 @@ async function seed(txn) {
 			name: 'FIRST 101',
 			semester: '2000F',
 			credits: 4,
-			cutoffs: DEFAULT_CUTOFFS
+			cutoffs: DEFAULT_CUTOFFS,
 		},
 		categories: [{
 			name: 'Homework',
 			weight: 15,
 			position: 100,
 			numGrades: 14,
-			dropped: null
+			dropped: null,
 		}, {
 			name: 'Lab',
 			weight: 50,
 			position: 200,
 			numGrades: 10,
-			dropped: 1
+			dropped: 1,
 		}, {
 			name: 'Exam 1',
 			weight: 10,
 			position: 300,
 			numGrades: 1,
-			dropped: null
+			dropped: null,
 		}, {
 			name: 'Final',
 			weight: 25,
 			position: 400,
 			numGrades: 1,
-			dropped: null
-		}]
+			dropped: null,
+		}],
 	}, txn);
 	// #endregion
 
@@ -72,39 +72,39 @@ async function seed(txn) {
 			name: 'WORK 110',
 			semester: '2000W',
 			credits: 4,
-			cutoffs: DEFAULT_CUTOFFS
+			cutoffs: DEFAULT_CUTOFFS,
 		},
 		categories: [{
 			name: 'Homework',
 			weight: 15,
 			position: 100,
 			numGrades: 14,
-			dropped: null
+			dropped: null,
 		}, {
 			name: 'Quizzes',
 			weight: 15,
 			position: 200,
 			numGrades: 10,
-			dropped: 3
+			dropped: 3,
 		}, {
 			name: 'Exam 1',
 			weight: 10,
 			position: 300,
 			numGrades: 1,
-			dropped: null
+			dropped: null,
 		}, {
 			name: 'Exam 2',
 			weight: 20,
 			position: 400,
 			numGrades: 1,
-			dropped: null
+			dropped: null,
 		}, {
 			name: 'Final',
 			weight: 40,
 			position: 500,
 			numGrades: 1,
-			dropped: null
-		}]
+			dropped: null,
+		}],
 	}, txn);
 	// #endregion
 
@@ -140,9 +140,9 @@ describe('Functional > API E2E', function () {
 					user: user.id,
 					category: firstCourse.categories[0].id,
 					course: firstCourse.course.id,
-					grade: 92
+					grade: 92,
 				},
-				db
+				db,
 			});
 
 			expect(await api.grade.delete({id: testGrade.id, txn, db})).to.be.ok;
@@ -159,14 +159,14 @@ describe('Functional > API E2E', function () {
 					position: 900,
 					grades: [{
 						name: 'Quiz 1',
-						grade: null
+						grade: null,
 					}, {
 						name: 'Quiz 2',
-						grade: null
-					}]
+						grade: null,
+					}],
 				},
 				txn,
-				db
+				db,
 			});
 
 			expect(await api.category.delete(testCategory.id, user.id, db, txn)).to.be.ok;

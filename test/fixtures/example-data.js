@@ -58,7 +58,7 @@ const fixtures = [
 	['sessions', {sessionAGB: 'trusted', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c8150930db248a9d7514f"}}'}],
 	['sessions', {sessionAGB: 'evil', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81a099e3d8f91f66967c"}}'}],
 	['sessions', {sessionAGB: 'confused', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81b49d866268d230e180"}}'}],
-	['sessions', {sessionAGB: 'random', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81d738773f9ae92e8c7d"}}'}]
+	['sessions', {sessionAGB: 'random', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81d738773f9ae92e8c7d"}}'}],
 ];
 /* eslint-enable camelcase, unicorn/no-zero-fractions */
 
@@ -99,8 +99,8 @@ const fixturesMap = {
 		trusted: 'agbsid=s%3Atrusted.6b1LMhvKUJrWJSZK0cjW5tonTdZLWeOxbYd0OcxtRsk',
 		evil: 'agbsid=s%3Aevil.qsZUfy7k9UhrYWLHYqnt3SvqA08z5S1mu9/xdgj9qiM',
 		confused: 'agbsid=s%3Aconfused.SXqp19eWUmQ3yZvBxxnUErE6zXzgPKjCYetL4Wxq8ow',
-		random: 'agbsid=s%3Arandom.FkByk2JUbMsNulr7lM+YeprlnZ2B3+ZgAPq88QkyuzQ'
-	}
+		random: 'agbsid=s%3Arandom.FkByk2JUbMsNulr7lM+YeprlnZ2B3+ZgAPq88QkyuzQ',
+	},
 };
 
 for (const [table, data] of fixtures) {

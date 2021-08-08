@@ -2,7 +2,7 @@ let Together;
 
 try {
 	Together = require('@gradebook/together').default;
-} catch (_) {
+} catch {
 	console.error('Failed loading @gradebook/together. Try running `yarn install`');
 	process.exit(1);
 }
@@ -11,7 +11,7 @@ const precheck = require('./_precheck');
 
 const commands = [
 	['Backend Server', 'yarn backend:dev'],
-	['Frontend Builder', 'yarn --cwd lib/frontend/client/ dev']
+	['Frontend Builder', 'yarn --cwd lib/frontend/client/ dev'],
 ];
 
 async function run() {

@@ -35,31 +35,31 @@ describe('Unit > Validator', function () {
 		it('integer', function () {
 			const schema = {type: 'integer'};
 			const error = 'int is not within the allowed range';
-			expect(validator._validateSingleColumn(schema, -2147483649, 'int')).to.deep.equal([error, null]);
-			expect(validator._validateSingleColumn(schema, -2147483648, 'int')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 2147483647, 'int')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 2147483648, 'int')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, -2_147_483_649, 'int')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, -2_147_483_648, 'int')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 2_147_483_647, 'int')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 2_147_483_648, 'int')).to.deep.equal([error, null]);
 
 			schema.unsigned = true;
 			expect(validator._validateSingleColumn(schema, -1, 'int')).to.deep.equal([error, null]);
 			expect(validator._validateSingleColumn(schema, 0, 'int')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 4294967295, 'int')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 4294967296, 'int')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, 4_294_967_295, 'int')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 4_294_967_296, 'int')).to.deep.equal([error, null]);
 		});
 
 		it('float', function () {
 			const schema = {type: 'float'};
 			const error = 'float is not within the allowed range';
-			expect(validator._validateSingleColumn(schema, -1000000.01, 'float')).to.deep.equal([error, null]);
-			expect(validator._validateSingleColumn(schema, -999999, 'float')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 999999, 'float')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 1000000.01, 'float')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, -1_000_000.01, 'float')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, -999_999, 'float')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 999_999, 'float')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 1_000_000.01, 'float')).to.deep.equal([error, null]);
 
 			schema.unsigned = true;
 			expect(validator._validateSingleColumn(schema, -1, 'float')).to.deep.equal([error, null]);
 			expect(validator._validateSingleColumn(schema, 0, 'float')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 999999, 'float')).to.deep.equal(NO_CHANGE);
-			expect(validator._validateSingleColumn(schema, 1000000.01, 'float')).to.deep.equal([error, null]);
+			expect(validator._validateSingleColumn(schema, 999_999, 'float')).to.deep.equal(NO_CHANGE);
+			expect(validator._validateSingleColumn(schema, 1_000_000.01, 'float')).to.deep.equal([error, null]);
 		});
 	});
 
@@ -67,7 +67,7 @@ describe('Unit > Validator', function () {
 		const schema = {type: 'tinyint'};
 
 		expect(
-			validator._validateSingleColumn(schema, undefined, 'tinyInt')
+			validator._validateSingleColumn(schema, undefined, 'tinyInt'),
 		).to.deep.equal(['tinyInt cannot be empty', null]);
 
 		schema.nullable = true;
@@ -81,7 +81,7 @@ describe('Unit > Validator', function () {
 		const schema = {type: 'boolean'};
 
 		expect(
-			validator._validateSingleColumn(schema, undefined, 'boolean')
+			validator._validateSingleColumn(schema, undefined, 'boolean'),
 		).to.deep.equal(['boolean cannot be empty', null]);
 		expect(validator._validateSingleColumn(schema, false, 'boolean')).to.deep.equal(NO_CHANGE);
 		expect(validator._validateSingleColumn(schema, 'false', 'boolean')).to.deep.equal([null, false]);
@@ -90,7 +90,7 @@ describe('Unit > Validator', function () {
 		expect(validator._validateSingleColumn(schema, 'true', 'boolean')).to.deep.equal([null, true]);
 		expect(validator._validateSingleColumn(schema, '1', 'boolean')).to.deep.equal([null, true]);
 		expect(
-			validator._validateSingleColumn(schema, 'potato', 'boolean')
+			validator._validateSingleColumn(schema, 'potato', 'boolean'),
 		).to.deep.equal(['boolean must be Boolean', null]);
 		expect(validator._validateSingleColumn(schema, 2, 'boolean')).to.deep.equal(['boolean must be Boolean', null]);
 	});
@@ -109,13 +109,13 @@ describe('Unit > Validator', function () {
 	it('maxLength - strings and text blobs', function () {
 		const schema = {type: 'string', maxLength: 24, nullable: false};
 		expect(
-			validator._validateSingleColumn(schema, 'b'.repeat(25), 'id')
+			validator._validateSingleColumn(schema, 'b'.repeat(25), 'id'),
 		).to.deep.equal(['id exceeds the maxLength of 24', null]);
 
 		schema.nullable = true;
 
 		expect(
-			validator._validateSingleColumn(schema, 'b'.repeat(25), 'optional')
+			validator._validateSingleColumn(schema, 'b'.repeat(25), 'optional'),
 		).to.deep.equal(['optional exceeds the maxLength of 24', null]);
 		expect(validator._validateSingleColumn(schema, 'o'.repeat(24), 'optional')).to.deep.equal(NO_CHANGE);
 	});
@@ -126,10 +126,10 @@ describe('Unit > Validator', function () {
 		expect(validator._validateSingleColumn(schema, 1, 'dropped')).to.deep.equal(NO_CHANGE);
 		expect(validator._validateSingleColumn(schema, 40, 'dropped')).to.deep.equal(NO_CHANGE);
 		expect(
-			validator._validateSingleColumn(schema, 0, 'dropped')
+			validator._validateSingleColumn(schema, 0, 'dropped'),
 		).to.deep.equal(['dropped is not within the allowed range', null]);
 		expect(
-			validator._validateSingleColumn(schema, 41, 'dropped')
+			validator._validateSingleColumn(schema, 41, 'dropped'),
 		).to.deep.equal(['dropped is not within the allowed range', null]);
 	});
 
@@ -144,8 +144,8 @@ describe('Unit > Validator', function () {
 			tinyInt: {type: 'tinyint', fallback: 15},
 			integer: {type: 'integer'},
 			float: {type: 'float'},
-			grade: {type: 'float', nullable: true, validations: {between: [0, 999999]}},
-			boolean: {type: 'boolean'}
+			grade: {type: 'float', nullable: true, validations: {between: [0, 999_999]}},
+			boolean: {type: 'boolean'},
 		};
 
 		// @ts-expect-error
@@ -158,7 +158,7 @@ describe('Unit > Validator', function () {
 			integer: -10,
 			float: 1.05,
 			grade: -1,
-			boolean: false
+			boolean: false,
 		};
 		const columns = Object.keys(testSchema);
 
@@ -167,9 +167,7 @@ describe('Unit > Validator', function () {
 			diff[key] = value;
 		};
 
-		const get = key => {
-			return original[key];
-		};
+		const get = key => original[key];
 
 		try {
 			const model = {set, get, columns};
@@ -180,12 +178,12 @@ describe('Unit > Validator', function () {
 			expect(error.context).to.deep.equal([
 				'__test__.text exceeds the maxLength of 24',
 				'__test__.created cannot be empty',
-				'__test__.grade is not within the allowed range'
+				'__test__.grade is not within the allowed range',
 			]);
 			expect(diff).to.deep.equal({
 				optional: '51',
 				dropped: null,
-				tinyInt: 15
+				tinyInt: 15,
 			});
 		} finally {
 			// @ts-expect-error
