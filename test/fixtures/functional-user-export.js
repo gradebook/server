@@ -26,8 +26,8 @@ module.exports = () => ({
 				{name: 'Homework 11', grade: null},
 				{name: 'Homework 12', grade: null},
 				{name: 'Homework 13', grade: null},
-				{name: 'Homework 14', grade: null}
-			]
+				{name: 'Homework 14', grade: null},
+			],
 		},
 		{
 			name: 'Lab',
@@ -44,8 +44,8 @@ module.exports = () => ({
 				{name: 'Lab 7', grade: null},
 				{name: 'Lab 8', grade: null},
 				{name: 'Lab 9', grade: null},
-				{name: 'Lab 10', grade: null}
-			]
+				{name: 'Lab 10', grade: null},
+			],
 		},
 		{
 			name: 'Exam 1',
@@ -53,8 +53,8 @@ module.exports = () => ({
 			position: 300,
 			dropped: null,
 			grades: [
-				{name: null, grade: null}
-			]
+				{name: null, grade: null},
+			],
 		},
 		{
 			name: 'Final',
@@ -62,9 +62,9 @@ module.exports = () => ({
 			position: 400,
 			dropped: null,
 			grades: [
-				{name: null, grade: null}
-			]
-		}]
+				{name: null, grade: null},
+			],
+		}],
 	},
 	{
 		semester: '2000W',
@@ -91,8 +91,8 @@ module.exports = () => ({
 				{name: 'Homework 11', grade: null},
 				{name: 'Homework 12', grade: null},
 				{name: 'Homework 13', grade: null},
-				{name: 'Homework 14', grade: null}
-			]
+				{name: 'Homework 14', grade: null},
+			],
 		},
 		{
 			name: 'Quizzes',
@@ -109,8 +109,8 @@ module.exports = () => ({
 				{name: 'Quiz 7', grade: null},
 				{name: 'Quiz 8', grade: null},
 				{name: 'Quiz 9', grade: null},
-				{name: 'Quiz 10', grade: null}
-			]
+				{name: 'Quiz 10', grade: null},
+			],
 		},
 		{
 			name: 'Exam 1',
@@ -118,8 +118,8 @@ module.exports = () => ({
 			position: 300,
 			dropped: null,
 			grades: [
-				{name: null, grade: null}
-			]
+				{name: null, grade: null},
+			],
 		},
 		{
 			name: 'Exam 2',
@@ -127,8 +127,8 @@ module.exports = () => ({
 			position: 400,
 			dropped: null,
 			grades: [
-				{name: null, grade: null}
-			]
+				{name: null, grade: null},
+			],
 		},
 		{
 			name: 'Final',
@@ -136,9 +136,9 @@ module.exports = () => ({
 			position: 500,
 			dropped: null,
 			grades: [
-				{name: null, grade: null}
-			]
-		}]
+				{name: null, grade: null},
+			],
+		}],
 	}],
 	user: {
 		firstName: 'Integration',
@@ -146,6 +146,6 @@ module.exports = () => ({
 		created: '__created__',
 		updated: '__updated__',
 		lastName: null,
-		settings: '{}'
-	}
+		settings: '{}',
+	},
 });

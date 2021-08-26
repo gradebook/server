@@ -1,3 +1,9 @@
+# 4.4.4
+
+ - :bug: fix account creation error while importing a course
+ - :bug: fix api inconsistency between create course validator and user import
+ - :art: respond with a generic error message when non-4xx error occurs
+
 # 4.4.3
 
  - :bug: fix course settings not being saved with host matching

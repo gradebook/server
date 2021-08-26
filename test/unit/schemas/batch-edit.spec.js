@@ -10,19 +10,19 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 items');
 		expectInvalid({
 			create: [],
-			update: []
+			update: [],
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			delete: []
+			delete: [],
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			update: []
+			update: [],
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 
 		expectInvalid({
-			create: []
+			create: [],
 		}, ['keyword', 'minItems'], 'NOT have fewer than 1 items');
 	});
 
@@ -30,33 +30,33 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 		expectValid({
 			create: [{
 				name: 'Homework 1',
-				grade: 95
+				grade: 95,
 			}, {
 				name: 'Homework 2',
-				grade: null
+				grade: null,
 			}, {
-				name: 'Homework 3'
-			}]
+				name: 'Homework 3',
+			}],
 		});
 
 		expectInvalid({
 			create: {
-				name: 'test'
-			}
+				name: 'test',
+			},
 		}, ['keyword', 'type'], 'must be array');
 
 		expectInvalid({
 			create: [{
 				id: {
-					test: objectId().toString()
-				}
-			}]
+					test: objectId().toString(),
+				},
+			}],
 		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 
 		expectInvalid({
 			create: [{
-				category_id: objectId().toString() // eslint-disable-line camelcase
-			}]
+				category_id: objectId().toString(), // eslint-disable-line camelcase
+			}],
 		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 	});
 
@@ -65,29 +65,29 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 			update: [{
 				id: objectId().toString(),
 				name: 'Homework 1',
-				grade: 100
+				grade: 100,
 			}, {
 				id: objectId().toString(),
-				grade: 85
+				grade: 85,
 			}, {
 				id: objectId().toString(),
-				grade: null
-			}]
+				grade: null,
+			}],
 		});
 	});
 
 	it('Only delete', function () {
 		expectValid({
-			delete: [objectId().toString(), objectId().toString(), objectId().toString()]
+			delete: [objectId().toString(), objectId().toString(), objectId().toString()],
 		});
 
 		const duplicateId = objectId().toString();
 		expectInvalid({
-			delete: [duplicateId, duplicateId]
+			delete: [duplicateId, duplicateId],
 		}, ['instancePath', '/delete'], 'NOT have duplicate items');
 
 		expectInvalid({
-			delete: objectId().toString()
+			delete: objectId().toString(),
 		}, ['instancePath', '/delete'], 'must be array');
 	});
 
@@ -96,13 +96,13 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 			delete: [objectId().toString()],
 			create: [{
 				name: 'Homework 1',
-				grade: 95
+				grade: 95,
 			}, {
 				name: 'Homework 2',
-				grade: null
+				grade: null,
 			}, {
-				name: 'Homework 3'
-			}]
+				name: 'Homework 3',
+			}],
 		}, ['schemaPath', '#/dependencies/delete/not'], 'NOT be valid');
 	});
 });

@@ -8,12 +8,12 @@ const VALID_OBJECT = {
 		name: 'ECEN 482',
 		semester: '2019S',
 		credits: 3,
-		cutoffs: '{"A":90,"B":80,"C":70,"D":60}'
+		cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 	},
 	categories: [
 		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
-		{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1}
-	]
+		{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
+	],
 };
 
 describe('Unit > Schemas > CreateCourse', function () {
@@ -24,150 +24,150 @@ describe('Unit > Schemas > CreateCourse', function () {
 	});
 
 	it('course invalid props', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 
-		obj.course.id = '';
-		expectInvalid(obj, ['keyword', 'additionalProperties'], 'NOT have additional properties');
-		delete obj.course.id;
+		object.course.id = '';
+		expectInvalid(object, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		delete object.course.id;
 
-		delete obj.course.credits;
-		expectInvalid(obj, ['keyword', 'required'], 'credits');
-		obj.course.credits = 3;
+		delete object.course.credits;
+		expectInvalid(object, ['keyword', 'required'], 'credits');
+		object.course.credits = 3;
 	});
 
 	it('course.name', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/course/name'];
 
-		obj.course.name = '';
-		expectInvalid(obj, errorProp, 'must match pattern');
+		object.course.name = '';
+		expectInvalid(object, errorProp, 'must match pattern');
 
-		obj.course.name = 14;
-		expectInvalid(obj, errorProp, 'string');
+		object.course.name = 14;
+		expectInvalid(object, errorProp, 'string');
 
-		obj.course.name = null;
-		expectInvalid(obj, errorProp, 'string');
+		object.course.name = null;
+		expectInvalid(object, errorProp, 'string');
 
-		obj.course.name = 'Introduction to Gradebook';
-		expectInvalid(obj, errorProp, 'must match pattern');
+		object.course.name = 'Introduction to Gradebook';
+		expectInvalid(object, errorProp, 'must match pattern');
 
-		obj.course.name = 'ECEN 482';
-		expectValid(obj);
+		object.course.name = 'ECEN 482';
+		expectValid(object);
 	});
 
 	it('course.semester', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/course/semester'];
 
-		obj.course.semester = 'Fall 2019';
-		expectInvalid(obj, errorProp, 'must match pattern');
+		object.course.semester = 'Fall 2019';
+		expectInvalid(object, errorProp, 'must match pattern');
 
-		obj.course.semester = '2019T';
-		expectInvalid(obj, errorProp, 'must match pattern');
+		object.course.semester = '2019T';
+		expectInvalid(object, errorProp, 'must match pattern');
 
-		obj.course.semester = '2019F';
-		expectValid(obj);
+		object.course.semester = '2019F';
+		expectValid(object);
 	});
 
 	it('category invalid props', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 
-		obj.categories[0].id = '';
-		expectInvalid(obj, ['keyword', 'additionalProperties'], 'NOT have additional properties');
-		delete obj.categories[0].id;
+		object.categories[0].id = '';
+		expectInvalid(object, ['keyword', 'additionalProperties'], 'NOT have additional properties');
+		delete object.categories[0].id;
 
-		delete obj.categories[0].dropped;
-		expectInvalid(obj, ['keyword', 'minProperties'], 'NOT have fewer than 5 items');
-		obj.categories[0].dropped = null;
+		delete object.categories[0].dropped;
+		expectInvalid(object, ['keyword', 'minProperties'], 'NOT have fewer than 5 items');
+		object.categories[0].dropped = null;
 	});
 
 	it('name', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/1/name'];
 
-		expectValid(obj);
+		expectValid(object);
 
-		obj.categories[1].name = '';
-		expectInvalid(obj, errorProp, 'fewer');
+		object.categories[1].name = '';
+		expectInvalid(object, errorProp, 'fewer');
 
-		obj.categories[1].name = 14;
-		expectInvalid(obj, errorProp, 'string');
+		object.categories[1].name = 14;
+		expectInvalid(object, errorProp, 'string');
 
-		obj.categories[1].name = null;
-		expectValid(obj);
+		object.categories[1].name = null;
+		expectValid(object);
 	});
 
 	it('weight', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/0/weight'];
 
-		obj.categories[0].weight = false;
-		expectInvalid(obj, errorProp, 'must be number');
+		object.categories[0].weight = false;
+		expectInvalid(object, errorProp, 'must be number');
 
-		obj.categories[0].weight = '185';
-		expectInvalid(obj, errorProp, 'must be number');
+		object.categories[0].weight = '185';
+		expectInvalid(object, errorProp, 'must be number');
 
-		obj.categories[0].weight = -1;
-		expectInvalid(obj, errorProp, '>= 0');
+		object.categories[0].weight = -1;
+		expectInvalid(object, errorProp, '>= 0');
 
-		obj.categories[0].weight = 10001;
-		expectInvalid(obj, errorProp, '<= 10000');
+		object.categories[0].weight = 10_001;
+		expectInvalid(object, errorProp, '<= 10000');
 
-		obj.categories[0].weight = 0;
-		expectValid(obj);
+		object.categories[0].weight = 0;
+		expectValid(object);
 
-		obj.categories[0].weight = 10000;
-		expectValid(obj);
+		object.categories[0].weight = 10_000;
+		expectValid(object);
 
-		obj.categories[0].weight = 88.5;
-		expectValid(obj);
+		object.categories[0].weight = 88.5;
+		expectValid(object);
 	});
 
 	it('position', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/1/position'];
 
-		obj.categories[1].position = null;
-		expectValid(obj);
+		object.categories[1].position = null;
+		expectValid(object);
 
-		obj.categories[1].position = false;
-		expectInvalid(obj, errorProp, 'must be integer');
+		object.categories[1].position = false;
+		expectInvalid(object, errorProp, 'must be integer');
 
-		obj.categories[1].position = 0;
-		expectValid(obj);
+		object.categories[1].position = 0;
+		expectValid(object);
 	});
 
 	it('numGrades', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/1/numGrades'];
 
-		obj.categories[1].numGrades = null;
-		expectInvalid(obj, errorProp, 'must be integer');
+		object.categories[1].numGrades = null;
+		expectInvalid(object, errorProp, 'must be integer');
 
-		obj.categories[1].numGrades = false;
-		expectInvalid(obj, errorProp, 'must be integer');
+		object.categories[1].numGrades = false;
+		expectInvalid(object, errorProp, 'must be integer');
 
-		obj.categories[1].numGrades = 0;
-		expectInvalid(obj, errorProp, 'must be >= 1');
+		object.categories[1].numGrades = 0;
+		expectInvalid(object, errorProp, 'must be >= 1');
 
-		obj.categories[1].numGrades = 3;
-		expectValid(obj);
+		object.categories[1].numGrades = 3;
+		expectValid(object);
 	});
 
 	it('dropped', function () {
-		const obj = {...VALID_OBJECT};
+		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/1/dropped'];
 
-		obj.categories[1].dropped = null;
-		expectValid(obj);
+		object.categories[1].dropped = null;
+		expectValid(object);
 
-		obj.categories[1].dropped = false;
-		expectInvalid(obj, errorProp, 'must be integer');
+		object.categories[1].dropped = false;
+		expectInvalid(object, errorProp, 'must be integer');
 
-		obj.categories[1].dropped = -1;
-		expectInvalid(obj, errorProp, 'must be >= 0');
+		object.categories[1].dropped = -1;
+		expectInvalid(object, errorProp, 'must be >= 0');
 
-		obj.categories[1].dropped = 1;
-		expectValid(obj);
+		object.categories[1].dropped = 1;
+		expectValid(object);
 	});
 });

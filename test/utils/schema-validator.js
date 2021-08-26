@@ -28,6 +28,6 @@ module.exports = function createSchemaValidator(schema, additionalSchemas = []) 
 			const [key, value] = kv;
 			expect(errors[0][key]).to.equal(value);
 			expect(errors[0].message).to.contain(messageMatch);
-		}
+		},
 	};
 };

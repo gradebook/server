@@ -1,4 +1,5 @@
 const rewire = require('rewire');
+
 const cache = rewire('../../../lib/utils/clear-cloudflare-cache.js');
 const config = require('../../../lib/config');
 
@@ -20,7 +21,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			const body = '{"files":["url"]}';
 			const headers = {
 				'content-type': 'application/json',
-				authorization: 'Bearer token'
+				authorization: 'Bearer token',
 			};
 
 			await clearCache('zone', 'token', ['url']);
@@ -81,13 +82,13 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 		it('handles rejection well', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
-			const e = new Error('FAIL');
-			gotStub.rejects(e);
+			const error = new Error('FAIL');
+			gotStub.rejects(error);
 
 			await cache();
 			expect(logErrorStub.calledTwice).to.be.true;
 			expect(logErrorStub.args[0][0]).to.match(/failed clearing/i);
-			expect(logErrorStub.args[1][0]).to.equal(e);
+			expect(logErrorStub.args[1][0]).to.equal(error);
 		});
 
 		it('handles mixed signals', async function () {
@@ -108,8 +109,8 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 				new Map([
 					['a.gradebook.app', 'a'],
 					['b.gradebook.app', 'b'],
-					['c.gradebook.app', 'c']
-				])
+					['c.gradebook.app', 'c'],
+				]),
 			);
 
 			try {
@@ -119,8 +120,8 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 					files: [
 						'https://a.gradebook.app/api/v0/version',
 						'https://b.gradebook.app/api/v0/version',
-						'https://c.gradebook.app/api/v0/version'
-					]
+						'https://c.gradebook.app/api/v0/version',
+					],
 				}));
 			} finally {
 				cache.__set__('hostService', originalHostService);

@@ -22,5 +22,5 @@ export interface ICourse {
 export interface UserImport {
 	version: '0';
 	courses: ICourse[];
-	user: IUser
+	user: IUser;
 }

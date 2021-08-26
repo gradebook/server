@@ -11,40 +11,40 @@ describe('Unit > Schemas > EditGrade', function () {
 	});
 
 	it('name', function () {
-		const obj = {name: ''};
+		const object = {name: ''};
 		const errorProp = ['instancePath', '/name'];
 
-		expectInvalid(obj, errorProp, 'fewer than 1 character');
+		expectInvalid(object, errorProp, 'fewer than 1 character');
 
-		obj.name = 14;
-		expectInvalid(obj, errorProp, 'must be string');
+		object.name = 14;
+		expectInvalid(object, errorProp, 'must be string');
 
-		obj.name = false;
-		expectInvalid(obj, errorProp, 'must be string');
+		object.name = false;
+		expectInvalid(object, errorProp, 'must be string');
 
-		obj.name = null;
-		expectInvalid(obj, errorProp, 'must be string');
+		object.name = null;
+		expectInvalid(object, errorProp, 'must be string');
 
-		obj.name = 'Project 1';
-		expectValid(obj);
+		object.name = 'Project 1';
+		expectValid(object);
 	});
 
 	it('grade', function () {
-		const obj = {grade: ''};
+		const object = {grade: ''};
 		const errorProp = ['instancePath', '/grade'];
 
-		expectInvalid(obj, errorProp, 'must be number');
+		expectInvalid(object, errorProp, 'must be number');
 
-		obj.grade = false;
-		expectInvalid(obj, errorProp, 'must be number');
+		object.grade = false;
+		expectInvalid(object, errorProp, 'must be number');
 
-		obj.grade = '15';
-		expectInvalid(obj, errorProp, 'must be number');
+		object.grade = '15';
+		expectInvalid(object, errorProp, 'must be number');
 
-		obj.grade = 88.3;
-		expectValid(obj);
+		object.grade = 88.3;
+		expectValid(object);
 
-		obj.grade = 1000;
-		expectValid(obj);
+		object.grade = 1000;
+		expectValid(object);
 	});
 });

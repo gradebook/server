@@ -13,5 +13,5 @@ module.exports = {
 			cacheStub.restore();
 			cacheStub = false;
 		}
-	}
+	},
 };

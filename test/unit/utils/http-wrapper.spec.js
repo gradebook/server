@@ -2,9 +2,9 @@ const wrap = require('../../../lib/utils/http-wrapper');
 
 describe('Unit > Utils > HTTP-Wrapper', function () {
 	it('Only accepts function', function () {
-		const expectError = param => {
+		const expectError = parameter => {
 			try {
-				wrap(param);
+				wrap(parameter);
 			} catch (error) {
 				expect(error).to.be.instanceOf(TypeError);
 			}
@@ -20,33 +20,33 @@ describe('Unit > Utils > HTTP-Wrapper', function () {
 		const fn = sinon.stub().resolves();
 		const call = wrap(fn);
 
-		const req = {isRequest: 'yes'};
-		const res = {isResponse: 'yes'};
+		const request = {isRequest: 'yes'};
+		const response = {isResponse: 'yes'};
 
-		await call(req, res, testUtils.expectError);
+		await call(request, response, testUtils.expectError);
 
 		fn.returns();
-		await call(req, res, testUtils.expectError);
+		await call(request, response, testUtils.expectError);
 
 		expect(fn.calledTwice).to.be.true;
-		expect(fn.calledWithExactly(req, res)).to.be.true;
+		expect(fn.calledWithExactly(request, response)).to.be.true;
 	});
 
 	it('Handles errors', async function () {
-		const err = new Error('oops');
-		const fn = sinon.stub().rejects(err);
+		const error = new Error('oops');
+		const fn = sinon.stub().rejects(error);
 		const next = sinon.stub();
 		const call = wrap(fn);
 
-		const req = {isRequest: 'yes'};
-		const res = {isResponse: 'yes'};
+		const request = {isRequest: 'yes'};
+		const response = {isResponse: 'yes'};
 
-		await call(req, res, next);
+		await call(request, response, next);
 
-		fn.throws(err);
-		await call(req, res, next);
+		fn.throws(error);
+		await call(request, response, next);
 
 		expect(next.calledTwice).to.be.true;
-		expect(next.calledWithExactly(err)).to.be.true;
+		expect(next.calledWithExactly(error)).to.be.true;
 	});
 });

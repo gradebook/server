@@ -1,3 +1,4 @@
+// @ts-check
 if (process.env.NODE_ENV !== 'production') {
 	let altText = ' is not set';
 	if (process.env.NODE_ENV) {
@@ -5,19 +6,19 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 
 	console.log(
-		`Warning: NODE_ENV${altText}, updating to production.`
+		`Warning: NODE_ENV${altText}, updating to production.`,
 	);
 
 	process.env.NODE_ENV = 'production';
 }
 
-const {resolve} = require('path');
+const path = require('path');
 const KnexMigrator = require('knex-migrator');
 /** @type Map<string, string> */
 const hosts = require('../lib/services/host');
 
 const migrator = new KnexMigrator({
-	migratorFilePath: resolve(__dirname, '../')
+	migratorFilePath: path.resolve(__dirname, '../'),
 });
 
 async function rollback() {

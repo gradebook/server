@@ -5,5 +5,5 @@ after(function () {
 	knex.instance.destroy();
 
 	const cron = require('../lib/services/cron/init');
-	cron._tasks.forEach(task => task.stop());
+	cron._tasks.forEach(task => task.stop()); // eslint-disable-line unicorn/no-array-for-each
 });

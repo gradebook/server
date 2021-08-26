@@ -9,11 +9,11 @@ module.exports = {
 		// Remove unneeded data
 		await connection.transaction(trx => {
 			const queries = [
-				'DELETE FROM `sessions` WHERE `sessionAGB` NOT LIKE "%authorized";'
+				'DELETE FROM `sessions` WHERE `sessionAGB` NOT LIKE "%authorized";',
 			];
 
 			return Promise.all(queries.map(query => trx.raw(query)));
 		});
 		connection.destroy();
-	}
+	},
 };

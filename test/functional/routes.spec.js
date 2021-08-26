@@ -63,11 +63,11 @@ describe('Functional > API Routes', function () {
 				.expect(200)
 				.expect(({body}) => {
 					expect(body).to.be.an('array').with.length(5);
-					body.forEach(course => {
+					for (const course of body) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits'],
 						);
-					});
+					}
 				});
 		});
 
@@ -78,11 +78,11 @@ describe('Functional > API Routes', function () {
 				.expect(200)
 				.expect(({body}) => {
 					expect(body).to.be.an('array').with.length(16);
-					body.forEach(category => {
+					for (const category of body) {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'name', 'weight', 'position', 'course', 'dropped']
+							['id', 'name', 'weight', 'position', 'course', 'dropped'],
 						);
-					});
+					}
 				});
 		});
 
@@ -93,11 +93,11 @@ describe('Functional > API Routes', function () {
 				.expect(200)
 				.expect(({body}) => {
 					expect(body).to.be.an('array').with.length(29);
-					body.forEach(course => {
+					for (const course of body) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'name', 'grade', 'course', 'category']
+							['id', 'name', 'grade', 'course', 'category'],
 						);
-					});
+					}
 				});
 		});
 
@@ -161,7 +161,7 @@ describe('Functional > API Routes', function () {
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
 						expect(Object.keys(category)).to.deep.equal(
-							['id', 'name', 'weight', 'position', 'course', 'dropped', 'grades']
+							['id', 'name', 'weight', 'position', 'course', 'dropped', 'grades'],
 						);
 						expect(category.grades).to.be.an('array');
 						expect(category.grades.length).to.be.at.least(1);
@@ -169,7 +169,7 @@ describe('Functional > API Routes', function () {
 
 					for (const course of body.courses) {
 						expect(Object.keys(course)).to.deep.equal(
-							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits']
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits'],
 						);
 					}
 				});
@@ -188,7 +188,7 @@ describe('Functional > API Routes', function () {
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/name must be string',
-						context: 'Failed validating payload'
+						context: 'Failed validating payload',
 					});
 				});
 		});
@@ -205,7 +205,7 @@ describe('Functional > API Routes', function () {
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/update/0/name must be string',
-						context: 'Failed validating payload'
+						context: 'Failed validating payload',
 					});
 				});
 		});
@@ -221,7 +221,7 @@ describe('Functional > API Routes', function () {
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/create/0/name must be string',
-						context: 'Failed validating payload'
+						context: 'Failed validating payload',
 					});
 				});
 		});
@@ -233,7 +233,7 @@ describe('Functional > API Routes', function () {
 				semester: '2019S',
 				name: 'Bad name course',
 				cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
-				credits: null
+				credits: null,
 			};
 
 			const categories = [{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null}];
@@ -246,7 +246,7 @@ describe('Functional > API Routes', function () {
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$"',
-						context: 'Failed validating payload'
+						context: 'Failed validating payload',
 					});
 				});
 		});
@@ -263,7 +263,7 @@ describe('Functional > API Routes', function () {
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/name must be string',
-						context: 'Failed validating payload'
+						context: 'Failed validating payload',
 					});
 				});
 		});
