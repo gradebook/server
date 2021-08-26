@@ -366,10 +366,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gradebook/course-serializer@0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.5.tgz#61ce83a704edc2b2cf8125d3d4931f73b8d25e91"
-  integrity sha512-5dRsv4y5BAe7TqQUQxVpqqoIRR3QRMa0rK/fR1dYPKgcZWIbKfEnjKgfW4dmJtRKgBYNTouygo3eaBH3FDQ1yw==
+"@gradebook/course-serializer@0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.6.tgz#2865a47544258686e73b88af2222245edae1c68d"
+  integrity sha512-hm5t2APm0XDI1v9gKYy0dKE2y5bT7cOn57WymAwyZQKSFIiG1phJwFw3MpRIJWLJIpuJARxatXF43nvzuMni1g==
 
 "@gradebook/express-brute-redis@0.1.0":
   version "0.1.0"
