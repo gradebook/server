@@ -42,7 +42,7 @@
     "express-session": "1.17.2",
     "ghost-ignition": "4.6.3",
     "got": "11.8.2",
-    "ioredis": "4.27.6",
+    "ioredis": "4.27.9",
     "knex": "0.95.9",
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
