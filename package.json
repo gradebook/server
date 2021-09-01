@@ -61,7 +61,7 @@
     "chokidar": "3.5.2",
     "eslint-plugin-mocha": "9.0.0",
     "execa": "5.1.1",
-    "mocha": "9.0.3",
+    "mocha": "9.1.1",
     "mock-knex": "github:jayakrishnagopal/mock-knex#80a9d0813ffc4aa03fc069189583c3aa243712eb",
     "nock": "13.1.1",
     "nodemon": "2.0.12",
