@@ -1,8 +1,10 @@
 version: 2
 updates:
-  - pacakge-ecosystem: "npm"
+  - package-ecosystem: npm
     directory: "/"
-    schedule: "daily"
+    schedule:
+      interval: daily
+      time: "14:40"
     allowed_updates:
       - match:
           update_type: "security"
