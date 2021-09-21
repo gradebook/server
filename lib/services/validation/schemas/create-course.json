@@ -7,7 +7,7 @@
   "required": ["course", "categories"],
   "properties": {
     "course": {
-      "$ref": "course.legacy_create"
+      "$ref": "course.metadata"
     },
     "categories": {
       "type": "array",
