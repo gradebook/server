@@ -1,8 +1,9 @@
+// @ts-check
 const schemaValidator = require('../../utils/schema-validator');
 const schema = require('../../../lib/services/validation/schemas/create-course.json');
-const legacyCreateSchema = require('../../../lib/services/validation/schemas/legacy-create-course.json');
+const courseMetadataSchema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [legacyCreateSchema]);
+const {expectInvalid, expectValid} = schemaValidator(schema, [courseMetadataSchema]);
 const VALID_OBJECT = {
 	course: {
 		name: 'ECEN 482',
@@ -42,6 +43,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		object.course.name = '';
 		expectInvalid(object, errorProp, 'must match pattern');
 
+		// @ts-expect-error we're testing a broken case!
 		object.course.name = 14;
 		expectInvalid(object, errorProp, 'string');
 
@@ -90,6 +92,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		object.categories[1].name = '';
 		expectInvalid(object, errorProp, 'fewer');
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[1].name = 14;
 		expectInvalid(object, errorProp, 'string');
 
@@ -101,9 +104,11 @@ describe('Unit > Schemas > CreateCourse', function () {
 		const object = {...VALID_OBJECT};
 		const errorProp = ['instancePath', '/categories/0/weight'];
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[0].weight = false;
 		expectInvalid(object, errorProp, 'must be number');
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[0].weight = '185';
 		expectInvalid(object, errorProp, 'must be number');
 
@@ -130,6 +135,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		object.categories[1].position = null;
 		expectValid(object);
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[1].position = false;
 		expectInvalid(object, errorProp, 'must be integer');
 
@@ -144,6 +150,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		object.categories[1].numGrades = null;
 		expectInvalid(object, errorProp, 'must be integer');
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[1].numGrades = false;
 		expectInvalid(object, errorProp, 'must be integer');
 
@@ -161,6 +168,7 @@ describe('Unit > Schemas > CreateCourse', function () {
 		object.categories[1].dropped = null;
 		expectValid(object);
 
+		// @ts-expect-error we're testing a broken case!
 		object.categories[1].dropped = false;
 		expectInvalid(object, errorProp, 'must be integer');
 

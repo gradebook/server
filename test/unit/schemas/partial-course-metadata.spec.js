@@ -1,5 +1,5 @@
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/legacy-create-course.json');
+const schema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
 
 const {expectInvalid, expectValid} = schemaValidator(schema);
 const VALID_OBJECT = {
@@ -9,7 +9,7 @@ const VALID_OBJECT = {
 	credits: 3,
 };
 
-describe('Unit > Schemas > LegacyCreateCourse', function () {
+describe('Unit > Schemas > CourseMetadata', function () {
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
 		expectInvalid({id: ''}, ['keyword', 'required'], 'must have required property');
