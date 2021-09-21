@@ -1,77 +1,20 @@
 // @ts-check
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/create-course.json');
+const schema = require('../../../lib/services/validation/schemas/complete-course-create.json');
 const courseMetadataSchema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
 const categoryListSchema = require('../../../lib/services/validation/schemas/partial-batch-create-category.json');
 
 const {expectInvalid, expectValid} = schemaValidator(schema, [courseMetadataSchema, categoryListSchema]);
 const VALID_OBJECT = {
-	course: {
-		name: 'ECEN 482',
-		semester: '2019S',
-		credits: 3,
-		cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
-	},
 	categories: [
 		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
 		{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
 	],
 };
 
-describe('Unit > Schemas > CreateCourse', function () {
-	it('base invalid props', function () {
-		expectInvalid({}, ['keyword', 'required'], 'course');
-		expectInvalid({id: ''}, ['keyword', 'required'], 'course');
-		expectInvalid({...VALID_OBJECT, id: ''}, ['keyword', 'additionalProperties'], 'NOT have additional properties');
-	});
-
-	it('course invalid props', function () {
-		const object = {...VALID_OBJECT};
-
-		object.course.id = '';
-		expectInvalid(object, ['keyword', 'additionalProperties'], 'NOT have additional properties');
-		delete object.course.id;
-
-		delete object.course.credits;
-		expectInvalid(object, ['keyword', 'required'], 'credits');
-		object.course.credits = 3;
-	});
-
-	it('course.name', function () {
-		const object = {...VALID_OBJECT};
-		const errorProp = ['instancePath', '/course/name'];
-
-		object.course.name = '';
-		expectInvalid(object, errorProp, 'must match pattern');
-
-		// @ts-expect-error we're testing a broken case!
-		object.course.name = 14;
-		expectInvalid(object, errorProp, 'string');
-
-		object.course.name = null;
-		expectInvalid(object, errorProp, 'string');
-
-		object.course.name = 'Introduction to Gradebook';
-		expectInvalid(object, errorProp, 'must match pattern');
-
-		object.course.name = 'ECEN 482';
-		expectValid(object);
-	});
-
-	it('course.semester', function () {
-		const object = {...VALID_OBJECT};
-		const errorProp = ['instancePath', '/course/semester'];
-
-		object.course.semester = 'Fall 2019';
-		expectInvalid(object, errorProp, 'must match pattern');
-
-		object.course.semester = '2019T';
-		expectInvalid(object, errorProp, 'must match pattern');
-
-		object.course.semester = '2019F';
-		expectValid(object);
-	});
-
+// These tests should closely mirror create-course.spec.js (just excluding course validations)
+// The only reason these exist are to make sure the complete-course-create schema is also correct
+describe('Unit > Schemas > CompleteCreateCourse', function () {
 	it('category invalid props', function () {
 		const object = {...VALID_OBJECT};
 
