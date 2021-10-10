@@ -2,7 +2,7 @@
 const path = require('path');
 const chokidar = require('chokidar');
 
-const clientPath = path.resolve(__dirname, '../frontend/client/');
+const clientPath = path.resolve(__dirname, '../lib/frontend/client/');
 
 // @NOTE: We can't just watch the release folder because there's no guarantee
 // it will always exist. So instead, we have to watch the parent directory
