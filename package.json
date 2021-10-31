@@ -81,6 +81,7 @@
       "mocha"
     ],
     "rules": {
+      "@typescript-eslint/naming-convention": "off",
       "node/prefer-global/process": "off",
       "unicorn/prefer-node-protocol": "off",
       "unicorn/prefer-module": "off",
