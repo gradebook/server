@@ -37,3 +37,7 @@ export interface ICreateCourseData {
 	};
 	categories: ICategoryConfig[];
 }
+
+export interface ICompleteCourseCreateData extends Pick<ICreateCourseData, 'categories' | 'user'> {
+	course: string;
+}

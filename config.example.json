@@ -45,19 +45,19 @@
       "lifetime": 60
     },
     "batchEditGrades": {
-      "freeRetries": 3,
+      "freeRetries": 9,
       "minWait": 120000,
       "maxWait": 120000,
       "lifetime": 60
     },
     "exportData": {
-      "freeRetries": 2,
+      "freeRetries": 4,
       "minWait": 21601000,
       "maxWait": 21601000,
       "lifetime": 21600
     },
     "createCourse": {
-      "freeRetries": 9,
+      "freeRetries": 19,
       "minWait": 604800000,
       "maxWait": 604800000,
       "lifetime": 604800

@@ -1,14 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "course.create",
-  "description": "Create a course",
+  "$id": "course.create.complete",
+  "description": "Finish creating a course",
   "type": "object",
   "additionalProperties": false,
-  "required": ["course", "categories"],
+  "required": [
+    "categories"
+  ],
   "properties": {
-    "course": {
-      "$ref": "course.metadata"
-    },
     "categories": {
       "$ref": "course.create.category-list"
     }

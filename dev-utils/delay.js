@@ -1,4 +1,5 @@
 // @ts-check
+const {BadRequestError} = require('../lib/errors');
 
 /**
  * @param {import('express').Request} request
@@ -14,7 +15,7 @@ module.exports = function slowDownResponse(request, response, next) {
 	}
 
 	if (numericDelay > 600) {
-		next(new Error('Max delay is 10 minutes'));
+		next(new BadRequestError({context: 'Max delay is 10 minutes'}));
 	}
 
 	setTimeout(next, numericDelay * 1000, undefined);

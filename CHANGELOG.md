@@ -1,3 +1,10 @@
+# 4.4.5
+
+ - :bug: fix oauth redirect not respecting configured subdirectory
+ - :fire: remove legacy course create endpoints
+ - Update rate limits
+ - Add completeCourseCreate endpoint
+
 # 4.4.4
 
  - :bug: fix account creation error while importing a course

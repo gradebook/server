@@ -1,4 +1,4 @@
-import QueryString from 'querystring'; // eslint-disable-line no-restricted-imports
+import QueryString from 'querystring';
 import Express from 'express';
 import * as eCore from 'express-serve-static-core';
 import AbstractDatabaseResponse from './lib/models/database-response';
