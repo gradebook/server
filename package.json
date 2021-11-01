@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "4.4.5",
+  "version": "4.4.6",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",

@@ -42,3 +42,4 @@ config.*.json
 !config.example.json
 !config.testing.json
 logs/
+developer.js
