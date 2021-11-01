@@ -1,3 +1,9 @@
+# 4.4.6
+
+ - :bug: fix host matching error for courses.complete controller
+ - centralize default setting value
+ - add initial support for developer tools
+
 # 4.4.5
 
  - :bug: fix oauth redirect not respecting configured subdirectory
