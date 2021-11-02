@@ -21,11 +21,14 @@ const DEFAULT_CUTOFFS = JSON.stringify([{
 
 const db = undefined;
 
+/**
+ * @param {import('knex').Knex.Transaction} txn
+ */
 async function seed(txn) {
 	const user = await api.user.create({
 		data: {gid: 10_000_000_000_001, firstName: 'Integration', email: 'integration@gbdev.cf'},
-		txn,
 		db,
+		txn,
 	});
 
 	// #region Create first course
@@ -62,7 +65,7 @@ async function seed(txn) {
 			numGrades: 1,
 			dropped: null,
 		}],
-	}, txn);
+	}, db, txn);
 	// #endregion
 
 	// #region Create second course
@@ -105,7 +108,7 @@ async function seed(txn) {
 			numGrades: 1,
 			dropped: null,
 		}],
-	}, txn);
+	}, db, txn);
 	// #endregion
 
 	return {user, firstCourse, secondCourse};
@@ -125,7 +128,8 @@ async function getExport(user, txn) {
 describe('Functional > API E2E', function () {
 	before(async function () {
 		const ignoredUsers = require('../../lib/services/ignored-users');
-		return ignoredUsers.init(require('../../lib/config'), require('../../lib/database/knex'));
+		await ignoredUsers.init(require('../../lib/config'), require('../../lib/database/knex'));
+		ignoredUsers._users.set(undefined, new Set());
 	});
 
 	it('Browse, Create, Delete', async function () {
@@ -135,6 +139,7 @@ describe('Functional > API E2E', function () {
 
 			// #region Create and delete grade
 			const testGrade = await api.grade.create({
+				db,
 				txn,
 				data: {
 					user: user.id,
@@ -142,10 +147,9 @@ describe('Functional > API E2E', function () {
 					course: firstCourse.course.id,
 					grade: 92,
 				},
-				db,
 			});
 
-			expect(await api.grade.delete({id: testGrade.id, txn, db})).to.be.ok;
+			expect(await api.grade.delete({id: testGrade.id, db, txn})).to.be.ok;
 			// #endregion
 
 			// #region Create and delete category
@@ -165,8 +169,8 @@ describe('Functional > API E2E', function () {
 						grade: null,
 					}],
 				},
-				txn,
 				db,
+				txn,
 			});
 
 			expect(await api.category.delete(testCategory.id, user.id, db, txn)).to.be.ok;
