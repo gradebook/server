@@ -5,6 +5,8 @@ const nock = require('nock');
 const makeApp = require('../utils/app');
 const testUtils = require('../utils');
 
+const {TEST_HOST_NAME} = testUtils.config;
+
 describe('Functional > API Routes', function () {
 	let instance;
 
@@ -19,6 +21,7 @@ describe('Functional > API Routes', function () {
 	it('unauthenticated', function () {
 		return supertest(instance)
 			.get('/api/v0/me')
+			.set('host', TEST_HOST_NAME)
 			.expect(401);
 	});
 
@@ -26,6 +29,7 @@ describe('Functional > API Routes', function () {
 		it('/my/', function () {
 			return supertest(instance)
 				.get('/my/')
+				.set('host', TEST_HOST_NAME)
 				.expect('content-type', /text\/html/)
 				.expect(200)
 				.expect(/<title>gradebook<\/title>/i);
@@ -48,6 +52,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.get('/api/v0/me')
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -59,6 +64,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/courses', function () {
 			return supertest(instance)
 				.get('/api/v0/courses')
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -74,6 +80,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/categories', function () {
 			return supertest(instance)
 				.get('/api/v0/categories')
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -89,6 +96,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/grades', function () {
 			return supertest(instance)
 				.get('/api/v0/grades')
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -109,6 +117,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.get(`/api/v0/course/${course.id}`)
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -126,6 +135,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.get(`/api/v0/category/${category.id}`)
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -144,6 +154,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.get(`/api/v0/grade/${grade.id}`)
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -154,6 +165,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/core-data', function () {
 			return supertest(instance)
 				.get('/api/v0/core-data')
+				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
@@ -182,6 +194,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.post(`/api/v0/grade/${id}`)
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({name: null})
 				.expect(422)
@@ -199,6 +212,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.post(`/api/v0/category/${categoryId}/batch`)
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({update: [{id: gradeId, name: null}]})
 				.expect(422)
@@ -215,6 +229,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.post(`/api/v0/category/${id}/batch`)
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({create: [{name: null, grade: 92}]})
 				.expect(422)
@@ -240,6 +255,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.put('/api/v0/courses')
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({course, categories})
 				.expect(422)
@@ -257,6 +273,7 @@ describe('Functional > API Routes', function () {
 
 			return supertest(instance)
 				.put('/api/v0/grades')
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({category, course, name: null})
 				.expect(422)
@@ -273,6 +290,7 @@ describe('Functional > API Routes', function () {
 		it('/api/v0/semester/{semester} when the semester does not exist', function () {
 			return supertest(instance)
 				.del('/api/v0/semester/2000F')
+				.set('host', TEST_HOST_NAME)
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.expect(404);
 		});
