@@ -4,6 +4,7 @@ const api = require('../../lib/api');
 const exportSerializer = require('../../lib/services/serializers/export-data');
 const getGoldenExport = require('../fixtures/functional-user-export');
 const prepareExport = require('../utils/prepare-export');
+const testConfig = require('../utils/test-config');
 
 const DEFAULT_CUTOFFS = JSON.stringify([{
 	name: 'A',
@@ -19,7 +20,7 @@ const DEFAULT_CUTOFFS = JSON.stringify([{
 	cutoff: 60,
 }]);
 
-const db = undefined;
+const db = testConfig.TEST_DATABASE;
 
 /**
  * @param {import('knex').Knex.Transaction} txn
@@ -129,7 +130,7 @@ describe('Functional > API E2E', function () {
 	before(async function () {
 		const ignoredUsers = require('../../lib/services/ignored-users');
 		await ignoredUsers.init(require('../../lib/config'), require('../../lib/database/knex'));
-		ignoredUsers._users.set(undefined, new Set());
+		ignoredUsers._users.set(db, new Set());
 	});
 
 	it('Browse, Create, Delete', async function () {

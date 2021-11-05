@@ -2,6 +2,7 @@
 const path = require('path');
 /* eslint-disable-next-line import/no-unassigned-import */
 require('../test/global.js'); // Update env
+const config = require('../test/utils/test-config.js');
 const {fixtures} = require('../test/fixtures/example-data');
 
 const root = path.resolve(__dirname, '../');
@@ -11,7 +12,7 @@ const {migrator, knex} = require('../lib/database');
 
 let log = (...args) => console.log(...args);
 
-if (process.env.CI === 'true') {
+if (config.isCI) {
 	log = () => false; // Noop fixture creation logs for CI
 }
 

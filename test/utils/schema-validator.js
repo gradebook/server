@@ -1,4 +1,5 @@
 const AJV = require('ajv').default;
+const testConfig = require('./test-config.js');
 
 module.exports = function createSchemaValidator(schema, additionalSchemas = []) {
 	const ajv = new AJV();
@@ -12,7 +13,7 @@ module.exports = function createSchemaValidator(schema, additionalSchemas = []) 
 		},
 
 		expectInvalid(payload, kv = [], messageMatch = '', logError = false) {
-			if ('CI' in process.env) {
+			if (testConfig.isCI) {
 				expect(logError, 'SchemaValidation: logError is a *debug tool* and should not be used in tests').to.not.be.ok;
 			}
 

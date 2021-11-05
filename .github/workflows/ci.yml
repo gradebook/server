@@ -40,22 +40,34 @@ jobs:
         REQUIRE_BRANCH: release
   integration:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: testing
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
         cache: yarn
-    - name: Install dependencies and setup
+    - name: Configure Dependencies
       run: |
+        yarn install --frozen-lockfile
         mkdir -p $(yarn cache dir)
         mkdir -p lib/frontend/client/release
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
-        yarn install --frozen-lockfile
-        NODE_ENV=testing yarn knex migrate:latest
-        node scripts/initialize-test-db.js
+    - name: Start MySQL
+      run: |
+        sudo /etc/init.d/mysql start
+        sudo mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'toor'"
+    - name: Bootstrap Database
+      run: |
+        # Do not initialize the fake host with seed data so we can make sure host matching is respected
+        database__connection__database=host_fake yarn knex migrate:latest
+        database__connection__database=host_real yarn knex migrate:latest
+        database__connection__database=host_real node scripts/initialize-test-db.js
     - name: Functional Tests
       run: yarn test:functional
+      env:
+        database__connection__database: host_real
     - name: Trigger Webhook
       run: yarn release-utils hook
       env:
