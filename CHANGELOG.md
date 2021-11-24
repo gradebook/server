@@ -1,3 +1,12 @@
+# 4.4.7
+
+:wrench: update api method signatures to require database
+:wrench: ci: use mysql for functional tests
+ - add error handling for user logic
+ - add @gradebook/core-developer-tools as a dependency
+ - use node 16
+ - add feedbackSemester to user settings
+
 # 4.4.6
 
  - :bug: fix host matching error for courses.complete controller
