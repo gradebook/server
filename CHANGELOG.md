@@ -1,3 +1,7 @@
+# 4.4.9
+
+- Revert "bump course serializer"
+
 # 4.4.8
 
 - fix actions/setup-node cache workaround

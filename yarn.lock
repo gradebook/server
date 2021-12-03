@@ -240,10 +240,10 @@
   resolved "https://registry.yarnpkg.com/@gradebook/core-developer-tools/-/core-developer-tools-0.1.3.tgz#0d2a45cee7da07b0e909bdd45ce58de04cf7bb04"
   integrity sha512-i7l/2A9aFQnSg0xzwVBOr58Jet+63d6ZATX/6xR0KE3m9HT19nlD9rZOaNKmgYEeSL8BD2LaxwzZDlapI+VqnA==
 
-"@gradebook/course-serializer@0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.3.1.tgz#aee3adc81334b492b83578ae1ff2083326d8258d"
-  integrity sha512-6i8PB99KEnwagFCNJkl00nXScegny8g4u4iQUhMEQZu2omwIjSVUa9WIKLd8g09C7hN4ZulMyjQzmpr25lhLZA==
+"@gradebook/course-serializer@0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@gradebook/course-serializer/-/course-serializer-0.2.6.tgz#2865a47544258686e73b88af2222245edae1c68d"
+  integrity sha512-hm5t2APm0XDI1v9gKYy0dKE2y5bT7cOn57WymAwyZQKSFIiG1phJwFw3MpRIJWLJIpuJARxatXF43nvzuMni1g==
 
 "@gradebook/express-brute-redis@0.1.0":
   version "0.1.0"
