@@ -1,3 +1,7 @@
+# 4.4.10
+
+ - :bug: fix user settings endpoint content-type
+
 # 4.4.9
 
 - Revert "bump course serializer"
