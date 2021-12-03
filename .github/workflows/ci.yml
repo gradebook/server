@@ -22,9 +22,10 @@ jobs:
       with:
         node-version: lts/*
         cache: yarn
+      env:
+        FORCE_COLOR: 0
     - name: Install Dependencies and setup
       run: |
-        mkdir -p $(yarn cache dir)
         yarn install --frozen-lockfile
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
@@ -48,10 +49,11 @@ jobs:
       with:
         node-version: lts/*
         cache: yarn
+      env:
+        FORCE_COLOR: 0
     - name: Configure Dependencies
       run: |
         yarn install --frozen-lockfile
-        mkdir -p $(yarn cache dir)
         mkdir -p lib/frontend/client/release
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
     - name: Start MySQL
@@ -84,12 +86,12 @@ jobs:
       with:
         node-version: lts/*
         cache: yarn
+      env:
+        FORCE_COLOR: 0
     - name: Install dependencies and setup
-      run: |
-        yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile
     - name: Lint and Typecheck
       run: |
-        mkdir -p $(yarn cache dir)
         yarn lint
         yarn typecheck
     - name: Trigger Webhook

@@ -1,3 +1,9 @@
+# 4.4.8
+
+- fix actions/setup-node cache workaround
+- update course serializer
+- update @gradebook/time
+
 # 4.4.7
 
 :wrench: update api method signatures to require database
