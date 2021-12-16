@@ -9,7 +9,7 @@
     "name": {
       "type": ["string", "null"],
       "minLength": 1,
-      "maxLength": 50
+      "maxLength": 999
     },
     "weight": {
       "anyOf": [
@@ -28,7 +28,7 @@
         {
           "type": "number",
           "minimum": 1,
-          "maximum": 40
+          "maximum": 999
         },
         {
           "type": "null"

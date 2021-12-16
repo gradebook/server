@@ -1,7 +1,6 @@
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema);
+const schema = '../../../lib/services/validation/schemas/partial-course-meta.json';
 const VALID_OBJECT = {
 	name: 'ECEN 482',
 	semester: '2019S',
@@ -10,6 +9,15 @@ const VALID_OBJECT = {
 };
 
 describe('Unit > Schemas > CourseMetadata', function () {
+	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
+	let expectInvalid;
+	/** @type {ReturnType<schemaValidator>['expectValid']} */
+	let expectValid;
+
+	before(function () {
+		({expectInvalid, expectValid} = schemaValidator(schema, require));
+	});
+
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
 		expectInvalid({id: ''}, ['keyword', 'required'], 'must have required property');

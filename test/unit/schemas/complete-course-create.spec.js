@@ -1,10 +1,10 @@
 // @ts-check
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/complete-course-create.json');
-const courseMetadataSchema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
-const categoryListSchema = require('../../../lib/services/validation/schemas/partial-batch-create-category.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [courseMetadataSchema, categoryListSchema]);
+const schema = '../../../lib/services/validation/schemas/complete-course-create.json';
+const courseMetadataSchema = '../../../lib/services/validation/schemas/partial-course-meta.json';
+const categoryListSchema = '../../../lib/services/validation/schemas/partial-batch-create-category.json';
+
 const VALID_OBJECT = {
 	categories: [
 		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
@@ -15,6 +15,15 @@ const VALID_OBJECT = {
 // These tests should closely mirror create-course.spec.js (just excluding course validations)
 // The only reason these exist are to make sure the complete-course-create schema is also correct
 describe('Unit > Schemas > CompleteCreateCourse', function () {
+	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
+	let expectInvalid;
+	/** @type {ReturnType<schemaValidator>['expectValid']} */
+	let expectValid;
+
+	before(function () {
+		({expectInvalid, expectValid} = schemaValidator(schema, require, [courseMetadataSchema, categoryListSchema]));
+	});
+
 	it('category invalid props', function () {
 		const object = {...VALID_OBJECT};
 
