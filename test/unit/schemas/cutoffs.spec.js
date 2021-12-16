@@ -1,6 +1,9 @@
+// @ts-check
 const schemaValidator = require('../../utils/schema-validator');
 
 const schema = '../../../lib/services/validation/schemas/course-cutoffs.json';
+
+/** @type {Record<string, any>} */
 const VALID_OBJECT = {
 	A: 90,
 	'B+': 80,

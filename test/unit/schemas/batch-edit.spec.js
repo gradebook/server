@@ -1,4 +1,5 @@
-const objectId = require('bson-objectid');
+// @ts-check
+const ObjectId = require('bson-objectid').default;
 const schemaValidator = require('../../utils/schema-validator');
 
 const objectIdSchema = '../../../lib/services/validation/schemas/object-id.json';
@@ -56,14 +57,14 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 		expectInvalid({
 			create: [{
 				id: {
-					test: objectId().toString(),
+					test: new ObjectId().toHexString(),
 				},
 			}],
 		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 
 		expectInvalid({
 			create: [{
-				category_id: objectId().toString(), // eslint-disable-line camelcase
+				category_id: new ObjectId().toHexString(), // eslint-disable-line camelcase
 			}],
 		}, ['instancePath', '/create/0'], 'NOT have additional properties');
 	});
@@ -71,14 +72,14 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 	it('Only update', function () {
 		expectValid({
 			update: [{
-				id: objectId().toString(),
+				id: new ObjectId().toHexString(),
 				name: 'Homework 1',
 				grade: 100,
 			}, {
-				id: objectId().toString(),
+				id: new ObjectId().toHexString(),
 				grade: 85,
 			}, {
-				id: objectId().toString(),
+				id: new ObjectId().toHexString(),
 				grade: null,
 			}],
 		});
@@ -86,22 +87,22 @@ describe('Unit > Schemas > BatchEditGrades', function () {
 
 	it('Only delete', function () {
 		expectValid({
-			delete: [objectId().toString(), objectId().toString(), objectId().toString()],
+			delete: [new ObjectId().toHexString(), new ObjectId().toHexString(), new ObjectId().toHexString()],
 		});
 
-		const duplicateId = objectId().toString();
+		const duplicateId = new ObjectId().toHexString();
 		expectInvalid({
 			delete: [duplicateId, duplicateId],
 		}, ['instancePath', '/delete'], 'NOT have duplicate items');
 
 		expectInvalid({
-			delete: objectId().toString(),
+			delete: new ObjectId().toHexString(),
 		}, ['instancePath', '/delete'], 'must be array');
 	});
 
 	it('No create AND delete', function () {
 		expectInvalid({
-			delete: [objectId().toString()],
+			delete: [new ObjectId().toHexString()],
 			create: [{
 				name: 'Homework 1',
 				grade: 95,

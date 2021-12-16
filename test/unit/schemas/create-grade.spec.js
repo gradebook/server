@@ -1,12 +1,15 @@
-const objectID = require('bson-objectid');
+// @ts-check
+const ObjectId = require('bson-objectid').default;
 const schemaValidator = require('../../utils/schema-validator');
 
-const COURSE_ID = objectID().toString();
-const CATEGORY_ID = objectID().toString();
 const objectIdSchema = '../../../lib/services/validation/schemas/object-id.json';
 const schema = '../../../lib/services/validation/schemas/create-grade.json';
 
-const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, name: 'Project 1'};
+const COURSE_ID = new ObjectId().toHexString();
+const CATEGORY_ID = new ObjectId().toHexString();
+
+/** @type {Record<string, any>} */
+const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, /** @type {any} */ name: 'Project 1'};
 
 describe('Unit > Schemas > CreateGrade', function () {
 	/** @type {ReturnType<schemaValidator>['expectInvalid']} */

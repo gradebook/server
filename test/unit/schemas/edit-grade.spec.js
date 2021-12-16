@@ -1,3 +1,4 @@
+// @ts-check
 const schemaValidator = require('../../utils/schema-validator');
 
 const schema = '../../../lib/services/validation/schemas/edit-grade.json';
@@ -19,6 +20,7 @@ describe('Unit > Schemas > EditGrade', function () {
 	});
 
 	it('name', function () {
+		/** @type {Record<string, any>} */
 		const object = {name: ''};
 		const errorProp = ['instancePath', '/name'];
 
@@ -38,6 +40,7 @@ describe('Unit > Schemas > EditGrade', function () {
 	});
 
 	it('grade', function () {
+		/** @type {Record<string, any>} */
 		const object = {grade: ''};
 		const errorProp = ['instancePath', '/grade'];
 
