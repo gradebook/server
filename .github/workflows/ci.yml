@@ -58,6 +58,7 @@ jobs:
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
     - name: Start MySQL
       run: |
+        ls -l /etc/init.d/
         sudo /etc/init.d/mysql start
         sudo mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'toor'"
     - name: Bootstrap Database
