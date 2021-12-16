@@ -1,15 +1,23 @@
 const objectID = require('bson-objectid');
 const schemaValidator = require('../../utils/schema-validator');
-const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
-const schema = require('../../../lib/services/validation/schemas/create-grade.json');
 
 const COURSE_ID = objectID().toString();
 const CATEGORY_ID = objectID().toString();
+const objectIdSchema = '../../../lib/services/validation/schemas/object-id.json';
+const schema = '../../../lib/services/validation/schemas/create-grade.json';
 
-const {expectValid, expectInvalid} = schemaValidator(schema, [objSchema]);
 const VALID_OBJECT = {course: COURSE_ID, category: CATEGORY_ID, name: 'Project 1'};
 
 describe('Unit > Schemas > CreateGrade', function () {
+	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
+	let expectInvalid;
+	/** @type {ReturnType<schemaValidator>['expectValid']} */
+	let expectValid;
+
+	before(function () {
+		({expectInvalid, expectValid} = schemaValidator(schema, require, [objectIdSchema]));
+	});
+
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 		expectInvalid({id: ''}, ['keyword', 'required'], 'course');

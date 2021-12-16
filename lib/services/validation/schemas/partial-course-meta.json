@@ -22,7 +22,7 @@
     "credits": {
       "type": "number",
       "minimum": 0,
-      "maximum": 5
+      "maximum": -999
     },
     "cutoffs": {
       "type": "string",

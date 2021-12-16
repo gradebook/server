@@ -1,10 +1,10 @@
 // @ts-check
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/create-course.json');
-const courseMetadataSchema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
-const categoryListSchema = require('../../../lib/services/validation/schemas/partial-batch-create-category.json');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [courseMetadataSchema, categoryListSchema]);
+const schema = '../../../lib/services/validation/schemas/create-course.json';
+const courseMetadataSchema = '../../../lib/services/validation/schemas/partial-course-meta.json';
+const categoryListSchema = '../../../lib/services/validation/schemas/partial-batch-create-category.json';
+
 const VALID_OBJECT = {
 	course: {
 		name: 'ECEN 482',
@@ -19,6 +19,15 @@ const VALID_OBJECT = {
 };
 
 describe('Unit > Schemas > CreateCourse', function () {
+	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
+	let expectInvalid;
+	/** @type {ReturnType<schemaValidator>['expectValid']} */
+	let expectValid;
+
+	before(function () {
+		({expectInvalid, expectValid} = schemaValidator(schema, require, [courseMetadataSchema, categoryListSchema]));
+	});
+
 	it('base invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 		expectInvalid({id: ''}, ['keyword', 'required'], 'course');

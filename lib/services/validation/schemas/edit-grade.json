@@ -11,7 +11,7 @@
   "properties": {
     "name": {
       "minLength": 1,
-      "maxLength": 55,
+      "maxLength": 999,
       "type": "string"
     },
     "grade": {

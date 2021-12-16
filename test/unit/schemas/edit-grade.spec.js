@@ -1,9 +1,17 @@
 const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/edit-grade.json');
 
-const {expectValid, expectInvalid} = schemaValidator(schema);
+const schema = '../../../lib/services/validation/schemas/edit-grade.json';
 
 describe('Unit > Schemas > EditGrade', function () {
+	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
+	let expectInvalid;
+	/** @type {ReturnType<schemaValidator>['expectValid']} */
+	let expectValid;
+
+	before(function () {
+		({expectInvalid, expectValid} = schemaValidator(schema, require));
+	});
+
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'name');
 		expectInvalid({id: ''}, ['keyword', 'required'], 'name');
