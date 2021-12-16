@@ -1,3 +1,4 @@
+// @ts-check
 const schemaValidator = require('../../utils/schema-validator');
 
 const schema = '../../../lib/services/validation/schemas/edit-course.json';

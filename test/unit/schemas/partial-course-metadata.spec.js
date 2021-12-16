@@ -1,6 +1,8 @@
+// @ts-check
 const schemaValidator = require('../../utils/schema-validator');
 
 const schema = '../../../lib/services/validation/schemas/partial-course-meta.json';
+/** @type {Record<string, any>} */
 const VALID_OBJECT = {
 	name: 'ECEN 482',
 	semester: '2019S',
