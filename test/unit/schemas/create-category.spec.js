@@ -1,9 +1,8 @@
 // @ts-check
 const ObjectId = require('bson-objectid').default;
-const schemaValidator = require('../../utils/schema-validator');
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const objectIdSchema = '../../../lib/services/validation/schemas/object-id.json';
-const schema = '../../../lib/services/validation/schemas/create-category.json';
+const {expectInvalid, expectValid} = createSchemaValidator('category.create');
 
 /** @type {Record<string, any>} */
 const VALID_OBJECT = {
@@ -15,15 +14,6 @@ const VALID_OBJECT = {
 };
 
 describe('Unit > Schemas > CreateCategory', function () {
-	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
-	let expectInvalid;
-	/** @type {ReturnType<schemaValidator>['expectValid']} */
-	let expectValid;
-
-	before(function () {
-		({expectInvalid, expectValid} = schemaValidator(schema, require, [objectIdSchema]));
-	});
-
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'required'], 'course');
 	});

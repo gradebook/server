@@ -1,7 +1,7 @@
 // @ts-check
-const schemaValidator = require('../../utils/schema-validator');
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const schema = '../../../lib/services/validation/schemas/course-cutoffs.json';
+const {expectInvalid, expectValid} = createSchemaValidator('course.cutoffs');
 
 /** @type {Record<string, any>} */
 const VALID_OBJECT = {
@@ -12,15 +12,6 @@ const VALID_OBJECT = {
 };
 
 describe('Unit > Schemas > Cutoffs', function () {
-	/** @type {ReturnType<schemaValidator>['expectInvalid']} */
-	let expectInvalid;
-	/** @type {ReturnType<schemaValidator>['expectValid']} */
-	let expectValid;
-
-	before(function () {
-		({expectInvalid, expectValid} = schemaValidator(schema, require));
-	});
-
 	it('invalid props', function () {
 		expectInvalid({}, ['keyword', 'minProperties'], '4');
 	});
