@@ -15,6 +15,7 @@
       "filename": "content/database.db"
     }
   },
+  "gateway": null,
   "domain": ".gbdev.cf",
   "ignoredUsers": [],
   "user event endpoint": false,
