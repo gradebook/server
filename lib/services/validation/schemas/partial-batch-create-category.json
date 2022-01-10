@@ -21,7 +21,7 @@
           "null"
         ],
         "minLength": 1,
-        "maxLength": 50
+        "maxLength": 999
       },
       "weight": {
         "anyOf": [

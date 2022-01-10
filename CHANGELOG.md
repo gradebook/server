@@ -1,3 +1,13 @@
+# 4.5.0
+
+ - :sparkles: add schema loader to allow dynamic limit configuration
+ - :sparkles: increase max GPA credits to 9
+ - :sparkles: add initial support for shrink (course-search) integration
+ - :card_file_box: add missing foreign key to courses.user_id
+ - include render timestamp in home page
+ - double default rate limit for batch edit requests
+ - Fix references to non-existant manifests in school config
+
 # 4.4.10
 
  - :bug: fix user settings endpoint content-type

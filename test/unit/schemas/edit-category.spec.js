@@ -1,7 +1,7 @@
-const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/edit-category.json');
+// @ts-check
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const {expectInvalid, expectValid} = schemaValidator(schema);
+const {expectInvalid, expectValid} = createSchemaValidator('category.edit');
 
 describe('Unit > Schemas > EditCategory', function () {
 	it('protected props', function () {

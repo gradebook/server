@@ -1,7 +1,9 @@
-const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
+// @ts-check
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const {expectInvalid, expectValid} = schemaValidator(schema);
+const {expectInvalid, expectValid} = createSchemaValidator('course.metadata');
+
+/** @type {Record<string, any>} */
 const VALID_OBJECT = {
 	name: 'ECEN 482',
 	semester: '2019S',

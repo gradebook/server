@@ -15,6 +15,7 @@
       "filename": "content/database.db"
     }
   },
+  "gateway": null,
   "domain": ".gbdev.cf",
   "ignoredUsers": [],
   "user event endpoint": false,
@@ -45,7 +46,7 @@
       "lifetime": 60
     },
     "batchEditGrades": {
-      "freeRetries": 9,
+      "freeRetries": 19,
       "minWait": 120000,
       "maxWait": 120000,
       "lifetime": 60
@@ -77,6 +78,7 @@
     "port": 2469
   },
   "session length": 604800000,
+  "cdnRoot": "https://static.gradebook.app/sYbR9JXKTI/",
   "schoolConfigurationEndpoint": "https://schools.gradebook.app/api/v1/global.json",
   "default school configuration": {
     "name": "",

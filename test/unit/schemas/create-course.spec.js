@@ -1,10 +1,8 @@
 // @ts-check
-const schemaValidator = require('../../utils/schema-validator');
-const schema = require('../../../lib/services/validation/schemas/create-course.json');
-const courseMetadataSchema = require('../../../lib/services/validation/schemas/partial-course-meta.json');
-const categoryListSchema = require('../../../lib/services/validation/schemas/partial-batch-create-category.json');
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [courseMetadataSchema, categoryListSchema]);
+const {expectInvalid, expectValid} = createSchemaValidator('course.create');
+
 const VALID_OBJECT = {
 	course: {
 		name: 'ECEN 482',

@@ -1,11 +1,12 @@
-const objectId = require('bson-objectid');
-const schemaValidator = require('../../utils/schema-validator');
-const objSchema = require('../../../lib/services/validation/schemas/object-id.json');
-const schema = require('../../../lib/services/validation/schemas/create-category.json');
+// @ts-check
+const ObjectId = require('bson-objectid').default;
+const {createSchemaValidator} = require('../../utils/schema-validator');
 
-const {expectInvalid, expectValid} = schemaValidator(schema, [objSchema]);
+const {expectInvalid, expectValid} = createSchemaValidator('category.create');
+
+/** @type {Record<string, any>} */
 const VALID_OBJECT = {
-	course: objectId().toString(),
+	course: new ObjectId().toHexString(),
 	name: 'Homework',
 	weight: 25,
 	position: 100,
