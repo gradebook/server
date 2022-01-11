@@ -1,3 +1,7 @@
+# 4.5.1
+
+ - :bug: fix validation error when creating a course with more than 5 credit hours
+
 # 4.5.0
 
  - :sparkles: add schema loader to allow dynamic limit configuration
