@@ -1,24 +1,27 @@
-const path = require('path');
-const _fs = require('fs');
+// @ts-check
+import path from 'path';
+import _fs from 'fs';
+import {fileURLToPath} from 'url';
+import {getGitHash as getHash} from './utils/get-git-hash.js';
+import {runInstall} from './utils/run-yarn-install.js';
 
 const fs = _fs.promises;
-const getHash = require('./utils/get-git-hash.js');
-const runInstall = require('./utils/run-yarn-install.js');
 
-const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
-const properDir = path.resolve(__dirname, '../');
+const CONFIG = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../.gradebook-cli');
+const properDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
 
 const MAJOR_MINOR_MATCH = 'v16.13.';
 
+/** @type {import('execa')} */
 let execa;
 try {
-	execa = require('execa');
+	({default: execa} = await import('execa'));
 } catch {
 	console.error('Please run `yarn install` in the root');
 	process.exit(1);
 }
 
-module.exports = async function staySafe(isSetup = false) {
+export async function precheck(isSetup = false) {
 	process.chdir(properDir);
 
 	// First, check the node version
@@ -48,8 +51,7 @@ module.exports = async function staySafe(isSetup = false) {
 	let hashesChanged = false;
 
 	try {
-		latestVersions = await fs.readFile(CONFIG);
-		latestVersions = JSON.parse(latestVersions);
+		latestVersions = JSON.parse(await fs.readFile(CONFIG, 'utf-8'));
 	} catch {}
 
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
@@ -78,4 +80,4 @@ module.exports = async function staySafe(isSetup = false) {
 	if (hashesChanged) {
 		await fs.writeFile(CONFIG, JSON.stringify(latestVersions));
 	}
-};
+}
