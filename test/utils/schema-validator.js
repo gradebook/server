@@ -1,13 +1,13 @@
 // @ts-check
-const {expect} = require('chai');
-const settingsService = require('../../lib/services/settings/index.js');
-const validator = require('../../lib/services/validation/schema-validator.js');
-const testConfig = require('./test-config.js');
+import {expect} from 'chai';
+import {settings} from '../../lib/services/settings/index.js';
+import validator, {init as initValidator} from '../../lib/services/validation/schema-validator.js';
+import * as testConfig from './test-config.js';
 
 /**
  * @param {string} schemaName
  */
-module.exports.createSchemaValidator = schemaName => ({
+export const createSchemaValidator = schemaName => ({
 	expectValid(payload) {
 		expect(validator.validate(schemaName, payload)).to.be.ok;
 	},
@@ -32,9 +32,7 @@ module.exports.createSchemaValidator = schemaName => ({
 	},
 });
 
-module.exports.preFetch = async function () {
-	await settingsService.init();
-	// @ts-expect-error
-	await validator.init();
-};
-
+export async function preFetch() {
+	await settings.init();
+	await initValidator();
+}

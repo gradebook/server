@@ -1,4 +1,4 @@
-import {IExternalCategory} from './course-types';
+import {IExternalCategory} from './course-types.js';
 
 export interface IUser {
 	gid?: string;

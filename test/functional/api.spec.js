@@ -1,10 +1,12 @@
 // @ts-check
-const {expect} = require('chai');
-const api = require('../../lib/api');
-const exportSerializer = require('../../lib/services/serializers/export-data');
-const getGoldenExport = require('../fixtures/functional-user-export');
-const prepareExport = require('../utils/prepare-export');
-const testConfig = require('../utils/test-config');
+import {expect} from 'chai';
+import * as api from '../../lib/api/index.js';
+import {serializeUserExport as exportSerializer} from '../../lib/services/serializers/export-data.js';
+import {getUserExport as getGoldenExport} from '../fixtures/functional-user-export.js';
+import {prepareExport} from '../utils/prepare-export.js';
+import * as testConfig from '../utils/test-config.js';
+import config from '../../lib/config.js';
+import {knex} from '../../lib/database/index.js';
 
 const DEFAULT_CUTOFFS = JSON.stringify([{
 	name: 'A',
@@ -128,8 +130,8 @@ async function getExport(user, txn) {
 
 describe('Functional > API E2E', function () {
 	before(async function () {
-		const ignoredUsers = require('../../lib/services/ignored-users');
-		await ignoredUsers.init(require('../../lib/config'), require('../../lib/database/knex'));
+		const {ignoredUsers} = await import('../../lib/services/ignored-users.js');
+		await ignoredUsers.init(config, knex);
 		ignoredUsers._users.set(db, new Set());
 	});
 

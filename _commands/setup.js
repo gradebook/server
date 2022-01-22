@@ -1,8 +1,11 @@
-const fs = require('fs');
-const cp = require('child_process');
+// @ts-check
+import fs from 'fs';
+import cp from 'child_process';
+import {precheck} from './_precheck.js';
 
 const badCP = (...args) => new Promise((resolve, reject) => {
 	try {
+		// @ts-expect-error
 		const handle = cp.spawn(...args);
 
 		handle.on('exit', (code, signal) => {
@@ -23,14 +26,13 @@ function install() {
 }
 
 async function init() {
-	const execa = require('execa');
-
 	console.log('Initializing client submodule');
+	const execa = await import('execa').then(mod => mod.default);
 	await execa.command('git submodule init');
 	await execa.command('git submodule update');
 
 	console.log('Installing client dependencies');
-	const runInstall = require('./utils/run-yarn-install');
+	const {runInstall} = await import('./utils/run-yarn-install.js');
 	await runInstall('./lib/frontend/client/');
 
 	console.log('Initialized!');
@@ -45,8 +47,6 @@ async function run() {
 	}
 
 	await install();
-
-	const precheck = require('./_precheck');
 
 	await precheck(true);
 	await init();

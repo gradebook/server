@@ -1,4 +1,4 @@
-const config = require('./lib/config');
+import config from './lib/config.js';
 
 config.set('logging', {
 	level: 'info',
@@ -22,6 +22,7 @@ if (process.env.DATABASE) {
 	envConfig.connection.database = process.env.DATABASE;
 }
 
-module.exports = {
+export const env = {
 	[config.get('env')]: envConfig,
 };
+export default env;

@@ -1,6 +1,9 @@
-const settings = require('../../lib/services/settings');
-const validations = require('../../lib/services/validation');
-const expectError = require('../utils/expect-error');
+// @ts-check
+import sinon from 'sinon';
+import {expect} from 'chai';
+import {settings} from '../../lib/services/settings/index.js';
+import * as validations from '../../lib/services/validation/index.js';
+import {expectError} from '../utils/index.js';
 
 describe('Unit > Validation', function () {
 	describe('User Settings', function () {
@@ -61,6 +64,7 @@ describe('Unit > Validation', function () {
 			}
 
 			try {
+				// @ts-expect-error
 				request.body.value = {};
 				validations.userSettings(request, null);
 				expectError();
@@ -150,6 +154,7 @@ describe('Unit > Validation', function () {
 	});
 
 	describe('Create Course', function () {
+		/** @type {object} */
 		const createRequest = () => ({
 			query: {
 				type: 'guided',

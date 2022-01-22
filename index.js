@@ -1,1 +1,3 @@
-require('./lib')();
+import start from './lib/index.js';
+
+start();

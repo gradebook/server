@@ -1,12 +1,12 @@
 // @ts-check
-const {BadRequestError} = require('../lib/errors');
+import {BadRequestError} from '../lib/errors/index.js';
 
 /**
  * @param {import('express').Request} request
  * @param {import('express').Response} response
  * @param {import('express').NextFunction} next
  */
-module.exports = function slowDownResponse(request, response, next) {
+export default function slowDownResponse(request, response, next) {
 	const {delay} = request.query;
 	delete request.query.delay;
 	const numericDelay = Number(delay);
@@ -19,4 +19,4 @@ module.exports = function slowDownResponse(request, response, next) {
 	}
 
 	setTimeout(next, numericDelay * 1000, undefined);
-};
+}

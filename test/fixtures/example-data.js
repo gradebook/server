@@ -111,5 +111,5 @@ for (const [table, data] of fixtures) {
 	fixturesMap[table].push(data);
 }
 
-module.exports = fixturesMap;
-module.exports.fixtures = fixtures;
+export default fixturesMap;
+export {fixtures};

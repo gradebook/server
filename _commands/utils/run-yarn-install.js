@@ -1,3 +1,3 @@
-const execa = require('execa');
+import execa from 'execa';
 
-module.exports = (cwd = '.') => execa.command(`yarn --cwd ${cwd} install`);
+export const runInstall = (cwd = '.') => execa.command(`yarn --cwd ${cwd} install`);

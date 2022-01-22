@@ -1,40 +1,37 @@
-const {expect} = require('chai');
-const sinon = require('sinon');
+// @ts-check
+import * as time from '@gradebook/time';
+import * as testConfig from './utils/test-config.js';
 
 process.env.NODE_ENV = 'testing';
 
-global.expect = expect;
-global.sinon = sinon;
-global.testUtils = require('./utils');
+// Load config after NODE_ENV so it picks up the right one
+const {default: globalConfig} = await import('../lib/config.js');
 
 // Force the active semester to be Spring 2019
-const semesterService = require('@gradebook/time').semester.data;
+const semesterService = time.semester.data;
 
 semesterService.activeSemester = '2019S';
 semesterService.allowedSemesters = ['2019S'];
 
 // Configure the config based on the environment
-const config = require('./utils/test-config');
-
 // When running Integration tests in CI, use mysql with host matching
-if (config.TEST_DATABASE) {
-	const config = require('../lib/config.js');
-	if (config.get('database:client') !== 'mysql') {
-		config.set('database', {
+if (testConfig.TEST_DATABASE) {
+	if (globalConfig.get('database:client') !== 'mysql') {
+		globalConfig.set('database', {
 			asyncStackTraces: true,
 			client: 'mysql',
 			connection: {
 				user: 'root',
 				password: 'toor',
-				database: process.env.database__connection__database ?? config.TEST_DATABASE,
+				database: process.env.database__connection__database ?? testConfig.TEST_DATABASE,
 			},
 		});
 	}
 
-	config.set('hostMatching', {
+	globalConfig.set('hostMatching', {
 		enabled: true,
 		hosts: {
-			[config.FUNCTIONAL_TEST_HOST_NAME]: config.FUNCTIONAL_TEST_DATABASE_NAME,
+			[testConfig.TEST_HOST_NAME]: testConfig.FUNCTIONAL_TEST_DATABASE_NAME,
 		},
 	});
 }

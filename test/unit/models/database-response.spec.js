@@ -1,10 +1,13 @@
-const {expect} = require('chai');
-const knexMock = require('mock-knex');
-const CourseRow = require('../../../lib/models/course').response;
-const knex = require('../../../lib/database/knex').instance;
+// @ts-check
+import {expect} from 'chai';
+import knexMock from 'mock-knex';
+import {CourseRow} from '../../../lib/models/course.js';
+import {knex as getKnex} from '../../../lib/database/index.js';
+
+const knex = getKnex.instance;
 
 describe('Unit > Models > DatabaseResponse', function () {
-	/** @type {import('../../../lib/models/database-response')} */
+	/** @type {import('../../../lib/models/database-response').AbstractDatabaseResponse} */
 	let instance;
 
 	beforeEach(function () {

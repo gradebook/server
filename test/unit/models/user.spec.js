@@ -1,17 +1,17 @@
 // @ts-check
 
-const {expect} = require('chai');
-const {response: UserResponse} = require('../../../lib/models/user');
-const testUtils = require('../../utils');
+import {expect} from 'chai';
+import {UserRow} from '../../../lib/models/user.js';
+import * as testUtils from '../../utils/index.js';
 
 describe('Unit > Models > User', function () {
 	let exampleUser;
-	/** @type {import('../../../lib/models/database-response')} */
+	/** @type {import('../../../lib/models/database-response').AbstractDatabaseResponse} */
 	let response;
 
 	beforeEach(function () {
 		exampleUser = Object.assign({}, testUtils.fixtures.users[0]);
-		response = new UserResponse(exampleUser);
+		response = new UserRow(exampleUser);
 	});
 
 	describe('set', function () {

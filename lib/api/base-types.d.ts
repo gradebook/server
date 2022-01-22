@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import {Knex} from 'knex';
-import AbstractModel from '../models/database-response';
+import {AbstractDatabaseResponse as AbstractModel} from '../models/database-response.js';
 
 type BrowseResponse<T> = (filterOptions: T, db: string, txn?: Knex.Transaction) => Promise<any>;
 type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').Knex.QueryCallback | object;
