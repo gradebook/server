@@ -1,18 +1,11 @@
 // @ts-check
 import * as time from '@gradebook/time';
-import {expect} from 'chai';
-import sinon from 'sinon';
-import * as testUtils from './utils/index.js';
 import * as testConfig from './utils/test-config.js';
 
 process.env.NODE_ENV = 'testing';
 
 // Load config after NODE_ENV so it picks up the right one
 const {default: globalConfig} = await import('../lib/config.js');
-
-global.expect = expect;
-global.sinon = sinon;
-global.testUtils = testUtils;
 
 // Force the active semester to be Spring 2019
 const semesterService = time.semester.data;
