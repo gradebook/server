@@ -1,4 +1,6 @@
-const appleMeta = require('../../../lib/utils/apple-meta');
+// @ts-check
+import {expect} from 'chai';
+import {getAppleTags} from '../../../lib/utils/apple-meta.js';
 
 const androidChromeUA = 'Mozilla/5.0 (Linux; Android 11; Pixel 3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36';
 const androidFirefoxUA = 'Mozilla/5.0 (Android 11; Mobile; rv:84.0) Gecko/84.0 Firefox/84.0';
@@ -12,22 +14,22 @@ const requestStub = userAgent => ({headers: {'user-agent': userAgent}});
 
 describe('Unit > Utils > Apple Meta', function () {
 	it('Safari on iOS shows custom meta', function () {
-		expect(appleMeta(requestStub(safariPhoneUA))).to.not.be.empty;
-		expect(appleMeta(requestStub(safariPadUA))).to.not.be.empty;
+		expect(getAppleTags(requestStub(safariPhoneUA))).to.not.be.empty;
+		expect(getAppleTags(requestStub(safariPadUA))).to.not.be.empty;
 	});
 
 	it('Android browsers do not show custom meta', function () {
-		expect(appleMeta(requestStub(androidChromeUA))).to.be.empty;
-		expect(appleMeta(requestStub(androidFirefoxUA))).to.be.empty;
+		expect(getAppleTags(requestStub(androidChromeUA))).to.be.empty;
+		expect(getAppleTags(requestStub(androidFirefoxUA))).to.be.empty;
 	});
 
 	it('Desktop browsers do not show custom meta', function () {
-		expect(appleMeta(requestStub(windowsChromeUA))).to.be.empty;
-		expect(appleMeta(requestStub(windowsEdgeUA))).to.be.empty;
-		expect(appleMeta(requestStub(windowsFirefoxUA))).to.be.empty;
+		expect(getAppleTags(requestStub(windowsChromeUA))).to.be.empty;
+		expect(getAppleTags(requestStub(windowsEdgeUA))).to.be.empty;
+		expect(getAppleTags(requestStub(windowsFirefoxUA))).to.be.empty;
 	});
 
 	it('no ua', function () {
-		expect(appleMeta({headers: {}})).to.be.empty;
+		expect(getAppleTags({headers: {}})).to.be.empty;
 	});
 });
