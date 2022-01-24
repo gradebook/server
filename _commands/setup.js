@@ -2,8 +2,6 @@
 import fs from 'fs';
 import cp from 'child_process';
 import {precheck} from './_precheck.js';
-// Precheck has a guard against execa not being installed. By loading precheck first, we don't need the same guard here.
-import execa from 'execa'; // eslint-disable-line import/order
 
 const badCP = (...args) => new Promise((resolve, reject) => {
 	try {
@@ -29,6 +27,7 @@ function install() {
 
 async function init() {
 	console.log('Initializing client submodule');
+	const execa = await import('execa').then(mod => mod.default);
 	await execa.command('git submodule init');
 	await execa.command('git submodule update');
 
