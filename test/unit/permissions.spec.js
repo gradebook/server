@@ -1,17 +1,19 @@
+// @ts-check
 /* eslint-disable mocha/no-setup-in-describe */
-const root = '../../lib/services/permissions';
-const objectID = require('bson-objectid');
-const settings = require('../../lib/services/settings');
-const testUtils = require('../utils');
+import ObjectID from 'bson-objectid';
+import sinon from 'sinon';
+import {expect} from 'chai';
+import {settings} from '../../lib/services/settings/index.js';
+import * as testUtils from '../utils/index.js';
 
-const permissions = require(root);
-const alwaysValid = require(`${root}/../../utils/noop`);
-const createCourse = require(`${root}/create-course`);
-const createCategory = require(`${root}/create-category`);
-const createGrade = require(`${root}/create-grade`);
-const editCourse = require(`${root}/edit-course`);
-const editCategory = require(`${root}/edit-category`);
-const editGrade = require(`${root}/edit-grade`);
+import alwaysValid from '../../lib/utils/noop.js';
+import * as permissions from '../../lib/services/permissions/index.js';
+import createCourse from '../../lib/services/permissions/create-course.js';
+import createCategory from '../../lib/services/permissions/create-category.js';
+import createGrade from '../../lib/services/permissions/create-grade.js';
+import editCourse from '../../lib/services/permissions/edit-course.js';
+import editCategory from '../../lib/services/permissions/edit-category.js';
+import editGrade from '../../lib/services/permissions/edit-grade.js';
 
 const {expectError} = testUtils;
 
@@ -215,7 +217,7 @@ describe('Unit > Permissions', function () {
 		const course = testUtils.fixtures.courses[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID().toString()};
+			const permissions = {user, objectId: new ObjectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editCourse);
 				expectError();
@@ -245,7 +247,7 @@ describe('Unit > Permissions', function () {
 		const category = testUtils.fixtures.categories[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID().toString()};
+			const permissions = {user, objectId: new ObjectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editCategory);
 				expectError();
@@ -275,7 +277,7 @@ describe('Unit > Permissions', function () {
 		const grade = testUtils.fixtures.grades[0].id;
 
 		it('Does not exist', async function () {
-			const permissions = {user, objectId: objectID().toString()};
+			const permissions = {user, objectId: new ObjectID().toString()};
 			try {
 				await sendFakeRequest(permissions, editGrade);
 				expectError();
