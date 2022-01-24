@@ -1,19 +1,14 @@
-const connection = require('../../lib/database/knex');
+// @ts-check
+import connection from '../../lib/database/knex.js';
 
-module.exports = {
-	init() {
-		connection.init();
-		return connection;
-	},
-	async destroy() {
-		// Remove unneeded data
-		await connection.transaction(trx => {
-			const queries = [
-				'DELETE FROM `sessions` WHERE `sessionAGB` NOT LIKE "%authorized";',
-			];
+export async function destroy() {
+	// Remove unneeded data
+	await connection.instance.transaction(trx => {
+		const queries = [
+			'DELETE FROM `sessions` WHERE `sessionAGB` NOT LIKE "%authorized";',
+		];
 
-			return Promise.all(queries.map(query => trx.raw(query)));
-		});
-		connection.destroy();
-	},
-};
+		return Promise.all(queries.map(query => trx.raw(query)));
+	});
+	connection.instance.destroy();
+}

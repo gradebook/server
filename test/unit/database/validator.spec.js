@@ -1,10 +1,9 @@
-
 // @ts-check
-const {expect} = require('chai');
-const testUtils = require('../../utils');
-const validator = require('../../../lib/database/validator');
-const schema = require('../../../lib/database/schema');
-const {ValidationError} = require('../../../lib/errors');
+import {expect} from 'chai';
+import * as testUtils from '../../utils/index.js';
+import * as validator from '../../../lib/database/validator.js';
+import schema from '../../../lib/database/schema.js';
+import {ValidationError} from '../../../lib/errors/index.js';
 
 const NO_CHANGE = [null, undefined];
 
@@ -171,7 +170,7 @@ describe('Unit > Validator', function () {
 
 		try {
 			const model = {set, get, columns};
-			validator('__test__', model, {method: 'insert'});
+			validator.default('__test__', model, {method: 'insert'});
 			testUtils.expectError();
 		} catch (error) {
 			expect(error).to.be.instanceof(ValidationError);
