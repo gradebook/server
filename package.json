@@ -10,6 +10,7 @@
     "Vikas Potluri <vikaspotluri123.github@gmail.com>",
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
+  "type": "module",
   "private": true,
   "gradebook": {
     "cli:hasReleaseBranch": true
@@ -86,15 +87,13 @@
       "@typescript-eslint/naming-convention": "off",
       "node/prefer-global/process": "off",
       "unicorn/prefer-node-protocol": "off",
-      "unicorn/prefer-module": "off",
       "func-names": [
         "error",
         "as-needed"
       ],
       "no-use-extend-native/no-use-extend-native": "off",
       "func-name-matching": "off",
-      "no-console": "error",
-      "import/extensions": "off"
+      "no-console": "error"
     },
     "overrides": [
       {
@@ -111,7 +110,8 @@
         "rules": {
           "func-names": "off",
           "prefer-arrow-callback": "off",
-          "no-unused-expressions": "off"
+          "no-unused-expressions": "off",
+          "mocha/no-setup-in-describe": "warn"
         }
       },
       {

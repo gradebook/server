@@ -1,7 +1,7 @@
 import QueryString from 'querystring';
 import Express from 'express';
 import * as eCore from 'express-serve-static-core';
-import AbstractDatabaseResponse from './lib/models/database-response';
+import {AbstractDatabaseResponse} from './lib/models/database-response.js';
 
 declare global {
 	namespace Gradebook {
