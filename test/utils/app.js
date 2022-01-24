@@ -1,9 +1,10 @@
-const makeApp = require('../../lib');
+// @ts-check
+import makeApp from '../../lib/index.js';
 
-module.exports = async () => {
+export async function startTestServer() {
 	const {server, app} = await makeApp();
 	await new Promise(resolve => {
 		server.close(resolve);
 	});
 	return app;
-};
+}
