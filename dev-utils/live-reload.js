@@ -1,8 +1,9 @@
 // @ts-check
-const path = require('path');
-const chokidar = require('chokidar');
+import {fileURLToPath} from 'url';
+import path from 'path';
+import chokidar from 'chokidar';
 
-const clientPath = path.resolve(__dirname, '../lib/frontend/client/');
+const clientPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../lib/frontend/client/');
 
 // @NOTE: We can't just watch the release folder because there's no guarantee
 // it will always exist. So instead, we have to watch the parent directory
@@ -70,7 +71,7 @@ process.once('SIGUSR2', () => {
 /**
 * @param {import('express').Application} app
 */
-module.exports.mount = app => {
+export function useLiveReload(app) {
 	app.get('/dev/live-reload', (request, response) => {
 		response.status(200);
 		response.set('connection', 'keep-alive');
@@ -88,4 +89,4 @@ module.exports.mount = app => {
 
 		clients.add(response);
 	});
-};
+}
