@@ -2,7 +2,6 @@
 import path from 'path';
 import _fs from 'fs';
 import {fileURLToPath} from 'url';
-import {getGitHash as getHash} from './utils/get-git-hash.js';
 import {runInstall} from './utils/run-yarn-install.js';
 
 const fs = _fs.promises;
@@ -54,6 +53,8 @@ export async function precheck(isSetup = false) {
 		latestVersions = JSON.parse(await fs.readFile(CONFIG, 'utf-8'));
 	} catch {}
 
+	// Lazy-import since it depends on execa
+	const {getGitHash: getHash} = await import('./utils/get-git-hash.js');
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
 	const {stdout: lastFrontendVersion} = await getHash('./yarn.lock', './lib/frontend/client/');
 
