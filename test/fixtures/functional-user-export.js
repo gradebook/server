@@ -1,4 +1,6 @@
-module.exports = () => ({
+// @ts-check
+
+export const getUserExport = () => ({
 	/** @type {'0'} */
 	version: '0',
 	courses: [{
