@@ -2,7 +2,6 @@
 import path from 'path';
 import _fs from 'fs';
 import {fileURLToPath} from 'url';
-import {runInstall} from './utils/run-yarn-install.js';
 
 const fs = _fs.promises;
 
@@ -55,6 +54,7 @@ export async function precheck(isSetup = false) {
 
 	// Lazy-import since it depends on execa
 	const {getGitHash: getHash} = await import('./utils/get-git-hash.js');
+	const {runInstall} = await import('./utils/run-yarn-install.js');
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
 	const {stdout: lastFrontendVersion} = await getHash('./yarn.lock', './lib/frontend/client/');
 
