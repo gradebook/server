@@ -1,7 +1,11 @@
-const stubKnex = require('mock-knex');
-const {knex} = require('../../lib/database');
-const config = require('../../lib/config');
-const HistoryQueue = require('../../lib/services/analytics/history-queue');
+// @ts-check
+import sinon from 'sinon';
+import {expect} from 'chai';
+import stubKnex from 'mock-knex';
+import * as testUtils from '../utils/index.js';
+import {knex} from '../../lib/database/index.js';
+import config from '../../lib/config.js';
+import HistoryQueue from '../../lib/services/analytics/history-queue.js';
 
 describe('Unit > HistoryQueue', function () {
 	let queue;
