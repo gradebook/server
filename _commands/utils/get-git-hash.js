@@ -1,3 +1,4 @@
+// @ts-check
 import execa from 'execa';
 
 export const getGitHash = (filename, workTree = '.') => execa(
