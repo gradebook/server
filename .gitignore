@@ -5,6 +5,7 @@ yarn-error.log
 test/fixtures/test-database.db
 content/user-data/*.json
 content/*.db
+coverage
 
 .gradebook-cli
 config.*.json
