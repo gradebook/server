@@ -1,6 +1,4 @@
 // @ts-check
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
 import fs from 'node:fs/promises';
 import createDebug from 'debug';
 import chalk from 'chalk';
@@ -9,14 +7,13 @@ import supertest from 'supertest';
 import * as testUtils from '../utils/index.js';
 import {startTestServer as makeApp} from '../utils/app.js';
 import {interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic} from './ts-util.js';
+import {clientDependencies} from './dependencies.js';
 
 const {TEST_HOST_NAME} = testUtils.config;
 
 const useTypescriptFormatter = false;
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const debug = createDebug('gb:contract');
-const CLIENT_ROOT = '../../lib/frontend/client/src/app/interfaces/';
 
 debug('Starting app and reading client files');
 const [vfs, app] = await (async function () {
@@ -24,11 +21,10 @@ const [vfs, app] = await (async function () {
 	/** @type {Awaited<ReturnType<makeApp>>} */
 	let app;
 	await Promise.all([
-		...['api.contract.ts', 'network.ts', 'category.ts', 'grade.ts'].map(file =>
-			fs.readFile(path.resolve(__dirname, CLIENT_ROOT, file), 'utf-8')
-				.then(contents => {
-					response[file] = contents;
-				}),
+		...Object.entries(clientDependencies).map(([file, fileName]) => fs.readFile(fileName, 'utf-8')
+			.then(contents => {
+				response[file] = contents;
+			}),
 		),
 		makeApp().then(r => {
 			debug('app started');
