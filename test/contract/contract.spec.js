@@ -51,7 +51,11 @@ async function makeRequest(path, method = 'get') {
  * @param {Map<string, string>} fileNameToTestCase
  */
 async function addTestCase(member, fileNameToTestCase) {
-	const {name, expectedType} = extractTypingMetadata(member);
+	const {name, expectedType, skip, only} = extractTypingMetadata(member);
+
+	if (skip) {
+		return {name, skip};
+	}
 
 	/** @type {Parameters<makeRequest>[1]} */
 	let method = 'get';
@@ -78,7 +82,7 @@ async function addTestCase(member, fileNameToTestCase) {
 		`export const ${safeTestName}: ${expectedType} = ${proposal};`,
 	].join('\n');
 
-	return fileName;
+	return {name: fileName, skip, only};
 }
 
 async function prepareTestCases() {
@@ -93,14 +97,28 @@ async function prepareTestCases() {
 
 	debug('Creating contract response cases');
 	const fileNameToTestCase = new Map();
+	/** @type {string[]} */
 	const testCases = [];
+	/** @type {string[]} */
+	const onlyTestCases = [];
+	/** @type {string[]} */
+	const skippedTestCases = [];
 	const creationFailures = [];
 
 	await Promise.all(
 		contractNode.members.map(member =>
 			addTestCase(member, fileNameToTestCase)
 				.then(response => {
-					testCases.push(response);
+					if (response.skip) {
+						skippedTestCases.push(response.name);
+						return;
+					}
+
+					if (response.only) {
+						onlyTestCases.push(response.name);
+					}
+
+					testCases.push(response.name);
 				})
 				.catch(error => {
 					creationFailures.push(error.message);
@@ -108,11 +126,13 @@ async function prepareTestCases() {
 		),
 	);
 
-	vfs['api.reality.ts'] = testCases
+	const usingFilteredTestList = onlyTestCases.length > 0;
+
+	vfs['api.reality.ts'] = (usingFilteredTestList ? onlyTestCases : testCases)
 		.map((testCase, idx) => `import * as testCase${idx} from '/${testCase.replace('.ts', '.js')}';`)
 		.join('\n');
 
-	return {creationFailures, fileNameToTestCase};
+	return {creationFailures, fileNameToTestCase, usingFilteredTestList, skippedTestCases};
 }
 
 function typeCheck() {
@@ -189,9 +209,26 @@ function formatResults(creationFailures, diagnostics, fileNameToTestCase, host) 
 const rootNames = ['api.contract.ts', 'api.reality.ts'];
 const host = new VirtualHost(vfs);
 
-const {creationFailures, fileNameToTestCase} = await prepareTestCases();
+const {creationFailures, fileNameToTestCase, usingFilteredTestList, skippedTestCases} = await prepareTestCases();
 const diagnostics = typeCheck();
-const errorCount = formatResults(creationFailures, diagnostics, fileNameToTestCase, host);
+let errorCount = formatResults(creationFailures, diagnostics, fileNameToTestCase, host);
+
+if (usingFilteredTestList) {
+	if (process.env.CI) {
+		console.log('Don\'t use "Only" types in CI');
+		errorCount++;
+	} else {
+		console.warn(
+			chalk.yellow('One or more "Only" types has been used. This should be limited to local testing only.'),
+		);
+	}
+}
+
+if (skippedTestCases.length > 0) {
+	const testCasesHave = skippedTestCases.length === 1 ? 'test case has been' : 'test cases have been';
+	console.warn('%d %s been skipped:', skippedTestCases.length, testCasesHave);
+	console.log(skippedTestCases.map(name => `  - ${name}`).join('\n'));
+}
 
 console.log('Exit code:', errorCount);
 

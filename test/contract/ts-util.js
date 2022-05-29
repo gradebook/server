@@ -44,6 +44,8 @@ export function extractTypingMetadata(member) {
 	/** @type {ts.QualifiedName} */
 	let activeMemberType;
 	let renderedTypeSuffix = '';
+	let only = false;
+	let skip = false;
 
 	if (
 		ts.isArrayTypeNode(member.type)
@@ -57,6 +59,26 @@ export function extractTypingMetadata(member) {
 		&& ts.isQualifiedName(member.type.typeName)
 	) {
 		activeMemberType = member.type.typeName;
+	} else if (
+		ts.isTypeReferenceNode(member.type)
+		&& ts.isIdentifier(member.type.typeName)
+	) {
+		const memberText = member.type.typeName.escapedText;
+		if (!(memberText === 'Skip' || memberText === 'Only')) {
+			throw new Error(`Unable to resolve contract for "${name}" - unknown type-based command "${memberText}"`);
+		}
+
+		const root = member.type.typeArguments[0];
+		if (!ts.isTypeReferenceNode(root) || !ts.isQualifiedName(root.typeName)) {
+			throw new Error(
+				`Unable to resolve contract for "${name}" - failed analyzing argument for ${memberText}`,
+			);
+		}
+
+		activeMemberType = root.typeName;
+
+		skip = memberText === 'Skip';
+		only = memberText === 'Only';
 	} else {
 		throw new Error(`Unable to resolve contract for "${name}"`);
 	}
@@ -71,6 +93,8 @@ export function extractTypingMetadata(member) {
 	return {
 		name,
 		expectedType: `${NETWORK_NAMESPACE}.${expectedType}${renderedTypeSuffix}`,
+		skip,
+		only,
 	};
 }
 
