@@ -1,0 +1,66 @@
+name: Contract Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      server_ref:
+        description: Git ref to pull for server
+        default: 'master'
+      client_ref:
+        description: Git ref to pull for client
+        default: 'master'
+  push:
+    branches:
+      - release
+      - contract-testing
+  schedule:
+    - cron: '0 2 * * 0' # Every Sunday at 2:00 UTC (~9 PM CST)
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: Configure ENV
+      run: |
+        RAW_CLIENT_REF=${{ github.event.inputs.client_ref }}
+        RAW_SERVER_REF=${{ github.event.inputs.server_ref }}
+        MID_SERVER_REF=${RAW_SERVER_REF:-$GITHUB_SHA}
+        echo "CLIENT_REF=${RAW_CLIENT_REF:-master}" >> $GITHUB_ENV
+        echo "SERVER_REF=${MID_SERVER_REF:-master}" >> $GITHUB_ENV
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ env.SERVER_REF }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: lts/*
+    - name: Restore node_modules cache
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    - name: Install Dependencies
+      run: yarn install --frozen-lockfile
+    - name: Clone client ref
+      run: |
+        eval $(ssh-agent -s)
+        ssh-add - <<< "$CLIENT_DEPLOY_KEY"
+        cd lib/frontend/client
+        git init
+        git remote add origin $CLIENT_REMOTE_URL
+        git fetch origin ${{ env.CLIENT_REF }}
+        git checkout ${{ env.CLIENT_REF }}
+      shell: bash
+      env:
+        CLIENT_DEPLOY_KEY: ${{ secrets.GRADEBOOK_CLIENT_READONLY_DEPLOY_KEY }}
+        CLIENT_REMOTE_URL: ${{ secrets.GRADEBOOK_CLIENT_REMOTE_URL }}
+    - name: Print refs
+      run: |
+        echo "Server Ref: `git log -1 --pretty='format:%H (%s)'`"
+        cd lib/frontend/client
+        echo "Client Ref: `git log -1 --pretty='format:%H (%s)'`"
+      shell: bash
+    - name: Run Tests
+      run: yarn test:contract
