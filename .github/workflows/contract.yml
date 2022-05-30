@@ -20,6 +20,8 @@ jobs:
   contract:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_ENV: testing
     steps:
     - name: Configure ENV
       run: |
@@ -41,8 +43,11 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn-
-    - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+    - name: Install Dependencies and Setup
+      run: |
+        yarn install --frozen-lockfile
+        yarn knex migrate:latest
+        node scripts/initialize-test-db.js
     - name: Clone client ref
       run: |
         eval $(ssh-agent -s)
@@ -64,6 +69,3 @@ jobs:
       shell: bash
     - name: Run Tests
       run: yarn test:contract
-      env:
-        NODE_ENV: TESTING
-        DEBUG: "*"
