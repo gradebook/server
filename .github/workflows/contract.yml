@@ -64,3 +64,5 @@ jobs:
       shell: bash
     - name: Run Tests
       run: yarn test:contract
+      env:
+        NODE_ENV: TESTING
