@@ -48,7 +48,7 @@
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
     "node-cron": "3.0.0",
-    "passport": "0.4.1",
+    "passport": "0.6.0",
     "passport-google-oauth20": "2.0.0",
     "sqlite3": "5.0.3",
     "validator": "13.7.0"
