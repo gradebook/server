@@ -182,7 +182,7 @@ describe('Unit > Validation', function () {
 					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.equal('data must NOT have fewer than 4 items');
+					expect(error.message).to.equal('data must NOT have fewer than 4 properties');
 				}
 			});
 
@@ -206,7 +206,7 @@ describe('Unit > Validation', function () {
 					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.equal('data must NOT have fewer than 4 items');
+					expect(error.message).to.equal('data must NOT have fewer than 4 properties');
 				}
 			});
 

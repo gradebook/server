@@ -10,7 +10,7 @@ export interface IBaseCategory {
 	weight: number | null;
 }
 
-export interface IExternalCategory extends IBaseCategory{
+export interface IExternalCategory extends IBaseCategory {
 	grades: IGrade[];
 }
 

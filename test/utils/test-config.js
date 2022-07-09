@@ -1,4 +1,6 @@
 // @ts-check
+import process from 'process';
+
 export const isCI = process.env.CI === 'true';
 export const isFunctionalTest = process.env.TEST_NAME === 'integration';
 export const FUNCTIONAL_TEST_DATABASE_NAME = 'host_real';
