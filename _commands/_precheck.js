@@ -8,7 +8,7 @@ const fs = _fs.promises;
 const CONFIG = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../.gradebook-cli');
 const properDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
 
-const MAJOR_MINOR_MATCH = 'v16.13.';
+const MAJOR_MINOR_MATCH = 'v16.16.';
 
 /** @type {import('execa')} */
 let execa;
