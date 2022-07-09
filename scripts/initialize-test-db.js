@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import path from 'path';
 /* eslint-disable-next-line import/no-unassigned-import */
 import '../test/global.js'; // Update env

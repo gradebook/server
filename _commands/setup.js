@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import fs from 'fs';
 import cp from 'child_process';
 import {precheck} from './_precheck.js';

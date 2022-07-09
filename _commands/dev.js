@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import {precheck} from './_precheck.js';
 
 /** @type {import('@gradebook/together')['default']} */

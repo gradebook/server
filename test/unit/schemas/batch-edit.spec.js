@@ -6,7 +6,7 @@ const {expectInvalid, expectValid} = createSchemaValidator('grades.batch');
 
 describe('Unit > Schemas > BatchEditGrades', function () {
 	it('Bad all around', function () {
-		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 items');
+		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 properties');
 		expectInvalid({
 			create: [],
 			update: [],

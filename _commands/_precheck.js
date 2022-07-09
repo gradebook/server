@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import path from 'path';
 import _fs from 'fs';
 import {fileURLToPath} from 'url';
@@ -49,7 +50,7 @@ export async function precheck(isSetup = false) {
 	let hashesChanged = false;
 
 	try {
-		latestVersions = JSON.parse(await fs.readFile(CONFIG, 'utf-8'));
+		latestVersions = JSON.parse(await fs.readFile(CONFIG, 'utf8'));
 	} catch {}
 
 	// Lazy-import since it depends on execa

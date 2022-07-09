@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import {fileURLToPath} from 'url';
 import path from 'path';
 import chokidar from 'chokidar';

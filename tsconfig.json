@@ -7,6 +7,7 @@
     "lib/frontend/client/"
   ],
   "compilerOptions": {
+    "skipLibCheck": true,
     "types": [
       "./global",
       "./session"

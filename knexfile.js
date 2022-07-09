@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import config from './lib/config.js';
 
 config.set('logging', {

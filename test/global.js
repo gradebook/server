@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'process';
 import * as time from '@gradebook/time';
 import * as testConfig from './utils/test-config.js';
 
