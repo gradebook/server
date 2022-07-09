@@ -65,7 +65,6 @@
     "eslint-plugin-mocha": "10.0.5",
     "execa": "6.1.0",
     "mocha": "10.0.0",
-    "mock-knex": "github:InformDataLab/mock-knex#b5491c9b028e7bb5a863b661b10e5f21373f1f49",
     "nock": "13.2.8",
     "nodemon": "2.0.19",
     "sinon": "14.0.0",

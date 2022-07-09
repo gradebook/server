@@ -1,10 +1,7 @@
 // @ts-check
 import {expect} from 'chai';
-import knexMock from 'mock-knex';
 import {CourseRow} from '../../../lib/models/course.js';
-import {knex as getKnex} from '../../../lib/database/index.js';
-
-const knex = getKnex.instance;
+import {enableQueryTracking, removeQueryTracking, recallQueries, interceptQuery} from '../../utils/mocked-knex.js';
 
 describe('Unit > Models > DatabaseResponse', function () {
 	/** @type {import('../../../lib/models/database-response').AbstractDatabaseResponse} */
@@ -36,38 +33,22 @@ describe('Unit > Models > DatabaseResponse', function () {
 	});
 
 	describe('commit', function () {
-		let queryTracker;
-
-		before(function () {
-			knexMock.mock(knex);
-		});
-
-		beforeEach(function () {
-			queryTracker = knexMock.getTracker();
-			queryTracker.install();
-		});
-
-		afterEach(function () {
-			queryTracker.uninstall();
-		});
-
-		after(function () {
-			knexMock.unmock(knex);
-		});
+		beforeEach(enableQueryTracking);
+		afterEach(removeQueryTracking);
 
 		it('short-circuits when there are no changes', async function () {
 			const response = await instance.commit();
 			expect(response).to.be.empty;
-			expect(queryTracker.queries.queries).to.be.empty;
+			expect(recallQueries()).to.be.empty;
 		});
 
 		it('correctly transforms from/to snake case', async function () {
 			instance.set('credit_hours', 'credit_hours__');
 			instance.set('name', 'name__');
 
-			queryTracker.once('query', function (query) {
+			interceptQuery(query => {
 				expect(query.sql).to.equal('update `courses` set `name` = ?, `credit_hours` = ? where `id` = ?');
-				query.response({
+				return ({
 					name: query.bindings[0],
 					credit_hours: query.bindings[1], // eslint-disable-line camelcase
 				});
