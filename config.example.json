@@ -12,6 +12,7 @@
     "debug": false,
     "useNullAsDefault": true,
     "connection": {
+      "charset": "utf8mb4",
       "filename": "content/database.db"
     }
   },
