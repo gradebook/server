@@ -2,6 +2,7 @@
 import process from 'process';
 import * as time from '@gradebook/time';
 import * as testConfig from './utils/test-config.js';
+import {getClient} from './utils/mocked-knex.js';
 
 process.env.NODE_ENV = 'testing';
 
@@ -36,3 +37,5 @@ if (testConfig.TEST_DATABASE) {
 		},
 	});
 }
+
+globalConfig.set('database:client', getClient(globalConfig.get('database:client')));
