@@ -6,6 +6,7 @@ import {precheck} from './_precheck.js';
 
 const badCP = (...args) => new Promise((resolve, reject) => {
 	try {
+		/** @type {ReturnType<typeof cp['spawn']>} */
 		// @ts-expect-error
 		const handle = cp.spawn(...args);
 
@@ -28,9 +29,9 @@ function install() {
 
 async function init() {
 	console.log('Initializing client submodule');
-	const execa = await import('execa').then(mod => mod.default);
-	await execa.command('git submodule init');
-	await execa.command('git submodule update');
+	const {execaCommand} = await import('execa');
+	await execaCommand('git submodule init');
+	await execaCommand('git submodule update');
 
 	console.log('Installing client dependencies');
 	const {runInstall} = await import('./utils/run-yarn-install.js');

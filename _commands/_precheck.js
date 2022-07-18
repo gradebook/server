@@ -11,10 +11,10 @@ const properDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..
 
 const MAJOR_MINOR_MATCH = 'v16.16.';
 
-/** @type {import('execa')} */
+/** @type {import('execa')['execa']} */
 let execa;
 try {
-	({default: execa} = await import('execa'));
+	({execa} = await import('execa'));
 } catch {
 	console.error('Please run `yarn install` in the root');
 	process.exit(1);
