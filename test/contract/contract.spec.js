@@ -1,4 +1,5 @@
 // @ts-check
+import process from 'node:process';
 import fs from 'node:fs/promises';
 import createDebug from 'debug';
 import chalk from 'chalk';
@@ -21,7 +22,7 @@ const [vfs, app] = await (async function () {
 	/** @type {Awaited<ReturnType<makeApp>>} */
 	let app;
 	await Promise.all([
-		...Object.entries(clientDependencies).map(([file, fileName]) => fs.readFile(fileName, 'utf-8')
+		...Object.entries(clientDependencies).map(([file, fileName]) => fs.readFile(fileName, 'utf8')
 			.then(contents => {
 				response[file] = contents;
 			}),
@@ -32,6 +33,7 @@ const [vfs, app] = await (async function () {
 		}),
 	]);
 
+	// @ts-expect-error app is guaranteed to be defined because we wait for the promise that defines it.
 	return [response, app];
 })();
 

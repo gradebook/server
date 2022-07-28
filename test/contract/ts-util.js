@@ -68,6 +68,7 @@ export function extractTypingMetadata(member) {
 			throw new Error(`Unable to resolve contract for "${name}" - unknown type-based command "${memberText}"`);
 		}
 
+		// @ts-expect-error the next line confirms that it is in fact, not `undefined`
 		const root = member.type.typeArguments[0];
 		if (!ts.isTypeReferenceNode(root) || !ts.isQualifiedName(root.typeName)) {
 			throw new Error(
@@ -132,6 +133,10 @@ export function dedupeDiagnostics(diagnostics) {
  * @param {ts.CompilerHost} host
  */
 export function formatDiagnostic(diagnostic, fileNameToTestCase, host) {
+	if (!diagnostic.file || typeof diagnostic.start === 'undefined') {
+		throw new Error('test');
+	}
+
 	const testName = fileNameToTestCase.get(diagnostic.file.fileName.replace('/', '')) ?? diagnostic.file.fileName;
 	const line = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
 	let output = '';
@@ -193,7 +198,7 @@ export class VirtualHost {
 	readFile(rawFileName) {
 		const fileName = rawFileName.replace('/', '');
 		if (fileName.startsWith('lib.es')) {
-			return syncFs.readFileSync(path.resolve(__dirname, LIB_ROOT, fileName), 'utf-8');
+			return syncFs.readFileSync(path.resolve(__dirname, LIB_ROOT, fileName), 'utf8');
 		}
 
 		return this.vfs[fileName];
