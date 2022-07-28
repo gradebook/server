@@ -226,10 +226,13 @@ if (usingFilteredTestList) {
 	}
 }
 
-if (skippedTestCases.length > 0) {
-	const testCasesHave = skippedTestCases.length === 1 ? 'test case has been' : 'test cases have been';
-	console.warn('%d %s been skipped:', skippedTestCases.length, testCasesHave);
-	console.log(skippedTestCases.map(name => `  - ${name}`).join('\n'));
+for (const testCase of fileNameToTestCase.values()) {
+	console.log('  %s %s', chalk.yellow('🟡'), testCase);
+}
+
+for (const testCase of skippedTestCases) {
+	console.log('  %s  %s', chalk.cyan('⏸'), testCase);
+	continue;
 }
 
 console.log('Exit code:', errorCount);
