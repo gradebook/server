@@ -1,12 +1,12 @@
 // @ts-check
-const ObjectId = require('bson-objectid').default;
-const {createSchemaValidator} = require('../../utils/schema-validator');
+import ObjectId from 'bson-objectid';
+import {createSchemaValidator} from '../../utils/schema-validator.js';
 
 const {expectInvalid, expectValid} = createSchemaValidator('grades.batch');
 
 describe('Unit > Schemas > BatchEditGrades', function () {
 	it('Bad all around', function () {
-		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 items');
+		expectInvalid({}, ['keyword', 'minProperties'], 'NOT have fewer than 1 properties');
 		expectInvalid({
 			create: [],
 			update: [],

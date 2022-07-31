@@ -1,10 +1,12 @@
 // @ts-check
-const makeNock = require('nock');
-const {expect} = require('chai');
-const {SchoolConfigService} = require('../../../lib/services/school-config');
+import makeNock from 'nock';
+import {expect} from 'chai';
+import {SchoolConfigService} from '../../../lib/services/school-config.js';
+import {importJson} from '../../../lib/utils/import-json.js';
+
+const ENDPOINT_RESPONSE = await importJson('../../fixtures/school-configuration.json', import.meta.url);
 
 const ENDPOINT_PATH = '/school-configuration.json';
-const ENDPOINT_RESPONSE = require('../../fixtures/school-configuration.json');
 
 describe('Unit > SchoolConfigurationService', function () {
 	/** @type {import('nock').Scope} */

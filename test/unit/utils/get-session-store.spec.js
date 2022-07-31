@@ -1,10 +1,8 @@
-const MODULE = require.resolve('../../../lib/utils/get-session-store');
-const config = require('../../../lib/config');
-
-const getClean = () => {
-	delete require.cache[MODULE];
-	return require(MODULE);
-};
+// @ts-check
+import {expect} from 'chai';
+import sinon from 'sinon';
+import config from '../../../lib/config.js';
+import {_getStore as getClean} from '../../../lib/utils/get-session-store.js';
 
 describe('Unit > Utils > GetSessionStore', function () {
 	let stub;
@@ -17,24 +15,28 @@ describe('Unit > Utils > GetSessionStore', function () {
 		sinon.restore();
 	});
 
-	it('Redis (env)', function () {
+	it('Redis (env)', async function () {
 		stub.returns('true');
+		const store = await getClean();
 		// @NOTE: Can't use instance checks here since the class is a singleton
-		expect(getClean().constructor.name).to.equal('RedisStore');
+		expect(store.constructor.name).to.equal('RedisStore');
 	});
 
-	it('Redis (config)', function () {
+	it('Redis (config)', async function () {
 		stub.returns(true);
-		expect(getClean().constructor.name).to.equal('RedisStore');
+		const store = await getClean();
+		expect(store.constructor.name).to.equal('RedisStore');
 	});
 
-	it('MySQL (env)', function () {
+	it('MySQL (env)', async function () {
 		stub.returns('false');
-		expect(getClean().constructor.name).to.equal('KnexStore');
+		const store = await getClean();
+		expect(store.constructor.name).to.equal('KnexStore');
 	});
 
-	it('MySQL (config)', function () {
+	it('MySQL (config)', async function () {
 		stub.returns(false);
-		expect(getClean().constructor.name).to.equal('KnexStore');
+		const store = await getClean();
+		expect(store.constructor.name).to.equal('KnexStore');
 	});
 });

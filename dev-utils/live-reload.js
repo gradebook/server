@@ -1,8 +1,10 @@
 // @ts-check
-const path = require('path');
-const chokidar = require('chokidar');
+import process from 'process';
+import {fileURLToPath} from 'url';
+import path from 'path';
+import chokidar from 'chokidar';
 
-const clientPath = path.resolve(__dirname, '../lib/frontend/client/');
+const clientPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../lib/frontend/client/');
 
 // @NOTE: We can't just watch the release folder because there's no guarantee
 // it will always exist. So instead, we have to watch the parent directory
@@ -21,11 +23,12 @@ const watcher = chokidar.watch(clientPath, {
 	},
 });
 
-let timer = null;
+let keepAliveTimer = null;
+let debounceReload = null;
 let indexFileExists = true;
 
 function scheduleKeepAlive() {
-	clearTimeout(timer);
+	clearTimeout(keepAliveTimer);
 
 	return setTimeout(() => {
 		for (const client of clients) {
@@ -34,6 +37,24 @@ function scheduleKeepAlive() {
 
 		scheduleKeepAlive();
 	}, 50_000);
+}
+
+/**
+ * @description prevents premature reload requests by debouncing requests for 25ms.
+ * The premature reloads usually occur when a batch change is happening (e.g. cleaning the directory),
+ * so this should be more than enough time. If we use a longer debounce period, it ends up with a degraded DX
+ */
+function scheduleChangeEvent() {
+	clearTimeout(debounceReload);
+
+	debounceReload = setTimeout(() => {
+		if (indexFileExists) {
+			keepAliveTimer = scheduleKeepAlive();
+			for (const client of clients) {
+				client.write('data: change\n\n');
+			}
+		}
+	}, 25);
 }
 
 scheduleKeepAlive();
@@ -47,15 +68,21 @@ watcher.on('all', (event, data) => {
 	) {
 		indexFileExists = false;
 	} else if ((event === 'change' || event === 'add') && data.endsWith('release/index.html')) {
-		indexFileExists = true;
-	}
-
-	if (indexFileExists) {
-		timer = scheduleKeepAlive();
-		for (const client of clients) {
-			client.write('data: change\n\n');
+		if (event === 'add') {
+			// Add a 1s delay before emitting - this prevents a double reload if the file is written and then immediately
+			// modified. If there's no immediate modification (1s grace period), still trigger a reload
+			setTimeout(() => {
+				if (!indexFileExists) {
+					indexFileExists = true;
+					scheduleChangeEvent();
+				}
+			}, 1000);
+		} else {
+			indexFileExists = true;
 		}
 	}
+
+	scheduleChangeEvent();
 });
 
 // Nodemon
@@ -70,7 +97,7 @@ process.once('SIGUSR2', () => {
 /**
 * @param {import('express').Application} app
 */
-module.exports.mount = app => {
+export function useLiveReload(app) {
 	app.get('/dev/live-reload', (request, response) => {
 		response.status(200);
 		response.set('connection', 'keep-alive');
@@ -88,4 +115,4 @@ module.exports.mount = app => {
 
 		clients.add(response);
 	});
-};
+}

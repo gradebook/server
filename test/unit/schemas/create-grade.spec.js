@@ -1,6 +1,6 @@
 // @ts-check
-const ObjectId = require('bson-objectid').default;
-const {createSchemaValidator} = require('../../utils/schema-validator');
+import ObjectId from 'bson-objectid';
+import {createSchemaValidator} from '../../utils/schema-validator.js';
 
 const {expectInvalid, expectValid} = createSchemaValidator('grade.create');
 

@@ -1,9 +1,12 @@
 // @ts-check
-const {expect} = require('chai');
-const supertest = require('supertest');
-const nock = require('nock');
-const makeApp = require('../utils/app');
-const testUtils = require('../utils');
+import {expect} from 'chai';
+import supertest from 'supertest';
+import nock from 'nock';
+import {startTestServer as makeApp} from '../utils/app.js';
+import * as testUtils from '../utils/index.js';
+import {importJson} from '../../lib/utils/import-json.js';
+
+const schoolConfigurationFixture = await importJson('../fixtures/school-configuration.json', import.meta.url);
 
 const {TEST_HOST_NAME} = testUtils.config;
 
@@ -14,7 +17,7 @@ describe('Functional > API Routes', function () {
 		nock('http://nock.gbdev.cf')
 			.get('/school-configuration.json')
 			.times(0)
-			.reply(200, require('../fixtures/school-configuration.json'));
+			.reply(200, schoolConfigurationFixture);
 		instance = await makeApp();
 	});
 
@@ -35,7 +38,8 @@ describe('Functional > API Routes', function () {
 				.expect(/<title>gradebook<\/title>/i);
 		});
 
-		it('/api/v0/me', function () {
+		it('/api/v0/me', async function () {
+			this.timeout(100_100);
 			const trustedUser = Object.assign({}, testUtils.fixtures.trustedUser);
 
 			trustedUser.created = trustedUser.created_at;
@@ -50,7 +54,7 @@ describe('Functional > API Routes', function () {
 			delete trustedUser.first_name;
 			delete trustedUser.last_name;
 
-			return supertest(instance)
+			await supertest(instance)
 				.get('/api/v0/me')
 				.set('host', TEST_HOST_NAME)
 				.set('cookie', testUtils.fixtures.cookies.trusted)
@@ -200,7 +204,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/name must be string',
+						error: 'data/name must be string Controller: edit',
 						context: 'Failed validating payload',
 					});
 				});
@@ -218,7 +222,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/update/0/name must be string',
+						error: 'data/update/0/name must be string Controller: batchEdit',
 						context: 'Failed validating payload',
 					});
 				});
@@ -235,7 +239,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/create/0/name must be string',
+						error: 'data/create/0/name must be string Controller: batchEdit',
 						context: 'Failed validating payload',
 					});
 				});
@@ -261,7 +265,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$"',
+						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$" Controller: create',
 						context: 'Failed validating payload',
 					});
 				});
@@ -279,7 +283,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/name must be string',
+						error: 'data/name must be string Controller: create',
 						context: 'Failed validating payload',
 					});
 				});

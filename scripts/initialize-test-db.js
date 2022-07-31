@@ -1,14 +1,16 @@
 // @ts-check
-const path = require('path');
+import process from 'process';
+import path from 'path';
 /* eslint-disable-next-line import/no-unassigned-import */
-require('../test/global.js'); // Update env
-const config = require('../test/utils/test-config.js');
-const {fixtures} = require('../test/fixtures/example-data');
+import '../test/global.js'; // Update env
+import {fileURLToPath} from 'url';
+import * as config from '../test/utils/test-config.js';
+import {fixtures} from '../test/fixtures/example-data.js';
 
-const root = path.resolve(__dirname, '../');
+import {migrator, knex} from '../lib/database/index.js';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
 process.chdir(root);
-
-const {migrator, knex} = require('../lib/database');
 
 let log = (...args) => console.log(...args);
 

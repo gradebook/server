@@ -1,18 +1,16 @@
-const stubKnex = require('mock-knex');
-const {knex} = require('../../lib/database');
-const config = require('../../lib/config');
-const HistoryQueue = require('../../lib/services/analytics/history-queue');
+// @ts-check
+import sinon from 'sinon';
+import {expect} from 'chai';
+import * as testUtils from '../utils/index.js';
+import {removeQueryTracking, enableQueryTracking} from '../utils/mocked-knex.js';
+import config from '../../lib/config.js';
+import HistoryQueue from '../../lib/services/analytics/history-queue.js';
 
 describe('Unit > HistoryQueue', function () {
 	let queue;
 
-	before(function () {
-		stubKnex.mock(knex.instance);
-	});
-
-	after(function () {
-		stubKnex.unmock(knex.instance);
-	});
+	before(enableQueryTracking);
+	after(removeQueryTracking);
 
 	beforeEach(function () {
 		queue = new HistoryQueue('test.hq');

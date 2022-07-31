@@ -1,5 +1,5 @@
 // @ts-check
-const {createSchemaValidator} = require('../../utils/schema-validator');
+import {createSchemaValidator} from '../../utils/schema-validator.js';
 
 const {expectInvalid, expectValid} = createSchemaValidator('course.create.complete');
 
@@ -21,7 +21,7 @@ describe('Unit > Schemas > CompleteCreateCourse', function () {
 		delete object.categories[0].id;
 
 		delete object.categories[0].dropped;
-		expectInvalid(object, ['keyword', 'minProperties'], 'NOT have fewer than 5 items');
+		expectInvalid(object, ['keyword', 'minProperties'], 'NOT have fewer than 5 properties');
 		object.categories[0].dropped = null;
 	});
 

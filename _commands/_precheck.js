@@ -1,24 +1,26 @@
-const path = require('path');
-const _fs = require('fs');
+// @ts-check
+import process from 'process';
+import path from 'path';
+import _fs from 'fs';
+import {fileURLToPath} from 'url';
 
 const fs = _fs.promises;
-const getHash = require('./utils/get-git-hash.js');
-const runInstall = require('./utils/run-yarn-install.js');
 
-const CONFIG = path.resolve(__dirname, '../.gradebook-cli');
-const properDir = path.resolve(__dirname, '../');
+const CONFIG = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../.gradebook-cli');
+const properDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
 
-const MAJOR_MINOR_MATCH = 'v16.13.';
+const MAJOR_MINOR_MATCH = 'v16.16.';
 
+/** @type {import('execa')['execa']} */
 let execa;
 try {
-	execa = require('execa');
+	({execa} = await import('execa'));
 } catch {
 	console.error('Please run `yarn install` in the root');
 	process.exit(1);
 }
 
-module.exports = async function staySafe(isSetup = false) {
+export async function precheck(isSetup = false) {
 	process.chdir(properDir);
 
 	// First, check the node version
@@ -48,10 +50,12 @@ module.exports = async function staySafe(isSetup = false) {
 	let hashesChanged = false;
 
 	try {
-		latestVersions = await fs.readFile(CONFIG);
-		latestVersions = JSON.parse(latestVersions);
+		latestVersions = JSON.parse(await fs.readFile(CONFIG, 'utf8'));
 	} catch {}
 
+	// Lazy-import since it depends on execa
+	const {getGitHash: getHash} = await import('./utils/get-git-hash.js');
+	const {runInstall} = await import('./utils/run-yarn-install.js');
 	const {stdout: lastBackendVersion} = await getHash('./yarn.lock');
 	const {stdout: lastFrontendVersion} = await getHash('./yarn.lock', './lib/frontend/client/');
 
@@ -78,4 +82,4 @@ module.exports = async function staySafe(isSetup = false) {
 	if (hashesChanged) {
 		await fs.writeFile(CONFIG, JSON.stringify(latestVersions));
 	}
-};
+}

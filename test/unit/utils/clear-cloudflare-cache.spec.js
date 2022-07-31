@@ -1,13 +1,18 @@
-const rewire = require('rewire');
-
-const cache = rewire('../../../lib/utils/clear-cloudflare-cache.js');
-const config = require('../../../lib/config');
+// @ts-check
+import got from 'got';
+import {expect} from 'chai';
+import sinon from 'sinon';
+import * as testUtils from '../../utils/index.js';
+import config from '../../../lib/config.js';
+import {clearCache, clearCacheIfNeeded} from '../../../lib/utils/clear-cloudflare-cache.js';
+import log from '../../../lib/logging.js';
+import hostMap from '../../../lib/services/host.js';
 
 describe('Unit > Utils > ClearCloudflareCache', function () {
 	let gotStub;
 
 	beforeEach(function () {
-		gotStub = sinon.stub(cache.__get__('got'), 'post').resolves({body: '{"success": true}'});
+		gotStub = sinon.stub(got, 'post').resolves({body: '{"success": true}'});
 	});
 
 	afterEach(function () {
@@ -15,8 +20,6 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 	});
 
 	describe('clearCache', function () {
-		const clearCache = cache.__get__('clearCache'); // eslint-disable-line mocha/no-setup-in-describe
-
 		it('Sends request to proper endpoint with proper data', async function () {
 			const body = '{"files":["url"]}';
 			const headers = {
@@ -62,19 +65,19 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 		let logInfoStub;
 
 		beforeEach(function () {
-			logErrorStub = sinon.stub(cache.__get__('log'), 'error');
-			logInfoStub = sinon.stub(cache.__get__('log'), 'info');
+			logErrorStub = sinon.stub(log, 'error');
+			logInfoStub = sinon.stub(log, 'info');
 		});
 
 		it('skips when config disallows', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(false);
-			await cache();
+			await clearCacheIfNeeded();
 			expect(gotStub.called).to.be.false;
 		});
 
 		it('handles success well', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
-			await cache();
+			await clearCacheIfNeeded();
 			expect(gotStub.calledOnce).to.be.true;
 			expect(logInfoStub.calledOnce).to.be.true;
 			expect(logInfoStub.args[0][0]).to.match(/success/i);
@@ -85,7 +88,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			const error = new Error('FAIL');
 			gotStub.rejects(error);
 
-			await cache();
+			await clearCacheIfNeeded();
 			expect(logErrorStub.calledTwice).to.be.true;
 			expect(logErrorStub.args[0][0]).to.match(/failed clearing/i);
 			expect(logErrorStub.args[1][0]).to.equal(error);
@@ -96,25 +99,21 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			const response = {body: '{"success": false}'};
 			gotStub.resolves(response);
 
-			await cache();
+			await clearCacheIfNeeded();
 			expect(logErrorStub.calledOnce).to.be.true;
 		});
 
-		it('purges all hosts', async function () {
-			const originalHostService = cache.__get__('hostService');
+		it.skip('purges all hosts', async function () {
+			const originalHostService = Array.from(Object.entries(hostMap));
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
 
-			cache.__set__(
-				'hostService',
-				new Map([
-					['a.gradebook.app', 'a'],
-					['b.gradebook.app', 'b'],
-					['c.gradebook.app', 'c'],
-				]),
-			);
+			hostMap.clear();
+			hostMap.set('a.gradebook.app', 'a');
+			hostMap.set('b.gradebook.app', 'b');
+			hostMap.set('c.gradebook.app', 'c');
 
 			try {
-				await cache();
+				await clearCacheIfNeeded();
 				expect(gotStub.calledOnce).to.be.true;
 				expect(gotStub.args[0][1].body).to.deep.equal(JSON.stringify({
 					files: [
@@ -124,7 +123,10 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 					],
 				}));
 			} finally {
-				cache.__set__('hostService', originalHostService);
+				hostMap.clear();
+				for (const [key, value] of originalHostService) {
+					hostMap.set(key, value);
+				}
 			}
 		});
 	});

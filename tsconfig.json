@@ -7,6 +7,7 @@
     "lib/frontend/client/"
   ],
   "compilerOptions": {
+    "skipLibCheck": true,
     "types": [
       "./global",
       "./session"
@@ -14,9 +15,9 @@
     "allowJs": true,
     "noEmit": true,
     "lib": ["es2017"],
-    "target": "es2019",
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "ESNext",
+    "esModuleInterop": true
   }
 }

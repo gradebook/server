@@ -1,5 +1,5 @@
 // @ts-check
-const {createSchemaValidator} = require('../../utils/schema-validator');
+import {createSchemaValidator} from '../../utils/schema-validator.js';
 
 const {expectInvalid, expectValid} = createSchemaValidator('category.edit');
 

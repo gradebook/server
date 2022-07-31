@@ -1,3 +1,4 @@
+// @ts-check
 /* eslint-disable camelcase, unicorn/no-zero-fractions */
 const fixtures = [
 	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, first_name: 'Trusted', last_name: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
@@ -111,5 +112,5 @@ for (const [table, data] of fixtures) {
 	fixturesMap[table].push(data);
 }
 
-module.exports = fixturesMap;
-module.exports.fixtures = fixtures;
+export default fixturesMap;
+export {fixtures};

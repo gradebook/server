@@ -1,6 +1,7 @@
+// @ts-check
 /* eslint-disable unicorn/no-abusive-eslint-disable */
 /* eslint-disable */
-const knex = require('../lib/database/knex')
+import {knex} from '../lib/database/index.js';
 
 async function run() {
 	const databases = await knex.instance.raw('SHOW DATABASES;');

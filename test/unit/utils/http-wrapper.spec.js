@@ -1,4 +1,8 @@
-const wrap = require('../../../lib/utils/http-wrapper');
+// @ts-check
+import {expect} from 'chai';
+import sinon from 'sinon';
+import * as testUtils from '../../utils/index.js';
+import {wrapHttp as wrap} from '../../../lib/utils/http-wrapper.js';
 
 describe('Unit > Utils > HTTP-Wrapper', function () {
 	it('Only accepts function', function () {

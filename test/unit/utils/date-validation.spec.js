@@ -1,4 +1,6 @@
-const validate = require('../../../lib/utils/date-validations');
+// @ts-check
+import {expect} from 'chai';
+import * as validate from '../../../lib/utils/date-validations.js';
 
 describe('Unit > Utils > DateValidations', function () {
 	it('isValidYear', function () {
