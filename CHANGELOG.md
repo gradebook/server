@@ -1,3 +1,12 @@
+# 4.6.0
+
+ - :sparkles: add emoji support for text fields
+ - :recycle: drop mock-knex in favor of a local mocker
+ - :wrench: switch to esm
+ - :wrench: include controller name in pipeline errors
+ - remove obselete apple meta tags
+ - Improve core-developer-tools: local auth and secure protocol warnings
+
 # 4.5.1
 
  - :bug: fix validation error when creating a course with more than 5 credit hours
