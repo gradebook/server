@@ -6,7 +6,7 @@ const fixtures = [
 	['users', {id: '5d3c81b49d866268d230e180', gid: 2, first_name: 'Confused', last_name: 'User', email: 'confused@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
 	['users', {id: '5d3c81d738773f9ae92e8c7d', gid: 3, first_name: 'Random', last_name: 'User', email: 'random@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
 	['courses', {id: '5d3c81fbaf84df3df0a18c1b', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 101', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null, settings: '{"alias": "Course A"}'}],
-	['courses', {id: '5d3c8227faade0e6c7e0ed30', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 202', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null}],
+	['courses', {id: '5d3c8227faade0e6c7e0ed30', user_id: '5d3c8150930db248a9d7514f', semester: '2000S', name: 'CORS 202', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null}],
 	['courses', {id: '5d3c822b361ac86457c4395e', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 303', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null}],
 	['courses', {id: '5d3c8230c95745a3e0806c9b', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 404', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null}],
 	['courses', {id: '5d48437d8c01946f39ea997f', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'GRDS 000', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: null}],
@@ -88,12 +88,24 @@ const fixturesMap = {
 		return this.courses[4];
 	},
 
+	get archivedCourse() {
+		return this.courses[1];
+	},
+
 	get categoryNoName() {
 		return this.categories[5];
 	},
 
 	get categoryNoWeight() {
 		return this.categories[6];
+	},
+
+	get categoryInArchivedCourse() {
+		return this.categories[7];
+	},
+
+	get gradeInArchivedCourse() {
+		return this.grades[11];
 	},
 
 	cookies: {
