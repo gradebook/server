@@ -173,7 +173,7 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body.categories).to.be.an('array').with.length(16);
+					expect(body.categories).to.be.an('array').with.length(13);
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
 						expect(Object.keys(category)).to.deep.equal(

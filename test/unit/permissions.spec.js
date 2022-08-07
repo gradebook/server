@@ -102,7 +102,7 @@ describe('Unit > Permissions', function () {
 		});
 
 		it('Semester course limit reached', async function () {
-			const stub = sinon.stub(settings, 'get').returns(5);
+			const stub = sinon.stub(settings, 'get').returns(4);
 			try {
 				const permissions = {user, semester};
 				const {response} = await sendFakeRequest(permissions, createCourse);
@@ -113,7 +113,7 @@ describe('Unit > Permissions', function () {
 			}
 		});
 
-		it('Inactive semester', async function () {
+		it('Archived semester', async function () {
 			const permissions = {user, semester: outDatedSemester};
 			const {response} = await sendFakeRequest(permissions, createCourse);
 			expect(response.statusCalled).to.be.true;
@@ -170,6 +170,17 @@ describe('Unit > Permissions', function () {
 				stub.restore();
 			}
 		});
+
+		it('Archived course', async function () {
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, course: testUtils.fixtures.archivedCourse.id};
+				const {response} = await sendFakeRequest(permissions, createCategory);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
+		});
 	});
 
 	describe('Create Grade', function () {
@@ -211,6 +222,17 @@ describe('Unit > Permissions', function () {
 				stub.restore();
 			}
 		});
+
+		it('Archived course', async function () {
+			const stub = sinon.stub(settings, 'get').returns(10);
+			try {
+				const permissions = {user, course: testUtils.fixtures.archivedCourse.id, category: testUtils.fixtures.categoryInArchivedCourse.id};
+				const {response} = await sendFakeRequest(permissions, createGrade);
+				expect(response.statusCalled).to.be.false;
+			} finally {
+				stub.restore();
+			}
+		});
 	});
 
 	describe('Edit Course', function () {
@@ -240,6 +262,12 @@ describe('Unit > Permissions', function () {
 			} catch (error) {
 				assertIsNotFoundError(error);
 			}
+		});
+
+		it('Archived course', async function () {
+			const permissions = {user, objectId: testUtils.fixtures.archivedCourse.id};
+			const {response} = await sendFakeRequest(permissions, editCourse);
+			expect(response.statusCalled).to.be.false;
 		});
 	});
 
@@ -271,6 +299,12 @@ describe('Unit > Permissions', function () {
 				assertIsNotFoundError(error);
 			}
 		});
+
+		it('Archived course', async function () {
+			const permissions = {user, objectId: testUtils.fixtures.categoryInArchivedCourse.id};
+			const {response} = await sendFakeRequest(permissions, editCategory);
+			expect(response.statusCalled).to.be.false;
+		});
 	});
 
 	describe('Edit Grade', function () {
@@ -300,6 +334,12 @@ describe('Unit > Permissions', function () {
 			} catch (error) {
 				assertIsNotFoundError(error);
 			}
+		});
+
+		it('Archived course', async function () {
+			const permissions = {user, objectId: testUtils.fixtures.gradeInArchivedCourse.id};
+			const {response} = await sendFakeRequest(permissions, editGrade);
+			expect(response.statusCalled).to.be.false;
 		});
 	});
 });
