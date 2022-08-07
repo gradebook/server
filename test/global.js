@@ -9,11 +9,12 @@ process.env.NODE_ENV = 'testing';
 // Load config after NODE_ENV so it picks up the right one
 const {default: globalConfig} = await import('../lib/config.js');
 
-// Force the active semester to be Spring 2019
+// Force the primary semester and active semesters to be Spring 2019
 const semesterService = time.semester.data;
 
-semesterService.activeSemester = '2019S';
-semesterService.allowedSemesters = ['2019S'];
+semesterService.primarySemester = '2019S';
+semesterService.activeSemesters = ['2019S'];
+semesterService.serverAllowedSemesters = ['2019S'];
 
 // Configure the config based on the environment
 // When running Integration tests in CI, use mysql with host matching
