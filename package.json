@@ -33,7 +33,7 @@
     "@gradebook/express-brute-redis": "0.1.0",
     "@gradebook/fast-pluralize": "0.0.3",
     "@gradebook/passport-utils": "0.2.1",
-    "@gradebook/time": "0.0.5",
+    "@gradebook/time": "1.0.0",
     "ajv": "8.11.0",
     "bson-objectid": "2.0.3",
     "connect-redis": "6.1.3",

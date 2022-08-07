@@ -103,10 +103,10 @@
     urijs "^1.19.6"
     zx "^4.2.0"
 
-"@gradebook/time@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-0.0.5.tgz#6a04ee63369145e31002a6d99b600ba24f63fade"
-  integrity sha512-xuSpY729DFyPbJly03s909S3ZZ63g0P0OYYk4CDyF/PxxasPmj6WU7E0nzG9ZX2Xa4A2RZ2I9YdqofWXEFBI1Q==
+"@gradebook/time@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-1.0.0.tgz#8a5732c3a280a82afcabaf66f3a3b59d9a9c8296"
+  integrity sha512-TdKLLfZ/UrpMhcl6pfn90Vd5LPZPIJmtxFIiXquxP0k9KVeO3rsSvq8w379TIBggn7IEUOaxZVXUmiL8UZxohw==
   dependencies:
     dayjs "^1.10.7"
 
@@ -1282,7 +1282,12 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dayjs@^1.10.7, dayjs@^1.8.35:
+dayjs@^1.10.7:
+  version "1.11.4"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.4.tgz#3b3c10ca378140d8917e06ebc13a4922af4f433e"
+  integrity sha512-Zj/lPM5hOvQ1Bf7uAvewDaUcsJoI6JmNqmHhHl3nyumwe0XHwt8sWdOVAPACJzCebL8gQCi+K49w7iKWnGwX9g==
+
+dayjs@^1.8.35:
   version "1.11.3"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.3.tgz#4754eb694a624057b9ad2224b67b15d552589258"
   integrity sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==
