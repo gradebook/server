@@ -2,15 +2,17 @@
 import process from 'process';
 import config from './lib/config.js';
 
-config.set('logging', {
-	level: 'info',
-	rotation: {
-		enabled: false,
-	},
-	path: './logs/migrations',
-	domain: 'gb-mg',
-	transports: ['file', 'stdout'],
-});
+if (!process.env.GB_EXECUTION_CONTEXT) {
+	config.set('logging', {
+		level: 'info',
+		rotation: {
+			enabled: false,
+		},
+		path: './logs/migrations',
+		domain: 'gb-mg',
+		transports: ['file', 'stdout'],
+	});
+}
 
 const envConfig = {
 	...config.get('database'),
