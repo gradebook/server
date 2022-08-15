@@ -1,3 +1,12 @@
+# 4.7.0
+
+:sparkles: provide active and primary semesters in core-data
+:sparkles: allow editing courses in archived semesters
+ - bump @gradebook/time
+ - test: add warning when database is not migrated
+ - remove response body for semester.delete controller
+ - add NODE_ENV to contract test script
+
 # 4.6.0
 
  - :sparkles: add emoji support for text fields
