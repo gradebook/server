@@ -1,3 +1,7 @@
+# 4.7.1
+
+ - :building_construction:️ use JSON redirect instead of HTTP redirect for `/me` API endpoint (#213)
+
 # 4.7.0
 
 :sparkles: provide active and primary semesters in core-data
