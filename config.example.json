@@ -18,6 +18,7 @@
   },
   "gateway": null,
   "domain": ".gbdev.cf",
+  "sessionCookie": "agbsid",
   "ignoredUsers": [],
   "user event endpoint": false,
   "live reload": false,
