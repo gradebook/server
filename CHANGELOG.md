@@ -1,3 +1,9 @@
+# 4.8.0
+
+ - :sparkles: add user issue reporting route
+ - :sparkles: add support for importing courses from shrink
+ - :bug: fix passport auth clearing session data
+
 # 4.7.1
 
  - :building_construction:️ use JSON redirect instead of HTTP redirect for `/me` API endpoint (#213)

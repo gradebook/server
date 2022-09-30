@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "user.report_an_issue",
+  "description": "Reporting an issue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "summary",
+    "categories",
+    "steps_to_reproduce",
+    "allow_contacting"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 60
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 15
+      }
+    },
+    "steps_to_reproduce": {
+      "type": "string",
+      "minLength": 25,
+      "maxLength": 5000
+    },
+    "debug_data": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 10000
+    },
+    "allow_contacting": {
+      "type": "boolean"
+    }
+  }
+}
