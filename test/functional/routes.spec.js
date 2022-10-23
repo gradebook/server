@@ -204,7 +204,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/name must be string Controller: edit',
+						error: 'data/name must be string',
 						context: 'Failed validating payload',
 					});
 				});
@@ -222,7 +222,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/update/0/name must be string Controller: batchEdit',
+						error: 'data/update/0/name must be string',
 						context: 'Failed validating payload',
 					});
 				});
@@ -239,7 +239,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/create/0/name must be string Controller: batchEdit',
+						error: 'data/create/0/name must be string',
 						context: 'Failed validating payload',
 					});
 				});
@@ -265,7 +265,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$" Controller: create',
+						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$"',
 						context: 'Failed validating payload',
 					});
 				});
@@ -283,7 +283,7 @@ describe('Functional > API Routes', function () {
 				.expect(422)
 				.then(request => {
 					expect(request.body).to.deep.equal({
-						error: 'data/name must be string Controller: create',
+						error: 'data/name must be string',
 						context: 'Failed validating payload',
 					});
 				});
