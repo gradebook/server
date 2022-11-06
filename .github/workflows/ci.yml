@@ -17,13 +17,7 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: lts/*
-        cache: yarn
-      env:
-        FORCE_COLOR: 0
+    - uses: gradebook/actions/actions/setup@master
     - name: Install Dependencies and setup
       run: |
         yarn install --frozen-lockfile
@@ -44,13 +38,7 @@ jobs:
     env:
       NODE_ENV: testing
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: lts/*
-        cache: yarn
-      env:
-        FORCE_COLOR: 0
+    - uses: gradebook/actions/actions/setup@master
     - name: Configure Dependencies
       run: |
         yarn install --frozen-lockfile
@@ -81,13 +69,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: lts/*
-        cache: yarn
-      env:
-        FORCE_COLOR: 0
+    - uses: gradebook/actions/actions/setup@master
     - name: Install dependencies and setup
       run: yarn install --frozen-lockfile
     - name: Lint and Typecheck
