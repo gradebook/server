@@ -16,6 +16,7 @@ env:
 jobs:
   unit:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
     - uses: gradebook/actions/actions/setup@master
     - name: Install Dependencies and setup
@@ -35,6 +36,7 @@ jobs:
         REQUIRE_BRANCH: release
   integration:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     env:
       NODE_ENV: testing
     steps:
@@ -68,6 +70,7 @@ jobs:
         REQUIRE_BRANCH: release
   lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
     - uses: gradebook/actions/actions/setup@master
     - name: Install dependencies and setup
