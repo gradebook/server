@@ -1,3 +1,7 @@
+# 4.8.2
+
+ - improve error handling when fetching server version revision fails
+
 # 4.8.1
 
  - :sparkles: provide anonymous session number to client
