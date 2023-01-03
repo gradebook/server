@@ -19,7 +19,7 @@ on:
 jobs:
   contract:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     env:
       NODE_ENV: testing
     steps:
@@ -30,19 +30,9 @@ jobs:
         MID_SERVER_REF=${RAW_SERVER_REF:-$GITHUB_SHA}
         echo "CLIENT_REF=${RAW_CLIENT_REF:-master}" >> $GITHUB_ENV
         echo "SERVER_REF=${MID_SERVER_REF:-master}" >> $GITHUB_ENV
-    - uses: actions/checkout@v2
+    - uses: gradebook/actions/actions/setup@master
       with:
-        ref: ${{ env.SERVER_REF }}
-    - uses: actions/setup-node@v3
-      with:
-        node-version: lts/*
-    - name: Restore node_modules cache
-      uses: actions/cache@v3
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
+        git-ref: ${{ env.SERVER_REF }}
     - name: Install Dependencies and Setup
       run: |
         yarn install --frozen-lockfile

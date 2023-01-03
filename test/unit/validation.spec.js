@@ -6,6 +6,10 @@ import * as validations from '../../lib/services/validation/index.js';
 import {expectError} from '../utils/index.js';
 
 describe('Unit > Validation', function () {
+	beforeEach(function () {
+		sinon.restore();
+	});
+
 	describe('User Settings', function () {
 		it('invalid request', function () {
 			const request = {body: {}, query: {}};
@@ -14,7 +18,7 @@ describe('Unit > Validation', function () {
 				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
-				expect(error.message).to.equal('Invalid request body');
+				expect(error.message).to.equal('Failed updating user setting: missing key or value');
 			}
 		});
 
@@ -37,7 +41,7 @@ describe('Unit > Validation', function () {
 				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
-				expect(error.message).to.equal('Setting steal does not exist');
+				expect(error.message).to.equal('user.settings.steal: invalid setting');
 			}
 		});
 
@@ -52,7 +56,7 @@ describe('Unit > Validation', function () {
 				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
-				expect(error.message).to.equal('Value is not valid');
+				expect(error.message).to.equal('user.settings.previous_notification: "bad" is not a valid value');
 			}
 
 			try {
@@ -60,7 +64,7 @@ describe('Unit > Validation', function () {
 				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
-				expect(error.message).to.equal('Value is not valid');
+				expect(error.message).to.equal('user.settings.previous_notification: "not a date" is not a valid value');
 			}
 
 			try {
@@ -69,7 +73,7 @@ describe('Unit > Validation', function () {
 				validations.userSettings(request, null);
 				expectError();
 			} catch (error) {
-				expect(error.message).to.equal('Value is not valid');
+				expect(error.message).to.equal('user.settings.previous_notification: "[object Object]" is not a valid value');
 			}
 		});
 	});
@@ -218,7 +222,7 @@ describe('Unit > Validation', function () {
 					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.equal('partial courses must have empty cutoffs object');
+					expect(error.message).to.contain('cutoffs should be empty');
 				}
 			});
 		});
@@ -238,7 +242,7 @@ describe('Unit > Validation', function () {
 					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('too many categories');
+					expect(error.message).to.include('number of categories exceeded the maximum of 10');
 					stub.restore();
 				}
 			});
@@ -279,7 +283,7 @@ describe('Unit > Validation', function () {
 					validations.createCourse(request, null);
 					expectError();
 				} catch (error) {
-					expect(error.message).to.include('too many grades');
+					expect(error.message).to.contain('at least one category has more than the maximum of 40 grades.');
 					stub.restore();
 				}
 			});

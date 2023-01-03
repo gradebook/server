@@ -1,3 +1,10 @@
+# 4.8.1
+
+ - :sparkles: provide anonymous session number to client
+ - :card_file_box: remove nullable constraint for course credit_hours
+ - update copy for validation errors
+ - [internal] add support for stopping, enabling, and disabling client-side live-reload
+
 # 4.8.0
 
  - :sparkles: add user issue reporting route
