@@ -30,6 +30,7 @@ declare global {
 					tour: boolean;
 					overallCredits: number;
 					overallGpa: number;
+					gpaSemester: string;
 				};
 			};
 			logout(): void;
