@@ -76,6 +76,22 @@ describe('Unit > Validation', function () {
 				expect(error.message).to.equal('user.settings.previous_notification: "[object Object]" is not a valid value');
 			}
 		});
+
+		it('gpa', function () {
+			const request = {
+				body: {overallCredits: 45, overallGpa: 3.6, gpaSemester: '2022F'},
+			};
+
+			validations.userGpaSettings(request, null);
+
+			try {
+				request.body.gpaSemester = '2022D';
+				validations.userGpaSettings(request, null);
+				expectError();
+			} catch (error) {
+				expect(error.message).to.contain('data/gpaSemester must match pattern');
+			}
+		});
 	});
 
 	describe('Edit Category', function () {

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "user.settings.$$gpa",
+  "description": "Update GPA settings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "overallGpa",
+    "overallCredits",
+    "gpaSemester"
+  ],
+  "properties": {
+    "overallGpa": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "overallCredits": {
+      "type": "integer",
+      "minimum": 0,
+      "exclusiveMaximum": 1000
+    },
+    "gpaSemester": {
+      "type": "string",
+      "pattern": "\\d{4}(S|U|F|W)"
+    }
+  }
+}
