@@ -45,7 +45,7 @@
     "ghost-ignition": "4.6.3",
     "got": "12.1.0",
     "ioredis": "5.1.0",
-    "knex": "2.1.0",
+    "knex": "2.4.0",
     "lodash.get": "4.4.2",
     "mysql": "2.18.1",
     "node-cron": "3.0.1",
