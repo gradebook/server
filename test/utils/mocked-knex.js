@@ -54,22 +54,31 @@ class MockableMysqlClient extends MysqlClient {
 
 	gbStoreMockedResponse(state, response) {
 		switch (state.method) {
-			case 'first':
+			case 'first': {
 				state.response = [[response]];
 				break;
-			case 'pluck':
+			}
+
+			case 'pluck': {
 				throw new Error('Mocking pluck is not supported');
-			case 'insert':
+			}
+
+			case 'insert': {
 				state.response = [{insertId: response}];
 				break;
+			}
+
 			case 'del':
 			case 'update':
-			case 'counter':
+			case 'counter': {
 				state.response = [{affectedRows: response}];
 				break;
+			}
+
 			// Includes 'select'
-			default:
+			default: {
 				state.response = [response];
+			}
 		}
 	}
 }
@@ -89,22 +98,31 @@ class MockableSqlite3Client extends Sqlite3Client {
 	gbStoreMockedResponse(state, response) {
 		// Based on Sqlite3_Client#processResponse
 		switch (state.method) {
-			case 'first':
+			case 'first': {
 				state.response = [response];
 				break;
-			case 'pluck':
+			}
+
+			case 'pluck': {
 				throw new Error('Mocking pluck is not supported');
-			case 'insert':
+			}
+
+			case 'insert': {
 				state.context = {lastId: response};
 				break;
+			}
+
 			case 'del':
 			case 'update':
-			case 'counter':
+			case 'counter': {
 				state.context = {changes: response};
 				break;
+			}
+
 			// Includes 'select'
-			default:
+			default: {
 				state.response = response;
+			}
 		}
 	}
 }

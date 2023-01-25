@@ -40,18 +40,14 @@ async function init() {
 	console.log('Initialized!');
 }
 
-async function run() {
-	const initialized = fs.existsSync('.gradebook-cli');
+const initialized = fs.existsSync('.gradebook-cli');
 
-	if (initialized && !process.argv.join(' ').includes('--force')) {
-		console.log('It looks like you\'ve already run setup. If you want to re-run, use the `--force` flag');
-		return;
-	}
-
-	await install();
-
-	await precheck(true);
-	await init();
+if (initialized && !process.argv.join(' ').includes('--force')) {
+	console.log('It looks like you\'ve already run setup. If you want to re-run, use the `--force` flag');
+	process.exit();
 }
 
-run();
+await install();
+
+await precheck(true);
+await init();
