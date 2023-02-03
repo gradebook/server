@@ -1,3 +1,9 @@
+# 4.8.3
+
+ - :bug: fix hanging transaction when trying to delete an empty semester
+ - :bug: fix pipeline cancellation failure when using `response.end()`
+ - add route to update GPA settings all at once
+
 # 4.8.2
 
  - improve error handling when fetching server version revision fails

@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "4.8.2",
+  "version": "4.8.3",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -83,7 +83,10 @@
       "mocha"
     ],
     "rules": {
-      "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+      "@typescript-eslint/consistent-type-definitions": [
+        "error",
+        "interface"
+      ],
       "@typescript-eslint/naming-convention": "off",
       "node/prefer-global/process": "off",
       "unicorn/prefer-node-protocol": "off",
