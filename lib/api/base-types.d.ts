@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import {Knex} from 'knex';
-import {AbstractDatabaseResponse as AbstractModel} from '../models/database-response.js';
+import {type Knex} from 'knex';
+import {type AbstractDatabaseResponse as AbstractModel} from '../models/database-response.js';
 
 type BrowseResponse<T> = (filterOptions: T, db: string, txn?: Knex.Transaction) => Promise<any>;
-type BrowseFilterFunction<T> = (filterOptions: T) => import('knex').Knex.QueryCallback | object;
+type BrowseFilterFunction<T> = (filterOptions: T) => Knex.QueryCallback | object;
 
 export type BaseBrowse<AllowedFilters extends {}, AllowedModels> = (
 	dataType: AllowedModels,
@@ -14,19 +14,19 @@ type Data<T extends object> = {
 	id?: string;
 } & T;
 
-export type MinimumMutableOptions = {
+export interface MinimumMutableOptions {
 	db: string;
 	txn?: Knex.Transaction;
-};
+}
 
 export type CreateOptions<T extends object> = MinimumMutableOptions & {
 	data: Data<T>;
 };
 
-export type ReadOptions = {
+export interface ReadOptions {
 	id: string;
 	db: string;
-};
+}
 
 export type UpdateOptions<T extends object> = MinimumMutableOptions & {
 	model: AbstractModel;

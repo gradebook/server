@@ -1,7 +1,7 @@
-import QueryString from 'querystring';
-import Express from 'express';
-import * as eCore from 'express-serve-static-core';
-import {AbstractDatabaseResponse} from './lib/models/database-response.js';
+import type QueryString from 'querystring';
+import type Express from 'express';
+import type * as eCore from 'express-serve-static-core';
+import {type AbstractDatabaseResponse} from './lib/models/database-response.js';
 
 declare global {
 	namespace Gradebook {
@@ -30,15 +30,16 @@ declare global {
 					tour: boolean;
 					overallCredits: number;
 					overallGpa: number;
+					gpaSemester: string;
 				};
 			};
 			logout(): void;
 		}
 
-		export type ResponseContext = {
+		export interface ResponseContext {
 			statusCode?: number;
 			body?: object | string; // eslint-disable-line @typescript-eslint/ban-types
-		};
+		}
 
 		export interface Response extends Express.Response {
 			context?: ResponseContext;

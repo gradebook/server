@@ -19,9 +19,5 @@ const commands = [
 	['Frontend Builder', 'yarn --cwd lib/frontend/client/ dev'],
 ];
 
-async function run() {
-	await precheck();
-	new Together(commands); // eslint-disable-line no-new
-}
-
-run();
+await precheck();
+new Together(commands); // eslint-disable-line no-new
