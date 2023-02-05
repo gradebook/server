@@ -1,3 +1,7 @@
+# 4.8.4
+
+ - :bug: serializer: disallow unintentionally sending an empty body
+
 # 4.8.3
 
  - :bug: fix hanging transaction when trying to delete an empty semester
