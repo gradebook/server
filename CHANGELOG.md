@@ -1,3 +1,7 @@
+# 4.8.5
+
+ - audit security headers and apply on home page
+
 # 4.8.4
 
  - :bug: serializer: disallow unintentionally sending an empty body
