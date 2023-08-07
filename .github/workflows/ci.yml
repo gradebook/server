@@ -6,6 +6,8 @@ on:
       - release
       - master
       - renovate/*
+    tags-ignore:
+      - '**'
   pull_request:
     branches:
       '*'
