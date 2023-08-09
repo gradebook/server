@@ -58,7 +58,7 @@
     "@gradebook/core-developer-tools": "0.2.0",
     "@gradebook/release-utils": "0.7.1",
     "@gradebook/together": "0.2.0",
-    "@types/express": "4.17.16",
+    "@types/express": "4.17.17",
     "@types/express-session": "1.17.5",
     "c8": "^7.11.3",
     "chai": "4.3.7",
