@@ -51,7 +51,7 @@
     "node-cron": "3.0.2",
     "passport": "0.6.0",
     "passport-google-oauth20": "2.0.0",
-    "sqlite3": "5.1.5",
+    "sqlite3": "5.1.6",
     "validator": "13.7.0"
   },
   "devDependencies": {
