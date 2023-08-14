@@ -41,6 +41,15 @@ describe('Unit > SchoolConfigurationService', function () {
 		expect(service.getSchoolConfig('aggie').head).to.contain('aggie');
 	});
 
+	it('isPartnered', async function () {
+		nock.get(ENDPOINT_PATH).reply(200, ENDPOINT_RESPONSE);
+		expect(await service.init()).to.be.true;
+
+		expect(service.isPartnered('aggie')).to.be.true;
+		expect(service.isPartnered('does-not-exist')).to.be.false;
+		expect(service.isPartnered('commodore')).to.be.false;
+	});
+
 	it('refresh atomically updates school data', async function () {
 		nock.get(ENDPOINT_PATH).times(2).reply(200, ENDPOINT_RESPONSE);
 		// @ts-ignore
