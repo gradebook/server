@@ -7,7 +7,7 @@ import ts from 'typescript';
 import supertest from 'supertest';
 import * as testUtils from '../utils/index.js';
 import {startTestServer as makeApp} from '../utils/app.js';
-import {interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic, getMemberName} from './ts-util.js';
+import {extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic, getMemberName} from './ts-util.js';
 import {clientDependencies} from './dependencies.js';
 
 const {TEST_HOST_NAME} = testUtils.config;
