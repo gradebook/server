@@ -54,9 +54,10 @@ async function makeRequest(path, method = 'get') {
 
 /**
  * @param {ts.InterfaceDeclaration['members'][number]} member
+ * @param {BodySchemas} bodySchemas
  * @param {Map<string, string>} fileNameToTestCase
  */
-async function addTestCase(member, fileNameToTestCase) {
+async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 	const {name, expectedType, skip, only} = extractTypingMetadata(member);
 
 	if (skip) {
@@ -72,6 +73,11 @@ async function addTestCase(member, fileNameToTestCase) {
 		([rawMethod, requestUrl] = requestUrl.split(':'));
 
 		if (rawMethod !== 'get') {
+			const bodySchema = bodySchemas[name];
+			if (!bodySchema) {
+				throw new Error(`${chalk.cyan(name)} is invalid - no BodyContract provided`);
+			}
+
 			throw new Error(`${chalk.cyan(name)} is invalid - cannot make ${chalk.red(rawMethod)} requests`);
 		}
 
@@ -177,7 +183,7 @@ async function prepareTestCases() {
 
 	await Promise.all(
 		contractNode.members.map(member =>
-			addTestCase(member, fileNameToTestCase)
+			addTestCase(member, bodySchemas, fileNameToTestCase)
 				.then(response => {
 					if (response.skip) {
 						skippedTestCases.push(response.name);
