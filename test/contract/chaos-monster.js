@@ -2,26 +2,16 @@
 
 import ts from 'typescript';
 import {getMemberName} from './ts-util.js';
+import {between} from './chaos/generic.js';
+import {generateString} from './chaos/string.js';
 
 /**
- * @typedef {{
- *   min: number;
- *   max: number;
- *   alphabet: string;
- * }} StringConstraints
  *
  * @typedef {{
  *   min: number;
  *   max: number;
  * }} ArrayConstraints
  */
-
-/** @type {StringConstraints} */
-const DEFAULT_STRING_CONSTRAINTS = {
-	min: 0,
-	max: 500,
-	alphabet: 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()_+{}[];\':",./<>?',
-};
 
 /** @type {ArrayConstraints} */
 const DEFAULT_ARRAY_CONSTRAINTS = {
@@ -30,28 +20,7 @@ const DEFAULT_ARRAY_CONSTRAINTS = {
 };
 
 /**
- * @param {number} min
- * @param {number} max
  */
-const between = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-// @TODO: depend on faker for this?
-/** @param {Partial<StringConstraints>} constraints */
-function generateString(constraints = {}) {
-	const {min, max, alphabet: stringAlphabet} = Object.assign({}, DEFAULT_STRING_CONSTRAINTS, constraints);
-	const alphabet = stringAlphabet.split('');
-	const alphabetSize = alphabet.length;
-
-	let length = between(min, max);
-	let response = '';
-
-	while (length > 0) {
-		response += alphabet[between(0, alphabetSize)];
-		length--;
-	}
-
-	return response;
-}
 
 /**
  * @param {ts.TypeNode} schema
