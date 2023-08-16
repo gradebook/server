@@ -2,10 +2,12 @@
 
 import ts from 'typescript';
 import {getMemberName} from './ts-util.js';
-import {between} from './chaos/generic.js';
 import {generateString} from './chaos/string.js';
+import {between, context} from './chaos/generic.js';
 
 /**
+ * @typedef {import('./context.js').Context} Context
+ *
  *
  * @typedef {{
  *   min: number;
@@ -25,22 +27,27 @@ const DEFAULT_ARRAY_CONSTRAINTS = {
 /**
  * @param {ts.TypeNode} schema
  * @param {Partial<ArrayConstraints>} constraints
- * @param {string} errorContext
+ * @param {Context} context
  */
-function generateArrayOf(schema, errorContext, constraints = {}) {
+function generateArrayOf(schema, context, constraints = {}) {
 	const {min, max} = Object.assign({}, DEFAULT_ARRAY_CONSTRAINTS, constraints);
-	const localErrorContext = `Fill ${errorContext}`;
-	return Array.from(
-		{length: between(min, max)},
-		() => generateSingleValue(schema, localErrorContext),
-	);
+	context.unshift('Fill');
+
+	try {
+		return Array.from(
+			{length: between(min, max)},
+			() => generateSingleValue(schema, context),
+		);
+	} finally {
+		context.shift();
+	}
 }
 
 /**
  * @param {ts.TypeNode} schema
- * @param {string} errorContext
+ * @param {Context} context
  */
-function generateSingleValue(schema, errorContext) {
+function generateSingleValue(schema, context) {
 	if (schema.kind === ts.SyntaxKind.StringKeyword) {
 		return generateString();
 	}
@@ -50,10 +57,10 @@ function generateSingleValue(schema, errorContext) {
 	}
 
 	if (ts.isArrayTypeNode(schema)) {
-		return generateArrayOf(schema.elementType, errorContext);
+		return generateArrayOf(schema.elementType, context);
 	}
 
-	throw new Error(`Payload generation failed on "${errorContext}" - value generation not implemented`);
+	context.throw('value generation is not implemented');
 }
 
 /**
@@ -65,15 +72,22 @@ export function generatePayload(elements) {
 
 	for (const element of elements) {
 		const name = getMemberName(element);
-		if (!ts.isPropertySignature(element)) {
-			throw new Error(`Payload generation failed on "${name}" - not implemented`);
-		}
+		context.push(name);
+		try {
+			if (!ts.isPropertySignature(element)) {
+				context.throw('not implemented');
+				return null; // Unreachable
+			}
 
-		if (!element.type) {
-			throw new Error(`Payload generation failed on "${name}" - type definition is missing`);
-		}
+			if (!element.type) {
+				context.throw('type definition is missing');
+				return null; // Unreachable
+			}
 
-		payload[name] = generateSingleValue(element.type, name);
+			payload[name] = generateSingleValue(element.type, context);
+		} finally {
+			context.pop();
+		}
 	}
 
 	return payload;
