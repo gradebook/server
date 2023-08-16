@@ -1,5 +1,7 @@
 // @ts-check
-import {between} from './generic.js';
+import ts from 'typescript';
+import {assertTypeArgumentCount, flattenTypeReferences} from '../ts-util.js';
+import {between, getTypes} from './generic.js';
 
 /**
  * @typedef {{
@@ -7,6 +9,8 @@ import {between} from './generic.js';
  *   max: number;
  *   alphabet: string;
  * }} StringConstraints
+ *
+ * @typedef {import('../context.js').Context} Context
  */
 
 /** @type {StringConstraints} */
@@ -34,3 +38,47 @@ export function generateString(constraints = {}) {
 	return response;
 }
 
+/**
+ * @type {Record<string, (schema: ts.NodeArray<ts.TypeNode>, context: Context) => Partial<StringConstraints>>}
+ */
+const constrainedStringResolvers = {
+	Alphabet(schema, context) {
+		assertTypeArgumentCount(schema, 1, context);
+		const [alphabet] = schema;
+		if (!ts.isLiteralTypeNode(alphabet) || !ts.isStringLiteral(alphabet.literal)) {
+			context.throw('alphabet is not a literal string');
+			return {}; // Unreachable
+		}
+
+		return {alphabet: alphabet.literal.text};
+	},
+	Between(schema, context) {
+		assertTypeArgumentCount(schema, 2, context);
+		const [min, max] = schema;
+		if (!ts.isLiteralTypeNode(min) || !ts.isNumericLiteral(min.literal)) {
+			context.throw('min is not a literal number');
+			return {}; // Unreachable
+		}
+
+		if (!ts.isLiteralTypeNode(max) || !ts.isNumericLiteral(max.literal)) {
+			context.throw('max is not a literal number');
+			return {}; // Unreachable
+		}
+
+		return {min: Number(min.literal.text), max: Number(max.literal.text)};
+	},
+};
+
+/**
+ * @param {ts.NodeArray<ts.TypeNode>} schema
+ * @param {Context} context
+ * @returns {string}
+ */
+export function ConstrainedString(schema, context) {
+	assertTypeArgumentCount(schema, 1, context);
+	const typeArgument = schema[0];
+
+	const {types: rawConstraints, description} = getTypes(typeArgument, context);
+	const constraints = flattenTypeReferences(constrainedStringResolvers, rawConstraints, description, context);
+	return generateString(constraints);
+}

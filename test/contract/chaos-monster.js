@@ -1,9 +1,9 @@
 // @ts-check
 
 import ts from 'typescript';
-import {getMemberName} from './ts-util.js';
-import {generateString} from './chaos/string.js';
+import {getMemberName, resolveTypeReference} from './ts-util.js';
 import {between, context} from './chaos/generic.js';
+import {ConstrainedString, generateString} from './chaos/string.js';
 
 /**
  * @typedef {import('./context.js').Context} Context
@@ -22,7 +22,11 @@ const DEFAULT_ARRAY_CONSTRAINTS = {
 };
 
 /**
+ * @type {Record<string, (schema: ts.NodeArray<ts.TypeNode>, context: Context) => unknown>}
  */
+const rootResolvers = {
+	ConstrainedString,
+};
 
 /**
  * @param {ts.TypeNode} schema
@@ -58,6 +62,10 @@ function generateSingleValue(schema, context) {
 
 	if (ts.isArrayTypeNode(schema)) {
 		return generateArrayOf(schema.elementType, context);
+	}
+
+	if (ts.isTypeReferenceNode(schema)) {
+		return resolveTypeReference(rootResolvers, schema, context);
 	}
 
 	context.throw('value generation is not implemented');

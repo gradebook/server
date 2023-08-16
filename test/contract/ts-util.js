@@ -8,9 +8,12 @@ import chalk from 'chalk';
 const NETWORK_NAMESPACE = 'n';
 const LIB_ROOT = '../../node_modules/typescript/lib/';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+/**
+ * @typedef {import('./context.js').Context} Context
+ */
 
 /**
- * @param {ts.TypeElement | ts.InterfaceDeclaration | ts.QualifiedName} member
+ * @param {ts.TypeElement | ts.InterfaceDeclaration | ts.QualifiedName | ts.TypeReferenceNode} member
  */
 export function getMemberName(member, property = 'name') {
 	const name = member[property];
@@ -23,6 +26,11 @@ export function getMemberName(member, property = 'name') {
 	}
 
 	throw new Error('Unable to get name of member');
+}
+
+/** @param {ts.TypeReferenceNode} type */
+export function getTypeName(type) {
+	return getMemberName(type, 'typeName');
 }
 
 /**
@@ -102,6 +110,74 @@ export function extractTypingMetadata(member) {
 		skip,
 		only,
 	};
+}
+
+/**
+ * @param {ts.NodeArray<ts.TypeNode>} schema
+ * @param {number} count
+ * @param {Context} context
+ */
+export function assertTypeArgumentCount(schema, count, context) {
+	if (schema.length !== count) {
+		context.throw(`expected ${count} type argument(s) but got ${schema.length}`);
+	}
+}
+
+/**
+ * @template {string} T
+ * @template U
+ * @param {Record<T, (schema: ts.NodeArray<ts.TypeNode>, context: Context) => U>} resolvers
+ * @param {ReadonlyArray<ts.TypeNode>} pipeline
+ * @param {string} description
+ * @param {Context} context
+ */
+export function flattenTypeReferences(resolvers, pipeline, description, context) {
+	const localResolvers = {...resolvers};
+	const response = {};
+
+	for (const [index, next] of pipeline.entries()) {
+		if (!ts.isTypeReferenceNode(next)) {
+			if (description) {
+				context.push(` of ${description} (#${index + 1})`);
+			}
+
+			context.throw('not a type reference');
+		}
+
+		Object.assign(response, resolveTypeReference(localResolvers, next, context));
+		delete localResolvers[getMemberName(next, 'typeName')];
+	}
+
+	return response;
+}
+
+/**
+ * @template {string} T
+ * @template U
+ * @param {Record<T, (schema: ts.NodeArray<ts.TypeNode>, context: Context) => U>} resolvers
+ * @param {ts.TypeReferenceNode} schema
+ * @param {Context} context
+ * @returns {unknown}
+ */
+export function resolveTypeReference(resolvers, schema, context) {
+	const referenceName = getMemberName(schema, 'typeName');
+	const referenceResolver = resolvers[referenceName];
+
+	context.push(` > ${referenceName}`);
+
+	if (!referenceResolver) {
+		context.throw(`unknown constraint "${referenceName}"`);
+	}
+
+	if (!schema.typeArguments) {
+		context.throw(`no type arguments to "${referenceName}"`);
+	}
+
+	try {
+		return referenceResolver(schema.typeArguments, context);
+	} finally {
+		context.pop();
+	}
 }
 
 /**
