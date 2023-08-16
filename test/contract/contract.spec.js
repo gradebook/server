@@ -88,7 +88,7 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 				throw new Error(`${chalk.cyan(name)} is invalid - no BodyContract provided`);
 			}
 
-			payload = generatePayload(bodySchema);
+			payload = generatePayload(bodySchema, name);
 
 			throw new Error(`${chalk.cyan(name)} is invalid - cannot make ${chalk.red(rawMethod)} requests`);
 		}
