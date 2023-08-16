@@ -9,6 +9,7 @@ import * as testUtils from '../utils/index.js';
 import {startTestServer as makeApp} from '../utils/app.js';
 import {extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic, getMemberName} from './ts-util.js';
 import {clientDependencies} from './dependencies.js';
+import {generatePayload} from './chaos-monster.js';
 
 const {TEST_HOST_NAME} = testUtils.config;
 
@@ -87,7 +88,7 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 				throw new Error(`${chalk.cyan(name)} is invalid - no BodyContract provided`);
 			}
 
-			payload = {};
+			payload = generatePayload(bodySchema);
 
 			throw new Error(`${chalk.cyan(name)} is invalid - cannot make ${chalk.red(rawMethod)} requests`);
 		}
