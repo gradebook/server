@@ -80,6 +80,11 @@ export function extractTypingMetadata(member) {
 
 		skip = memberText === 'Skip';
 		only = memberText === 'Only';
+	} else if (
+		ts.isUnionTypeNode(member.type)
+		|| ts.isIntersectionTypeNode(member.type)
+	) {
+		throw new Error(`Unable to resolve contract for "${name} - types should be defined in the network (${NETWORK_NAMESPACE}).`);
 	} else {
 		throw new Error(`Unable to resolve contract for "${name}"`);
 	}
