@@ -16,6 +16,10 @@ const useTypescriptFormatter = false;
 
 const debug = createDebug('gb:contract');
 
+/**
+ * @typedef {Record<string, ts.NodeArray<ts.TypeElement>>} BodySchemas
+ */
+
 debug('Starting app and reading client files');
 const [vfs, app] = await (async function () {
 	const response = {};
@@ -117,12 +121,40 @@ function findDeclarations(root, names) {
 
 	return response;
 }
+
+/**
+ * @param {ts.InterfaceDeclaration} root
+ */
+function extractBodySchemas(root) {
+	/** @type {BodySchemas} */
+	const response = {};
+
+	for (const member of root.members) {
+		const name = getMemberName(member);
+		if (!ts.isPropertySignature(member)) {
+			throw new Error(`${name} is not a property signature`);
+		}
+
+		if (!member.type) {
+			throw new Error(`${name} does not have a type definition`);
+		}
+
+		if (!ts.isTypeLiteralNode(member.type)) {
+			throw new Error(`${name}'s type is not a type literal node`);
+		}
+
+		response[name] = member.type.members;
+	}
+
+	return response;
+}
+
 async function prepareTestCases() {
 	debug('Parsing API Contract');
 	const contractSource = ts.createSourceFile(rootNames[0], vfs[rootNames[0]], ts.ScriptTarget.ESNext);
 	const declarationFilter = /** @type {const} */ (['ApiContract', 'ApiBodyContract']);
 	/** @type {ReturnType<typeof findDeclarations<typeof declarationFilter[number]>>} */
-	const {ApiContract: contractNode/* , ApiBodyContract: bodyNode */} = findDeclarations(
+	const {ApiContract: contractNode, ApiBodyContract: bodyNode} = findDeclarations(
 		contractSource.statements,
 		new Set(declarationFilter),
 	);
@@ -131,6 +163,7 @@ async function prepareTestCases() {
 		throw new Error(`Unable to find ApiContract interface in ${rootNames[0]}`);
 	}
 
+	const bodySchemas = bodyNode ? extractBodySchemas(bodyNode) : {};
 
 	debug('Creating contract response cases');
 	const fileNameToTestCase = new Map();
