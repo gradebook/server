@@ -7,7 +7,7 @@ import ts from 'typescript';
 import supertest from 'supertest';
 import * as testUtils from '../utils/index.js';
 import {startTestServer as makeApp} from '../utils/app.js';
-import {interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic} from './ts-util.js';
+import {interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic, getMemberName} from './ts-util.js';
 import {clientDependencies} from './dependencies.js';
 
 const {TEST_HOST_NAME} = testUtils.config;
@@ -87,15 +87,50 @@ async function addTestCase(member, fileNameToTestCase) {
 	return {name: fileName, skip, only};
 }
 
+/**
+ * @template {string} T
+ * @param {ts.NodeArray<ts.Statement>} root
+ * @param {Set<string>} names (mutated)
+ * @returns {Partial<Record<T, ts.InterfaceDeclaration>>}
+ */
+function findDeclarations(root, names) {
+	/** @type {Partial<Record<T, ts.InterfaceDeclaration>>} */
+	const response = {};
+
+	for (const statement of root) {
+		if (!ts.isInterfaceDeclaration(statement)) {
+			continue;
+		}
+
+		const name = getMemberName(statement);
+
+		if (names.has(name)) {
+			response[name] = statement;
+			names.delete(name);
+		}
+	}
+
+	if (names.size > 0) {
+		const missingDeclarations = Array.from(names).join(', ');
+		throw new Error('Unable to find the following declaration(s): ' + missingDeclarations);
+	}
+
+	return response;
+}
 async function prepareTestCases() {
 	debug('Parsing API Contract');
 	const contractSource = ts.createSourceFile(rootNames[0], vfs[rootNames[0]], ts.ScriptTarget.ESNext);
+	const declarationFilter = /** @type {const} */ (['ApiContract', 'ApiBodyContract']);
+	/** @type {ReturnType<typeof findDeclarations<typeof declarationFilter[number]>>} */
+	const {ApiContract: contractNode/* , ApiBodyContract: bodyNode */} = findDeclarations(
+		contractSource.statements,
+		new Set(declarationFilter),
+	);
 
-	/** @type {ts.InterfaceDeclaration} */
-	// @ts-expect-error the find clause ensures that this is an InterfaceDeclaration
-	const contractNode = contractSource
-		.statements
-		.find(interfaceFilter('ApiContract'));
+	if (!contractNode) {
+		throw new Error(`Unable to find ApiContract interface in ${rootNames[0]}`);
+	}
+
 
 	debug('Creating contract response cases');
 	const fileNameToTestCase = new Map();
