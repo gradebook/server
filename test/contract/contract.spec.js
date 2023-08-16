@@ -44,12 +44,19 @@ const [vfs, app] = await (async function () {
 /**
  * @param {string} path
  * @param {'get'} method
+ * @param {Record<string, unknown> | undefined} payload
  */
-async function makeRequest(path, method = 'get') {
-	return supertest(app)[method](`/api/v0/${path}`)
+async function makeRequest(path, method = 'get', payload) {
+	const request = supertest(app)[method](`/api/v0/${path}`)
 		.set('host', TEST_HOST_NAME)
-		.set('cookie', testUtils.fixtures.cookies.trusted)
-		.then(response => response.body);
+		.set('cookie', testUtils.fixtures.cookies.trusted);
+
+	if (payload) {
+		request.set('content-type', 'application/json')
+			.send(JSON.stringify(payload));
+	}
+
+	return request.then(response => response.body);
 }
 
 /**
@@ -67,6 +74,8 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 	/** @type {Parameters<makeRequest>[1]} */
 	let method = 'get';
 	let requestUrl = name;
+	/** @type {Record<string, unknown> | undefined} */
+	let payload;
 
 	if (requestUrl.includes(':')) {
 		let rawMethod;
@@ -78,13 +87,15 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 				throw new Error(`${chalk.cyan(name)} is invalid - no BodyContract provided`);
 			}
 
+			payload = {};
+
 			throw new Error(`${chalk.cyan(name)} is invalid - cannot make ${chalk.red(rawMethod)} requests`);
 		}
 
 		method = rawMethod;
 	}
 
-	const proposal = JSON.stringify(await makeRequest(requestUrl, method), null, 2);
+	const proposal = JSON.stringify(await makeRequest(requestUrl, method, payload), null, 2);
 	const safeTestName = name.replace(/:/g, '__').replace(/[-/]/g, '_');
 	const fileName = `contract_${safeTestName}.ts`;
 	fileNameToTestCase.set(fileName, name);
