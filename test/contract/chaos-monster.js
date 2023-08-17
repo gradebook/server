@@ -151,6 +151,10 @@ function generateSingleValue(schema, context) {
 		}
 
 		if (ts.isLiteralExpression(literal)) {
+			if (ts.isNumericLiteral(literal)) {
+				return Number(literal.text);
+			}
+
 			return literal.text;
 		}
 	}
