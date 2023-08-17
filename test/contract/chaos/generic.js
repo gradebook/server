@@ -1,6 +1,7 @@
 // @ts-check
 import ts from 'typescript';
 import {Context} from '../context.js';
+import {assertTypeArgumentCount} from '../ts-util.js';
 
 /**
  * @param {number} min
@@ -29,5 +30,22 @@ export function getTypes(typeArgument, context) {
 	}
 
 	context.throw('unknown type argument');
-	return {types: [], description: 'Unreachable'};
+}
+
+/**
+ * @param {ts.NodeArray<ts.TypeNode>} schema
+ * @param {Context} context
+ */
+export function Between(schema, context) {
+	assertTypeArgumentCount(schema, 2, context);
+	const [min, max] = schema;
+	if (!ts.isLiteralTypeNode(min) || !ts.isNumericLiteral(min.literal)) {
+		context.throw('min is not a literal number');
+	}
+
+	if (!ts.isLiteralTypeNode(max) || !ts.isNumericLiteral(max.literal)) {
+		context.throw('max is not a literal number');
+	}
+
+	return {min: Number(min.literal.text), max: Number(max.literal.text)};
 }

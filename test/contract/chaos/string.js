@@ -1,7 +1,7 @@
 // @ts-check
 import ts from 'typescript';
 import {assertTypeArgumentCount, flattenTypeReferences} from '../ts-util.js';
-import {between, getTypes} from './generic.js';
+import {between, getTypes, Between} from './generic.js';
 
 /**
  * @typedef {{
@@ -52,21 +52,7 @@ const constrainedStringResolvers = {
 
 		return {alphabet: alphabet.literal.text};
 	},
-	Between(schema, context) {
-		assertTypeArgumentCount(schema, 2, context);
-		const [min, max] = schema;
-		if (!ts.isLiteralTypeNode(min) || !ts.isNumericLiteral(min.literal)) {
-			context.throw('min is not a literal number');
-			return {}; // Unreachable
-		}
-
-		if (!ts.isLiteralTypeNode(max) || !ts.isNumericLiteral(max.literal)) {
-			context.throw('max is not a literal number');
-			return {}; // Unreachable
-		}
-
-		return {min: Number(min.literal.text), max: Number(max.literal.text)};
-	},
+	Between,
 };
 
 /**

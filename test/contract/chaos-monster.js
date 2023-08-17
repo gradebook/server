@@ -4,6 +4,7 @@ import ts from 'typescript';
 import {getMemberName, resolveTypeReference} from './ts-util.js';
 import {between, context} from './chaos/generic.js';
 import {ConstrainedString, generateString} from './chaos/string.js';
+import {NumberBetween, generateNumber} from './chaos/number.js';
 
 /**
  * @typedef {import('./context.js').Context} Context
@@ -26,6 +27,7 @@ const DEFAULT_ARRAY_CONSTRAINTS = {
  */
 const rootResolvers = {
 	ConstrainedString,
+	Between: NumberBetween,
 };
 
 /**
@@ -54,6 +56,10 @@ function generateArrayOf(schema, context, constraints = {}) {
 function generateSingleValue(schema, context) {
 	if (schema.kind === ts.SyntaxKind.StringKeyword) {
 		return generateString();
+	}
+
+	if (schema.kind === ts.SyntaxKind.NumberKeyword) {
+		return generateNumber();
 	}
 
 	if (schema.kind === ts.SyntaxKind.BooleanKeyword) {
