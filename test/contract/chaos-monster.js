@@ -87,12 +87,12 @@ export function generatePayload(elements, initialContext) {
 		try {
 			if (!ts.isPropertySignature(element)) {
 				context.throw('not implemented');
-				return null; // Unreachable
+				return {}; // Unreachable
 			}
 
 			if (!element.type) {
 				context.throw('type definition is missing');
-				return null; // Unreachable
+				return {}; // Unreachable
 			}
 
 			payload[name] = generateSingleValue(element.type, context);
