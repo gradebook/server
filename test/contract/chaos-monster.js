@@ -5,28 +5,21 @@ import {assertTypeArgumentCount, getMemberName, getTypeName, resolveTypeReferenc
 import {between, context} from './chaos/generic.js';
 import {ConstrainedString, generateString} from './chaos/string.js';
 import {NumberBetween, generateNumber} from './chaos/number.js';
+import {generateArrayOf, resolveConstrainedArray} from './chaos/array.js';
 
 /**
  * @typedef {import('./context.js').Context} Context
- *
- *
- * @typedef {{
- *   min: number;
- *   max: number;
- * }} ArrayConstraints
  */
-
-/** @type {ArrayConstraints} */
-const DEFAULT_ARRAY_CONSTRAINTS = {
-	min: 0,
-	max: 25,
-};
 
 /**
  * @type {Record<string, (schema: ts.NodeArray<ts.TypeNode>, context: Context) => unknown>}
  */
 const rootResolvers = {
 	ConstrainedString,
+	ConstrainedArray(schema, context) {
+		const {definition, constraints} = resolveConstrainedArray(schema, context);
+		return generateArrayOf(generateSingleValue, definition, context, constraints);
+	},
 	Between: NumberBetween,
 	Stringified(schema, context) {
 		assertTypeArgumentCount(schema, 1, context);
@@ -34,28 +27,10 @@ const rootResolvers = {
 	},
 	Array(schema, context) {
 		assertTypeArgumentCount(schema, 1, context);
-		return generateArrayOf(schema[0], context);
+		return generateArrayOf(generateSingleValue, schema[0], context);
 	},
 };
 
-/**
- * @param {ts.TypeNode} schema
- * @param {Partial<ArrayConstraints>} constraints
- * @param {Context} context
- */
-function generateArrayOf(schema, context, constraints = {}) {
-	const {min, max} = Object.assign({}, DEFAULT_ARRAY_CONSTRAINTS, constraints);
-	context.unshift('Fill');
-
-	try {
-		return Array.from(
-			{length: between(min, max)},
-			() => generateSingleValue(schema, context),
-		);
-	} finally {
-		context.shift();
-	}
-}
 
 /**
  * @param {ts.TupleTypeNode} schema
@@ -120,7 +95,7 @@ function generateSingleValue(schema, context) {
 	}
 
 	if (ts.isArrayTypeNode(schema)) {
-		return generateArrayOf(schema.elementType, context);
+		return generateArrayOf(generateSingleValue, schema.elementType, context);
 	}
 
 	if (ts.isTypeReferenceNode(schema)) {

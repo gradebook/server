@@ -133,6 +133,7 @@ export function assertTypeArgumentCount(schema, count, context) {
  * @param {ReadonlyArray<ts.TypeNode>} pipeline
  * @param {string} description
  * @param {Context} context
+ * @returns {Partial<U>}
  */
 export function flattenTypeReferences(resolvers, pipeline, description, context) {
 	const localResolvers = {...resolvers};
