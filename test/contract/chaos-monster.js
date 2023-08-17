@@ -1,7 +1,7 @@
 // @ts-check
 
 import ts from 'typescript';
-import {getMemberName, resolveTypeReference} from './ts-util.js';
+import {getMemberName, getTypeName, resolveTypeReference} from './ts-util.js';
 import {between, context} from './chaos/generic.js';
 import {ConstrainedString, generateString} from './chaos/string.js';
 import {NumberBetween, generateNumber} from './chaos/number.js';
@@ -50,6 +50,32 @@ function generateArrayOf(schema, context, constraints = {}) {
 }
 
 /**
+ * @param {ts.TemplateLiteralTypeNode} schema
+ * @param {Context} context
+ */
+function resolveTemplateLiteralType(schema, context) {
+	let response = '';
+
+	for (const [index, member] of schema.templateSpans.entries()) {
+		let name = `index ${index}`;
+		try {
+			name = `${getTypeName(member.type)} (${index})`;
+		} catch {}
+
+		context.push(` > ${name}`);
+
+		try {
+			response += String(generateSingleValue(member.type, context));
+			response += member.literal.text;
+		} finally {
+			context.pop();
+		}
+	}
+
+	return response;
+}
+
+/**
  * @param {ts.TypeNode} schema
  * @param {Context} context
  */
@@ -81,6 +107,10 @@ function generateSingleValue(schema, context) {
 		} finally {
 			context.pop();
 		}
+	}
+
+	if (ts.isTemplateLiteralTypeNode(schema)) {
+		return resolveTemplateLiteralType(schema, context);
 	}
 
 	context.throw('value generation is not implemented');

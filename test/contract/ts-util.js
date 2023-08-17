@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  */
 
 /**
- * @param {ts.TypeElement | ts.InterfaceDeclaration | ts.QualifiedName | ts.TypeReferenceNode} member
+ * @param {ts.TypeElement | ts.InterfaceDeclaration | ts.QualifiedName | ts.TypeReferenceNode | ts.TypeNode} member
  */
 export function getMemberName(member, property = 'name') {
 	const name = member[property];
@@ -28,7 +28,7 @@ export function getMemberName(member, property = 'name') {
 	throw new Error('Unable to get name of member');
 }
 
-/** @param {ts.TypeReferenceNode} type */
+/** @param {ts.TypeReferenceNode | ts.TypeNode} type */
 export function getTypeName(type) {
 	return getMemberName(type, 'typeName');
 }
