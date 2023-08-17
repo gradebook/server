@@ -44,7 +44,7 @@ const [vfs, app] = await (async function () {
 
 /**
  * @param {string} path
- * @param {'get'} method
+ * @param {'get' | 'post' | 'put' | 'del'} method
  * @param {Record<string, unknown> | undefined} payload
  */
 async function makeRequest(path, method = 'get', payload) {
@@ -72,7 +72,7 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 		return {name, skip};
 	}
 
-	/** @type {Parameters<makeRequest>[1]} */
+	/** @type {Parameters<typeof makeRequest>[1]} */
 	let method = 'get';
 	let requestUrl = name;
 	/** @type {Record<string, unknown> | undefined} */
@@ -89,10 +89,9 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 			}
 
 			payload = generatePayload(bodySchema, name);
-
-			throw new Error(`${chalk.cyan(name)} is invalid - cannot make ${chalk.red(rawMethod)} requests`);
 		}
 
+		// @ts-expect-error
 		method = rawMethod;
 	}
 
