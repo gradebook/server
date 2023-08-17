@@ -51,8 +51,9 @@ const [vfs, app] = await (async function () {
  * @param {string} path
  * @param {'get' | 'post' | 'put' | 'del'} method
  * @param {Record<string, unknown> | undefined} payload
+ * @param {boolean} verbose
  */
-async function makeRequest(path, method = 'get', payload) {
+async function makeRequest(path, method = 'get', payload, verbose) {
 	const request = supertest(app)[method](`/api/v0/${path}`)
 		.set('host', TEST_HOST_NAME)
 		.set('cookie', testUtils.fixtures.cookies.trusted);
@@ -64,7 +65,12 @@ async function makeRequest(path, method = 'get', payload) {
 
 	return request.then(response => {
 		if (!response.ok) {
-			throw new Error(`Request failed - got a ${response.statusCode}`);
+			let suffix = '';
+			if (verbose) {
+				suffix = `\n${JSON.stringify({payload, body: response.body}, null, 2)}`;
+			}
+
+			throw new Error(`Request failed - got a ${response.statusCode}${suffix}`);
 		}
 
 		return response.body;
@@ -77,7 +83,7 @@ async function makeRequest(path, method = 'get', payload) {
  * @param {Map<string, string>} fileNameToTestCase
  */
 async function addTestCase(member, bodySchemas, fileNameToTestCase) {
-	const {name, expectedType, skip, only} = extractTypingMetadata(member);
+	const {name, expectedType, skip, only, verbose} = extractTypingMetadata(member);
 
 	if (skip) {
 		return {name, skip};
@@ -110,7 +116,7 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 		return {name, skip: true};
 	}
 
-	const proposal = JSON.stringify(await makeRequest(requestUrl, method, payload), null, 2);
+	const proposal = JSON.stringify(await makeRequest(requestUrl, method, payload, verbose), null, 2);
 	const safeTestName = name.replace(/:/g, '__').replace(/[-/]/g, '_');
 	const fileName = `contract_${safeTestName}.ts`;
 	fileNameToTestCase.set(fileName, name);
@@ -120,7 +126,7 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 		`export const ${safeTestName}: ${expectedType} = ${proposal};`,
 	].join('\n');
 
-	return {name: fileName, skip, only};
+	return {name: fileName, skip, only, verbose};
 }
 
 /**

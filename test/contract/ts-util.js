@@ -54,6 +54,7 @@ export function extractTypingMetadata(member) {
 	let renderedTypeSuffix = '';
 	let only = false;
 	let skip = false;
+	let verbose = false;
 
 	if (
 		ts.isArrayTypeNode(member.type)
@@ -72,7 +73,7 @@ export function extractTypingMetadata(member) {
 		&& ts.isIdentifier(member.type.typeName)
 	) {
 		const memberText = member.type.typeName.escapedText;
-		if (!(memberText === 'Skip' || memberText === 'Only')) {
+		if (!(memberText === 'Skip' || memberText === 'Only' || memberText === 'Verbose')) {
 			throw new Error(`Unable to resolve contract for "${name}" - unknown type-based command "${memberText}"`);
 		}
 
@@ -88,6 +89,7 @@ export function extractTypingMetadata(member) {
 
 		skip = memberText === 'Skip';
 		only = memberText === 'Only';
+		verbose = memberText === 'Verbose';
 	} else if (
 		ts.isUnionTypeNode(member.type)
 		|| ts.isIntersectionTypeNode(member.type)
@@ -109,6 +111,7 @@ export function extractTypingMetadata(member) {
 		expectedType: `${NETWORK_NAMESPACE}.${expectedType}${renderedTypeSuffix}`,
 		skip,
 		only,
+		verbose,
 	};
 }
 
