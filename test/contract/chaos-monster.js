@@ -73,17 +73,14 @@ function generateSingleValue(schema, context) {
 
 /**
  * @param {ts.NodeArray<ts.TypeElement>} elements
- * @param {string} initialContext
  */
-export function generatePayload(elements, initialContext) {
+export function generatePayload(elements) {
 	/** @type {Record<string, unknown>} */
 	const payload = {};
 
-	context.push(initialContext);
-
 	for (const element of elements) {
 		const name = getMemberName(element);
-		context.push(` > ${name}`);
+		context.push(name);
 		try {
 			if (!ts.isPropertySignature(element)) {
 				context.throw('not implemented');
@@ -100,8 +97,6 @@ export function generatePayload(elements, initialContext) {
 			context.pop();
 		}
 	}
-
-	context.pop();
 
 	return payload;
 }

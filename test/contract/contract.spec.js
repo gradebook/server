@@ -96,10 +96,10 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 		if (rawMethod !== 'get') {
 			const bodySchema = bodySchemas[name];
 			if (!bodySchema) {
-				throw new Error(`${chalk.cyan(name)} is invalid - no BodyContract provided`);
+				throw new Error('no BodyContract provided');
 			}
 
-			payload = generatePayload(bodySchema, name);
+			payload = generatePayload(bodySchema);
 		}
 
 		// @ts-expect-error
@@ -288,7 +288,7 @@ function formatResults(creationFailures, diagnostics, fileNameToTestCase, host) 
 		console.log(formatter(`${errorCount} ${errors} creating test cases:`));
 
 		for (const failure of creationFailures) {
-			console.log('\t%s: %s', failure.name, failure.error);
+			console.log('\t%s: %s', chalk.cyan(failure.name), failure.error);
 		}
 
 		console.log();
