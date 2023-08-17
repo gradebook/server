@@ -29,8 +29,17 @@ const rootResolvers = {
 		assertTypeArgumentCount(schema, 1, context);
 		return generateArrayOf(generateSingleValue, schema[0], context);
 	},
-};
+	Random(schema, context) {
+		assertTypeArgumentCount(schema, 1, context);
+		const type = schema[0];
+		if (ts.isUnionTypeNode(type)) {
+			const index = between(0, type.types.length - 1);
+			return generateSingleValue(type.types[index], context);
+		}
 
+		context.throw('First type argument should be a union type');
+	},
+};
 
 /**
  * @param {ts.TupleTypeNode} schema
