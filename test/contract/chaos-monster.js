@@ -74,6 +74,15 @@ function generateSingleValue(schema, context) {
 		return resolveTypeReference(rootResolvers, schema, context);
 	}
 
+	if (ts.isTypeLiteralNode(schema)) {
+		try {
+			context.push(' > ');
+			return generatePayload(schema.members);
+		} finally {
+			context.pop();
+		}
+	}
+
 	context.throw('value generation is not implemented');
 }
 
