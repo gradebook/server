@@ -50,6 +50,25 @@ function generateArrayOf(schema, context, constraints = {}) {
 }
 
 /**
+ * @param {ts.TupleTypeNode} schema
+ * @param {Context} context
+ */
+function generateTuple(schema, context) {
+	return schema.elements.map(element => {
+		if (!ts.isNamedTupleMember(element)) {
+			return generateSingleValue(element, context);
+		}
+
+		try {
+			context.push(getMemberName(element));
+			return generateSingleValue(element.type, context);
+		} finally {
+			context.pop();
+		}
+	});
+}
+
+/**
  * @param {ts.TemplateLiteralTypeNode} schema
  * @param {Context} context
  */
@@ -107,6 +126,10 @@ function generateSingleValue(schema, context) {
 		} finally {
 			context.pop();
 		}
+	}
+
+	if (ts.isTupleTypeNode(schema)) {
+		return generateTuple(schema, context);
 	}
 
 	if (ts.isTemplateLiteralTypeNode(schema)) {
