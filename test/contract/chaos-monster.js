@@ -136,6 +136,25 @@ function generateSingleValue(schema, context) {
 		}
 	}
 
+	if (ts.isLiteralTypeNode(schema)) {
+		const literal = schema.literal;
+		if (literal.kind === ts.SyntaxKind.NullKeyword) {
+			return null;
+		}
+
+		if (literal.kind === ts.SyntaxKind.FalseKeyword) {
+			return false;
+		}
+
+		if (literal.kind === ts.SyntaxKind.TrueKeyword) {
+			return true;
+		}
+
+		if (ts.isLiteralExpression(literal)) {
+			return literal.text;
+		}
+	}
+
 	if (ts.isTupleTypeNode(schema)) {
 		return generateTuple(schema, context);
 	}
