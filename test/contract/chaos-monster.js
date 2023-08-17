@@ -1,7 +1,7 @@
 // @ts-check
 
 import ts from 'typescript';
-import {getMemberName, getTypeName, resolveTypeReference} from './ts-util.js';
+import {assertTypeArgumentCount, getMemberName, getTypeName, resolveTypeReference} from './ts-util.js';
 import {between, context} from './chaos/generic.js';
 import {ConstrainedString, generateString} from './chaos/string.js';
 import {NumberBetween, generateNumber} from './chaos/number.js';
@@ -28,6 +28,10 @@ const DEFAULT_ARRAY_CONSTRAINTS = {
 const rootResolvers = {
 	ConstrainedString,
 	Between: NumberBetween,
+	Stringified(schema, context) {
+		assertTypeArgumentCount(schema, 1, context);
+		return JSON.stringify(generateSingleValue(schema[0], context));
+	},
 };
 
 /**
