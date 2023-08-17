@@ -62,7 +62,13 @@ async function makeRequest(path, method = 'get', payload) {
 			.send(JSON.stringify(payload));
 	}
 
-	return request.then(response => response.body);
+	return request.then(response => {
+		if (!response.ok) {
+			throw new Error(`Request failed - got a ${response.statusCode}`);
+		}
+
+		return response.body;
+	});
 }
 
 /**
