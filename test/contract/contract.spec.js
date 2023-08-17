@@ -14,6 +14,7 @@ import {generatePayload} from './chaos-monster.js';
 const {TEST_HOST_NAME} = testUtils.config;
 
 const useTypescriptFormatter = false;
+const skipFinalTypeChecking = false;
 
 const debug = createDebug('gb:contract');
 
@@ -23,6 +24,10 @@ const debug = createDebug('gb:contract');
 
 debug('Starting app and reading client files');
 const [vfs, app] = await (async function () {
+	/** @type {typeof makeApp} */
+	// @ts-expect-error
+	const realMakeApp = skipFinalTypeChecking ? () => Promise.resolve() : makeApp;
+
 	const response = {};
 	/** @type {Awaited<ReturnType<makeApp>>} */
 	let app;
@@ -32,7 +37,7 @@ const [vfs, app] = await (async function () {
 				response[file] = contents;
 			}),
 		),
-		makeApp().then(r => {
+		realMakeApp().then(r => {
 			debug('app started');
 			app = r;
 		}),
@@ -93,6 +98,10 @@ async function addTestCase(member, bodySchemas, fileNameToTestCase) {
 
 		// @ts-expect-error
 		method = rawMethod;
+	}
+
+	if (skipFinalTypeChecking) {
+		return {name, skip: true};
 	}
 
 	const proposal = JSON.stringify(await makeRequest(requestUrl, method, payload), null, 2);
