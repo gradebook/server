@@ -199,10 +199,11 @@ async function prepareTestCases() {
 	const onlyTestCases = [];
 	/** @type {string[]} */
 	const skippedTestCases = [];
+	/** @type {Array<{name: string, error: string}>} */
 	const creationFailures = [];
 
 	await Promise.all(
-		contractNode.members.map(member =>
+		contractNode.members.map((member, index) =>
 			addTestCase(member, bodySchemas, fileNameToTestCase)
 				.then(response => {
 					if (response.skip) {
@@ -217,7 +218,15 @@ async function prepareTestCases() {
 					testCases.push(response.name);
 				})
 				.catch(error => {
-					creationFailures.push(error.message);
+					let name;
+
+					try {
+						name = getMemberName(member);
+					} catch {
+						name = `Property ${index + 1}`;
+					}
+
+					creationFailures.push({name, error: error.message});
 				}),
 		),
 	);
@@ -256,7 +265,7 @@ function mapValueToColor(value, stops) {
 }
 
 /**
- * @param {string[]} creationFailures
+ * @param {Array<{name: string; error: string}>} creationFailures
  * @param {Readonly<ts.Diagnostic[]>} diagnostics
  * @param {Map<string, string>} fileNameToTestCase
  * @param {ts.CompilerHost} host
@@ -273,7 +282,7 @@ function formatResults(creationFailures, diagnostics, fileNameToTestCase, host) 
 		console.log(formatter(`${errorCount} ${errors} creating test cases:`));
 
 		for (const failure of creationFailures) {
-			console.log('\t%s', failure);
+			console.log('\t%s: %s', failure.name, failure.error);
 		}
 
 		console.log();
