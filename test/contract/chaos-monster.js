@@ -32,6 +32,10 @@ const rootResolvers = {
 		assertTypeArgumentCount(schema, 1, context);
 		return JSON.stringify(generateSingleValue(schema[0], context));
 	},
+	Array(schema, context) {
+		assertTypeArgumentCount(schema, 1, context);
+		return generateArrayOf(schema[0], context);
+	},
 };
 
 /**
