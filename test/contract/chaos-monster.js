@@ -162,6 +162,10 @@ export function generatePayload(elements) {
 	const payload = {};
 
 	for (const element of elements) {
+		if (element.questionToken && between(0, 1)) {
+			continue;
+		}
+
 		const name = getMemberName(element);
 		context.push(name);
 		try {
