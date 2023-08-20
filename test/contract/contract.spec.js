@@ -11,6 +11,21 @@ import {extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic,
 import {clientDependencies} from './dependencies.js';
 import {generatePayload} from './chaos-monster.js';
 
+/**
+ /* eslint-disable @typescript-eslint/no-unused-vars * /
+ type Skip<T> = T;
+ type Only<T> = T;
+ type Verbose<T> = T;
+ type Random<T> = T;
+ type OptionalKey<T> = T;
+ type Between<TMin extends number, TMax extends number> = number & {__between?: never};
+ type Alphabet<TAlphabetType extends string> = string & {__alphabet?: never};
+ type ConstrainedString<TConstraints extends Between<number, number> | Alphabet<string>> = string;
+ type ConstrainedArray<TArrayType, TConstraints extends Between<number, number>> = TArrayType;
+ type Stringified<T> = T;
+ /* eslint-enable @typescript-eslint/no-unused-vars * /
+*/
+
 const {TEST_HOST_NAME} = testUtils.config;
 
 const useTypescriptFormatter = false;
