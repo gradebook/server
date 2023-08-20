@@ -27,5 +27,7 @@ export default function slowDownResponse(request, response, next) {
 		next(new BadRequestError({context: 'Max delay is 10 minutes'}));
 	}
 
+	response.setHeader('x-synthetic-delay', numericDelay);
+
 	setTimeout(next, numericDelay * 1000, undefined);
 }
