@@ -65,10 +65,10 @@
   dependencies:
     node-fetch "^2.0.0"
 
-"@gradebook/core-developer-tools@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@gradebook/core-developer-tools/-/core-developer-tools-0.2.0.tgz#3098ec6e2b43eb41bc8805b8172e758ffe91ad9a"
-  integrity sha512-NMvP4wPeJpK7qaN7cUYIcWhxB+LJy9A9adlL2zOqotFksTXwx6HBI17YQs6DugKcK38Q5DyiiqkXEyzF/rCQSA==
+"@gradebook/core-developer-tools@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/core-developer-tools/-/core-developer-tools-0.2.1.tgz#a09d249886830d68db1127089e709e4c54d5be5c"
+  integrity sha512-ZsLdZd0wXRmP/tJdo8v2JB8wumHXmiWRMzBrgOMsjAhAiL9JRlaGKPmlSqZ0iXgsECEwtSTatfXYu2Bo/GH68g==
 
 "@gradebook/course-serializer@0.3.3":
   version "0.3.3"
