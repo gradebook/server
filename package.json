@@ -60,7 +60,7 @@
     "@gradebook/together": "0.2.0",
     "@types/express": "4.17.17",
     "@types/express-session": "1.17.7",
-    "c8": "^7.11.3",
+    "c8": "^8.0.0",
     "chai": "4.3.8",
     "chokidar": "3.5.3",
     "eslint-plugin-mocha": "10.1.0",
