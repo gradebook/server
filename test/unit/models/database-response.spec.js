@@ -21,7 +21,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 	it('diff uses unsnaked values, but changeset uses snaked values', function () {
 		instance.set('credit_hours', 'credit_hours__');
 
-		expect(instance.diff, 'Diff contains same data as internall diff').to.deep.equal(instance._diff);
+		expect(instance.diff, 'Diff contains same data as internal diff').to.deep.equal(instance._diff);
 		expect(instance.diff, 'Diff copies internal diff').to.not.equal(instance._diff);
 		expect(instance._diff, 'Internal diff stores unsnaked').to.deep.equal({
 			credits: 'credit_hours__',
@@ -37,7 +37,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 		afterEach(removeQueryTracking);
 
 		it('short-circuits when there are no changes', async function () {
-			const response = await instance.commit();
+			const response = await instance.commit(null, null);
 			expect(response).to.be.empty;
 			expect(recallQueries()).to.be.empty;
 		});
@@ -61,7 +61,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 				name: 'name__',
 			});
 
-			const response = await instance.commit();
+			const response = await instance.commit(null, null);
 			expect(response).to.deep.equal({
 				credits: 'credit_hours__',
 				name: 'name__',
