@@ -6,7 +6,6 @@ import * as testUtils from '../../utils/index.js';
 import config from '../../../lib/config.js';
 import {clearCache, clearCacheIfNeeded} from '../../../lib/utils/clear-cloudflare-cache.js';
 import log from '../../../lib/logging.js';
-import hostMap from '../../../lib/services/host.js';
 
 describe('Unit > Utils > ClearCloudflareCache', function () {
 	let gotStub;
@@ -37,6 +36,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 		it('Gracefully handles HTTP errors', async function () {
 			const errorToThrow = new Error('GOT');
 			errorToThrow.name = 'HTTPError';
+			// @ts-expect-error
 			errorToThrow.body = '{"fromTest": true}';
 			gotStub.rejects(errorToThrow);
 
@@ -48,6 +48,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 		it('Cannot handle other errors', async function () {
 			const errorToThrow = new Error('ECONNRESET');
+			// @ts-expect-error
 			errorToThrow.fromTest = true;
 			gotStub.rejects(errorToThrow);
 
@@ -103,7 +104,10 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			expect(logErrorStub.calledOnce).to.be.true;
 		});
 
-		it.skip('purges all hosts', async function () {
+		it('purges all hosts', async function () {
+			/** @type {typeof import('../../../lib/services/host.js')['hostMap']} */
+			const hostMap = new Map();
+
 			const originalHostService = Array.from(Object.entries(hostMap));
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
 
@@ -113,7 +117,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			hostMap.set('c.gradebook.app', 'c');
 
 			try {
-				await clearCacheIfNeeded();
+				await clearCacheIfNeeded(hostMap);
 				expect(gotStub.calledOnce).to.be.true;
 				expect(gotStub.args[0][1].body).to.deep.equal(JSON.stringify({
 					files: [
