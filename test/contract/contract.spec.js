@@ -75,7 +75,7 @@ async function addTestCase(member, fileNameToTestCase) {
 	}
 
 	const proposal = JSON.stringify(await makeRequest(requestUrl, method), null, 2);
-	const safeTestName = name.replace(/:/g, '__').replace(/[-/]/g, '_');
+	const safeTestName = name.replaceAll(':', '__').replaceAll(/[-/]/g, '_');
 	const fileName = `contract_${safeTestName}.ts`;
 	fileNameToTestCase.set(fileName, name);
 

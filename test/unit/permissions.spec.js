@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import {expect} from 'chai';
 import {settings} from '../../lib/services/settings/index.js';
 import * as testUtils from '../utils/index.js';
-
 import alwaysValid from '../../lib/utils/noop.js';
 import * as permissions from '../../lib/services/permissions/index.js';
 import createCourse from '../../lib/services/permissions/create-course.js';
