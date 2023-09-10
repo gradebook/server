@@ -43,7 +43,6 @@
     "express-brute": "1.0.1",
     "express-session": "1.17.3",
     "ghost-ignition": "4.6.3",
-    "got": "12.6.1",
     "ioredis": "5.3.2",
     "knex": "2.5.1",
     "lodash.get": "4.4.2",
