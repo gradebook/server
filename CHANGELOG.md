@@ -1,3 +1,8 @@
+# 4.8.8
+
+ - fix(fetch): include response body on invalid content types
+ - improve logging on failed cloudflare cache requests
+
 # 4.8.7
 
  - Fix CI failures
