@@ -139,7 +139,7 @@ async function prepareTestCases() {
 
 function typeCheck() {
 	debug('Typechecking');
-	const program = ts.createProgram({options: {noEmit: true}, rootNames, host});
+	const program = ts.createProgram({options: {noEmit: true, lib: ['lib.es2022.d.ts']}, rootNames, host});
 
 	const diagnostics = ts.getPreEmitDiagnostics(program);
 	return diagnostics;
