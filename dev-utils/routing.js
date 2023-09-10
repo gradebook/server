@@ -11,6 +11,7 @@ import delay from './delay.js';
  * @param {import('express').Application} app
  */
 export async function useDeveloperRouting(app) {
+	app.use(delay);
 	app.use('/assets', express.static(viewRoot));
 	// Check if the file exists locally, or forward the request to the frontend
 	// Note: we ignore the index because it's handled by `home.app`
@@ -27,6 +28,4 @@ export async function useDeveloperRouting(app) {
 		const {useLiveReload} = await import('./live-reload.js');
 		useLiveReload(app);
 	}
-
-	app.use(delay);
 }

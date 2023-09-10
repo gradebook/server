@@ -14,7 +14,7 @@
     ],
     "allowJs": true,
     "noEmit": true,
-    "lib": ["es2017"],
+    "lib": ["es2022"],
     "moduleResolution": "node",
     "target": "ESNext",
     "module": "ESNext",

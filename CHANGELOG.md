@@ -1,3 +1,8 @@
+# 4.8.6
+
+ - allow `null` as a color in course settings
+ - finalize UserIssueReporter API
+
 # 4.8.5
 
  - audit security headers and apply on home page

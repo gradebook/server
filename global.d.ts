@@ -1,4 +1,4 @@
-import type QueryString from 'querystring';
+import type QueryString from 'querystring'; // eslint-disable-line @typescript-eslint/no-restricted-imports
 import type Express from 'express';
 import type * as eCore from 'express-serve-static-core';
 import {type AbstractDatabaseResponse} from './lib/models/database-response.js';

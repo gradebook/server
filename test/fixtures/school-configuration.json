@@ -1,6 +1,7 @@
 {
   "aggie": {
     "name": "Aggie",
+    "partner": true,
     "theme": {
       "primary": "#500000",
       "hover": "#880000",

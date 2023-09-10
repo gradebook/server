@@ -1,12 +1,11 @@
 // @ts-check
 import process from 'process';
 import path from 'path';
+import {fileURLToPath} from 'url';
 /* eslint-disable-next-line import/no-unassigned-import */
 import '../test/global.js'; // Update env
-import {fileURLToPath} from 'url';
 import * as config from '../test/utils/test-config.js';
 import {fixtures} from '../test/fixtures/example-data.js';
-
 import {migrator, knex} from '../lib/database/index.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
@@ -32,7 +31,7 @@ try {
 				query = txn(table).insert(values).toString().replace(/^insert/i, 'insert or replace');
 			} else {
 				const insert = txn(table).insert(values).toString();
-				const update = txn(table).update(values).toString().replace(/^update(.*?)set\s/gi, '');
+				const update = txn(table).update(values).toString().replaceAll(/^update(.*?)set\s/gi, '');
 
 				query = `${insert} ON DUPLICATE KEY UPDATE ${update}`;
 			}

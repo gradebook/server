@@ -133,7 +133,7 @@ export function dedupeDiagnostics(diagnostics) {
  * @param {ts.CompilerHost} host
  */
 export function formatDiagnostic(diagnostic, fileNameToTestCase, host) {
-	if (!diagnostic.file || typeof diagnostic.start === 'undefined') {
+	if (!diagnostic.file || diagnostic.start === undefined) {
 		throw new Error('test');
 	}
 

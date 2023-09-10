@@ -6,6 +6,8 @@ on:
       - release
       - master
       - renovate/*
+    tags-ignore:
+      - '**'
   pull_request:
     branches:
       '*'
@@ -21,7 +23,7 @@ jobs:
     - uses: gradebook/actions/actions/setup@master
     - name: Install Dependencies and setup
       run: |
-        yarn install --frozen-lockfile
+        yarn install --frozen-lockfile --prefer-offline
         NODE_ENV=testing yarn knex migrate:latest
         node scripts/initialize-test-db.js
     - name: Unit Tests
@@ -43,7 +45,7 @@ jobs:
     - uses: gradebook/actions/actions/setup@master
     - name: Configure Dependencies
       run: |
-        yarn install --frozen-lockfile
+        yarn install --frozen-lockfile --prefer-offline
         mkdir -p lib/frontend/client/release
         echo '<title>gradebook</title>' > lib/frontend/client/release/index.html
     - name: Start MySQL
@@ -74,7 +76,7 @@ jobs:
     steps:
     - uses: gradebook/actions/actions/setup@master
     - name: Install dependencies and setup
-      run: yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile --prefer-offline
     - name: Lint and Typecheck
       run: |
         yarn lint
