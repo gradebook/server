@@ -1,3 +1,7 @@
+# 4.8.7
+
+ - Fix CI failures
+
 # 4.8.6
 
  - allow `null` as a color in course settings

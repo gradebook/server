@@ -14,6 +14,9 @@ describe('Functional > API Routes', function () {
 	let instance;
 
 	before(async function () {
+		this.slow(2500);
+		this.timeout(10_000);
+
 		nock('http://nock.gbdev.cf')
 			.get('/school-configuration.json')
 			.times(0)
@@ -39,7 +42,6 @@ describe('Functional > API Routes', function () {
 		});
 
 		it('/api/v0/me', async function () {
-			this.timeout(100_100);
 			const trustedUser = Object.assign({}, testUtils.fixtures.trustedUser);
 
 			trustedUser.created = trustedUser.created_at;

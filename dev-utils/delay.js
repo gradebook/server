@@ -25,6 +25,7 @@ export default function slowDownResponse(request, response, next) {
 
 	if (numericDelay > 600) {
 		next(new BadRequestError({context: 'Max delay is 10 minutes'}));
+		return;
 	}
 
 	response.setHeader('x-synthetic-delay', numericDelay);
