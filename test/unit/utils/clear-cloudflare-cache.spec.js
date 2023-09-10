@@ -1,21 +1,25 @@
 // @ts-check
-import got from 'got';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import * as testUtils from '../../utils/index.js';
 import config from '../../../lib/config.js';
-import {clearCache, clearCacheIfNeeded} from '../../../lib/utils/clear-cloudflare-cache.js';
+import {clearCache, clearCacheIfNeeded, __test} from '../../../lib/utils/clear-cloudflare-cache.js';
 import log from '../../../lib/logging.js';
+import {FetchError} from '../../../lib/utils/enhanced-fetch.js';
 
 describe('Unit > Utils > ClearCloudflareCache', function () {
-	let gotStub;
+	let restore;
+	let fetchStub;
 
 	beforeEach(function () {
-		gotStub = sinon.stub(got, 'post').resolves({body: '{"success": true}'});
+		// @TODO: switch to nock
+		fetchStub = sinon.stub().resolves({success: true});
+		restore = __test.setFetch(fetchStub);
 	});
 
 	afterEach(function () {
 		sinon.restore();
+		restore();
 	});
 
 	describe('clearCache', function () {
@@ -28,21 +32,18 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 			await clearCache('zone', 'token', ['url']);
 
-			expect(gotStub.calledOnce).to.be.true;
-			expect(gotStub.args[0][0]).to.equal('https://api.cloudflare.com/client/v4/zones/zone/purge_cache');
-			expect(gotStub.args[0][1]).to.deep.equal({headers, body});
+			expect(fetchStub.calledOnce).to.be.true;
+			expect(fetchStub.args[0][0]).to.equal('https://api.cloudflare.com/client/v4/zones/zone/purge_cache');
+			expect(fetchStub.args[0][1]).to.deep.equal({method: 'POST', headers, body});
 		});
 
 		it('Gracefully handles HTTP errors', async function () {
-			const errorToThrow = new Error('GOT');
-			errorToThrow.name = 'HTTPError';
-			// @ts-expect-error
-			errorToThrow.body = '{"fromTest": true}';
-			gotStub.rejects(errorToThrow);
+			const errorToThrow = new FetchError('GOT', {fromTest: true});
+			fetchStub.rejects(errorToThrow);
 
 			const response = await clearCache('zone', 'token', ['url']);
 
-			expect(gotStub.calledOnce).to.be.true;
+			expect(fetchStub.calledOnce).to.be.true;
 			expect(response.fromTest).to.be.true;
 		});
 
@@ -50,7 +51,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			const errorToThrow = new Error('ECONNRESET');
 			// @ts-expect-error
 			errorToThrow.fromTest = true;
-			gotStub.rejects(errorToThrow);
+			fetchStub.rejects(errorToThrow);
 
 			try {
 				await clearCache('zone', 'token', ['url']);
@@ -73,13 +74,13 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 		it('skips when config disallows', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(false);
 			await clearCacheIfNeeded();
-			expect(gotStub.called).to.be.false;
+			expect(fetchStub.called).to.be.false;
 		});
 
 		it('handles success well', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
 			await clearCacheIfNeeded();
-			expect(gotStub.calledOnce).to.be.true;
+			expect(fetchStub.calledOnce).to.be.true;
 			expect(logInfoStub.calledOnce).to.be.true;
 			expect(logInfoStub.args[0][0]).to.match(/success/i);
 		});
@@ -87,7 +88,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 		it('handles rejection well', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
 			const error = new Error('FAIL');
-			gotStub.rejects(error);
+			fetchStub.rejects(error);
 
 			await clearCacheIfNeeded();
 			expect(logErrorStub.calledTwice).to.be.true;
@@ -97,8 +98,8 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 		it('handles mixed signals', async function () {
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
-			const response = {body: '{"success": false}'};
-			gotStub.resolves(response);
+			const response = {success: false};
+			fetchStub.resolves(response);
 
 			await clearCacheIfNeeded();
 			expect(logErrorStub.calledOnce).to.be.true;
@@ -118,8 +119,8 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 
 			try {
 				await clearCacheIfNeeded(hostMap);
-				expect(gotStub.calledOnce).to.be.true;
-				expect(gotStub.args[0][1].body).to.deep.equal(JSON.stringify({
+				expect(fetchStub.calledOnce).to.be.true;
+				expect(fetchStub.args[0][1].body).to.deep.equal(JSON.stringify({
 					files: [
 						'https://a.gradebook.app/api/v0/version',
 						'https://b.gradebook.app/api/v0/version',
