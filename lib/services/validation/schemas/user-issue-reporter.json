@@ -36,9 +36,15 @@
       "maxLength": 5000
     },
     "debug_data": {
-      "type": "string",
-      "minLength": 50,
-      "maxLength": 10000
+      "oneOf": [{
+        "type": "string",
+        "maxLength": 0,
+        "minLength": 0
+      }, {
+        "type": "string",
+        "minLength": 50,
+        "maxLength": 10000
+      }]
     },
     "allow_contacting": {
       "type": "boolean"

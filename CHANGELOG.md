@@ -1,3 +1,10 @@
+# 4.8.9
+
+ - :bug: allow user issue reporting without debug data
+ - widen content-type check
+ - fix incorrect negation in enhanced fetch
+ - include sid in html response header
+
 # 4.8.8
 
  - fix(fetch): include response body on invalid content types
