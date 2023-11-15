@@ -60,7 +60,7 @@
       "lifetime": 21600
     },
     "createCourse": {
-      "freeRetries": 19,
+      "freeRetries": 49,
       "minWait": 604800000,
       "maxWait": 604800000,
       "lifetime": 604800
