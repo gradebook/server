@@ -62,7 +62,7 @@
     "c8": "^8.0.0",
     "chai": "4.3.10",
     "chokidar": "3.5.3",
-    "eslint-plugin-mocha": "10.1.0",
+    "eslint-plugin-mocha": "10.2.0",
     "execa": "8.0.1",
     "mocha": "10.2.0",
     "nock": "13.3.7",
