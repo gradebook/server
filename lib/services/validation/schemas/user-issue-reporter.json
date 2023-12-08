@@ -43,7 +43,7 @@
       }, {
         "type": "string",
         "minLength": 50,
-        "maxLength": 10000
+        "maxLength": 50000
       }]
     },
     "allow_contacting": {

@@ -1,3 +1,8 @@
+# 4.8.10
+
+ - increase max length of debug data
+ - increase create course rate limit
+
 # 4.8.9
 
  - :bug: allow user issue reporting without debug data
