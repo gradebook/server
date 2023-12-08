@@ -1,3 +1,7 @@
+# 4.8.11
+
+ - fix lockfile issues
+
 # 4.8.10
 
  - increase max length of debug data
