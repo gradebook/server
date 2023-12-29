@@ -3359,9 +3359,9 @@ long-timeout@^0.1.1, long-timeout@~0.1.1:
   integrity sha512-BFRuQUqc7x2NWxfJBCyUrN8iYUYznzL9JROmRz1gZ6KlOIgmoD+njPVbb+VNn2nGMKggMsK79iUNErillsrx7w==
 
 loupe@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/loupe/-/loupe-3.0.1.tgz#3b66a94887d7af003946c147cc664c3c9233270e"
-  integrity sha512-phbaE2fPsRe8cQ7Cy5Ze5p9JLmpiaqGT45RCUWYYjZgYPBoeC3vqrlYPj4BQ82ln60ZtM3Iq00PPC3FyUdS4Kw==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/loupe/-/loupe-3.0.2.tgz#13435bc5a2751a4da74c0ec4841f56970a3387d5"
+  integrity sha512-Tzlkbynv7dtqxTROe54Il+J4e/zG2iehtJGZUYpTv8WzlkW9qyEcE83UhGJCeuF3SCfzHuM5VWhBi47phV3+AQ==
   dependencies:
     get-func-name "^2.0.1"
 
