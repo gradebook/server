@@ -5,6 +5,7 @@ import nock from 'nock';
 import {startTestServer as makeApp} from '../utils/app.js';
 import * as testUtils from '../utils/index.js';
 import {importJson} from '../../lib/utils/import-json.js';
+import {WAITING_FOR_CLIENT_UPDATE} from '../../lib/controllers/core-data.js';
 
 const schoolConfigurationFixture = await importJson('../fixtures/school-configuration.json', import.meta.url);
 
@@ -176,8 +177,11 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body.primarySemester).to.be.undefined;
-					expect(body.activeSemesters).to.be.undefined;
+					if (!WAITING_FOR_CLIENT_UPDATE) {
+						expect(body.primarySemester).to.be.undefined;
+						expect(body.activeSemesters).to.be.undefined;
+					}
+
 					expect(body.categories).to.be.an('array').with.length(13);
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
@@ -230,8 +234,10 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
-					expect(body.primarySemester).to.be.undefined;
-					expect(body.activeSemesters).to.be.undefined;
+					if (!WAITING_FOR_CLIENT_UPDATE) {
+						expect(body.primarySemester).to.be.undefined;
+						expect(body.activeSemesters).to.be.undefined;
+					}
 				});
 		});
 	});
