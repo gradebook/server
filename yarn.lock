@@ -126,10 +126,10 @@
     urijs "^1.19.6"
     zx "^4.2.0"
 
-"@gradebook/time@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-1.0.0.tgz#8a5732c3a280a82afcabaf66f3a3b59d9a9c8296"
-  integrity sha512-TdKLLfZ/UrpMhcl6pfn90Vd5LPZPIJmtxFIiXquxP0k9KVeO3rsSvq8w379TIBggn7IEUOaxZVXUmiL8UZxohw==
+"@gradebook/time@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@gradebook/time/-/time-1.1.0.tgz#d7428987f2ebf102564031afb9cf8a388ea7ed3d"
+  integrity sha512-tAVXOwbe9gEfCcPNMpJVJuRIpbIEr+XZ+3D71wszrauEI2TW1U2SgXyQCA5or5WSgyY8Ge6CDaWLZqPv0YFEQA==
   dependencies:
     dayjs "^1.10.7"
 
