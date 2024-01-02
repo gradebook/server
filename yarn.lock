@@ -147,6 +147,11 @@
   dependencies:
     execa "^4.0.1"
 
+"@gradebook/trusted-request@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@gradebook/trusted-request/-/trusted-request-0.2.1.tgz#930b3615bdba2115cbb4a8d2423e6aeb7c613956"
+  integrity sha512-qLTXIZLC+KtJ9q7z/M7wGIGKnxfQ4LhhcTRp5ct1anD6UqjKEect8X4PhcgddnN7t/IytVX4eUBm1nya75mwsQ==
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"
