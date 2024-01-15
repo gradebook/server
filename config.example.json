@@ -93,6 +93,7 @@
     "trustedIps": [],
     "message": "Resource could not be found."
   },
+  "userUploadsRoot": null,
   "userIssueReporting": null,
   "session length": 604800000,
   "cdnRoot": "https://static.gradebook.app/sYbR9JXKTI/",
