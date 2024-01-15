@@ -80,6 +80,12 @@
       "minWait": 604800000,
       "maxWait": 604800000,
       "lifetime": 604800
+    },
+    "syllabus": {
+      "freeRetries": 69,
+      "minWait": 604800000,
+      "maxWait": 604800000,
+      "lifetime": 604800
     }
   },
   "redis": false,
