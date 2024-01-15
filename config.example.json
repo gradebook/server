@@ -16,6 +16,10 @@
       "filename": "content/database.db"
     }
   },
+  "globalStore": {
+    "database": null,
+    "url": null
+  },
   "gateway": null,
   "domain": ".gbdev.cf",
   "sessionCookie": "agbsid",
