@@ -96,7 +96,7 @@
     "port": 2469
   },
   "internalRequests": {
-    "trustedIps": [],
+    "trustedIps": ["127.0.0.1"],
     "message": "Resource could not be found."
   },
   "userUploadsRoot": null,
