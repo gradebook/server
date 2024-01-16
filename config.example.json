@@ -16,6 +16,10 @@
       "filename": "content/database.db"
     }
   },
+  "globalStore": {
+    "database": null,
+    "url": null
+  },
   "gateway": null,
   "domain": ".gbdev.cf",
   "sessionCookie": "agbsid",
@@ -76,6 +80,12 @@
       "minWait": 604800000,
       "maxWait": 604800000,
       "lifetime": 604800
+    },
+    "syllabus": {
+      "freeRetries": 69,
+      "minWait": 604800000,
+      "maxWait": 604800000,
+      "lifetime": 604800
     }
   },
   "redis": false,
@@ -85,6 +95,11 @@
     "host": "127.0.0.1",
     "port": 2469
   },
+  "internalRequests": {
+    "trustedIps": ["127.0.0.1"],
+    "message": "Resource could not be found."
+  },
+  "userUploadsRoot": null,
   "userIssueReporting": null,
   "session length": 604800000,
   "cdnRoot": "https://static.gradebook.app/sYbR9JXKTI/",

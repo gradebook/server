@@ -5,6 +5,7 @@ import nock from 'nock';
 import {startTestServer as makeApp} from '../utils/app.js';
 import * as testUtils from '../utils/index.js';
 import {importJson} from '../../lib/utils/import-json.js';
+import {WAITING_FOR_CLIENT_UPDATE} from '../../lib/controllers/core-data.js';
 
 const schoolConfigurationFixture = await importJson('../fixtures/school-configuration.json', import.meta.url);
 
@@ -38,7 +39,8 @@ describe('Functional > API Routes', function () {
 				.set('host', TEST_HOST_NAME)
 				.expect('content-type', /text\/html/)
 				.expect(200)
-				.expect(/<title>gradebook<\/title>/i);
+				.expect(/<title>gradebook<\/title>/i)
+				.expect(/<meta name="x-semesters" value="%7B%22primarySemester%22:%222019S%22,%22activeSemesters%22:%5B%222019S%22%5D%7D" \/>/);
 		});
 
 		it('/api/v0/me', async function () {
@@ -175,6 +177,11 @@ describe('Functional > API Routes', function () {
 				.set('cookie', testUtils.fixtures.cookies.trusted)
 				.expect(200)
 				.expect(({body}) => {
+					if (!WAITING_FOR_CLIENT_UPDATE) {
+						expect(body.primarySemester).to.be.undefined;
+						expect(body.activeSemesters).to.be.undefined;
+					}
+
 					expect(body.categories).to.be.an('array').with.length(13);
 					expect(body.courses).to.be.an('array').with.length(5);
 					for (const category of body.categories) {
@@ -189,6 +196,47 @@ describe('Functional > API Routes', function () {
 						expect(Object.keys(course)).to.deep.equal(
 							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits'],
 						);
+					}
+				});
+		});
+
+		it('/api/v0/core-data?includeSemesters=true', function () {
+			return supertest(instance)
+				.get('/api/v0/core-data?includeSemesters=true')
+				.set('host', TEST_HOST_NAME)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					expect(body.primarySemester).to.equal('2019S');
+					expect(body.activeSemesters).to.deep.equal(['2019S']);
+					expect(body.categories).to.be.an('array').with.length(13);
+					expect(body.courses).to.be.an('array').with.length(5);
+					for (const category of body.categories) {
+						expect(Object.keys(category)).to.deep.equal(
+							['id', 'name', 'weight', 'position', 'course', 'dropped', 'grades'],
+						);
+						expect(category.grades).to.be.an('array');
+						expect(category.grades.length).to.be.at.least(1);
+					}
+
+					for (const course of body.courses) {
+						expect(Object.keys(course)).to.deep.equal(
+							['id', 'semester', 'name', 'cutoffs', 'settings', 'credits'],
+						);
+					}
+				});
+		});
+
+		it('/api/v0/core-data?includeSemesters=false', function () {
+			return supertest(instance)
+				.get('/api/v0/core-data?includeSemesters=false')
+				.set('host', TEST_HOST_NAME)
+				.set('cookie', testUtils.fixtures.cookies.trusted)
+				.expect(200)
+				.expect(({body}) => {
+					if (!WAITING_FOR_CLIENT_UPDATE) {
+						expect(body.primarySemester).to.be.undefined;
+						expect(body.activeSemesters).to.be.undefined;
 					}
 				});
 		});
