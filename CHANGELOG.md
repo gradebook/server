@@ -1,3 +1,9 @@
+# 4.9.0
+
+ - Add inline semester configuration
+ - Switch to `@gradebook/trusted-request` for internal request "firewall"
+ - Add syllabus uploading
+
 # 4.8.11
 
  - fix lockfile issues
