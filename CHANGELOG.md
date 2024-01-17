@@ -1,3 +1,7 @@
+# 4.9.1
+
+ - syllabus: tweak validation constraints
+
 # 4.9.0
 
  - Add inline semester configuration
