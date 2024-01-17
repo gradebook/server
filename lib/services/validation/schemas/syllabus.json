@@ -7,6 +7,10 @@
       "$id": "syllabus.link",
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "hash",
+        "name"
+      ],
       "properties": {
         "hash": {
           "type": "string",
@@ -16,7 +20,7 @@
         "name": {
           "type": "string",
           "minLength": 5,
-          "maxLength": 64
+          "maxLength": 150
         }
       }
     }
