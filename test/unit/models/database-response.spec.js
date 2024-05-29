@@ -34,6 +34,7 @@ describe('Unit > Models > DatabaseResponse', function () {
 
 	describe('commit', function () {
 		beforeEach(enableQueryTracking);
+
 		afterEach(removeQueryTracking);
 
 		it('short-circuits when there are no changes', async function () {
