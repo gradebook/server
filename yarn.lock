@@ -781,11 +781,6 @@ asap@^2.0.0:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
-ascallback@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ascallback/-/ascallback-1.1.1.tgz#246086fb5d3ac4e9b78ae79d2d5979efe563da35"
-  integrity sha512-hjCXU8jwi03c47EBshEu0NOro1eJhT6v5diXpwK/cR3WTiZQe/8QyJ3RR3DN2fBL9RafQ1QGk2OkDoi9JVCYSg==
-
 asn1@~0.2.3:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.6.tgz#0d3a7bb6e64e02a90c0303b31f292868ea09a08d"
@@ -880,6 +875,11 @@ bl@^4.0.3:
     buffer "^5.5.0"
     inherits "^2.0.4"
     readable-stream "^3.4.0"
+
+bluebird@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+  integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
 body-parser@1.20.2:
   version "1.20.2"
@@ -1266,12 +1266,12 @@ connect-redis@7.1.1:
   resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-7.1.1.tgz#b78f91eb6d7509ae9e819bb362b94ba459072a1d"
   integrity sha512-M+z7alnCJiuzKa8/1qAYdGUXHYfDnLolOGAUjOioB07pP39qxjG+X9ibsud7qUBc4jMV5Mcy3ugGv8eFcgamJQ==
 
-connect-session-knex@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-4.0.1.tgz#2acc3bc1dcdbccf90a38eb94ac1f54d2933946f9"
-  integrity sha512-t6RYtryZr8OtIzqjru//pl83t47NBUG8e0Z4YhpzPuhS0UaaInKM+7upWPnAsvAX3uBtKU++gFQc+efNif9pvQ==
+connect-session-knex@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-4.0.2.tgz#666df9b3d84c32cce503c57e6ca530f5ea270f68"
+  integrity sha512-VgrHKBUOhqqorNRLCSZcwmuzTzRdrYK2qkeYd0JMRor29G1SBWJKjVF/Fq5QB7hgGIN3oR2ee7F1LmLsjhO+aA==
   dependencies:
-    ascallback "^1.1.1"
+    bluebird "^3.7.2"
     knex "3"
 
 console-control-strings@^1.1.0:
