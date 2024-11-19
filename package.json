@@ -28,7 +28,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@gradebook/client-auth": "^0.2.0",
+    "@gradebook/client-auth": "^0.3.0",
     "@gradebook/course-serializer": "0.3.3",
     "@gradebook/express-brute-redis": "0.1.0",
     "@gradebook/fast-pluralize": "0.0.3",
