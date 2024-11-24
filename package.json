@@ -10,6 +10,9 @@
     "Vikas Potluri <vikaspotluri123.github@gmail.com>",
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
+  "engines": {
+    "node": "18.20.x"
+  },
   "type": "module",
   "private": true,
   "gradebook": {
