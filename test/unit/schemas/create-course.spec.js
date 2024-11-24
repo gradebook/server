@@ -11,8 +11,12 @@ const VALID_OBJECT = {
 		cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 	},
 	categories: [
-		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
-		{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
+		{
+			name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+		},
+		{
+			name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1,
+		},
 	],
 };
 

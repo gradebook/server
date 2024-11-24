@@ -5,8 +5,12 @@ const {expectInvalid, expectValid} = createSchemaValidator('course.create.comple
 
 const VALID_OBJECT = {
 	categories: [
-		{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
-		{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
+		{
+			name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+		},
+		{
+			name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1,
+		},
 	],
 };
 
