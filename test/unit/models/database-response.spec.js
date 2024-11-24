@@ -1,7 +1,9 @@
 // @ts-check
 import {expect} from 'chai';
 import {CourseRow} from '../../../lib/models/course.js';
-import {enableQueryTracking, removeQueryTracking, recallQueries, interceptQuery} from '../../utils/mocked-knex.js';
+import {
+	enableQueryTracking, removeQueryTracking, recallQueries, interceptQuery,
+} from '../../utils/mocked-knex.js';
 
 describe('Unit > Models > DatabaseResponse', function () {
 	/** @type {import('../../../lib/models/database-response').AbstractDatabaseResponse} */

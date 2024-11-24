@@ -1,5 +1,5 @@
 // @ts-check
-/* eslint-disable camelcase, unicorn/no-zero-fractions */
+/* eslint-disable camelcase, unicorn/no-zero-fractions, object-curly-newline */
 const fixtures = [
 	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, first_name: 'Trusted', last_name: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
 	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, first_name: 'Evil', last_name: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
@@ -61,7 +61,7 @@ const fixtures = [
 	['sessions', {sessionAGB: 'confused', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81b49d866268d230e180"}}'}],
 	['sessions', {sessionAGB: 'random', expired: '3000-01-01T00:00:00.000Z', sess: '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"null:5d3c81d738773f9ae92e8c7d"}}'}],
 ];
-/* eslint-enable camelcase, unicorn/no-zero-fractions */
+/* eslint-enable camelcase, unicorn/no-zero-fractions, object-curly-newline */
 
 const fixturesMap = {
 	get trustedUser() {
@@ -117,10 +117,7 @@ const fixturesMap = {
 };
 
 for (const [table, data] of fixtures) {
-	if (!fixturesMap[table]) {
-		fixturesMap[table] = [];
-	}
-
+	fixturesMap[table] ||= [];
 	fixturesMap[table].push(data);
 }
 

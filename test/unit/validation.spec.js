@@ -187,8 +187,12 @@ describe('Unit > Validation', function () {
 					cutoffs: '{"A":90,"B":80,"C":70,"D":60}',
 				},
 				categories: [
-					{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null},
-					{name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1},
+					{
+						name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+					},
+					{
+						name: 'Expanded', weight: 60, position: 200, numGrades: 3, dropped: 1,
+					},
 				],
 			}, params: {id: '5dc10582a8109cd864bd8a13'}, user: {id: '5dc1069b2ff198252ca3b596'},
 		});
@@ -249,7 +253,9 @@ describe('Unit > Validation', function () {
 				request.body.categories = [];
 
 				for (let i = 0; i < 15; i++) {
-					request.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
+					request.body.categories.push({
+						name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+					});
 				}
 
 				const stub = sinon.stub(settings, 'get').returns(10);
@@ -268,7 +274,9 @@ describe('Unit > Validation', function () {
 				request.body.categories = [];
 
 				for (let i = 0; i < 5; i++) {
-					request.body.categories.push({name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null});
+					request.body.categories.push({
+						name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+					});
 				}
 
 				const stub = sinon.stub(settings, 'get').returns(10);
@@ -291,7 +299,9 @@ describe('Unit > Validation', function () {
 		describe('Only allows valid number of grades', function () {
 			it('Too many grades fails', function () {
 				const request = createRequest();
-				request.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 50, dropped: null};
+				request.body.categories[0] = {
+					name: 'Single', weight: 40, position: 100, numGrades: 50, dropped: null,
+				};
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 
@@ -306,7 +316,9 @@ describe('Unit > Validation', function () {
 
 			it('Reasonable number of grades passes', function () {
 				const request = createRequest();
-				request.body.categories[0] = {name: 'Single', weight: 40, position: 100, numGrades: 10, dropped: null};
+				request.body.categories[0] = {
+					name: 'Single', weight: 40, position: 100, numGrades: 10, dropped: null,
+				};
 
 				const stub = sinon.stub(settings, 'get').returns(40);
 

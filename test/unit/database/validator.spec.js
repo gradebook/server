@@ -120,7 +120,9 @@ describe('Unit > Validator', function () {
 	});
 
 	it('additional validation - between ', function () {
-		const schema = {type: 'tinyint', nullable: true, fallback: null, validations: {between: [1, 40]}};
+		const schema = {
+			type: 'tinyint', nullable: true, fallback: null, validations: {between: [1, 40]},
+		};
 
 		expect(validator._validateSingleColumn(schema, 1, 'dropped')).to.deep.equal(NO_CHANGE);
 		expect(validator._validateSingleColumn(schema, 40, 'dropped')).to.deep.equal(NO_CHANGE);
@@ -139,7 +141,9 @@ describe('Unit > Validator', function () {
 			optional: {type: 'string', maxLength: 24, nullable: true},
 			text: {type: 'text', nullable: false, validations: {maxLength: 24}},
 			created: {type: 'datetime', nullable: false},
-			dropped: {type: 'tinyint', nullable: true, fallback: null, validations: {between: [1, 40]}},
+			dropped: {
+				type: 'tinyint', nullable: true, fallback: null, validations: {between: [1, 40]},
+			},
 			tinyInt: {type: 'tinyint', fallback: 15},
 			integer: {type: 'integer'},
 			float: {type: 'float'},
