@@ -36,7 +36,9 @@ try {
 				query = `${insert} ON DUPLICATE KEY UPDATE ${update}`;
 			}
 
+			// eslint-disable-next-line promise/prefer-await-to-then
 			return txn.raw(query).then(() => log(`Added fixture ${id}`))
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.catch(error => console.error(`Failed adding fixture ${id}`, error));
 		});
 

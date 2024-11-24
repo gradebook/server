@@ -109,7 +109,7 @@ describe('Unit > Utils > ClearCloudflareCache', function () {
 			/** @type {typeof import('../../../lib/services/host.js')['hostMap']} */
 			const hostMap = new Map();
 
-			const originalHostService = Array.from(Object.entries(hostMap));
+			const originalHostService = [...Object.entries(hostMap)];
 			sinon.stub(config, 'get').withArgs('cloudflare:enabled').returns(true);
 
 			hostMap.clear();

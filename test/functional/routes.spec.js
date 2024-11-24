@@ -44,7 +44,7 @@ describe('Functional > API Routes', function () {
 		});
 
 		it('/api/v0/me', async function () {
-			const trustedUser = Object.assign({}, testUtils.fixtures.trustedUser);
+			const trustedUser = {...testUtils.fixtures.trustedUser};
 
 			trustedUser.created = trustedUser.created_at;
 			trustedUser.firstName = trustedUser.first_name;
@@ -118,7 +118,7 @@ describe('Functional > API Routes', function () {
 		});
 
 		it('/api/v0/course/{id}', function () {
-			const course = Object.assign({}, testUtils.fixtures.courses[0]);
+			const course = {...testUtils.fixtures.courses[0]};
 			course.credits = course.credit_hours;
 			delete course.user_id;
 			delete course.credit_hours;
@@ -134,7 +134,7 @@ describe('Functional > API Routes', function () {
 		});
 
 		it('/api/v0/category/{id}', function () {
-			const category = Object.assign({}, testUtils.fixtures.categories[0]);
+			const category = {...testUtils.fixtures.categories[0]};
 
 			category.dropped = null;
 			category.course = category.course_id;
@@ -152,7 +152,7 @@ describe('Functional > API Routes', function () {
 		});
 
 		it('/api/v0/grade/{id}', function () {
-			const grade = Object.assign({}, testUtils.fixtures.grades[0]);
+			const grade = {...testUtils.fixtures.grades[0]};
 
 			grade.course = grade.course_id;
 			grade.category = grade.category_id;
@@ -252,6 +252,7 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({name: null})
 				.expect(422)
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/name must be string',
@@ -270,6 +271,7 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({update: [{id: gradeId, name: null}]})
 				.expect(422)
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/update/0/name must be string',
@@ -287,6 +289,7 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({create: [{name: null, grade: 92}]})
 				.expect(422)
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/create/0/name must be string',
@@ -315,6 +318,7 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({course, categories})
 				.expect(422)
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/course/name must match pattern "^[A-Z]{3,4} \\d{3,4}$"',
@@ -333,6 +337,7 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.send({category, course, name: null})
 				.expect(422)
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(request => {
 					expect(request.body).to.deep.equal({
 						error: 'data/name must be string',
