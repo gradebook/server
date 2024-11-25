@@ -1,3 +1,11 @@
+# 4.9.2
+
+ - global-store: rename knexInstance to _knexInstance
+ - global-store: fix using wrong db on first getKnex() call
+ - chore: simplify session store creation
+ - add backend support for Kangaroo mode (#248)
+ - remove usage of node-fetch
+
 # 4.9.1
 
  - syllabus: tweak validation constraints
