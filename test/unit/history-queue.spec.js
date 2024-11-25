@@ -10,6 +10,7 @@ describe('Unit > HistoryQueue', function () {
 	let queue;
 
 	before(enableQueryTracking);
+
 	after(removeQueryTracking);
 
 	beforeEach(function () {

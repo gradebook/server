@@ -184,7 +184,9 @@ export class VirtualHost {
 	}
 
 	getDefaultLibFileName = () => 'lib.esnext.d.ts';
+
 	writeFile() {}
+
 	getCurrentDirectory = () => '/';
 	getCanonicalFileName = fileName => fileName;
 	useCaseSensitiveFileNames = () => false;

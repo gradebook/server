@@ -7,7 +7,9 @@ import ts from 'typescript';
 import supertest from 'supertest';
 import * as testUtils from '../utils/index.js';
 import {startTestServer as makeApp} from '../utils/app.js';
-import {interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic} from './ts-util.js';
+import {
+	interfaceFilter, extractTypingMetadata, VirtualHost, dedupeDiagnostics, formatDiagnostic,
+} from './ts-util.js';
 import {clientDependencies} from './dependencies.js';
 
 const {TEST_HOST_NAME} = testUtils.config;
@@ -134,7 +136,9 @@ async function prepareTestCases() {
 		.map((testCase, idx) => `import * as testCase${idx} from '/${testCase.replace('.ts', '.js')}';`)
 		.join('\n');
 
-	return {creationFailures, fileNameToTestCase, usingFilteredTestList, skippedTestCases};
+	return {
+		creationFailures, fileNameToTestCase, usingFilteredTestList, skippedTestCases,
+	};
 }
 
 function typeCheck() {

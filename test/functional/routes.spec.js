@@ -305,7 +305,9 @@ describe('Functional > API Routes', function () {
 				credits: null,
 			};
 
-			const categories = [{name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null}];
+			const categories = [{
+				name: 'Single', weight: 40, position: 100, numGrades: 1, dropped: null,
+			}];
 
 			return supertest(instance)
 				.put('/api/v0/courses')
