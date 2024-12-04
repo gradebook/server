@@ -9,8 +9,6 @@ const fs = _fs.promises;
 const CONFIG = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../.gradebook-cli');
 const properDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
 
-const MAJOR_MINOR_MATCH = 'v18.17.';
-
 /** @type {import('execa')['execa']} */
 let execa;
 try {
@@ -23,9 +21,12 @@ try {
 export async function precheck(isSetup = false) {
 	process.chdir(properDir);
 
+	const packageJson = JSON.parse(await fs.readFile('./package.json', 'utf8'));
+	const expectedVersion = 'v' + packageJson.engines.node.replace('.x', '.');
+
 	// First, check the node version
-	if (!process.version.startsWith(MAJOR_MINOR_MATCH)) {
-		console.error(`Node version must be ${MAJOR_MINOR_MATCH}x`);
+	if (!process.version.startsWith(expectedVersion)) {
+		console.error(`Node version must be ${expectedVersion}x`);
 		process.exit(1);
 	}
 

@@ -10,7 +10,7 @@ describe('Unit > Models > User', function () {
 	let response;
 
 	beforeEach(function () {
-		exampleUser = Object.assign({}, testUtils.fixtures.users[0]);
+		exampleUser = {...testUtils.fixtures.users[0]};
 		response = new UserRow(exampleUser);
 	});
 

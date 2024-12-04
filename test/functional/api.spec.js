@@ -119,7 +119,7 @@ async function seed(txn) {
 
 async function getExport(user, txn) {
 	const export_ = await api.user.export(user.id, db, txn);
-	export_.user = Object.assign({}, user);
+	export_.user = {...user};
 	exportSerializer(export_);
 
 	export_.user.created = '__created__';

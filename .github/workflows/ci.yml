@@ -21,6 +21,8 @@ jobs:
     timeout-minutes: 5
     steps:
     - uses: gradebook/actions/actions/setup@master
+      with:
+        node-version: 18.20.x
     - name: Install Dependencies and setup
       run: |
         yarn install --frozen-lockfile --prefer-offline
@@ -43,6 +45,8 @@ jobs:
       NODE_ENV: testing
     steps:
     - uses: gradebook/actions/actions/setup@master
+      with:
+        node-version: 18.20.x
     - name: Configure Dependencies
       run: |
         yarn install --frozen-lockfile --prefer-offline
@@ -75,6 +79,8 @@ jobs:
     timeout-minutes: 5
     steps:
     - uses: gradebook/actions/actions/setup@master
+      with:
+        node-version: 18.20.x
     - name: Install dependencies and setup
       run: yarn install --frozen-lockfile --prefer-offline
     - name: Lint and Typecheck

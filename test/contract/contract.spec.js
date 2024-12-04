@@ -47,6 +47,7 @@ async function makeRequest(path, method = 'get') {
 	return supertest(app)[method](`/api/v0/${path}`)
 		.set('host', TEST_HOST_NAME)
 		.set('cookie', testUtils.fixtures.cookies.trusted)
+		// eslint-disable-next-line promise/prefer-await-to-then
 		.then(response => response.body);
 }
 
