@@ -18,7 +18,7 @@ export async function useDeveloperRouting(app) {
 	app.use('/my',
 		hostMatching,
 		express.static(
-			path.join(path.dirname(fileURLToPath(import.meta.url)), '../lib/frontend/client/release'), {index: false},
+			path.join(path.dirname(fileURLToPath(import.meta.url)), '../lib/frontend/client/release/browser/'), {index: false},
 		),
 		authentication.withUser,
 		home.app,
