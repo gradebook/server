@@ -50,8 +50,8 @@ jobs:
     - name: Configure Dependencies
       run: |
         yarn install --frozen-lockfile --prefer-offline
-        mkdir -p lib/frontend/client/release
-        echo '<head><title>gradebook</title></head>' > lib/frontend/client/release/index.html
+        mkdir -p lib/frontend/client/release/browser
+        echo '<head><title>gradebook</title></head>' > lib/frontend/client/release/browser/index.html
     - name: Start MySQL
       run: |
         sudo /etc/init.d/mysql start
