@@ -11,7 +11,7 @@
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
   "engines": {
-    "node": "18.20.x"
+    "node": "22.12.x"
   },
   "type": "module",
   "private": true,
