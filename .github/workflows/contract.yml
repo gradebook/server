@@ -33,7 +33,7 @@ jobs:
     - uses: gradebook/actions/actions/setup@master
       with:
         git-ref: ${{ env.SERVER_REF }}
-        node-version: 18.20.x
+        node-version: package_json
     - name: Install Dependencies and Setup
       run: |
         yarn install --frozen-lockfile --prefer-offline
