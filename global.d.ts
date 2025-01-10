@@ -27,6 +27,8 @@ declare global {
 				last_name: string;
 				settings: {
 					redirectFromHome: boolean;
+					uiShiftSeasons: boolean;
+					disableArchiving: boolean;
 					tour: boolean;
 					overallCredits: number;
 					overallGpa: number;
