@@ -1,3 +1,10 @@
+# 4.10.0
+
+ - move node version to engines and upgrade to v20 LTS
+ - chore: update frontend paths
+ - add database support for decimal course credits (#253)
+ - add backend support for global course unlock (#256)
+
 # 4.9.2
 
  - global-store: rename knexInstance to _knexInstance

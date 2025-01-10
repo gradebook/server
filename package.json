@@ -1,6 +1,6 @@
 {
   "name": "@gradebook/server",
-  "version": "4.9.2",
+  "version": "4.10.0",
   "description": "Backend for Gradebook",
   "main": "index.js",
   "alias": "gb",
@@ -10,6 +10,9 @@
     "Vikas Potluri <vikaspotluri123.github@gmail.com>",
     "Ramsay Smith <ramsaysmith@outlook.com>"
   ],
+  "engines": {
+    "node": "20.18.x"
+  },
   "type": "module",
   "private": true,
   "gradebook": {
@@ -39,7 +42,7 @@
     "bson-objectid": "2.0.4",
     "connect-redis": "7.1.1",
     "connect-session-knex": "4.0.2",
-    "cookie-parser": "1.4.6",
+    "cookie-parser": "1.4.7",
     "express": "4.20.0",
     "express-brute": "1.0.1",
     "express-session": "1.17.3",
@@ -67,12 +70,12 @@
     "chokidar": "3.6.0",
     "eslint-plugin-mocha": "10.5.0",
     "execa": "8.0.1",
-    "mocha": "10.7.3",
-    "nock": "13.5.5",
-    "nodemon": "3.1.7",
+    "mocha": "10.8.2",
+    "nock": "13.5.6",
+    "nodemon": "3.1.9",
     "sinon": "17.0.1",
     "supertest": "6.3.4",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "xo": "0.59.3"
   },
   "xo": {
