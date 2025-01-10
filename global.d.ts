@@ -28,7 +28,7 @@ declare global {
 				settings: {
 					redirectFromHome: boolean;
 					uiShiftSeasons: boolean;
-					unlockAllSemesters: boolean;
+					disableArchiving: boolean;
 					tour: boolean;
 					overallCredits: number;
 					overallGpa: number;
