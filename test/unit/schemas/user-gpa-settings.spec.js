@@ -28,13 +28,13 @@ describe('Unit > Schemas > UserGpaSettings', function () {
 		expectInvalid(object, errorProp, 'must be >= 0');
 
 		object.overallCredits = 15.3;
-		expectInvalid(object, errorProp, 'integer');
+		expectValid(object);
 
 		object.overallCredits = null;
-		expectInvalid(object, errorProp, 'integer');
+		expectInvalid(object, errorProp, 'number');
 
 		object.overallCredits = 'Introduction to Gradebook';
-		expectInvalid(object, errorProp, 'integer');
+		expectInvalid(object, errorProp, 'number');
 
 		object.overallCredits = 45;
 		expectValid(object);
