@@ -1,3 +1,7 @@
+# 4.10.1
+
+ - allow for decimal gpa overall credits (#257)
+
 # 4.10.0
 
  - move node version to engines and upgrade to v20 LTS
