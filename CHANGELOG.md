@@ -1,3 +1,7 @@
+# 4.10.2
+
+ - add `guided_import` and `recover_*` type to `create-course`
+
 # 4.10.1
 
  - allow for decimal gpa overall credits (#257)
