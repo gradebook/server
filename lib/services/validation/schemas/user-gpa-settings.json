@@ -16,7 +16,7 @@
       "maximum": 5
     },
     "overallCredits": {
-      "type": "integer",
+      "type": "number",
       "minimum": 0,
       "exclusiveMaximum": 1000
     },
