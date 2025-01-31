@@ -1,3 +1,8 @@
+# 4.10.3
+
+ - remove type check for popularity increment
+ - allow legacy course type
+
 # 4.10.2
 
  - add `guided_import` and `recover_*` type to `create-course`
