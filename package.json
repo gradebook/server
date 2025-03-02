@@ -43,7 +43,7 @@
     "connect-redis": "7.1.1",
     "connect-session-knex": "4.0.2",
     "cookie-parser": "1.4.7",
-    "express": "4.20.0",
+    "express": "4.21.2",
     "express-brute": "1.0.1",
     "express-session": "1.17.3",
     "ghost-ignition": "4.6.3",
