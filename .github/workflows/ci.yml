@@ -30,14 +30,6 @@ jobs:
         node scripts/initialize-test-db.js
     - name: Unit Tests
       run: yarn test:unit
-    - name: Trigger Webhook
-      run: yarn release-utils hook
-      env:
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: unit
-        REQUIRE_PUSH: 'true'
-        REQUIRE_BRANCH: release
   integration:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -66,14 +58,6 @@ jobs:
       run: yarn test:functional
       env:
         database__connection__database: host_real
-    - name: Trigger Webhook
-      run: yarn release-utils hook
-      env:
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: integration
-        REQUIRE_PUSH: 'true'
-        REQUIRE_BRANCH: release
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -87,11 +71,23 @@ jobs:
       run: |
         yarn lint
         yarn typecheck
+
+  release:
+    needs:
+      - unit
+      - integration
+      - lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+    steps:
+    - name: Install @gradebook/release-utils
+      run: yarn global add @gradebook/release-utils
     - name: Trigger Webhook
       run: yarn release-utils hook
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-        TEST_NAME: lint
+        TEST_NAME: 'deploy'
         REQUIRE_PUSH: 'true'
         REQUIRE_BRANCH: release
