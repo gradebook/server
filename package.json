@@ -75,7 +75,7 @@
     "nodemon": "3.1.10",
     "sinon": "17.0.1",
     "supertest": "6.3.4",
-    "typescript": "5.8.2",
+    "typescript": "5.8.3",
     "xo": "0.60.0"
   },
   "xo": {
