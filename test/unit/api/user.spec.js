@@ -7,7 +7,6 @@ import {user as userApi} from '../../../lib/api/user.js';
 import fixtures from '../../fixtures/example-data.js';
 import {knex} from '../../../lib/database/index.js';
 import {userDeleted} from '../../../lib/services/analytics/user-deleted.js';
-import {ignoredUsers} from '../../../lib/services/ignored-users.js';
 
 /**
  * @param {string} globalFileContents the contents of a typescript file that contains a top-level User interface
@@ -48,8 +47,6 @@ describe('Unit > API > User', function () {
 		let txn;
 		const spy = sinon.spy(userDeleted, 'add');
 
-		// @TODO: This is a hack, why is ignored users school specific?
-		ignoredUsers._users.set('', new Set([]));
 		try {
 			const user = await userApi.read({id: fixtures.trustedUser.id, db: ''});
 			txn = await knex.instance.transaction();
