@@ -1,10 +1,12 @@
 // @ts-check
-import {expect} from 'chai';
+import {dayjs as date} from '@gradebook/time';
+import {assert, expect} from 'chai';
 import supertest from 'supertest';
 import nock from 'nock';
 import {startTestServer as makeApp} from '../utils/app.js';
 import * as testUtils from '../utils/index.js';
 import {importJson} from '../../lib/utils/import-json.js';
+import {knex} from '../../lib/database/index.js';
 
 const schoolConfigurationFixture = await importJson('../fixtures/school-configuration.json', import.meta.url);
 
@@ -349,5 +351,33 @@ describe('Functional > API Routes', function () {
 				.set('Cookie', testUtils.fixtures.cookies.trusted)
 				.expect(404);
 		});
+	});
+
+	it('Sometimes syncs user.updated_at', async function () {
+		const agent = supertest(instance);
+
+		const withAuth = request => request
+			.set('host', TEST_HOST_NAME)
+			.set('Cookie', testUtils.fixtures.cookies.trusted);
+
+		// eslint-disable-next-line promise/prefer-await-to-then
+		const getUpdated = async () => withAuth(agent.get('/api/v0/me')).then(({body}) => body.updated);
+
+		// Other tests will might trigger an `updated_at` sync
+		await knex({table: 'users'})
+			.where('id', testUtils.fixtures.trustedUser.id)
+			// eslint-disable-next-line camelcase
+			.update({updated_at: date().subtract(2, 'days').toDate()});
+
+		const firstUpdatedAt = await getUpdated();
+
+		await withAuth(agent.get('/api/v0/courses')).expect(200);
+
+		const midUpdatedAt = await getUpdated();
+		assert.notEqual(firstUpdatedAt, midUpdatedAt);
+
+		await withAuth(agent.get('/api/v0/courses')).expect(200);
+
+		assert.equal(midUpdatedAt, await getUpdated());
 	});
 });
