@@ -5,8 +5,6 @@ import {serializeUserExport as exportSerializer} from '../../lib/services/serial
 import {getUserExport as getGoldenExport} from '../fixtures/functional-user-export.js';
 import {prepareExport} from '../utils/prepare-export.js';
 import * as testConfig from '../utils/test-config.js';
-import config from '../../lib/config.js';
-import {knex} from '../../lib/database/index.js';
 
 const DEFAULT_CUTOFFS = JSON.stringify([{
 	name: 'A',
@@ -129,12 +127,6 @@ async function getExport(user, txn) {
 }
 
 describe('Functional > API E2E', function () {
-	before(async function () {
-		const {ignoredUsers} = await import('../../lib/services/ignored-users.js');
-		await ignoredUsers.init(config, knex);
-		ignoredUsers._users.set(db, new Set());
-	});
-
 	it('Browse, Create, Delete', async function () {
 		const txn = await api.getTransaction();
 		try {
