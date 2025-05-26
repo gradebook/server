@@ -43,6 +43,7 @@ function tryMocking(connection, state) {
 class MockableMysqlClient extends MysqlClient {
 	constructor(...args) {
 		super(...args);
+		// @ts-expect-error not worth properly typing for now
 		this.config.client = 'mysql';
 		this._mocking = false;
 		setClient(this);
@@ -86,6 +87,7 @@ class MockableMysqlClient extends MysqlClient {
 class MockableSqlite3Client extends Sqlite3Client {
 	constructor(...args) {
 		super(...args);
+		// @ts-expect-error not worth properly typing for now
 		this.config.client = 'sqlite3';
 		this._mocking = false;
 		setClient(this);
