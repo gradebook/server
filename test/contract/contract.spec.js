@@ -35,7 +35,6 @@ const [vfs, app] = await (async function () {
 		}),
 	]);
 
-	// @ts-expect-error app is guaranteed to be defined because we wait for the promise that defines it.
 	return [response, app];
 })();
 

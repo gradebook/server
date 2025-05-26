@@ -1,7 +1,8 @@
 {
   "include": [
     "lib/**/*",
-    "dev-utils/**/*"
+    "dev-utils/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "lib/frontend/client/"
@@ -9,6 +10,7 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "types": [
+      "mocha",
       "./global",
       "./session"
     ],
