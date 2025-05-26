@@ -10,7 +10,14 @@ const windowsFirefoxUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gec
 const safariPhoneUA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1';
 const safariPadUA = 'Mozilla/5.0 (iPad; CPU OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1';
 
-const requestStub = userAgent => ({headers: {'user-agent': userAgent}});
+/**
+ * @param {any} x
+ * @returns {Gradebook.Request}
+ */
+const asRequest = x => x;
+
+/** @param {string} userAgent */
+const requestStub = userAgent => asRequest({headers: {'user-agent': userAgent}});
 
 describe('Unit > Utils > Apple Meta', function () {
 	it('Safari on iOS shows custom meta', function () {
@@ -30,6 +37,6 @@ describe('Unit > Utils > Apple Meta', function () {
 	});
 
 	it('no ua', function () {
-		expect(getAppleTags({headers: {}})).to.be.empty;
+		expect(getAppleTags(asRequest({headers: {}}))).to.be.empty;
 	});
 });
