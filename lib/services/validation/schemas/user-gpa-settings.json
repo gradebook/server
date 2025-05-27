@@ -23,6 +23,9 @@
     "gpaSemester": {
       "type": "string",
       "pattern": "\\d{4}(S|U|F|W)"
+    },
+    "default": {
+      "type": "boolean"
     }
   }
 }
