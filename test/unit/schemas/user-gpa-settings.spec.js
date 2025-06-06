@@ -80,4 +80,12 @@ describe('Unit > Schemas > UserGpaSettings', function () {
 		object.gpaSemester = '2022F';
 		expectValid(object);
 	});
+
+	it('default', function () {
+		expectValid({...VALID_OBJECT, default: true});
+		expectValid({...VALID_OBJECT, default: false});
+		expectInvalid({...VALID_OBJECT, default: null}, ['instancePath', '/default']);
+		expectInvalid({...VALID_OBJECT, default: 42}, ['instancePath', '/default']);
+		expectInvalid({...VALID_OBJECT, default: 'true'}, ['instancePath', '/default']);
+	});
 });

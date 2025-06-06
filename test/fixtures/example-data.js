@@ -1,10 +1,10 @@
 // @ts-check
 /* eslint-disable camelcase, unicorn/no-zero-fractions, object-curly-newline */
 const fixtures = [
-	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, first_name: 'Trusted', last_name: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, first_name: 'Evil', last_name: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81b49d866268d230e180', gid: 2, first_name: 'Confused', last_name: 'User', email: 'confused@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
-	['users', {id: '5d3c81d738773f9ae92e8c7d', gid: 3, first_name: 'Random', last_name: 'User', email: 'random@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{}'}],
+	['users', {id: '5d3c8150930db248a9d7514f', gid: 0, first_name: 'Trusted', last_name: 'User', email: 'trusted@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{"gpa":{}}'}],
+	['users', {id: '5d3c81a099e3d8f91f66967c', gid: 1, first_name: 'Evil', last_name: 'User', email: 'evil@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{"gpa":{}}'}],
+	['users', {id: '5d3c81b49d866268d230e180', gid: 2, first_name: 'Confused', last_name: 'User', email: 'confused@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{"gpa":{}}'}],
+	['users', {id: '5d3c81d738773f9ae92e8c7d', gid: 3, first_name: 'Random', last_name: 'User', email: 'random@aggiegradebook.com', created_at: '2019-01-01', updated_at: '2019-01-01', settings: '{"gpa":{}}'}],
 	['courses', {id: '5d3c81fbaf84df3df0a18c1b', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 101', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: 3, settings: '{"alias": "Course A"}'}],
 	['courses', {id: '5d3c8227faade0e6c7e0ed30', user_id: '5d3c8150930db248a9d7514f', semester: '2000S', name: 'CORS 202', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: 3}],
 	['courses', {id: '5d3c822b361ac86457c4395e', user_id: '5d3c8150930db248a9d7514f', semester: '2019S', name: 'CORS 303', cutoffs: '{"A":90,"B":80,"C":70,"D":60}', credit_hours: 4}],

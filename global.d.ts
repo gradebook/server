@@ -33,6 +33,7 @@ declare global {
 					overallCredits: number;
 					overallGpa: number;
 					gpaSemester: string;
+					gpa: Record<string, [gpa: number, credits: number]>;
 				};
 			};
 			logout(): void;
