@@ -3,6 +3,25 @@ import type Express from 'express';
 import type * as eCore from 'express-serve-static-core';
 import {type AbstractDatabaseResponse} from './lib/models/database-response.js';
 
+interface User {
+	id: string;
+	gid: string;
+	created: string;
+	updated: string;
+	email: string;
+	firstName: string;
+	lastName: string;
+	settings: {
+		redirectFromHome: boolean;
+		uiShiftSeasons: boolean;
+		disableArchiving: boolean;
+		tour: boolean;
+		overallCredits: number;
+		overallGpa: number;
+		gpaSemester: string;
+	};
+}
+
 declare global {
 	namespace Gradebook {
 		export interface Request<
@@ -17,24 +36,7 @@ declare global {
 			permissions: Permissions;
 			_table: string;
 			_domain: string;
-			user?: {
-				id: string;
-				gid: string;
-				created_at: string;
-				updated_at: string;
-				email: string;
-				first_name: string;
-				last_name: string;
-				settings: {
-					redirectFromHome: boolean;
-					uiShiftSeasons: boolean;
-					disableArchiving: boolean;
-					tour: boolean;
-					overallCredits: number;
-					overallGpa: number;
-					gpaSemester: string;
-				};
-			};
+			user?: User;
 			logout(): void;
 		}
 
