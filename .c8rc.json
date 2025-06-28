@@ -1,0 +1,10 @@
+{
+  "all": true,
+  "include": "lib/**/*",
+  "exclude": [
+    "test",
+    "lib/frontend/client",
+    "lib/database/"
+  ],
+  "skip-full": true
+}
