@@ -63,7 +63,7 @@
     "@gradebook/release-utils": "0.8.0",
     "@gradebook/together": "0.2.0",
     "@types/express": "4.17.23",
-    "@types/express-session": "1.18.1",
+    "@types/express-session": "1.18.2",
     "@types/multer": "^1.4.11",
     "c8": "^8.0.0",
     "chai": "5.2.0",
