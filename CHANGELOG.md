@@ -1,3 +1,12 @@
+# 4.10.4
+
+ - :bug: fix request.user types
+ - :bug: fix user.updated_at not updating on API requests
+ - :bug: fix user.deleted metric never being incremented
+ - :fire: remove unused user import endpoint
+ - Revert "add client update flag to conditional core data semesters"
+ - simplify release process (#259)
+
 # 4.10.3
 
  - remove type check for popularity increment
