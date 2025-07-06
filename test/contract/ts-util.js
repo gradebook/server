@@ -68,7 +68,6 @@ export function extractTypingMetadata(member) {
 			throw new Error(`Unable to resolve contract for "${name}" - unknown type-based command "${memberText}"`);
 		}
 
-		// @ts-expect-error the next line confirms that it is in fact, not `undefined`
 		const root = member.type.typeArguments[0];
 		if (!ts.isTypeReferenceNode(root) || !ts.isQualifiedName(root.typeName)) {
 			throw new Error(

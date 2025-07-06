@@ -5,6 +5,12 @@ import {settings} from '../../lib/services/settings/index.js';
 import * as validations from '../../lib/services/validation/index.js';
 import {expectError} from '../utils/index.js';
 
+/**
+ * @param {any} x
+ * @returns {Gradebook.Request}
+ */
+const asRequest = x => x;
+
 describe('Unit > Validation', function () {
 	beforeEach(function () {
 		sinon.restore();
@@ -12,7 +18,7 @@ describe('Unit > Validation', function () {
 
 	describe('User Settings', function () {
 		it('invalid request', function () {
-			const request = {body: {}, query: {}};
+			const request = asRequest({body: {}, query: {}});
 
 			try {
 				validations.userSettings(request, null);
@@ -23,19 +29,19 @@ describe('Unit > Validation', function () {
 		});
 
 		it('valid key and value', function () {
-			const request = {
+			const request = asRequest({
 				body: {value: '2020-01-30T22:13:22.000-06:00'},
 				query: {key: 'previous_notification'},
-			};
+			});
 
 			validations.userSettings(request, null);
 		});
 
 		it('invalid key', function () {
-			const request = {
+			const request = asRequest({
 				body: {value: 8},
 				query: {key: 'steal'},
-			};
+			});
 
 			try {
 				validations.userSettings(request, null);
@@ -46,10 +52,10 @@ describe('Unit > Validation', function () {
 		});
 
 		it('invalid value', function () {
-			const request = {
+			const request = asRequest({
 				body: {value: '2019-09-09'},
 				query: {key: 'previous_notification'},
-			};
+			});
 
 			try {
 				request.body.value = 'bad';
@@ -68,7 +74,6 @@ describe('Unit > Validation', function () {
 			}
 
 			try {
-				// @ts-expect-error
 				request.body.value = {};
 				validations.userSettings(request, null);
 				expectError();
@@ -78,9 +83,9 @@ describe('Unit > Validation', function () {
 		});
 
 		it('gpa', function () {
-			const request = {
+			const request = asRequest({
 				body: {overallCredits: 45, overallGpa: 3.6, gpaSemester: '2022F'},
-			};
+			});
 
 			validations.userGpaSettings(request, null);
 

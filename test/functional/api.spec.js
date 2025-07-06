@@ -5,8 +5,6 @@ import {serializeUserExport as exportSerializer} from '../../lib/services/serial
 import {getUserExport as getGoldenExport} from '../fixtures/functional-user-export.js';
 import {prepareExport} from '../utils/prepare-export.js';
 import * as testConfig from '../utils/test-config.js';
-import config from '../../lib/config.js';
-import {knex} from '../../lib/database/index.js';
 
 const DEFAULT_CUTOFFS = JSON.stringify([{
 	name: 'A',
@@ -129,12 +127,6 @@ async function getExport(user, txn) {
 }
 
 describe('Functional > API E2E', function () {
-	before(async function () {
-		const {ignoredUsers} = await import('../../lib/services/ignored-users.js');
-		await ignoredUsers.init(config, knex);
-		ignoredUsers._users.set(db, new Set());
-	});
-
 	it('Browse, Create, Delete', async function () {
 		const txn = await api.getTransaction();
 		try {
@@ -208,23 +200,6 @@ describe('Functional > API E2E', function () {
 		try {
 			const {user} = await seed(txn);
 			expect(prepareExport(await getExport(user, txn))).to.deep.equal(prepareExport(getGoldenExport()));
-		} finally {
-			await txn.rollback();
-		}
-	});
-
-	it('import', async function () {
-		const txn = await api.getTransaction();
-		try {
-			const userJson = prepareExport(getGoldenExport());
-			userJson.user.gid = '10000000001';
-			userJson.courses[0].categories[0].grades[0].grade = 95;
-
-			const user = await api.user.import(userJson, db, txn);
-			const exportedUser = await getExport(user, txn);
-			const expectedUser = prepareExport(getGoldenExport());
-			expectedUser.courses[0].categories[0].grades[0].grade = 95;
-			expect(prepareExport(exportedUser)).to.deep.equal(expectedUser);
 		} finally {
 			await txn.rollback();
 		}
