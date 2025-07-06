@@ -148,6 +148,6 @@ export const getUserExport = () => ({
 		created: '__created__',
 		updated: '__updated__',
 		lastName: null,
-		settings: '{}',
+		settings: '{"gpa":{}}',
 	},
 });
