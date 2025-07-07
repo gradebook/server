@@ -84,7 +84,8 @@ jobs:
     - name: Install @gradebook/release-utils
       run: yarn global add @gradebook/release-utils
     - name: Trigger Webhook
-      run: yarn release-utils hook
+      run: |
+        `yarn global bin dir`/release-utils hook
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
