@@ -45,7 +45,7 @@
     "cookie-parser": "1.4.7",
     "express": "4.21.2",
     "express-brute": "1.0.1",
-    "express-session": "1.18.1",
+    "express-session": "1.18.2",
     "ghost-ignition": "4.6.3",
     "ioredis": "5.6.1",
     "knex": "3.1.0",
